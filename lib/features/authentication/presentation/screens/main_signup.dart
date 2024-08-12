@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import 'package:rigow/core/common/custom_indicator.dart';
+import 'package:rigow/features/authentication/presentation/screens/signup_by_email_page.dart';
+import 'package:rigow/features/authentication/presentation/screens/verification_page.dart';
+import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
+
+class MainSignUpPage extends StatefulWidget {
+  const MainSignUpPage({super.key});
+
+  @override
+  State<MainSignUpPage> createState() => _MainSignUpPageState();
+}
+
+class _MainSignUpPageState extends State<MainSignUpPage> {
+  int _currint = 0;
+  final PageController _controller = PageController(initialPage: 0);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: const AuthenticationAppbar(title: 'Sign up'),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          child: Column(
+            children: [
+              CustomIndicator(
+                color: _currint == 1 ? Colors.red : const Color(0xFFE0E0E0),
+              ),
+              const SizedBox(height: 24),
+              Expanded(
+                child: PageView(
+                  //  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  controller: _controller,
+                  onPageChanged: (int value) {
+                    setState(() {
+                      _currint = value;
+                    });
+                  },
+                  children: [
+                    const SignupByEmailPage(),
+                    VerificationPage(),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

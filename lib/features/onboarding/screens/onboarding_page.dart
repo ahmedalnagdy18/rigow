@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rigow/core/common/buttons.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
+import 'package:rigow/features/authentication/presentation/screens/get_started_page.dart';
 import 'package:rigow/features/onboarding/widgets/dots_widget.dart';
 import 'package:rigow/features/onboarding/widgets/onboarding_widget.dart';
 
@@ -22,7 +24,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData queryData = MediaQuery.of(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -49,59 +50,72 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: queryData.size.height * 0.1, horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    onboardingList[currentPage].title,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                ),
-                const SizedBox(height: 46),
-                DotsWidget(
-                  dotsCount: onboardingList.length,
-                  position: currentPage,
-                ),
-                const SizedBox(height: 32),
-                ColoredButtonWidget(
-                    text: currentPage == 2 ? 'Get Started' : 'Next',
-                    onPressed: () {
-                      if (currentPage == 2) {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //   builder: (context) => const LoginRegsisterPage(),
-                        // ));
-                      } else {
-                        pageController.nextPage(
-                            duration: const Duration(milliseconds: 400),
-                            curve: Curves.decelerate);
-                      }
-                    },
-                    grideantColors: const [Colors.white, Colors.white],
-                    textColor: Colors.black),
-                const SizedBox(height: 28),
-                InkWell(
-                  onTap: () {
-                    // Navigator.of(context).push(MaterialPageRoute(
-                    //     builder: (context) => const Navbar()));
-                  },
-                  child: Text(
-                    currentPage == 2 ? 'Continue as an expert' : 'Skip',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
+          Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: appHight(context, 0.1), horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        onboardingList[currentPage].title,
+                        textAlign: TextAlign.center,
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white),
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 46),
+                    DotsWidget(
+                      dotsCount: onboardingList.length,
+                      position: currentPage,
+                    ),
+                    const SizedBox(height: 32),
+                    ColoredButtonWidget(
+                        text: currentPage == 2 ? 'Get Started' : 'Next',
+                        onPressed: () {
+                          if (currentPage == 2) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const GetStartedPage(),
+                            ));
+                          } else {
+                            pageController.nextPage(
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.decelerate);
+                          }
+                        },
+                        grideantColors: const [Colors.white, Colors.white],
+                        textColor: Colors.black),
+                    const SizedBox(height: 28),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const GetStartedPage()));
+                      },
+                      child: Text(
+                        currentPage == 2 ? 'Continue as an expert' : 'Skip',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              SafeArea(
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  alignment: Alignment.topRight,
+                  child: const ArabicButton(),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -123,15 +137,11 @@ class OnboardingBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox.expand(
-          child: Image.asset(
-            image,
-            fit: BoxFit.cover,
-          ),
-        ),
-      ],
+    return SizedBox.expand(
+      child: Image.asset(
+        image,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }
