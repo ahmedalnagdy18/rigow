@@ -4,6 +4,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/common/textfield_phone.dart';
+import 'package:rigow/core/fonts/app_text.dart';
 
 class SignupWithEmailBody extends StatefulWidget {
   const SignupWithEmailBody({super.key, required this.onPressed});
@@ -38,20 +39,10 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Text(
-            'Sign up with Email',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-          ),
+          const Text('Sign up with Email', style: AppTexts.title),
           const Text(
             'Enter the required information',
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black,
-            ),
+            style: AppTexts.miniRegular,
           ),
           const SizedBox(height: 24),
           const Row(

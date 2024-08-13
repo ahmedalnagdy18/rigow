@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextAppTheme {
+class AppTexts {
+  AppTexts._();
   static const TextStyle title = TextStyle(
     fontWeight: FontWeight.w600,
     color: Colors.black,
@@ -8,20 +9,35 @@ class TextAppTheme {
   );
 
   static const TextStyle subTitle = TextStyle(
-    color: Colors.black,
+    color: Colors.white,
     fontSize: 20,
   );
 
   static const TextStyle regular = TextStyle(
     fontSize: 16,
+    color: Colors.black,
   );
 
   static const TextStyle miniRegular = TextStyle(
     fontSize: 14,
+    color: Colors.black,
+  );
+
+  static const TextStyle medium = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
   );
 
   static const TextStyle small = TextStyle(
     fontSize: 12,
+    color: Colors.black,
+  );
+
+  static const TextStyle appBar = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
   );
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/get_started_end_body.dart';
 import 'package:rigow/features/authentication/presentation/widgets/sign_with_buttons.dart';
@@ -11,7 +12,10 @@ class GetStartedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const AuthenticationAppbar(title: 'Sign up'),
+      appBar: const AuthenticationAppbar(
+        title: 'Sign up',
+        automaticallyImplyLeading: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         child: SafeArea(
@@ -31,14 +35,14 @@ class GetStartedPage extends StatelessWidget {
                 const SizedBox(height: 24),
                 const Text(
                   'Welcome to Rigow',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  style: AppTexts.title,
                 ),
                 const SizedBox(height: 10),
                 const Padding(
                   padding: EdgeInsets.only(right: 16),
                   child: Text(
                     'Choose the way you prefer to create your account',
-                    style: TextStyle(fontSize: 16),
+                    style: AppTexts.regular,
                   ),
                 ),
                 const SizedBox(height: 24),
@@ -48,7 +52,7 @@ class GetStartedPage extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 50),
                   child: RichText(
                     text: TextSpan(
-                      style: const TextStyle(fontSize: 12, color: Colors.black),
+                      style: AppTexts.small,
                       children: [
                         const TextSpan(
                           text: 'By continuing, you agree to our ',

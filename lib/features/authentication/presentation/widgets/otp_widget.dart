@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpWidget extends StatelessWidget {
-  const OtpWidget({super.key, required this.controller});
+  const OtpWidget({super.key, required this.controller, this.onCompleted});
   final TextEditingController? controller;
+  final Function(String)? onCompleted;
   @override
   Widget build(BuildContext context) {
     return Pinput(
+      onCompleted: onCompleted,
       controller: controller,
       preFilledWidget: const Text(
         '_',

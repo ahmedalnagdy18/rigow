@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/fonts/app_text.dart';
@@ -31,24 +30,15 @@ class SignupByEmailPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                RichText(
-                  text: TextSpan(
-                    style: const TextStyle(fontSize: 14, color: Colors.black),
-                    children: [
-                      const TextSpan(
-                        text: 'Already have an account? ',
-                      ),
-                      TextSpan(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Already have an account? ',
+                        style: AppTexts.miniRegular),
+                    RedText(
                         text: 'Log in',
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        recognizer: TapGestureRecognizer()..onTap = () {},
-                      ),
-                    ],
-                  ),
+                        gradient: LinearGradient(colors: AppColors.mainRed))
+                  ],
                 ),
                 const SizedBox(height: 24),
                 RedText(

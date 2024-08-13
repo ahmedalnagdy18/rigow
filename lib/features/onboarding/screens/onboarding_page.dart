@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
+import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/screens/get_started_page.dart';
 import 'package:rigow/features/onboarding/widgets/dots_widget.dart';
 import 'package:rigow/features/onboarding/widgets/onboarding_widget.dart';
@@ -64,8 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: Text(
                         onboardingList[currentPage].title,
                         textAlign: TextAlign.center,
-                        style:
-                            const TextStyle(fontSize: 20, color: Colors.white),
+                        style: AppTexts.subTitle,
                       ),
                     ),
                     const SizedBox(height: 46),
@@ -97,11 +97,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       },
                       child: Text(
                         currentPage == 2 ? 'Continue as an expert' : 'Skip',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white,
-                        ),
+                        style: AppTexts.medium.copyWith(color: Colors.white),
                       ),
                     ),
                   ],

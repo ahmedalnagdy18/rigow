@@ -1,6 +1,7 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
+import 'package:rigow/core/fonts/app_text.dart';
 
 class GetStartedEndBody extends StatelessWidget {
   const GetStartedEndBody({super.key});
@@ -11,23 +12,16 @@ class GetStartedEndBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        RichText(
-            text: TextSpan(
-                style: const TextStyle(fontSize: 14, color: Colors.black),
-                children: [
-              const TextSpan(
-                text: 'Already have an account? ',
-              ),
-              TextSpan(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Already have an account? ',
+                style: AppTexts.miniRegular),
+            RedText(
                 text: 'Log in',
-                style: const TextStyle(
-                  color: Colors.red,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-                recognizer: TapGestureRecognizer()..onTap = () {},
-              ),
-            ])),
+                gradient: LinearGradient(colors: AppColors.mainRed))
+          ],
+        ),
         const SizedBox(height: 24),
         TranceparentButtonWidget(
           borderColor: Colors.red,
@@ -36,14 +30,9 @@ class GetStartedEndBody extends StatelessWidget {
           textColor: Colors.red,
         ),
         const SizedBox(height: 24),
-        const Text(
-          'Explore as a guest',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.red,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        RedText(
+            text: 'Explore as a guest',
+            gradient: LinearGradient(colors: AppColors.mainRed)),
       ],
     );
   }

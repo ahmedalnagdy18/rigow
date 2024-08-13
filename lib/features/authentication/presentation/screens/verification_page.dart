@@ -1,10 +1,65 @@
-import 'package:flutter/gestures.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:rigow/core/colors/app_colors.dart';
+import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/features/authentication/presentation/screens/main_complete_profile.dart';
 import 'package:rigow/features/authentication/presentation/widgets/otp_widget.dart';
 
-class VerificationPage extends StatelessWidget {
-  VerificationPage({super.key});
+class VerificationPage extends StatefulWidget {
+  const VerificationPage({super.key, required this.onTap});
+  final Function() onTap;
+
+  @override
+  State<VerificationPage> createState() => _VerificationPageState();
+}
+
+class _VerificationPageState extends State<VerificationPage> {
   final TextEditingController _otpCode = TextEditingController();
+  late Timer _timer;
+  int _start = 120;
+  bool _isTimerEnded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  void startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_start > 0) {
+          _start--;
+        } else {
+          _isTimerEnded = true;
+          _timer.cancel();
+        }
+      });
+    });
+  }
+
+  void resetTimer() {
+    setState(() {
+      _start = 120;
+      _isTimerEnded = false;
+    });
+    startTimer();
+  }
+
+  String getTimerText() {
+    int minutes = _start ~/ 60;
+    int seconds = _start % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _otpCode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,60 +70,61 @@ class VerificationPage extends StatelessWidget {
         children: [
           const Text(
             'Verify your account',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
+            style: AppTexts.title,
           ),
-          RichText(
-            text: TextSpan(
-              style: const TextStyle(fontSize: 14, color: Colors.black),
-              children: [
-                const TextSpan(
-                  text:
-                      'Enter the 4-digit verification code sent to your email ',
-                ),
-                const TextSpan(
-                  text: '“ahmed34@gmail.com“',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                TextSpan(
-                  text: ' Change',
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  recognizer: TapGestureRecognizer()..onTap = () {},
-                ),
-              ],
-            ),
+          const SizedBox(height: 8),
+          const Text('Enter the 4-digit verification code sent to your email ',
+              style: AppTexts.miniRegular),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Text('“ahmed34@gmail.com“', style: AppTexts.medium),
+              InkWell(
+                onTap: widget.onTap,
+                child: RedText(
+                    text: ' Change',
+                    gradient: LinearGradient(colors: AppColors.mainRed)),
+              )
+            ],
           ),
           const SizedBox(height: 24),
           OtpWidget(
             controller: _otpCode,
+            onCompleted: (p0) {
+              succsess();
+            },
           ),
           const SizedBox(height: 16),
-          const Row(
+          Row(
             children: [
               Text(
-                'Resend code in',
-                style: TextStyle(fontSize: 14),
+                _isTimerEnded
+                    ? 'Didn’t receive any code yet?'
+                    : 'Resend code in',
+                style: AppTexts.miniRegular,
               ),
-              SizedBox(width: 8),
-              Text(
-                '01:59',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              const SizedBox(width: 8),
+              InkWell(
+                onTap: _isTimerEnded ? resetTimer : null,
+                child: RedText(
+                  text: _isTimerEnded ? 'Resend code' : getTimerText(),
+                  gradient: LinearGradient(
+                      colors: _isTimerEnded
+                          ? AppColors.mainRed
+                          : [Colors.black, Colors.black]),
+                ),
               ),
             ],
           ),
         ],
       ),
     );
+  }
+
+  void succsess() {
+    if (_otpCode.text.isNotEmpty) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const MainCompleteYourProfilePage()));
+    }
   }
 }
