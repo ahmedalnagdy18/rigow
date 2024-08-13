@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:rigow/core/colors/app_colors.dart';
 
 class CustomIndicator extends StatelessWidget {
-  const CustomIndicator({super.key, required this.color});
-  final Color color;
+  const CustomIndicator({
+    super.key,
+    required this.colors,
+  });
+  final List<Color> colors;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -10,7 +14,9 @@ class CustomIndicator extends StatelessWidget {
         Expanded(
           child: Container(
             height: 4,
-            decoration: const BoxDecoration(color: Colors.red),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(colors: AppColors.mainRed),
+            ),
           ),
         ),
         const SizedBox(width: 6),
@@ -18,7 +24,7 @@ class CustomIndicator extends StatelessWidget {
           child: Container(
             height: 4,
             decoration: BoxDecoration(
-              color: color,
+              gradient: LinearGradient(colors: colors),
             ),
           ),
         ),

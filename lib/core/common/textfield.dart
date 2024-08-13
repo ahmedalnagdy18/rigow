@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rigow/core/colors/app_colors.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String hintText;
@@ -9,6 +10,7 @@ class TextFieldWidget extends StatelessWidget {
   final TextEditingController? mycontroller;
   final String? Function(String?)? validator;
   final int? maxLines;
+
   const TextFieldWidget({
     super.key,
     required this.hintText,
@@ -33,30 +35,38 @@ class TextFieldWidget extends StatelessWidget {
       obscureText: obscureText,
       controller: mycontroller,
       validator: validator,
-      //  maxLines: maxLines,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-          errorBorder: const OutlineInputBorder(),
-          errorStyle: const TextStyle(fontSize: 14),
-          focusedErrorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.textfield,
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey),
+        ),
+        errorStyle: const TextStyle(fontSize: 14),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.textfield,
           ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromARGB(255, 203, 202, 202)),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.textfield,
           ),
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
-          hintText: hintText,
-          filled: true,
-          fillColor: Colors.white,
-          hintStyle: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF9D9C99),
-          )),
+        ),
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
+        hintText: hintText,
+        filled: true,
+        fillColor: Colors.white,
+        hintStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF9D9C99),
+        ),
+      ),
     );
   }
 }

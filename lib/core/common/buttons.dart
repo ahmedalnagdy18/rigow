@@ -23,8 +23,8 @@ class ColoredButtonWidget extends StatelessWidget {
         decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: grideantColors,
-              begin: Alignment.centerRight,
-              end: Alignment.centerLeft,
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
             ),
             borderRadius: BorderRadius.circular(30.0)),
         child: Container(

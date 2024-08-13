@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/custom_indicator.dart';
 import 'package:rigow/features/authentication/presentation/screens/signup_by_email_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/verification_page.dart';
@@ -26,12 +27,13 @@ class _MainSignUpPageState extends State<MainSignUpPage> {
           child: Column(
             children: [
               CustomIndicator(
-                color: _currint == 1 ? Colors.red : const Color(0xFFE0E0E0),
+                colors:
+                    _currint == 1 ? AppColors.mainRed : AppColors.greyLoader,
               ),
               const SizedBox(height: 24),
               Expanded(
                 child: PageView(
-                  //  physics: const NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   controller: _controller,
                   onPageChanged: (int value) {
@@ -40,7 +42,15 @@ class _MainSignUpPageState extends State<MainSignUpPage> {
                     });
                   },
                   children: [
-                    const SignupByEmailPage(),
+                    SignupByEmailPage(
+                      onPressed: () {
+                        _controller.jumpToPage(1);
+
+                        setState(() {
+                          _currint = 1;
+                        });
+                      },
+                    ),
                     VerificationPage(),
                   ],
                 ),

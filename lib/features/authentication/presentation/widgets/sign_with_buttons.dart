@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/features/authentication/presentation/screens/main_signup.dart';
 
@@ -13,7 +14,7 @@ class SignWithButtonsWidget extends StatelessWidget {
       children: [
         SocialAuthenticationButton(
           image: 'assets/images/email.png',
-          color: const Color(0xFFF5F5F5),
+          color: AppColors.lightGrey,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const MainSignUpPage()));
@@ -24,7 +25,7 @@ class SignWithButtonsWidget extends StatelessWidget {
         const SizedBox(height: 8),
         SocialAuthenticationButton(
           image: 'assets/images/google.png',
-          color: const Color(0xFFEAEAEA),
+          color: AppColors.grey,
           onPressed: () {},
           text: 'Continue with Google',
           textColor: Colors.black,
@@ -32,7 +33,7 @@ class SignWithButtonsWidget extends StatelessWidget {
         const SizedBox(height: 8),
         SocialAuthenticationButton(
           image: 'assets/images/facebook.png',
-          color: const Color(0xFF1877F2),
+          color: AppColors.facebook,
           onPressed: () {},
           text: 'Continue with Facebook',
           textColor: Colors.white,

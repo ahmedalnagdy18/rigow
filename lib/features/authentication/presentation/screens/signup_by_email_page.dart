@@ -1,23 +1,27 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rigow/core/colors/app_colors.dart';
+import 'package:rigow/core/fonts/app_text.dart';
 
 import 'package:rigow/features/authentication/presentation/widgets/signup_with_email_body.dart';
 
 class SignupByEmailPage extends StatelessWidget {
-  const SignupByEmailPage({super.key});
-
+  const SignupByEmailPage({super.key, required this.onPressed});
+  final void Function() onPressed;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          const Expanded(
+          Expanded(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SignupWithEmailBody(),
+                  SignupWithEmailBody(
+                    onPressed: onPressed,
+                  ),
                 ],
               ),
             ),
@@ -47,14 +51,11 @@ class SignupByEmailPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-                const Text(
-                  'Explore as a guest',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.red,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                RedText(
+                    text: 'Explore as a guest',
+                    gradient: LinearGradient(
+                      colors: AppColors.mainRed,
+                    )),
               ],
             ),
           ),
