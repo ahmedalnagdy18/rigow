@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 
 class AuthenticationAppbar extends StatelessWidget
@@ -15,6 +16,7 @@ class AuthenticationAppbar extends StatelessWidget
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0.25,
+      iconTheme: IconThemeData(color: AppColors.appBarRed),
       automaticallyImplyLeading: automaticallyImplyLeading,
       shadowColor: Colors.black,
       title: Text(

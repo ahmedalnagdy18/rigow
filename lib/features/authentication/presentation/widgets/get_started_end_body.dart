@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/features/authentication/presentation/screens/login_page.dart';
 
 class GetStartedEndBody extends StatelessWidget {
   const GetStartedEndBody({super.key});
@@ -17,9 +18,15 @@ class GetStartedEndBody extends StatelessWidget {
           children: [
             const Text('Already have an account? ',
                 style: AppTexts.miniRegular),
-            RedText(
-                text: 'Log in',
-                gradient: LinearGradient(colors: AppColors.mainRed))
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
+              },
+              child: RedText(
+                  text: 'Log in',
+                  gradient: LinearGradient(colors: AppColors.mainRed)),
+            )
           ],
         ),
         const SizedBox(height: 24),

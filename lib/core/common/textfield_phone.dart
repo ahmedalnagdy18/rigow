@@ -36,15 +36,15 @@ class Phonetextfield extends StatelessWidget {
         ),
         focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(
-          color: AppColors.textfield,
+          color: AppColors.textfieldBorder,
         )),
         errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.textfield)),
+            borderSide: BorderSide(color: AppColors.textfieldBorder)),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.textfield),
+          borderSide: BorderSide(color: AppColors.textfieldBorder),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.textfield),
+          borderSide: BorderSide(color: AppColors.textfieldBorder),
         ),
         border: const OutlineInputBorder(
           borderSide: BorderSide(

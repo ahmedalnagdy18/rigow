@@ -17,6 +17,11 @@ class AppTexts {
     fontSize: 16,
     color: Colors.black,
   );
+  static const TextStyle regularSimiBold = TextStyle(
+    fontSize: 16,
+    color: Colors.black,
+    fontWeight: FontWeight.w600,
+  );
 
   static const TextStyle miniRegular = TextStyle(
     fontSize: 14,
@@ -35,6 +40,12 @@ class AppTexts {
   );
 
   static const TextStyle appBar = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+  );
+
+  static const TextStyle midTitle = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: Colors.black,

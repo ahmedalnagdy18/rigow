@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
-import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/screens/main_complete_profile.dart';
-import 'package:rigow/features/authentication/presentation/widgets/otp_widget.dart';
+import 'package:rigow/features/authentication/presentation/widgets/vervication_body.dart';
 
 class VerificationPage extends StatefulWidget {
   const VerificationPage({super.key, required this.onTap});
@@ -63,62 +62,25 @@ class _VerificationPageState extends State<VerificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const Text(
-            'Verify your account',
-            style: AppTexts.title,
-          ),
-          const SizedBox(height: 8),
-          const Text('Enter the 4-digit verification code sent to your email ',
-              style: AppTexts.miniRegular),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Text('“ahmed34@gmail.com“', style: AppTexts.medium),
-              InkWell(
-                onTap: widget.onTap,
-                child: RedText(
-                    text: ' Change',
-                    gradient: LinearGradient(colors: AppColors.mainRed)),
-              )
-            ],
-          ),
-          const SizedBox(height: 24),
-          OtpWidget(
-            controller: _otpCode,
-            onCompleted: (p0) {
-              succsess();
-            },
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Text(
-                _isTimerEnded
-                    ? 'Didn’t receive any code yet?'
-                    : 'Resend code in',
-                style: AppTexts.miniRegular,
-              ),
-              const SizedBox(width: 8),
-              InkWell(
-                onTap: _isTimerEnded ? resetTimer : null,
-                child: RedText(
-                  text: _isTimerEnded ? 'Resend code' : getTimerText(),
-                  gradient: LinearGradient(
-                      colors: _isTimerEnded
-                          ? AppColors.mainRed
-                          : [Colors.black, Colors.black]),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+        backgroundColor: Colors.white,
+        body: VervicationBody(
+          whatVerify: 'account',
+          blackText:
+              _isTimerEnded ? 'Didn’t receive any code yet?' : 'Resend code in',
+          colors:
+              _isTimerEnded ? AppColors.mainRed : [Colors.black, Colors.black],
+          controller: _otpCode,
+          onCompleted: (p0) {
+            succsess();
+          },
+          changeOnTap: widget.onTap,
+          redText: _isTimerEnded ? 'Resend code' : getTimerText(),
+          resendOnTap: () {
+            if (_isTimerEnded) {
+              resetTimer();
+            }
+          },
+        ));
   }
 
   void succsess() {

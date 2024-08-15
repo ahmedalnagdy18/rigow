@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rigow/core/colors/app_colors.dart';
+import 'package:rigow/core/fonts/app_text.dart';
 
 class TextFieldWidget extends StatelessWidget {
-  final String hintText;
+  final String? hintText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final bool obscureText;
@@ -10,10 +12,14 @@ class TextFieldWidget extends StatelessWidget {
   final TextEditingController? mycontroller;
   final String? Function(String?)? validator;
   final int? maxLines;
+  final String? label;
+  final Function(String)? onChanged;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextStyle? errorStyle;
 
   const TextFieldWidget({
     super.key,
-    required this.hintText,
+    this.hintText,
     this.suffixIcon,
     required this.obscureText,
     this.mycontroller,
@@ -21,31 +27,37 @@ class TextFieldWidget extends StatelessWidget {
     this.keyboardType,
     this.validator,
     this.maxLines,
+    this.label,
+    this.onChanged,
+    this.inputFormatters,
+    this.errorStyle,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: const TextStyle(
-        fontSize: 16,
-        letterSpacing: 1,
-        fontWeight: FontWeight.w400,
-        color: Colors.black,
-      ),
+      style: AppTexts.miniRegular,
+      onChanged: onChanged,
       obscureText: obscureText,
       controller: mycontroller,
       validator: validator,
+      inputFormatters: inputFormatters,
       keyboardType: keyboardType,
       decoration: InputDecoration(
+        labelText: label,
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppColors.textfield,
+            color: AppColors.textfieldBorder,
           ),
         ),
-        errorStyle: const TextStyle(fontSize: 14),
+        errorStyle: errorStyle,
+        //  AppTexts.small.copyWith(
+        //   color: AppColors.errorColor,
+        //   overflow: TextOverflow.visible,
+        // ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppColors.textfield,
+            color: AppColors.textfieldBorder,
           ),
         ),
         focusedBorder: const OutlineInputBorder(
@@ -53,7 +65,7 @@ class TextFieldWidget extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: AppColors.textfield,
+            color: AppColors.textfieldBorder,
           ),
         ),
         prefixIcon: prefixIcon,
@@ -61,10 +73,10 @@ class TextFieldWidget extends StatelessWidget {
         hintText: hintText,
         filled: true,
         fillColor: Colors.white,
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: Color(0xFF9D9C99),
+          color: AppColors.hintText,
         ),
       ),
     );

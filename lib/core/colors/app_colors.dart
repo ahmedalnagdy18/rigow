@@ -8,10 +8,14 @@ class AppColors {
   static Color grey = const Color(0xffEAEAEA);
   static Color darkGrey = const Color(0xffCCCCCC);
   static Color facebook = const Color(0xff1877F2);
-
+  static Color tapBorder = const Color(0xff858589);
+  static Color textfieldBorder = const Color(0xFF9D9C99);
+  static Color clickedTextfieldBorder = const Color(0xFF858589);
   //text colors
-  static Color textfield = const Color(0xFFCBCACA);
   static Color hintText = const Color(0xFF9D9C99);
+  static Color forgetPassword = const Color(0xFF6A717F);
+  static Color appBarRed = const Color(0xFFFF2D55);
+  static Color errorColor = const Color(0xFFB71A2A);
 
   // static Color n5 = const Color(0x002a3838);
 

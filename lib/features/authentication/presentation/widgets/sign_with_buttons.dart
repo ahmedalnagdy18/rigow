@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
+import 'package:rigow/features/authentication/presentation/screens/main_google_signup.dart';
 import 'package:rigow/features/authentication/presentation/screens/main_signup.dart';
 
 class SignWithButtonsWidget extends StatelessWidget {
@@ -26,7 +27,10 @@ class SignWithButtonsWidget extends StatelessWidget {
         SocialAuthenticationButton(
           image: 'assets/images/google.png',
           color: AppColors.grey,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const MainGoogleSignUpPage()));
+          },
           text: 'Continue with Google',
           textColor: Colors.black,
         ),
