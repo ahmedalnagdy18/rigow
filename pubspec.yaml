@@ -23,9 +23,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  flutter_localization: ^0.2.1
+  flutter_localizations:
+    sdk: flutter
   intl_phone_field: ^3.2.0
   pinput: ^5.0.0
   roundcheckbox: ^2.0.5
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_lints: ^4.0.0
@@ -36,6 +40,7 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -68,3 +73,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_intl:
+  enabled: true

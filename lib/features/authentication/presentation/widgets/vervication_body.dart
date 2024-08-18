@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/widgets/otp_widget.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class VervicationBody extends StatelessWidget {
   const VervicationBody(
@@ -29,11 +30,11 @@ class VervicationBody extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          'Verify your $whatVerify',
+          '${AppLocalizations.of(context)!.verifyYour} $whatVerify ',
           style: AppTexts.title,
         ),
         const SizedBox(height: 8),
-        const Text('Enter the 4-digit verification code sent to your email ',
+        Text(AppLocalizations.of(context)!.enterVerificationCodeSent,
             style: AppTexts.miniRegular),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -42,7 +43,7 @@ class VervicationBody extends StatelessWidget {
             InkWell(
               onTap: changeOnTap,
               child: RedText(
-                  text: ' Change',
+                  text: AppLocalizations.of(context)!.change,
                   gradient: LinearGradient(colors: AppColors.mainRed)),
             )
           ],

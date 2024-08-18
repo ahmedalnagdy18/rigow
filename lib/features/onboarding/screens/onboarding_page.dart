@@ -1,3 +1,5 @@
+// onboarding_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
@@ -5,6 +7,7 @@ import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/screens/get_started_page.dart';
 import 'package:rigow/features/onboarding/widgets/dots_widget.dart';
 import 'package:rigow/features/onboarding/widgets/onboarding_widget.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -25,6 +28,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final onboardingList = createOnboardingList(context);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -75,7 +80,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ),
                     const SizedBox(height: 32),
                     ColoredButtonWidget(
-                        text: currentPage == 2 ? 'Get Started' : 'Next',
+                        text: currentPage == 2
+                            ? AppLocalizations.of(context)!.getStarted
+                            : AppLocalizations.of(context)!.next,
                         onPressed: () {
                           if (currentPage == 2) {
                             Navigator.of(context).push(MaterialPageRoute(
@@ -96,7 +103,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             builder: (context) => const GetStartedPage()));
                       },
                       child: Text(
-                        currentPage == 2 ? 'Continue as an expert' : 'Skip',
+                        currentPage == 2
+                            ? AppLocalizations.of(context)!.continueAsAnExpert
+                            : AppLocalizations.of(context)!.skip,
                         style: AppTexts.medium.copyWith(color: Colors.white),
                       ),
                     ),

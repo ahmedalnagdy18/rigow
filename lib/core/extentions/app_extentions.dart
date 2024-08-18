@@ -15,3 +15,5 @@ double appWidth(BuildContext context, double h) {
 
  // Navigator.of(context).push(MaterialPageRoute(     
  // builder: (context) => const Navbar()));
+
+ //    AppLocalizations.of(context)!.appName,   to localization 

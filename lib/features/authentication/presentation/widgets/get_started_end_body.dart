@@ -3,6 +3,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/screens/login_page.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class GetStartedEndBody extends StatelessWidget {
   const GetStartedEndBody({super.key});
@@ -16,15 +17,16 @@ class GetStartedEndBody extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Already have an account? ',
+            Text(AppLocalizations.of(context)!.alreadyHaveAnAccount,
                 style: AppTexts.miniRegular),
+            const SizedBox(width: 4),
             InkWell(
               onTap: () {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => const LoginPage()));
               },
               child: RedText(
-                  text: 'Log in',
+                  text: AppLocalizations.of(context)!.logIn,
                   gradient: LinearGradient(colors: AppColors.mainRed)),
             )
           ],
@@ -33,12 +35,12 @@ class GetStartedEndBody extends StatelessWidget {
         TranceparentButtonWidget(
           borderColor: Colors.red,
           onPressed: () {},
-          text: 'Continue as an expert',
+          text: AppLocalizations.of(context)!.continueAsAnExpert,
           textColor: Colors.red,
         ),
         const SizedBox(height: 24),
         RedText(
-            text: 'Explore as a guest',
+            text: AppLocalizations.of(context)!.exploreAsAguest,
             gradient: LinearGradient(colors: AppColors.mainRed)),
       ],
     );

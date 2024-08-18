@@ -24,6 +24,7 @@ class _MainSignUpPageState extends State<MainSignUpPage> {
         title: 'Sign up',
         automaticallyImplyLeading: true,
       ),
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),

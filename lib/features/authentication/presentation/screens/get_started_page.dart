@@ -4,6 +4,7 @@ import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/get_started_end_body.dart';
 import 'package:rigow/features/authentication/presentation/widgets/sign_with_buttons.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({super.key});
@@ -12,8 +13,8 @@ class GetStartedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const AuthenticationAppbar(
-        title: 'Sign up',
+      appBar: AuthenticationAppbar(
+        title: AppLocalizations.of(context)!.signUp,
         automaticallyImplyLeading: true,
       ),
       body: Padding(
@@ -33,17 +34,14 @@ class GetStartedPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-                const Text(
-                  'Welcome to Rigow',
+                Text(
+                  AppLocalizations.of(context)!.welcometoRigow,
                   style: AppTexts.title,
                 ),
                 const SizedBox(height: 10),
-                const Padding(
-                  padding: EdgeInsets.only(right: 16),
-                  child: Text(
-                    'Choose the way you prefer to create your account',
-                    style: AppTexts.regular,
-                  ),
+                Text(
+                  AppLocalizations.of(context)!.chooseTheWay,
+                  style: AppTexts.regular,
                 ),
                 const SizedBox(height: 24),
                 const SignWithButtonsWidget(),
@@ -54,11 +52,14 @@ class GetStartedPage extends StatelessWidget {
                     text: TextSpan(
                       style: AppTexts.small,
                       children: [
+                        TextSpan(
+                          text: AppLocalizations.of(context)!.agreeToOur,
+                        ),
                         const TextSpan(
-                          text: 'By continuing, you agree to our ',
+                          text: ' ',
                         ),
                         TextSpan(
-                          text: 'Terms of services ',
+                          text: AppLocalizations.of(context)!.termsOfServices,
                           style: const TextStyle(
                             decoration: TextDecoration.underline,
                             fontWeight: FontWeight.w500,
@@ -66,10 +67,16 @@ class GetStartedPage extends StatelessWidget {
                           recognizer: TapGestureRecognizer()..onTap = () {},
                         ),
                         const TextSpan(
-                          text: 'and ',
+                          text: ' ',
                         ),
                         TextSpan(
-                          text: 'Privacy policy',
+                          text: AppLocalizations.of(context)!.and,
+                        ),
+                        const TextSpan(
+                          text: ' ',
+                        ),
+                        TextSpan(
+                          text: AppLocalizations.of(context)!.privacyPolicy,
                           style: const TextStyle(
                             decoration: TextDecoration.underline,
                             fontWeight: FontWeight.w500,

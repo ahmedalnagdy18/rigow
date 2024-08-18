@@ -6,6 +6,7 @@ import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/screens/reset_password_verifcation.dart';
 import 'package:rigow/features/authentication/presentation/widgets/reset_password_appbar.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({super.key});
@@ -38,10 +39,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text('Reset your Password', style: AppTexts.title),
+              Text(AppLocalizations.of(context)!.resetYourPassword,
+                  style: AppTexts.title),
               const SizedBox(height: 8),
-              const Text(
-                'We’ll confirm your account by sending a verification code to your email address.',
+              Text(
+                AppLocalizations.of(context)!.resetExplian,
                 style: AppTexts.regular,
               ),
               const SizedBox(height: 16),
@@ -49,9 +51,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) => EmailValidator.validate(value!)
                     ? null
-                    : "Please enter a valid email",
+                    : AppLocalizations.of(context)!.errorEmail,
                 mycontroller: _email,
-                hintText: 'Email address',
+                hintText: AppLocalizations.of(context)!.emailAddress,
                 obscureText: false,
               ),
               const SizedBox(height: 24),
@@ -66,7 +68,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 const ResetPasswordVerifcation()));
                       }
                     : null,
-                text: 'Next',
+                text: AppLocalizations.of(context)!.next,
                 textColor: Colors.white,
               ),
             ],

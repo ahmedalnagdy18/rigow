@@ -4,9 +4,11 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/features/authentication/presentation/screens/main_signup.dart';
 import 'package:rigow/features/authentication/presentation/screens/reset_password_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/dont_have_acc_part.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -33,10 +35,11 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const AuthenticationAppbar(
-        title: 'Log in',
+      appBar: AuthenticationAppbar(
+        title: AppLocalizations.of(context)!.logIn,
         automaticallyImplyLeading: true,
       ),
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         child: Form(
@@ -59,13 +62,13 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const Text(
-                        'Welcome back',
+                      Text(
+                        AppLocalizations.of(context)!.welcomeBack,
                         style: AppTexts.title,
                       ),
                       const SizedBox(height: 8),
-                      const Text(
-                        'Log in to your account',
+                      Text(
+                        AppLocalizations.of(context)!.logToYourAccount,
                         style: AppTexts.regular,
                       ),
                       const SizedBox(height: 24),
@@ -75,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                             ? null
                             : "Please enter a valid email",
                         mycontroller: _email,
-                        hintText: 'Email address',
+                        hintText: AppLocalizations.of(context)!.emailAddress,
                         obscureText: false,
                       ),
                       const SizedBox(height: 16),
@@ -94,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                                 : Icons.visibility,
                           ),
                         ),
-                        hintText: 'Password',
+                        hintText: AppLocalizations.of(context)!.password,
                         obscureText: isObscuretext,
                       ),
                       const SizedBox(height: 8),
@@ -107,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                                     const ResetPasswordPage()));
                           },
                           child: Text(
-                            'Forget password?',
+                            AppLocalizations.of(context)!.forgetPassword,
                             style: AppTexts.medium.copyWith(
                                 color: AppColors.forgetPassword, fontSize: 12),
                           ),
@@ -119,16 +122,23 @@ class _LoginPageState extends State<LoginPage> {
                             ? [AppColors.darkGrey, AppColors.darkGrey]
                             : AppColors.mainRed,
                         onPressed: _isButtonEnabled ? () {} : null,
-                        text: 'Next',
+                        text: AppLocalizations.of(context)!.next,
                         textColor: Colors.white,
                       ),
                     ],
                   ),
                 ),
               ),
-              const DontHaveAccPart(
-                blackText: 'Don’t have an account? ',
-                redText: 'Sign up',
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30),
+                child: DontHaveAccPart(
+                  redTextOnTap: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const MainSignUpPage()));
+                  },
+                  blackText: AppLocalizations.of(context)!.dontHaveAcc,
+                  redText: AppLocalizations.of(context)!.signUp,
+                ),
               ),
             ],
           ),

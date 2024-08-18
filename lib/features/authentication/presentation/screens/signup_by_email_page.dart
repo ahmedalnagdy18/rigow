@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rigow/features/authentication/presentation/screens/login_page.dart';
 
 import 'package:rigow/features/authentication/presentation/widgets/dont_have_acc_part.dart';
 
@@ -10,6 +11,7 @@ class SignupByEmailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Column(
         children: [
@@ -25,9 +27,16 @@ class SignupByEmailPage extends StatelessWidget {
               ),
             ),
           ),
-          const DontHaveAccPart(
-            blackText: 'Already have an account? ',
-            redText: 'Log in',
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10, top: 10),
+            child: DontHaveAccPart(
+              redTextOnTap: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
+              },
+              blackText: 'Already have an account? ',
+              redText: 'Log in',
+            ),
           ),
         ],
       ),

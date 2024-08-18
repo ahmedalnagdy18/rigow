@@ -5,6 +5,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/features/authentication/presentation/screens/new_password_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/reset_password_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/vervication_body.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class ResetPasswordVerifcation extends StatefulWidget {
   const ResetPasswordVerifcation({super.key});
@@ -70,10 +71,10 @@ class _ResetPasswordVerifcationState extends State<ResetPasswordVerifcation> {
         child: Column(
           children: [
             VervicationBody(
-              whatVerify: 'email address',
+              whatVerify: AppLocalizations.of(context)!.emailAddress,
               blackText: _isTimerEnded
-                  ? 'Didn’t receive any code yet?'
-                  : 'Resend code in',
+                  ? AppLocalizations.of(context)!.didnotReceiveAnyCodeYet
+                  : AppLocalizations.of(context)!.resendCodeIn,
               colors: _isTimerEnded
                   ? AppColors.mainRed
                   : [Colors.black, Colors.black],
@@ -82,7 +83,9 @@ class _ResetPasswordVerifcationState extends State<ResetPasswordVerifcation> {
                 succsess();
               },
               changeOnTap: () {},
-              redText: _isTimerEnded ? 'Resend code' : getTimerText(),
+              redText: _isTimerEnded
+                  ? AppLocalizations.of(context)!.resendCode
+                  : getTimerText(),
               resendOnTap: () {
                 if (_isTimerEnded) {
                   resetTimer();

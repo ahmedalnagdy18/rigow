@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class ResetPasswordAppbar extends StatelessWidget
     implements PreferredSizeWidget {
@@ -33,15 +34,15 @@ class ResetPasswordAppbar extends StatelessWidget
           const SizedBox(width: 3),
           Flexible(
             child: Text(
-              'Log in',
+              AppLocalizations.of(context)!.logIn,
               style: AppTexts.regular.copyWith(color: AppColors.appBarRed),
               maxLines: 1,
             ),
           ),
         ],
       ),
-      title: const Text(
-        'Reset Password',
+      title: Text(
+        AppLocalizations.of(context)!.resetPassword,
         style: AppTexts.appBar,
       ),
     );

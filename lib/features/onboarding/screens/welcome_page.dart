@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/features/onboarding/screens/onboarding_page.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
 
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +39,13 @@ class WelcomePage extends StatelessWidget {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const OnboardingScreen()));
                         },
-                        text: 'Next',
+                        text: AppLocalizations.of(context)!.next,
                         textColor: Colors.black,
                       ),
                       const SizedBox(height: 16),
                       TranceparentButtonWidget(
                         onPressed: () {},
-                        text: 'Continue as an expert',
+                        text: AppLocalizations.of(context)!.continueAsAnExpert,
                         textColor: Colors.white,
                         borderColor: Colors.white,
                       ),
@@ -49,9 +55,9 @@ class WelcomePage extends StatelessWidget {
                           // Navigator.of(context).push(MaterialPageRoute(
                           //     builder: (context) => const Navbar()));
                         },
-                        child: const Text(
-                          "Explore the app",
-                          style: TextStyle(
+                        child: Text(
+                          AppLocalizations.of(context)!.exploreTheApp,
+                          style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: Colors.white,

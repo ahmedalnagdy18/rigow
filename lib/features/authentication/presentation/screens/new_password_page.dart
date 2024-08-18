@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
+import 'package:rigow/core/common/success_alert_dailog.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/widgets/reset_password_appbar.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class NewPasswordPage extends StatefulWidget {
   const NewPasswordPage({super.key});
@@ -42,10 +44,11 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text('Reset your Password', style: AppTexts.title),
+              Text(AppLocalizations.of(context)!.resetYourPassword,
+                  style: AppTexts.title),
               const SizedBox(height: 8),
-              const Text(
-                'We’ll confirm your account by sending a verification code to your email address.',
+              Text(
+                AppLocalizations.of(context)!.confirmPasswordExplian,
                 style: AppTexts.regular,
               ),
               const SizedBox(height: 16),
@@ -77,7 +80,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                     isObscuretext ? Icons.visibility_off : Icons.visibility,
                   ),
                 ),
-                hintText: 'New password',
+                hintText: AppLocalizations.of(context)!.newPassword,
                 obscureText: isObscuretext,
               ),
               const SizedBox(height: 16),
@@ -103,7 +106,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                     isObscuretext2 ? Icons.visibility_off : Icons.visibility,
                   ),
                 ),
-                hintText: 'Re-type new password',
+                hintText: AppLocalizations.of(context)!.reTypeNewPassword,
                 obscureText: isObscuretext2,
               ),
               const SizedBox(height: 24),
@@ -116,10 +119,22 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                         : AppColors.mainRed,
                     onPressed: value
                         ? () {
-                            Navigator.of(context).pop();
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (context) {
+                                return SuccessAlertDailog(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                  },
+                                );
+                              },
+                            );
+                            //
                           }
                         : null,
-                    text: 'Reset password',
+                    text: AppLocalizations.of(context)!.resetPassword,
                     textColor: Colors.white,
                   );
                 },
@@ -136,13 +151,13 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
         !RegExp(r'(?=.*\d)').hasMatch(value) ||
         !RegExp(r'(?=.*[!@#$%^&*(),.?":{}|<>])').hasMatch(value)) {
       _validationColor = Colors.orange;
-      return 'Weak, add numbers, letters and symbols';
+      return AppLocalizations.of(context)!.weak;
     }
     if (RegExp(r'(?=.*[A-Za-z])').hasMatch(value) &&
         RegExp(r'(?=.*\d)').hasMatch(value) &&
         RegExp(r'(?=.*[!@#$%^&*(),.?":{}|<>])').hasMatch(value)) {
       _validationColor = Colors.green;
-      return 'Strong';
+      return AppLocalizations.of(context)!.strong;
     }
     return value;
   }
@@ -151,12 +166,12 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
     if (_passwordTextController.text == _newPassword.text &&
         _passwordTextController.text.isNotEmpty) {
       _validationColor2 = Colors.green;
-      return 'Matched';
+      return AppLocalizations.of(context)!.matched;
     }
     if (_passwordTextController.text != _newPassword.text &&
         _passwordTextController.text.isNotEmpty) {
       _validationColor2 = AppColors.errorColor;
-      return 'The two password should be equal';
+      return AppLocalizations.of(context)!.equal;
     }
     return '';
   }

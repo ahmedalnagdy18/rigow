@@ -3,6 +3,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/features/authentication/presentation/screens/main_google_signup.dart';
 import 'package:rigow/features/authentication/presentation/screens/main_signup.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class SignWithButtonsWidget extends StatelessWidget {
   const SignWithButtonsWidget({super.key});
@@ -20,7 +21,7 @@ class SignWithButtonsWidget extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const MainSignUpPage()));
           },
-          text: 'Sign up by Email',
+          text: AppLocalizations.of(context)!.signUpByEmail,
           textColor: Colors.black,
         ),
         const SizedBox(height: 8),
@@ -31,7 +32,7 @@ class SignWithButtonsWidget extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const MainGoogleSignUpPage()));
           },
-          text: 'Continue with Google',
+          text: AppLocalizations.of(context)!.continuewithGoogle,
           textColor: Colors.black,
         ),
         const SizedBox(height: 8),
@@ -39,7 +40,7 @@ class SignWithButtonsWidget extends StatelessWidget {
           image: 'assets/images/facebook.png',
           color: AppColors.facebook,
           onPressed: () {},
-          text: 'Continue with Facebook',
+          text: AppLocalizations.of(context)!.continueWithFacebook,
           textColor: Colors.white,
         ),
         const SizedBox(height: 8),
@@ -47,7 +48,7 @@ class SignWithButtonsWidget extends StatelessWidget {
           image: 'assets/images/apple.png',
           color: Colors.black,
           onPressed: () {},
-          text: 'Continue with Apple',
+          text: AppLocalizations.of(context)!.continueWithApple,
           textColor: Colors.white,
         ),
       ],

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rigow/features/authentication/presentation/cubits/lang_cubit/lang_cubit.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class ColoredButtonWidget extends StatelessWidget {
   const ColoredButtonWidget({
@@ -81,12 +84,20 @@ class ArabicButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      "العربيه",
-      style: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-        color: Colors.white,
+    return InkWell(
+      onTap: () {
+        final currentLocale =
+            context.read<LocaleCubit>().state.locale.languageCode;
+        final newLocale = currentLocale == 'en' ? 'ar' : 'en';
+        context.read<LocaleCubit>().changeLanguage(newLocale);
+      },
+      child: Text(
+        AppLocalizations.of(context)!.lang,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
       ),
     );
   }
