@@ -1,24 +1,30 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/common/textfield_phone.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/features/authentication/domain/entities/register_input.dart';
+import 'package:rigow/features/authentication/presentation/cubits/register_cubit/register_cubit.dart';
+import 'package:rigow/features/authentication/presentation/cubits/register_cubit/register_state.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class SignupWithEmailBody extends StatefulWidget {
-  const SignupWithEmailBody({super.key, required this.onPressed});
-  final void Function() onPressed;
+  const SignupWithEmailBody({super.key, required this.controller});
+  final PageController controller;
 
   @override
   State<SignupWithEmailBody> createState() => _SignupWithEmailBodyState();
 }
 
 class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _phoneNumber = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+  final _email = TextEditingController();
+  final _phoneNumber = TextEditingController();
+  final _password = TextEditingController();
+  final _firstName = TextEditingController();
+  final _lastName = TextEditingController();
 
   bool isObscuretext = true;
   bool _isButtonEnabled = false;
@@ -51,6 +57,7 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
             children: [
               Expanded(
                 child: TextFieldWidget(
+                  mycontroller: _firstName,
                   hintText: AppLocalizations.of(context)!.firstName,
                   obscureText: false,
                 ),
@@ -58,6 +65,7 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
               const SizedBox(width: 8),
               Expanded(
                 child: TextFieldWidget(
+                  mycontroller: _lastName,
                   hintText: AppLocalizations.of(context)!.lastName,
                   obscureText: false,
                 ),
@@ -99,17 +107,41 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
             obscureText: isObscuretext,
           ),
           const SizedBox(height: 24),
-          ColoredButtonWidget(
-            grideantColors: !_isButtonEnabled
-                ? [AppColors.darkGrey, AppColors.darkGrey]
-                : AppColors.mainRed,
-            onPressed: _isButtonEnabled ? widget.onPressed : null,
-            text: AppLocalizations.of(context)!.next,
-            textColor: Colors.white,
+          BlocListener<RegisterCubit, RegisterState>(
+            listener: (context, state) {
+              if (state is SucsessRegsisterState) {
+                _isButtonEnabled ? widget.controller.jumpToPage(1) : null;
+              }
+            },
+            child: ColoredButtonWidget(
+              grideantColors: !_isButtonEnabled
+                  ? [AppColors.darkGrey, AppColors.darkGrey]
+                  : AppColors.mainRed,
+              onPressed: () {
+                if (_isButtonEnabled) {
+                  _registerButton(context);
+                }
+              },
+              text: AppLocalizations.of(context)!.next,
+              textColor: Colors.white,
+            ),
           ),
         ],
       ),
     );
+  }
+
+  void _registerButton(BuildContext context) {
+    final input = RegisterInput(
+      firstName: _firstName.text,
+      lastName: _lastName.text,
+      phone: _phoneNumber.text,
+      email: _email.text,
+      password: _password.text,
+      loginDetails: LoginDetailsInput("", DeviceEnum.android),
+      role: UserRoleEnum.user,
+    );
+    BlocProvider.of<RegisterCubit>(context).registerFuc(input: input);
   }
 
   void _isEnabled() {
@@ -119,10 +151,8 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
         _password.text.isNotEmpty &&
         _phoneNumber.text.isNotEmpty) {
       _isButtonEnabled = true;
-      setState(() {});
     } else {
       _isButtonEnabled = false;
-      setState(() {});
     }
     setState(() {});
   }
