@@ -5,6 +5,7 @@ import 'package:rigow/features/authentication/presentation/screens/complete_prof
 import 'package:rigow/features/authentication/presentation/screens/google_signup_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/welcome_to_rigow_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class MainGoogleSignUpPage extends StatefulWidget {
   const MainGoogleSignUpPage({super.key});
@@ -22,7 +23,9 @@ class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AuthenticationAppbar(
-        title: _currint == 0 ? 'Sign up' : 'Complete Profile',
+        title: _currint == 0
+            ? AppLocalizations.of(context)!.signUp
+            : AppLocalizations.of(context)!.completeProfile,
         automaticallyImplyLeading: true,
       ),
       body: SafeArea(

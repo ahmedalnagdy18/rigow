@@ -14,13 +14,16 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
+    bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Scaffold(
       body: Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           SizedBox.expand(
             child: Image.asset(
-              'assets/images/welcome.png',
+              isArabic
+                  ? "assets/images/welcomeAr.png"
+                  : 'assets/images/welcome.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -72,7 +75,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  alignment: Alignment.topRight,
+                  alignment: isArabic ? Alignment.topLeft : Alignment.topRight,
                   child: const ArabicButton(),
                 ),
               ),

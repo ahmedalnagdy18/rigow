@@ -11,17 +11,21 @@ class Onboarding {
 }
 
 List<Onboarding> createOnboardingList(BuildContext context) {
+  bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
   return [
     Onboarding(
-      image: "assets/images/onboarding1.png",
+      image:
+          isArabic ? "assets/images/ar1.png" : "assets/images/onboarding1.png",
       title: AppLocalizations.of(context)!.onboarding1,
     ),
     Onboarding(
-      image: "assets/images/onboarding2.png",
+      image:
+          isArabic ? "assets/images/ar2.png" : "assets/images/onboarding2.png",
       title: AppLocalizations.of(context)!.onboarding2,
     ),
     Onboarding(
-      image: "assets/images/onboarding3.png",
+      image:
+          isArabic ? "assets/images/ar3.png" : "assets/images/onboarding3.png",
       title: AppLocalizations.of(context)!.onboarding3,
     ),
   ];

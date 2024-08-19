@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
-import 'package:roundcheckbox/roundcheckbox.dart';
+import 'package:rigow/core/fonts/app_text.dart';
 
 class CheckBoxWidget extends StatelessWidget {
-  const CheckBoxWidget(
-      {super.key, required this.onTap, required this.isChecked});
-  final dynamic Function(bool?) onTap;
-  final bool isChecked;
+  const CheckBoxWidget({
+    super.key,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+    required this.title,
+  });
+
+  final dynamic value;
+  final dynamic groupValue;
+  final void Function(dynamic) onChanged;
+  final String title;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: LinearGradient(
-          colors: AppColors.mainRed,
-        ),
-      ),
-      padding: const EdgeInsets.all(1.5),
-      child: RoundCheckBox(
-        isChecked: isChecked,
-        checkedWidget: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            gradient: LinearGradient(
-              colors: AppColors.mainRed,
-            ),
+    return InkWell(
+      onTap: () => onChanged(value),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Radio<dynamic>(
+            value: value,
+            groupValue: groupValue,
+            onChanged: onChanged,
+            activeColor: AppColors.mainRed[0],
+            visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
           ),
-        ),
-        onTap: onTap,
-        borderColor: Colors.white,
-        checkedColor: Colors.red,
-        uncheckedColor: Colors.white,
-        size: 16,
+          const SizedBox(width: 4),
+          Text(
+            title,
+            style: AppTexts.miniRegular,
+          ),
+        ],
       ),
     );
   }

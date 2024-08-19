@@ -46,10 +46,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return Scaffold(
       body: SizedBox.expand(
         child: Image.asset(
-          'assets/images/splash.png',
+          isArabic ? "assets/images/splashAr.png" : 'assets/images/splash.png',
           fit: BoxFit.cover,
         ),
       ),

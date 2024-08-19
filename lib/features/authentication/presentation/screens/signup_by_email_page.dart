@@ -4,6 +4,7 @@ import 'package:rigow/features/authentication/presentation/screens/login_page.da
 import 'package:rigow/features/authentication/presentation/widgets/dont_have_acc_part.dart';
 
 import 'package:rigow/features/authentication/presentation/widgets/signup_with_email_body.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class SignupByEmailPage extends StatelessWidget {
   const SignupByEmailPage({super.key, required this.onPressed});
@@ -34,8 +35,8 @@ class SignupByEmailPage extends StatelessWidget {
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => const LoginPage()));
               },
-              blackText: 'Already have an account? ',
-              redText: 'Log in',
+              blackText: AppLocalizations.of(context)!.alreadyHaveAnAccount,
+              redText: AppLocalizations.of(context)!.logIn,
             ),
           ),
         ],

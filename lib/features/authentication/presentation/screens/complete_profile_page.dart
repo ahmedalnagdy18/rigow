@@ -7,18 +7,19 @@ import 'package:rigow/core/common/cliked_textfield_widget.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/widgets/country_sheet.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class CompleteProfilePage extends StatefulWidget {
   const CompleteProfilePage({super.key, required this.onPressed});
   final void Function() onPressed;
+
   @override
   State<CompleteProfilePage> createState() => _CompleteProfilePageState();
 }
 
 class _CompleteProfilePageState extends State<CompleteProfilePage> {
   final TextEditingController _userName = TextEditingController();
-  bool isChecked = false;
-  bool isChecked2 = false;
+  String? selectedGender;
 
   @override
   Widget build(BuildContext context) {
@@ -26,87 +27,77 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Text('Complete your profile ', style: AppTexts.title),
-              const Text(
-                'Personal info',
-                style: AppTexts.miniRegular,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(AppLocalizations.of(context)!.completeYourProfile,
+                style: AppTexts.title),
+            const SizedBox(height: 8),
+            Text(AppLocalizations.of(context)!.personalInfo,
+                style: AppTexts.miniRegular),
+            const SizedBox(height: 24),
+            const Center(child: AddPhotoWidget()),
+            const SizedBox(height: 16),
+            const Center(child: Text('User Name', style: AppTexts.midTitle)),
+            const SizedBox(height: 24),
+            TextFieldWidget(
+              mycontroller: _userName,
+              hintText: 'Username - Ex:ahm987',
+              obscureText: false,
+              prefixIcon: const Icon(
+                Icons.alternate_email,
+                size: 14,
+                color: Colors.black,
               ),
-              const SizedBox(height: 24),
-              const Center(
-                child: AddPhotoWidget(),
-              ),
-              const SizedBox(height: 16),
-              const Center(child: Text('User Name', style: AppTexts.midTitle)),
-              const SizedBox(height: 24),
-              TextFieldWidget(
-                mycontroller: _userName,
-                hintText: 'Username - Ex:ahm987',
-                obscureText: false,
-                prefixIcon: const Icon(
-                  size: 14,
-                  Icons.alternate_email,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 32),
-              const Text('Gender', style: AppTexts.midTitle),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  CheckBoxWidget(
-                    isChecked: isChecked,
-                    onTap: (selected) {
-                      setState(() {
-                        isChecked = true;
-                        isChecked2 = false;
-                      });
-                    },
-                  ),
-                  const SizedBox(width: 6),
-                  const Text('Male', style: AppTexts.miniRegular)
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  CheckBoxWidget(
-                    isChecked: isChecked2,
-                    onTap: (selected) {
-                      setState(() {
-                        isChecked2 = true;
-                        isChecked = false;
-                      });
-                    },
-                  ),
-                  const SizedBox(width: 6),
-                  const Text('Female', style: AppTexts.miniRegular)
-                ],
-              ),
-              const SizedBox(height: 40),
-              InkWell(
-                  onTap: () {
-                    showModalBottomSheet<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const CountrySheet();
-                      },
-                    );
+            ),
+            const SizedBox(height: 32),
+            Text(AppLocalizations.of(context)!.gender,
+                style: AppTexts.midTitle),
+            const SizedBox(height: 16),
+            CheckBoxWidget(
+              value: 'Male',
+              groupValue: selectedGender,
+              onChanged: (value) {
+                setState(() {
+                  selectedGender = value;
+                });
+              },
+              title: AppLocalizations.of(context)!.male,
+            ),
+            CheckBoxWidget(
+              value: 'Female',
+              groupValue: selectedGender,
+              onChanged: (value) {
+                setState(() {
+                  selectedGender = value;
+                });
+              },
+              title: AppLocalizations.of(context)!.female,
+            ),
+            const SizedBox(height: 40),
+            InkWell(
+              onTap: () {
+                showModalBottomSheet<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const CountrySheet();
                   },
-                  child: ClikedTextFieldWidget(
-                    hintText: 'Birthdate',
-                    suffixText: 'Tap to set',
-                    borderColor: AppColors.clickedTextfieldBorder,
-                  )),
-              const SizedBox(height: 24),
-              ColoredButtonWidget(
-                  text: 'Next',
-                  onPressed: widget.onPressed,
-                  grideantColors: AppColors.mainRed,
-                  textColor: Colors.white)
-            ]),
+                );
+              },
+              child: ClikedTextFieldWidget(
+                hintText: AppLocalizations.of(context)!.birthdate,
+                suffixText: AppLocalizations.of(context)!.tapToSet,
+                borderColor: AppColors.clickedTextfieldBorder,
+              ),
+            ),
+            const SizedBox(height: 24),
+            ColoredButtonWidget(
+              text: AppLocalizations.of(context)!.next,
+              onPressed: widget.onPressed,
+              grideantColors: AppColors.mainRed,
+              textColor: Colors.white,
+            ),
+          ],
+        ),
       ),
     );
   }

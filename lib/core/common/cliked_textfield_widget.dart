@@ -15,6 +15,7 @@ class ClikedTextFieldWidget extends StatelessWidget {
   final String suffixText;
   @override
   Widget build(BuildContext context) {
+    bool isRtl = Localizations.localeOf(context).languageCode == 'ar';
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       height: 52,
@@ -32,7 +33,8 @@ class ClikedTextFieldWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 8),
-          const Icon(Icons.arrow_forward_ios, color: Colors.red, size: 16),
+          Icon(!isRtl ? Icons.arrow_forward_ios : Icons.arrow_back_ios,
+              color: Colors.red, size: 16),
         ],
       ),
     );

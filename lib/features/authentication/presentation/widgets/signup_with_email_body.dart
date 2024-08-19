@@ -5,6 +5,7 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/common/textfield_phone.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class SignupWithEmailBody extends StatefulWidget {
   const SignupWithEmailBody({super.key, required this.onPressed});
@@ -39,24 +40,25 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Text('Sign up with Email', style: AppTexts.title),
-          const Text(
-            'Enter the required information',
+          Text(AppLocalizations.of(context)!.signUpWithEmail,
+              style: AppTexts.title),
+          Text(
+            AppLocalizations.of(context)!.enterTheRequiredInformation,
             style: AppTexts.miniRegular,
           ),
           const SizedBox(height: 24),
-          const Row(
+          Row(
             children: [
               Expanded(
                 child: TextFieldWidget(
-                  hintText: 'First name',
+                  hintText: AppLocalizations.of(context)!.firstName,
                   obscureText: false,
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: TextFieldWidget(
-                  hintText: 'Last name',
+                  hintText: AppLocalizations.of(context)!.lastName,
                   obscureText: false,
                 ),
               ),
@@ -76,7 +78,7 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
                 ? null
                 : "Please enter a valid email",
             mycontroller: _email,
-            hintText: 'Email address',
+            hintText: AppLocalizations.of(context)!.emailAddress,
             obscureText: false,
           ),
           const SizedBox(height: 16),
@@ -93,7 +95,7 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
                 isObscuretext ? Icons.visibility_off : Icons.visibility,
               ),
             ),
-            hintText: 'Password',
+            hintText: AppLocalizations.of(context)!.password,
             obscureText: isObscuretext,
           ),
           const SizedBox(height: 24),
@@ -102,7 +104,7 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
                 ? [AppColors.darkGrey, AppColors.darkGrey]
                 : AppColors.mainRed,
             onPressed: _isButtonEnabled ? widget.onPressed : null,
-            text: 'Next',
+            text: AppLocalizations.of(context)!.next,
             textColor: Colors.white,
           ),
         ],

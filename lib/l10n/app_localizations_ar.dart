@@ -158,4 +158,70 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get yourPasswordSuccessfully => 'تم إعادة تعيين كلمة المرور الخاصة بك بنجاح';
+
+  @override
+  String get completeProfile => 'أكمل ملفك الشخصي';
+
+  @override
+  String get firstName => 'الاسم الأول';
+
+  @override
+  String get lastName => 'الاسم الأخير';
+
+  @override
+  String get mobileNumber => 'أدخل رقم هاتفك';
+
+  @override
+  String get completeYourProfile => 'أكمل ملفك الشخصي';
+
+  @override
+  String get completeYourAccount => 'أكمل البيانات أدناه لانشاء حسابك';
+
+  @override
+  String get personalInfo => 'المعلومات الشخصيه';
+
+  @override
+  String get gender => 'النوع';
+
+  @override
+  String get male => 'ذكر';
+
+  @override
+  String get female => 'أنثى';
+
+  @override
+  String get birthdate => 'تاريخ الميلاد';
+
+  @override
+  String get tapToSet => 'اضغط للتحديد';
+
+  @override
+  String get welcome => 'مرحبا';
+
+  @override
+  String get welcomeDescreption => 'لقد تم انشاء حسابك بنجاح يمكنك الآن استكشاف مشاركات واستفسارات مجتمع ريجو ومشاركاتهم افكارك ونشاطاتك ، هيا ابدأ رحلتك';
+
+  @override
+  String get signupWithGoogle => 'تسجيل الدخول باستخدام جوجل';
+
+  @override
+  String get signUpWithEmail => 'انشاء حساب باستخدام البريد الالكتروني';
+
+  @override
+  String get enterTheRequiredInformation => 'أدخل البيانات ادناه لإنشاء حسابك';
+
+  @override
+  String get region => 'معلومات المنطقه والسكن';
+
+  @override
+  String get country => 'الدوله';
+
+  @override
+  String get city => 'المدينة';
+
+  @override
+  String get selectYourCountry => 'قم بتحديد دولتك';
+
+  @override
+  String get searchCountry => 'ابحث عن الدوله';
 }

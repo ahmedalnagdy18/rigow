@@ -28,6 +28,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
     final onboardingList = createOnboardingList(context);
 
     return Scaffold(
@@ -116,7 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  alignment: Alignment.topRight,
+                  alignment: isArabic ? Alignment.topLeft : Alignment.topRight,
                   child: const ArabicButton(),
                 ),
               ),

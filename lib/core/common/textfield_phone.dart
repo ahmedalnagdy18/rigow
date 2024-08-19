@@ -30,9 +30,11 @@ class Phonetextfield extends StatelessWidget {
       showCountryFlag: false,
       dropdownIconPosition: IconPosition.trailing,
       decoration: InputDecoration(
-        labelText: 'Phone Number',
-        labelStyle: const TextStyle(
-          color: Color(0xFF9D9C99),
+        hintText: 'Phone Number',
+        hintStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: AppColors.hintText,
         ),
         focusedErrorBorder: OutlineInputBorder(
             borderSide: BorderSide(

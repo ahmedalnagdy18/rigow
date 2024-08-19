@@ -4,6 +4,7 @@ import 'package:rigow/core/common/custom_indicator.dart';
 import 'package:rigow/features/authentication/presentation/screens/complete_profile_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/select_country_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class MainCompleteYourProfilePage extends StatefulWidget {
   const MainCompleteYourProfilePage({super.key});
@@ -21,8 +22,8 @@ class _MainCompleteYourProfilePageState
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const AuthenticationAppbar(
-        title: 'Complete Profile',
+      appBar: AuthenticationAppbar(
+        title: AppLocalizations.of(context)!.completeProfile,
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(

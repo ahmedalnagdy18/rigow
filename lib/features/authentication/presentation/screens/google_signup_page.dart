@@ -4,6 +4,7 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/common/textfield_phone.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class GoogleSignupPage extends StatefulWidget {
   const GoogleSignupPage({super.key, required this.onPressed});
@@ -38,9 +39,10 @@ class _GoogleSignupPageState extends State<GoogleSignupPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Text('Sign up with Google', style: AppTexts.title),
-          const Text(
-            'Complete your account',
+          Text(AppLocalizations.of(context)!.signupWithGoogle,
+              style: AppTexts.title),
+          Text(
+            AppLocalizations.of(context)!.completeYourAccount,
             style: AppTexts.miniRegular,
           ),
           const SizedBox(height: 24),
@@ -49,7 +51,7 @@ class _GoogleSignupPageState extends State<GoogleSignupPage> {
               Expanded(
                 child: TextFieldWidget(
                   mycontroller: _firsName,
-                  hintText: 'First name',
+                  hintText: AppLocalizations.of(context)!.firstName,
                   obscureText: false,
                 ),
               ),
@@ -57,7 +59,7 @@ class _GoogleSignupPageState extends State<GoogleSignupPage> {
               Expanded(
                 child: TextFieldWidget(
                   mycontroller: _lastName,
-                  hintText: 'Last name',
+                  hintText: AppLocalizations.of(context)!.lastName,
                   obscureText: false,
                 ),
               ),
@@ -76,7 +78,7 @@ class _GoogleSignupPageState extends State<GoogleSignupPage> {
                 ? [AppColors.darkGrey, AppColors.darkGrey]
                 : AppColors.mainRed,
             onPressed: _isButtonEnabled ? widget.onPressed : null,
-            text: 'Next',
+            text: AppLocalizations.of(context)!.next,
             textColor: Colors.white,
           ),
         ],

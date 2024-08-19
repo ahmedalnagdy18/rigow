@@ -11,6 +11,7 @@ class ResetPasswordAppbar extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    bool isRtl = Localizations.localeOf(context).languageCode == 'ar';
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0.25,
@@ -19,31 +20,32 @@ class ResetPasswordAppbar extends StatelessWidget
       automaticallyImplyLeading: false,
       shadowColor: Colors.black,
       leadingWidth: 100,
-      leading: Row(
-        children: [
-          const SizedBox(
-            width: 16,
-          ),
-          GestureDetector(
-            onTap: () => Navigator.of(context).maybePop(),
-            child: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 18,
+      leading: InkWell(
+        onTap: () => Navigator.of(context).maybePop(),
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 16,
             ),
-          ),
-          const SizedBox(width: 3),
-          Flexible(
-            child: Text(
-              AppLocalizations.of(context)!.logIn,
-              style: AppTexts.regular.copyWith(color: AppColors.appBarRed),
-              maxLines: 1,
+            Icon(
+                size: 18,
+                isRtl ? Icons.arrow_forward_ios : Icons.arrow_back_ios),
+            const SizedBox(width: 3),
+            Flexible(
+              child: Text(
+                AppLocalizations.of(context)!.logIn,
+                style: AppTexts.regular.copyWith(color: AppColors.appBarRed),
+                maxLines: 1,
+                textAlign: isRtl ? TextAlign.right : TextAlign.left,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       title: Text(
         AppLocalizations.of(context)!.resetPassword,
         style: AppTexts.appBar,
+        textAlign: isRtl ? TextAlign.right : TextAlign.left,
       ),
     );
   }

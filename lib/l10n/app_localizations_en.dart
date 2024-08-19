@@ -158,4 +158,70 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get yourPasswordSuccessfully => 'Your password has been reset successfully';
+
+  @override
+  String get completeProfile => 'Complete Profile';
+
+  @override
+  String get firstName => 'First name';
+
+  @override
+  String get lastName => 'Last name';
+
+  @override
+  String get mobileNumber => 'Mobile number';
+
+  @override
+  String get completeYourProfile => 'Complete your profile';
+
+  @override
+  String get completeYourAccount => 'Complete your account';
+
+  @override
+  String get personalInfo => 'Personal info';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get birthdate => 'Birthdate';
+
+  @override
+  String get tapToSet => 'Tap to set';
+
+  @override
+  String get welcome => 'Welcome,';
+
+  @override
+  String get welcomeDescreption => 'Account was successfully created. You can now connect Rigow Community  and share your activities with them, come on to start your journey';
+
+  @override
+  String get signupWithGoogle => 'Sign up with Google';
+
+  @override
+  String get signUpWithEmail => 'Sign up with Email';
+
+  @override
+  String get enterTheRequiredInformation => 'Enter the required information';
+
+  @override
+  String get region => 'Region';
+
+  @override
+  String get country => 'Country';
+
+  @override
+  String get city => 'City';
+
+  @override
+  String get selectYourCountry => 'Select your country';
+
+  @override
+  String get searchCountry => 'Search country';
 }

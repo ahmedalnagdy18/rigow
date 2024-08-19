@@ -4,6 +4,7 @@ import 'package:rigow/core/common/custom_indicator.dart';
 import 'package:rigow/features/authentication/presentation/screens/signup_by_email_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/verification_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class MainSignUpPage extends StatefulWidget {
   const MainSignUpPage({super.key});
@@ -20,8 +21,8 @@ class _MainSignUpPageState extends State<MainSignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const AuthenticationAppbar(
-        title: 'Sign up',
+      appBar: AuthenticationAppbar(
+        title: AppLocalizations.of(context)!.signUp,
         automaticallyImplyLeading: true,
       ),
       resizeToAvoidBottomInset: false,

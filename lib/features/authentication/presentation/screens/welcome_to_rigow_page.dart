@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class WelcomeToRigowPage extends StatelessWidget {
   const WelcomeToRigowPage({super.key});
@@ -26,9 +27,18 @@ class WelcomeToRigowPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  RedText(
-                      text: 'Welcome, Ahmed',
-                      gradient: LinearGradient(colors: AppColors.mainRed)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RedText(
+                          text: AppLocalizations.of(context)!.welcome,
+                          gradient: LinearGradient(colors: AppColors.mainRed)),
+                      const SizedBox(width: 4),
+                      RedText(
+                          text: 'Ahmed',
+                          gradient: LinearGradient(colors: AppColors.mainRed)),
+                    ],
+                  ),
                   const SizedBox(height: 32),
                   Container(
                     width: 101,
@@ -41,17 +51,17 @@ class WelcomeToRigowPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 32),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      'Account was successfully created. You can now connect Rigow Community  and share your activities with them, come on to start your journey',
+                      AppLocalizations.of(context)!.welcomeDescreption,
                       textAlign: TextAlign.center,
                       style: AppTexts.miniRegular,
                     ),
                   ),
                   const SizedBox(height: 24),
                   ColoredButtonWidget(
-                      text: 'Next',
+                      text: AppLocalizations.of(context)!.next,
                       onPressed: () {
                         // Navigator.of(context).push(MaterialPageRoute(
                         //     builder: (context) => const WelcomeToRigowPage()));

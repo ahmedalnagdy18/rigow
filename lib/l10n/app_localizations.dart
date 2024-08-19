@@ -400,6 +400,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your password has been reset successfully'**
   String get yourPasswordSuccessfully;
+
+  /// No description provided for @completeProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Profile'**
+  String get completeProfile;
+
+  /// No description provided for @firstName.
+  ///
+  /// In en, this message translates to:
+  /// **'First name'**
+  String get firstName;
+
+  /// No description provided for @lastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Last name'**
+  String get lastName;
+
+  /// No description provided for @mobileNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile number'**
+  String get mobileNumber;
+
+  /// No description provided for @completeYourProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your profile'**
+  String get completeYourProfile;
+
+  /// No description provided for @completeYourAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete your account'**
+  String get completeYourAccount;
+
+  /// No description provided for @personalInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal info'**
+  String get personalInfo;
+
+  /// No description provided for @gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get gender;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// No description provided for @birthdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Birthdate'**
+  String get birthdate;
+
+  /// No description provided for @tapToSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to set'**
+  String get tapToSet;
+
+  /// No description provided for @welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome,'**
+  String get welcome;
+
+  /// No description provided for @welcomeDescreption.
+  ///
+  /// In en, this message translates to:
+  /// **'Account was successfully created. You can now connect Rigow Community  and share your activities with them, come on to start your journey'**
+  String get welcomeDescreption;
+
+  /// No description provided for @signupWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up with Google'**
+  String get signupWithGoogle;
+
+  /// No description provided for @signUpWithEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign up with Email'**
+  String get signUpWithEmail;
+
+  /// No description provided for @enterTheRequiredInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the required information'**
+  String get enterTheRequiredInformation;
+
+  /// No description provided for @region.
+  ///
+  /// In en, this message translates to:
+  /// **'Region'**
+  String get region;
+
+  /// No description provided for @country.
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get country;
+
+  /// No description provided for @city.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get city;
+
+  /// No description provided for @selectYourCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your country'**
+  String get selectYourCountry;
+
+  /// No description provided for @searchCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Search country'**
+  String get searchCountry;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
