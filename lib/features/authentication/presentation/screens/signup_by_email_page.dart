@@ -10,8 +10,10 @@ import 'package:rigow/features/authentication/presentation/widgets/signup_with_e
 import 'package:rigow/l10n/app_localizations.dart';
 
 class SignupByEmailPage extends StatefulWidget {
-  const SignupByEmailPage({super.key, required this.controller});
+  const SignupByEmailPage(
+      {super.key, required this.controller, required this.onNextTap});
   final PageController controller;
+  final Function(String email) onNextTap;
 
   @override
   State<SignupByEmailPage> createState() => _SignupByEmailPageState();
@@ -47,6 +49,7 @@ class _SignupByEmailPageState extends State<SignupByEmailPage> {
                     children: [
                       SignupWithEmailBody(
                         controller: widget.controller,
+                        onNextTap: widget.onNextTap,
                       ),
                     ],
                   ),

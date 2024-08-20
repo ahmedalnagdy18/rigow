@@ -8,3 +8,27 @@ mutation register($input :ManualRegisterInput!){
 } 
 }
 """;
+
+const String sendEmailVerificationCodee = r"""
+mutation sendEmailVerificationCode($input:SendEmailVerificationCodeInput!){
+  sendEmailVerificationCode(input:$input){
+    data
+    code
+    success
+    message
+  }
+}
+""";
+
+const String verifyUserByEmailInput = r"""
+mutation verifyUserByEmail($input:VerifyUserByEmailInput!){
+  verifyUserByEmail(input:$input){
+    data{
+      token
+    }
+    code
+    success
+    message
+  }
+}
+""";

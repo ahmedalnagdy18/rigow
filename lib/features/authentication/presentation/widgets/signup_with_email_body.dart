@@ -7,13 +7,16 @@ import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/common/textfield_phone.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/register_input.dart';
+import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/presentation/cubits/register_cubit/register_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/register_cubit/register_state.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class SignupWithEmailBody extends StatefulWidget {
-  const SignupWithEmailBody({super.key, required this.controller});
+  const SignupWithEmailBody(
+      {super.key, required this.controller, required this.onNextTap});
   final PageController controller;
+  final Function(String email) onNextTap;
 
   @override
   State<SignupWithEmailBody> createState() => _SignupWithEmailBodyState();
@@ -26,6 +29,8 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
   final _firstName = TextEditingController();
   final _lastName = TextEditingController();
 
+  String _currentCountryCode = 'EG';
+  String plus = '+';
   bool isObscuretext = true;
   bool _isButtonEnabled = false;
 
@@ -74,6 +79,9 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
           ),
           const SizedBox(height: 32),
           Phonetextfield(
+            onCountryChanged: (country) {
+              _currentCountryCode = country.dialCode;
+            },
             validator: (value) => _phoneNumber.text.isNotEmpty
                 ? null
                 : "Please enter your Mobile number",
@@ -110,7 +118,14 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
           BlocListener<RegisterCubit, RegisterState>(
             listener: (context, state) {
               if (state is SucsessRegsisterState) {
-                _isButtonEnabled ? widget.controller.jumpToPage(1) : null;
+                BlocProvider.of<RegisterCubit>(context)
+                    .sendEmailVerificationCode(SendEmailVerificationCodeEntity(
+                  email: _email.text,
+                  useCase: 'EMAIL_VERIFICATION',
+                ));
+              }
+              if (state is SucsessEmailVerificationCodeState) {
+                widget.onNextTap(_email.text);
               }
             },
             child: ColoredButtonWidget(
@@ -135,12 +150,13 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
     final input = RegisterInput(
       firstName: _firstName.text,
       lastName: _lastName.text,
-      phone: _phoneNumber.text,
+      phone: plus + _currentCountryCode + _phoneNumber.text,
       email: _email.text,
       password: _password.text,
       loginDetails: LoginDetailsInput("", DeviceEnum.android),
       role: UserRoleEnum.user,
     );
+
     BlocProvider.of<RegisterCubit>(context).registerFuc(input: input);
   }
 

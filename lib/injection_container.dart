@@ -1,9 +1,13 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
 import 'package:rigow/features/authentication/data/repositories/register_repository_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/send_email_verification.dart';
+import 'package:rigow/features/authentication/data/repositories/verify_user_repository_imp.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_usecase.dart';
 import 'package:get_it/get_it.dart';
+import 'package:rigow/features/authentication/domain/usecases/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/usecases/verify_user_usecase.dart';
 
 final sl = GetIt.instance;
 
@@ -15,10 +19,22 @@ Future<void> init() async {
   sl.registerLazySingleton<RegisterUsecase>(
       () => RegisterUsecase(repository: sl()));
 
+  sl.registerLazySingleton<SendEmailVerificationCodeUsecase>(
+      () => SendEmailVerificationCodeUsecase(repository: sl()));
+
+  sl.registerLazySingleton<VerifyUserUsecase>(
+      () => VerifyUserUsecase(repository: sl()));
+
 // Repository
 
   sl.registerLazySingleton<RegisterRepository>(
       () => RegisterRepositryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<SendEmailVerificationCodeRepository>(
+      () => SendEmailVerificationCodeRepositoryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<VerifyUserRepository>(
+      () => VerifyUserRepositoryImp(graphQLClient: sl()));
 
   sl.registerLazySingleton<GraphQLClient>(() {
     final authLink = AuthLink(getToken: () async {

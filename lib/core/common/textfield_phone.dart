@@ -2,16 +2,22 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 
 class Phonetextfield extends StatelessWidget {
   const Phonetextfield(
-      {super.key, this.focusNode, this.controller, this.validator});
+      {super.key,
+      this.focusNode,
+      this.controller,
+      this.validator,
+      required this.onCountryChanged});
   final FocusNode? focusNode;
   final TextEditingController? controller;
   final FutureOr<String?> Function(PhoneNumber?)? validator;
+  final Function(Country) onCountryChanged;
   @override
   Widget build(BuildContext context) {
     return IntlPhoneField(
@@ -22,7 +28,7 @@ class Phonetextfield extends StatelessWidget {
       flagsButtonPadding: const EdgeInsets.only(left: 16),
       controller: controller,
       focusNode: focusNode,
-      initialCountryCode: 'EG',
+      //  initialCountryCode: 'EG',
       disableLengthCheck: true,
       dropdownDecoration: const BoxDecoration(
           border:
@@ -58,7 +64,7 @@ class Phonetextfield extends StatelessWidget {
       flagsButtonMargin: const EdgeInsets.only(right: 12),
       languageCode: "EG",
       onChanged: (phone) {},
-      onCountryChanged: (country) {},
+      onCountryChanged: onCountryChanged,
     );
   }
 }

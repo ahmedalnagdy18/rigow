@@ -21,3 +21,16 @@ class ErrorRegsisterState extends RegisterState {
   @override
   List<Object> get props => [message];
 }
+
+class LoadingEmailVerificationCodeState extends RegisterState {}
+
+class SucsessEmailVerificationCodeState extends RegisterState {}
+
+class ErrorEmailVerificationCodeState extends RegisterState {
+  final String message;
+
+  const ErrorEmailVerificationCodeState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

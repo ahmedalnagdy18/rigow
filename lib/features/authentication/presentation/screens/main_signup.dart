@@ -15,7 +15,8 @@ class MainSignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RegisterCubit(registerUsecase: sl()),
+      create: (context) => RegisterCubit(
+          registerUsecase: sl(), sendEmailVerificationCodeUsecase: sl()),
       child: const _MainSignUpPage(),
     );
   }
@@ -31,6 +32,7 @@ class _MainSignUpPage extends StatefulWidget {
 class _MainSignUpPageState extends State<_MainSignUpPage> {
   int _currint = 0;
   final PageController _controller = PageController(initialPage: 0);
+  String? _email;
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +66,13 @@ class _MainSignUpPageState extends State<_MainSignUpPage> {
                   children: [
                     SignupByEmailPage(
                       controller: _controller,
+                      onNextTap: (email) {
+                        // Save the email when onNextTap is called
+                        setState(() {
+                          _email = email;
+                        });
+                        _controller.jumpToPage(1);
+                      },
                     ),
                     VerificationPage(
                       onTap: () {
@@ -73,6 +82,7 @@ class _MainSignUpPageState extends State<_MainSignUpPage> {
                           _currint = 0;
                         });
                       },
+                      email: _email ?? "",
                     ),
                   ],
                 ),
