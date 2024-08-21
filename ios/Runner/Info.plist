@@ -45,12 +45,19 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-
 	<key>CFBundleLocalizations</key>
 	<array>
-    <string>en</string>
-    <string>ar</string>
- 
-	 </array>
+		<string>en</string>
+		<string>ar</string>
+	</array>
+
+	<!-- Permissions for accessing camera and photo library -->
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires camera access to allow you to take and upload photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires access to your photo library to upload photos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app needs permission to add photos to your photo library.</string>
+	
 </dict>
 </plist>

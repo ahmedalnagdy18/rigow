@@ -71,5 +71,6 @@
     "country": "الدوله",
     "city": "المدينة",
     "selectYourCountry": "قم بتحديد دولتك",
-    "searchCountry": "ابحث عن الدوله"
+    "searchCountry": "ابحث عن الدوله",
+    "loading": "تحميل..."
 }

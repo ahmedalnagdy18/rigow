@@ -224,4 +224,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchCountry => 'Search country';
+
+  @override
+  String get loading => 'Loading...';
 }

@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/custom_indicator.dart';
+import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/screens/complete_profile_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/select_country_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
+import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
-class MainCompleteYourProfilePage extends StatefulWidget {
+class MainCompleteYourProfilePage extends StatelessWidget {
   const MainCompleteYourProfilePage({super.key});
 
   @override
-  State<MainCompleteYourProfilePage> createState() =>
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => CompleteProfileCubit(validateUsernameUsecase: sl()),
+      child: const _MainCompleteYourProfilePage(),
+    );
+  }
+}
+
+class _MainCompleteYourProfilePage extends StatefulWidget {
+  const _MainCompleteYourProfilePage();
+
+  @override
+  State<_MainCompleteYourProfilePage> createState() =>
       _MainCompleteYourProfilePageState();
 }
 
 class _MainCompleteYourProfilePageState
-    extends State<MainCompleteYourProfilePage> {
+    extends State<_MainCompleteYourProfilePage> {
   int _currint = 0;
   final PageController _controller = PageController(initialPage: 0);
   @override

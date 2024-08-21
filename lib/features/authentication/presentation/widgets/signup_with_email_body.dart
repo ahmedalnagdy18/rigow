@@ -128,17 +128,23 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
                 widget.onNextTap(_email.text);
               }
             },
-            child: ColoredButtonWidget(
-              grideantColors: !_isButtonEnabled
-                  ? [AppColors.darkGrey, AppColors.darkGrey]
-                  : AppColors.mainRed,
-              onPressed: () {
-                if (_isButtonEnabled) {
-                  _registerButton(context);
-                }
+            child: BlocBuilder<RegisterCubit, RegisterState>(
+              builder: (context, state) {
+                return ColoredButtonWidget(
+                  grideantColors: !_isButtonEnabled
+                      ? [AppColors.darkGrey, AppColors.darkGrey]
+                      : AppColors.mainRed,
+                  onPressed: () {
+                    if (_isButtonEnabled) {
+                      _registerButton(context);
+                    }
+                  },
+                  text: state is LoadingRegsisterState
+                      ? AppLocalizations.of(context)!.loading
+                      : AppLocalizations.of(context)!.next,
+                  textColor: Colors.white,
+                );
               },
-              text: AppLocalizations.of(context)!.next,
-              textColor: Colors.white,
             ),
           ),
         ],
@@ -163,6 +169,8 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
   void _isEnabled() {
     bool isEmailValid = EmailValidator.validate(_email.text);
     if (isEmailValid &&
+        _firstName.text.isNotEmpty &&
+        _lastName.text.isNotEmpty &&
         _email.text.isNotEmpty &&
         _password.text.isNotEmpty &&
         _phoneNumber.text.isNotEmpty) {

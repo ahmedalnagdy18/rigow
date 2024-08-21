@@ -14,7 +14,8 @@ class VervicationBody extends StatelessWidget {
       required this.redText,
       required this.colors,
       required this.resendOnTap,
-      required this.whatVerify});
+      required this.whatVerify,
+      this.color});
   final TextEditingController controller;
   final Function(String) onCompleted;
   final Function() changeOnTap;
@@ -23,6 +24,7 @@ class VervicationBody extends StatelessWidget {
   final List<Color> colors;
   final Function() resendOnTap;
   final String whatVerify;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,6 +52,7 @@ class VervicationBody extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         OtpWidget(
+          color: color,
           controller: controller,
           onCompleted: onCompleted,
         ),

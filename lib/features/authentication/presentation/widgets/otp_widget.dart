@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpWidget extends StatelessWidget {
-  const OtpWidget({super.key, required this.controller, this.onCompleted});
+  const OtpWidget(
+      {super.key, required this.controller, this.onCompleted, this.color});
   final TextEditingController? controller;
   final Function(String)? onCompleted;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Pinput(
@@ -20,10 +22,10 @@ class OtpWidget extends StatelessWidget {
         color: Colors.red,
       ),
       defaultPinTheme: PinTheme(
-          textStyle: const TextStyle(
+          textStyle: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.red,
+            color: color,
           ),
           height: 50,
           width: 50,

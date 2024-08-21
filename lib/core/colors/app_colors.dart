@@ -16,6 +16,7 @@ class AppColors {
   static Color forgetPassword = const Color(0xFF6A717F);
   static Color appBarRed = const Color(0xFFFF2D55);
   static Color errorColor = const Color(0xFFB71A2A);
+  static Color errorOrangeColor = const Color(0xFFFF9139);
 
   // static Color n5 = const Color(0x002a3838);
 

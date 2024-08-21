@@ -67,7 +67,6 @@ class _MainSignUpPageState extends State<_MainSignUpPage> {
                     SignupByEmailPage(
                       controller: _controller,
                       onNextTap: (email) {
-                        // Save the email when onNextTap is called
                         setState(() {
                           _email = email;
                         });

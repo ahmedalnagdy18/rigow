@@ -32,3 +32,14 @@ mutation verifyUserByEmail($input:VerifyUserByEmailInput!){
   }
 }
 """;
+
+const String validateUsernamee = r"""
+mutation validateUsername($username:String!){
+  validateUsername(username:$username){
+   data
+    code
+    success
+    message
+  }
+}
+""";

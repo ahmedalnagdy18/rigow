@@ -71,5 +71,6 @@
     "country": "Country",
     "city": "City",
     "selectYourCountry": "Select your country",
-    "searchCountry": "Search country"
+    "searchCountry": "Search country",
+    "loading": "Loading..."
 }

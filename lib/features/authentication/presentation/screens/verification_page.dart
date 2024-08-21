@@ -101,6 +101,7 @@ class _VerificationPageState extends State<_VerificationPage> {
         return Scaffold(
             backgroundColor: Colors.white,
             body: VervicationBody(
+              color: state is ErrorVerifyUserState ? Colors.red : Colors.green,
               whatVerify: 'account',
               blackText: _isTimerEnded
                   ? 'Didn’t receive any code yet?'

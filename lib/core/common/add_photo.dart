@@ -1,23 +1,33 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 
 class AddPhotoWidget extends StatelessWidget {
-  const AddPhotoWidget({super.key});
+  const AddPhotoWidget({super.key, this.onTap, this.imageFile});
+  final Function()? onTap;
+  final File? imageFile;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
-        Container(
-          width: 80,
-          height: 80,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: const CircleAvatar(
-            backgroundColor: Colors.grey,
-            backgroundImage: AssetImage('assets/images/addphoto.png'),
+        InkWell(
+          onTap: onTap,
+          child: Container(
+            width: 80,
+            height: 80,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: CircleAvatar(
+              backgroundColor: Colors.grey,
+              backgroundImage: imageFile != null
+                  ? FileImage(imageFile!)
+                  : const AssetImage('assets/images/addphoto.png')
+                      as ImageProvider,
+            ),
           ),
         ),
         Padding(

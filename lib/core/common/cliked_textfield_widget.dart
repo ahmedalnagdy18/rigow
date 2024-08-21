@@ -20,6 +20,7 @@ class ClikedTextFieldWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       height: 52,
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
         color: color,
         border: Border.all(color: borderColor),
       ),
