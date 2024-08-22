@@ -20,6 +20,7 @@ class Phonetextfield extends StatelessWidget {
   final Function(Country) onCountryChanged;
   @override
   Widget build(BuildContext context) {
+    bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
     return IntlPhoneField(
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.digitsOnly
@@ -36,7 +37,7 @@ class Phonetextfield extends StatelessWidget {
       showCountryFlag: false,
       dropdownIconPosition: IconPosition.trailing,
       decoration: InputDecoration(
-        hintText: 'Phone Number',
+        hintText: isArabic ? 'رقم الهاتف' : "Phone Number",
         hintStyle: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
@@ -61,7 +62,9 @@ class Phonetextfield extends StatelessWidget {
         ),
       ),
       validator: validator,
-      flagsButtonMargin: const EdgeInsets.only(right: 12),
+      textAlign: isArabic ? TextAlign.right : TextAlign.left,
+      flagsButtonMargin:
+          EdgeInsets.only(right: isArabic ? 0 : 12, left: isArabic ? 12 : 0),
       languageCode: "EG",
       onChanged: (phone) {},
       onCountryChanged: onCountryChanged,
