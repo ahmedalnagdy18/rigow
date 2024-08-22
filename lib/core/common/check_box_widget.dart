@@ -19,7 +19,13 @@ class CheckBoxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => onChanged(value),
+      onTap: () {
+        if (groupValue == value) {
+          onChanged(null);
+        } else {
+          onChanged(value);
+        }
+      },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

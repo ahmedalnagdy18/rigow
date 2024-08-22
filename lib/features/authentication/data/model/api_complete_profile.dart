@@ -1,49 +1,49 @@
 import 'dart:convert';
 
-class ApiVerifyUserByEmail {
-  final VerifyUserByEmail? verifyUserByEmail;
+class ApiCompleteProfileAsUser {
+  final CompleteProfileAsUser? completeProfileAsUser;
 
-  ApiVerifyUserByEmail({
-    this.verifyUserByEmail,
+  ApiCompleteProfileAsUser({
+    this.completeProfileAsUser,
   });
 
-  factory ApiVerifyUserByEmail.fromRawJson(String str) =>
-      ApiVerifyUserByEmail.fromJson(json.decode(str));
+  factory ApiCompleteProfileAsUser.fromRawJson(String str) =>
+      ApiCompleteProfileAsUser.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ApiVerifyUserByEmail.fromJson(Map<String, dynamic> json) =>
-      ApiVerifyUserByEmail(
-        verifyUserByEmail: json["verifyUserByEmail"] == null
+  factory ApiCompleteProfileAsUser.fromJson(Map<String, dynamic> json) =>
+      ApiCompleteProfileAsUser(
+        completeProfileAsUser: json["completeProfileAsUser"] == null
             ? null
-            : VerifyUserByEmail.fromJson(json["verifyUserByEmail"]),
+            : CompleteProfileAsUser.fromJson(json["completeProfileAsUser"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "verifyUserByEmail": verifyUserByEmail?.toJson(),
+        "completeProfileAsUser": completeProfileAsUser?.toJson(),
       };
 }
 
-class VerifyUserByEmail {
+class CompleteProfileAsUser {
   final Data? data;
   final int? code;
   final bool? success;
   final String? message;
 
-  VerifyUserByEmail({
+  CompleteProfileAsUser({
     this.data,
     this.code,
     this.success,
     this.message,
   });
 
-  factory VerifyUserByEmail.fromRawJson(String str) =>
-      VerifyUserByEmail.fromJson(json.decode(str));
+  factory CompleteProfileAsUser.fromRawJson(String str) =>
+      CompleteProfileAsUser.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory VerifyUserByEmail.fromJson(Map<String, dynamic> json) =>
-      VerifyUserByEmail(
+  factory CompleteProfileAsUser.fromJson(Map<String, dynamic> json) =>
+      CompleteProfileAsUser(
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
         code: json["code"],
         success: json["success"],
@@ -59,14 +59,14 @@ class VerifyUserByEmail {
 }
 
 class Data {
-  final String? token;
   final String? firstName;
   final String? lastName;
+  final String? id;
 
   Data({
-    this.token,
     this.firstName,
     this.lastName,
+    this.id,
   });
 
   factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
@@ -74,14 +74,14 @@ class Data {
   String toRawJson() => json.encode(toJson());
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        token: json["token"],
         firstName: json["firstName"],
         lastName: json["lastName"],
+        id: json["id"],
       );
 
   Map<String, dynamic> toJson() => {
-        "token": token,
         "firstName": firstName,
         "lastName": lastName,
+        "id": id,
       };
 }

@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-sealed class VerifyUserState extends Equatable {
+import '../../../domain/entities/user_data_for_complete.dart';
+
+abstract class VerifyUserState extends Equatable {
   const VerifyUserState();
 
   @override
@@ -11,7 +13,11 @@ final class VerifyUserInitial extends VerifyUserState {}
 
 class LoadingVerifyUserState extends VerifyUserState {}
 
-class SucsessVerifyUserState extends VerifyUserState {}
+class SucsessVerifyUserState extends VerifyUserState {
+  final UserDataForComplete dataForComplete;
+
+  SucsessVerifyUserState({required this.dataForComplete});
+}
 
 class ErrorVerifyUserState extends VerifyUserState {
   final String message;

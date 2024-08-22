@@ -6,15 +6,18 @@ import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
-class CountrySheet extends StatefulWidget {
-  const CountrySheet({super.key});
+class CountrySheet extends StatelessWidget {
+  final Function(String) onSelect;
+  final String? selectedValue;
+  final List<String> countries;
 
-  @override
-  State<CountrySheet> createState() => _CountrySheetState();
-}
+  const CountrySheet({
+    super.key,
+    required this.onSelect,
+    this.selectedValue,
+    required this.countries,
+  });
 
-class _CountrySheetState extends State<CountrySheet> {
-  String? selectedContury;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,18 +55,29 @@ class _CountrySheetState extends State<CountrySheet> {
               obscureText: false,
             ),
             const SizedBox(height: 16),
-            CheckBoxWidget(
-              value: 'Egypt',
-              groupValue: selectedContury,
-              onChanged: (value) {
-                setState(() {
-                  selectedContury = value;
-                });
-              },
-              title: 'Egypt',
+            Expanded(
+              child: ListView.builder(
+                itemCount: countries.length,
+                itemBuilder: (context, index) {
+                  final country = countries[index];
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CheckBoxWidget(
+                        value: country,
+                        groupValue: selectedValue,
+                        onChanged: (value) {
+                          onSelect(value);
+                          Navigator.pop(context);
+                        },
+                        title: country,
+                      ),
+                      Divider(color: AppColors.lightGrey),
+                    ],
+                  );
+                },
+              ),
             ),
-            const SizedBox(height: 12),
-            Divider(color: AppColors.lightGrey),
           ],
         ),
       ),

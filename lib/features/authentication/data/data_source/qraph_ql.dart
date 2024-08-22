@@ -25,6 +25,8 @@ mutation verifyUserByEmail($input:VerifyUserByEmailInput!){
   verifyUserByEmail(input:$input){
     data{
       token
+      firstName
+      lastName
     }
     code
     success
@@ -40,6 +42,23 @@ mutation validateUsername($username:String!){
     code
     success
     message
+  }
+}
+""";
+
+const String completeProfileAsUserr = r"""
+mutation completeProfileAsUser($input:CompleteProfileInput!){
+  completeProfileAsUser(input:$input){
+    data
+    {
+      firstName
+      lastName
+      id
+    }
+    code
+    success
+    message
+  
   }
 }
 """;

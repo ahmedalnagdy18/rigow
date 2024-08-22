@@ -94,7 +94,10 @@ class _VerificationPageState extends State<_VerificationPage> {
           ));
         } else if (state is SucsessVerifyUserState) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const MainCompleteYourProfilePage()));
+              builder: (context) => MainCompleteYourProfilePage(
+                    firstName: state.dataForComplete.firstName,
+                    lastName: state.dataForComplete.lastName,
+                  )));
         }
       },
       builder: (context, state) {

@@ -19,8 +19,14 @@ import 'package:rigow/features/authentication/presentation/cubits/user_complete_
 import 'package:rigow/l10n/app_localizations.dart';
 
 class CompleteProfilePage extends StatefulWidget {
-  const CompleteProfilePage({super.key, required this.onPressed});
+  const CompleteProfilePage(
+      {super.key,
+      required this.onPressed,
+      required this.firstName,
+      required this.lastName});
   final void Function() onPressed;
+  final String firstName;
+  final String lastName;
 
   @override
   State<CompleteProfilePage> createState() => _CompleteProfilePageState();
@@ -70,8 +76,9 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                     },
                   )),
                   const SizedBox(height: 16),
-                  const Center(
-                      child: Text('User Name', style: AppTexts.midTitle)),
+                  Center(
+                      child: Text('${widget.firstName} ${widget.lastName}',
+                          style: AppTexts.midTitle)),
                   const SizedBox(height: 24),
                   TextFieldWidget(
                     suffixIcon: state is SucsessValidateUsernameState
