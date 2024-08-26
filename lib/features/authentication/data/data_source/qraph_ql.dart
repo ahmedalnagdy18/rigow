@@ -62,3 +62,48 @@ mutation completeProfileAsUser($input:CompleteProfileInput!){
   }
 }
 """;
+
+const String countriess = r"""
+query countries($paginate:PaginatorInput){
+  countries(paginate:$paginate){
+    data{
+      items{
+        id
+        name
+      }
+    }
+  }
+}
+""";
+
+const String statess = r"""
+query states($input:StatesFilterInput!){
+  states(filter:$input){
+     data{
+      items{
+        id
+        name
+      }
+    }
+    code
+    success
+    message
+  }
+}
+""";
+
+const String citiess = r"""
+query cities($cityid : CitiesFilterInput!){
+  cities (filter:$cityid){
+    data{
+      items{
+        id
+        name
+      }
+    }
+    code
+    success
+    message
+  }
+}
+""";

@@ -6,15 +6,15 @@ import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/model/countries_model.dart';
+import 'package:rigow/features/authentication/domain/model/city_model.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
-class CountrySheet extends StatelessWidget {
-  final Function(CountriesModel) onSelect;
-  final CountriesModel? selectedValue;
-  final PagingController<int, CountriesModel> pagingController;
+class CitySheet extends StatelessWidget {
+  final Function(CityModel) onSelect;
+  final CityModel? selectedValue;
+  final PagingController<int, CityModel> pagingController;
 
-  const CountrySheet({
+  const CitySheet({
     super.key,
     required this.onSelect,
     this.selectedValue,
@@ -59,7 +59,7 @@ class CountrySheet extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Expanded(
-              child: PagedListView<int, CountriesModel>(
+              child: PagedListView<int, CityModel>(
                 pagingController: pagingController,
                 builderDelegate: PagedChildBuilderDelegate(
                   newPageProgressIndicatorBuilder: (context) {
@@ -69,24 +69,24 @@ class CountrySheet extends StatelessWidget {
                     return const Center(
                         child: Padding(
                       padding: EdgeInsets.only(top: 10),
-                      child: Text('No more countries !'),
+                      child: Text('No more area !'),
                     ));
                   },
                   firstPageProgressIndicatorBuilder: (context) {
                     return const Center(child: CupertinoActivityIndicator());
                   },
-                  itemBuilder: (context, country, index) {
+                  itemBuilder: (context, cities, index) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CheckBoxWidget(
-                          value: country,
+                          value: cities,
                           groupValue: selectedValue,
                           onChanged: (value) {
-                            onSelect(country);
+                            onSelect(cities);
                             Navigator.pop(context);
                           },
-                          title: country.name,
+                          title: cities.name,
                         ),
                         Divider(color: AppColors.lightGrey),
                       ],

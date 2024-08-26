@@ -1,13 +1,21 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
+import 'package:rigow/features/authentication/data/repositories/city_repository_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/complete_profile_user_repo_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/countries_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/register_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/send_email_verification.dart';
+import 'package:rigow/features/authentication/data/repositories/states_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/validate_username_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/verify_user_repository_imp.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:rigow/features/authentication/domain/usecases/city_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_user_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/countries_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rigow/features/authentication/domain/usecases/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/usecases/states_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/validate_username_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/verify_user_usecase.dart';
 
@@ -30,6 +38,17 @@ Future<void> init() async {
   sl.registerLazySingleton<ValidateUsernameUsecase>(
       () => ValidateUsernameUsecase(repository: sl()));
 
+  sl.registerLazySingleton<CompleteProfileUserUsecase>(
+      () => CompleteProfileUserUsecase(repository: sl()));
+
+  sl.registerLazySingleton<CountriesUsecase>(
+      () => CountriesUsecase(repository: sl()));
+
+  sl.registerLazySingleton<StatesUsecase>(
+      () => StatesUsecase(repository: sl()));
+
+  sl.registerLazySingleton<CityUsecase>(() => CityUsecase(repository: sl()));
+
 // Repository
 
   sl.registerLazySingleton<RegisterRepository>(
@@ -43,6 +62,18 @@ Future<void> init() async {
 
   sl.registerLazySingleton<ValidateUsernameRepository>(
       () => ValidateUsernameRepositoryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<CompleteProfileUserRepository>(
+      () => CompleteProfileUserRepoImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<CountriesRepository>(
+      () => CountriesRepositoryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<StatesRepository>(
+      () => StatesRepositoryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<CityRepository>(
+      () => CityRepositoryImp(graphQLClient: sl()));
 
   sl.registerLazySingleton<GraphQLClient>(() {
     final authLink = AuthLink(getToken: () async {
