@@ -16,9 +16,10 @@ import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/validate_username_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_state.dart';
+import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
-class CompleteProfilePage extends StatefulWidget {
+class CompleteProfilePage extends StatelessWidget {
   const CompleteProfilePage(
       {super.key,
       required this.onPressed,
@@ -27,12 +28,33 @@ class CompleteProfilePage extends StatefulWidget {
   final void Function() onPressed;
   final String firstName;
   final String lastName;
-
   @override
-  State<CompleteProfilePage> createState() => _CompleteProfilePageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => CompleteProfileCubit(validateUsernameUsecase: sl()),
+      child: _CompleteProfilePage(
+        firstName: firstName,
+        lastName: lastName,
+        onPressed: onPressed,
+      ),
+    );
+  }
 }
 
-class _CompleteProfilePageState extends State<CompleteProfilePage> {
+class _CompleteProfilePage extends StatefulWidget {
+  const _CompleteProfilePage(
+      {required this.onPressed,
+      required this.firstName,
+      required this.lastName});
+  final void Function() onPressed;
+  final String firstName;
+  final String lastName;
+
+  @override
+  State<_CompleteProfilePage> createState() => _CompleteProfilePageState();
+}
+
+class _CompleteProfilePageState extends State<_CompleteProfilePage> {
   File? image;
   DateTime? selectedDate;
   Future pickImage() async {

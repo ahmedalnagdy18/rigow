@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/custom_indicator.dart';
-import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_cubit.dart';
+import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/screens/complete_profile_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/select_country_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
@@ -18,7 +18,8 @@ class MainCompleteYourProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CompleteProfileCubit(validateUsernameUsecase: sl()),
+      create: (context) =>
+          MainCompleteProfileCubit(completeProfileUserUsecase: sl()),
       child: _MainCompleteYourProfilePage(
           firstName: firstName, lastName: lastName),
     );
