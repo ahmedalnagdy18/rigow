@@ -1,3 +1,17 @@
+const String loginn = r"""
+mutation login($input :EmailAndPasswordLoginInput!){
+  emailAndPasswordLogin(input:$input){
+     data{
+       token
+    }
+    code
+    success
+    message
+   
+} 
+}
+""";
+
 const String registerMutation = r"""
 mutation register($input :ManualRegisterInput!){
   register(input:$input){
@@ -104,6 +118,18 @@ query cities($cityid : CitiesFilterInput!){
     code
     success
     message
+  }
+}
+""";
+
+const String forgetPasswordd = r"""
+mutation forgetPassword ($input:ForgetPasswordInput!){
+  forgetPassword(input:$input){
+    data
+    code
+    success
+    message
+    
   }
 }
 """;

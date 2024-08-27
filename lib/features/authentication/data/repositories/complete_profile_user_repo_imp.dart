@@ -10,18 +10,17 @@ class CompleteProfileUserRepoImp implements CompleteProfileUserRepository {
   CompleteProfileUserRepoImp({required this.graphQLClient});
 
   @override
-  Future<void> completeProfile(
-      CompleteProfileUserEntity completeProfileUserEntity) async {
+  Future<void> completeProfile(CompleteProfileUserInput input) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(completeProfileAsUserr),
         variables: {
-          "input": completeProfileUserEntity.toJson(),
+          "input": input.toJson(),
         },
       ),
     );
     if (result.data == null) {
-      throw Exception();
+      throw Exception('data return null');
     }
     final response = ApiCompleteProfileAsUser.fromJson(result.data!);
     if (response.completeProfileAsUser != null &&

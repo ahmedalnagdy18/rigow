@@ -41,6 +41,20 @@ class _MainCompleteYourProfilePageState
     extends State<_MainCompleteYourProfilePage> {
   int _currint = 0;
   final PageController _controller = PageController(initialPage: 0);
+  String? username;
+  String? gender;
+  DateTime? birthdate;
+
+  void _onCompleteProfilePagePressed(
+      String username, String gender, DateTime birthdate) {
+    setState(() {
+      this.username = username;
+      this.gender = gender;
+      this.birthdate = birthdate;
+      _controller.jumpToPage(1);
+      _currint = 1;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,15 +88,14 @@ class _MainCompleteYourProfilePageState
                     CompleteProfilePage(
                       firstName: widget.firstName,
                       lastName: widget.lastName,
-                      onPressed: () {
-                        _controller.jumpToPage(1);
-
-                        setState(() {
-                          _currint = 1;
-                        });
-                      },
+                      onPressed: _onCompleteProfilePagePressed,
                     ),
-                    const SelectCountryPage(),
+                    SelectCountryPage(
+                      firstName: widget.firstName,
+                      birthdate: birthdate ?? DateTime.now(),
+                      gender: gender ?? "",
+                      username: username ?? "",
+                    ),
                   ],
                 ),
               ),

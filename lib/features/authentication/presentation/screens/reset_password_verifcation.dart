@@ -1,21 +1,38 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
-import 'package:rigow/features/authentication/presentation/screens/new_password_page.dart';
+import 'package:rigow/features/authentication/domain/entities/verify_user_entity.dart';
+import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_cubit.dart';
 import 'package:rigow/features/authentication/presentation/widgets/reset_password_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/vervication_body.dart';
+import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
-class ResetPasswordVerifcation extends StatefulWidget {
-  const ResetPasswordVerifcation({super.key});
+class ResetPasswordVerifcation extends StatelessWidget {
+  const ResetPasswordVerifcation({super.key, required this.email});
+  final String email;
 
   @override
-  State<ResetPasswordVerifcation> createState() =>
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => VerifyUserCubit(verifyUserUsecase: sl()),
+      child: _ResetPasswordVerifcation(email: email),
+    );
+  }
+}
+
+class _ResetPasswordVerifcation extends StatefulWidget {
+  const _ResetPasswordVerifcation({required this.email});
+  final String email;
+
+  @override
+  State<_ResetPasswordVerifcation> createState() =>
       _ResetPasswordVerifcationState();
 }
 
-class _ResetPasswordVerifcationState extends State<ResetPasswordVerifcation> {
+class _ResetPasswordVerifcationState extends State<_ResetPasswordVerifcation> {
   final TextEditingController _otpCode = TextEditingController();
   late Timer _timer;
   int _start = 120;
@@ -100,8 +117,10 @@ class _ResetPasswordVerifcationState extends State<ResetPasswordVerifcation> {
 
   void succsess() {
     if (_otpCode.text.isNotEmpty) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const NewPasswordPage()));
+      BlocProvider.of<VerifyUserCubit>(context).verifyUser(VerifyUserEntity(
+        email: widget.email,
+        verificationCode: _otpCode.text,
+      ));
     }
   }
 }

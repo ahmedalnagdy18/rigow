@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:bottom_picker/bottom_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rigow/core/colors/app_colors.dart';
@@ -25,7 +24,8 @@ class CompleteProfilePage extends StatelessWidget {
       required this.onPressed,
       required this.firstName,
       required this.lastName});
-  final void Function() onPressed;
+  final void Function(String username, String gender, DateTime birthdate)
+      onPressed;
   final String firstName;
   final String lastName;
   @override
@@ -46,7 +46,8 @@ class _CompleteProfilePage extends StatefulWidget {
       {required this.onPressed,
       required this.firstName,
       required this.lastName});
-  final void Function() onPressed;
+  final void Function(String username, String gender, DateTime birthdate)
+      onPressed;
   final String firstName;
   final String lastName;
 
@@ -58,14 +59,10 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
   File? image;
   DateTime? selectedDate;
   Future pickImage() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final imageTemp = File(image.path);
-      setState(() => this.image = imageTemp);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
-    }
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+    final imageTemp = File(image.path);
+    setState(() => this.image = imageTemp);
   }
 
   final TextEditingController _userName = TextEditingController();
@@ -182,7 +179,13 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                             _userName.text.isEmpty ||
                             selectedDate == null)
                         ? null
-                        : widget.onPressed,
+                        : () {
+                            widget.onPressed(
+                              _userName.text,
+                              selectedGender!,
+                              selectedDate!,
+                            );
+                          },
                     grideantColors: AppColors.mainRed,
                     textColor: Colors.white,
                   ),

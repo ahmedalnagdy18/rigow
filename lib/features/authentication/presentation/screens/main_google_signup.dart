@@ -18,6 +18,23 @@ class MainGoogleSignUpPage extends StatefulWidget {
 class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
   int _currint = 0;
   final PageController _controller = PageController(initialPage: 0);
+  String? username;
+  String? gender;
+  DateTime? birthdate;
+
+  void _onCompleteProfilePagePressed(
+      String username, String gender, DateTime birthdate) {
+    setState(() {
+      this.username = username;
+      this.gender = gender;
+      this.birthdate = birthdate;
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const WelcomeToRigowPage(
+                firstName: '',
+              )));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,10 +78,12 @@ class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
                     CompleteProfilePage(
                       firstName: '',
                       lastName: '',
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => const WelcomeToRigowPage()));
-                      },
+                      onPressed: _onCompleteProfilePagePressed,
+                      // () {
+
+                      //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      //       builder: (context) => const WelcomeToRigowPage()));
+                      // },
                     ),
                   ],
                 ),

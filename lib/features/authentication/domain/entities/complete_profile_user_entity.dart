@@ -1,25 +1,26 @@
-class CompleteProfileUserEntity {
-  final String countryId;
+class CompleteProfileUserInput {
+  final int countryId;
   final String username;
-  final String stateId;
-  final String cityId;
+  final int stateId;
+  final int cityId;
   final String gender;
-  final String birthDate;
+  final int birthDate;
 
-  CompleteProfileUserEntity(
-      {required this.countryId,
-      required this.stateId,
-      required this.cityId,
-      required this.gender,
-      required this.birthDate,
-      required this.username});
+  CompleteProfileUserInput({
+    required this.countryId,
+    required this.stateId,
+    required this.cityId,
+    required this.gender,
+    required this.birthDate,
+    required this.username,
+  });
   toJson() {
     return {
       "countryId": countryId,
       "username": username,
       "stateId": stateId,
       "cityId": cityId,
-      "gender": gender,
+      "gender": gender.toUpperCase(),
       "birthDate": birthDate,
     };
   }

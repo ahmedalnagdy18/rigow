@@ -8,8 +8,8 @@ class MainCompleteProfileCubit extends Cubit<MainCompleteProfileState> {
   MainCompleteProfileCubit({required this.completeProfileUserUsecase})
       : super(MainCompleteInitial());
 
-  void validateUsername(
-      CompleteProfileUserEntity completeProfileUserEntity) async {
+  void getAllUserData(
+      CompleteProfileUserInput completeProfileUserEntity) async {
     emit(LoadingCompleteProfileUserState());
 
     try {

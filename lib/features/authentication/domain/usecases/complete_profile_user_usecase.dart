@@ -5,7 +5,7 @@ class CompleteProfileUserUsecase {
   final CompleteProfileUserRepository repository;
 
   CompleteProfileUserUsecase({required this.repository});
-  Future<void> call(CompleteProfileUserEntity completeProfileUserEntity) async {
+  Future<void> call(CompleteProfileUserInput completeProfileUserEntity) async {
     return await repository.completeProfile(completeProfileUserEntity);
   }
 }

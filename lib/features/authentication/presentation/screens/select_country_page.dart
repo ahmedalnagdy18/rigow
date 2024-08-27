@@ -6,6 +6,7 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/cliked_textfield_widget.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/city_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_user_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/countries_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/states_entity.dart';
 import 'package:rigow/features/authentication/domain/model/city_model.dart';
@@ -13,6 +14,8 @@ import 'package:rigow/features/authentication/domain/model/countries_model.dart'
 import 'package:rigow/features/authentication/domain/model/states_model.dart';
 import 'package:rigow/features/authentication/presentation/cubits/countries/countries_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/countries/countries_state.dart';
+import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_cubit.dart';
+import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/welcome_to_rigow_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/city_sheet.dart';
 import 'package:rigow/features/authentication/presentation/widgets/country_sheet.dart';
@@ -21,20 +24,41 @@ import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class SelectCountryPage extends StatelessWidget {
-  const SelectCountryPage({super.key});
-
+  const SelectCountryPage(
+      {super.key,
+      required this.username,
+      required this.gender,
+      required this.birthdate,
+      required this.firstName});
+  final String username;
+  final String gender;
+  final DateTime birthdate;
+  final String firstName;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CountriesCubit(
           countriesUsecase: sl(), statesUsecase: sl(), cityUsecase: sl()),
-      child: const _SelectCountryPage(),
+      child: _SelectCountryPage(
+        birthdate: birthdate,
+        gender: gender,
+        username: username,
+        firstName: firstName,
+      ),
     );
   }
 }
 
 class _SelectCountryPage extends StatefulWidget {
-  const _SelectCountryPage();
+  final String firstName;
+  final String username;
+  final String gender;
+  final DateTime birthdate;
+  const _SelectCountryPage(
+      {required this.username,
+      required this.gender,
+      required this.birthdate,
+      required this.firstName});
 
   @override
   State<_SelectCountryPage> createState() => _SelectCountryPageState();
@@ -251,21 +275,40 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                     ),
                   ),
                 if (selectedCity != null) const SizedBox(height: 24),
-                ColoredButtonWidget(
-                  text: AppLocalizations.of(context)!.next,
-                  onPressed: selectedArea == null
-                      ? null
-                      : () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const WelcomeToRigowPage()));
-                        },
-                  grideantColors: selectedArea == null
-                      ? AppColors.greyLoader
-                      : AppColors.mainRed,
-                  textColor: Colors.white,
-                ),
+                BlocConsumer<MainCompleteProfileCubit,
+                    MainCompleteProfileState>(
+                  listener: (context, state) {
+                    if (state is SucsessCompleteProfileUserState) {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) =>
+                              WelcomeToRigowPage(firstName: widget.firstName)));
+                    }
+                  },
+                  builder: (context, state) {
+                    return ColoredButtonWidget(
+                      text: AppLocalizations.of(context)!.next,
+                      onPressed: selectedArea == null
+                          ? null
+                          : () {
+                              final input = CompleteProfileUserInput(
+                                countryId: selectedCountry!.id,
+                                stateId: selectedCity!.id,
+                                cityId: selectedArea!.id,
+                                gender: widget.gender,
+                                birthDate:
+                                    widget.birthdate.millisecondsSinceEpoch,
+                                username: widget.username,
+                              );
+                              BlocProvider.of<MainCompleteProfileCubit>(context)
+                                  .getAllUserData(input);
+                            },
+                      grideantColors: selectedArea == null
+                          ? AppColors.greyLoader
+                          : AppColors.mainRed,
+                      textColor: Colors.white,
+                    );
+                  },
+                )
               ],
             ),
           ),

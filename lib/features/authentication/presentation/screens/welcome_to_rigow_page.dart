@@ -5,7 +5,9 @@ import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class WelcomeToRigowPage extends StatelessWidget {
-  const WelcomeToRigowPage({super.key});
+  final String firstName;
+
+  const WelcomeToRigowPage({super.key, required this.firstName});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class WelcomeToRigowPage extends StatelessWidget {
                           gradient: LinearGradient(colors: AppColors.mainRed)),
                       const SizedBox(width: 4),
                       RedText(
-                          text: 'Ahmed',
+                          text: firstName,
                           gradient: LinearGradient(colors: AppColors.mainRed)),
                     ],
                   ),

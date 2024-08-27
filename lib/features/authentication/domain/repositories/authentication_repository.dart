@@ -1,6 +1,8 @@
 import 'package:rigow/features/authentication/domain/entities/city_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_user_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/countries_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/forget_pass_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/login_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/register_input.dart';
 import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/domain/entities/states_entity.dart';
@@ -10,6 +12,10 @@ import 'package:rigow/features/authentication/domain/entities/verify_user_entity
 import 'package:rigow/features/authentication/domain/model/city_model.dart';
 import 'package:rigow/features/authentication/domain/model/countries_model.dart';
 import 'package:rigow/features/authentication/domain/model/states_model.dart';
+
+abstract class LoginRepository {
+  Future<void> loginWithEmailAndPassword(LoginEntity loginEntity);
+}
 
 abstract class RegisterRepository {
   Future<void> register(RegisterInput registerEntity);
@@ -31,7 +37,7 @@ abstract class ValidateUsernameRepository {
 
 abstract class CompleteProfileUserRepository {
   Future<void> completeProfile(
-      CompleteProfileUserEntity completeProfileUserEntity);
+      CompleteProfileUserInput completeProfileUserEntity);
 }
 
 abstract class CountriesRepository {
@@ -45,4 +51,8 @@ abstract class StatesRepository {
 
 abstract class CityRepository {
   Future<List<CityModel>> cities(CityEntity cityEntity);
+}
+
+abstract class ForgetPassRepository {
+  Future<void> forgetPassword(ForgetPassEntity forgetPassEntity);
 }

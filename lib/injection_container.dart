@@ -3,6 +3,8 @@ import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
 import 'package:rigow/features/authentication/data/repositories/city_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/complete_profile_user_repo_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/countries_repository_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/forget_pass_repository_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/login_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/register_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/send_email_verification.dart';
 import 'package:rigow/features/authentication/data/repositories/states_repository_imp.dart';
@@ -12,6 +14,8 @@ import 'package:rigow/features/authentication/domain/repositories/authentication
 import 'package:rigow/features/authentication/domain/usecases/city_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/complete_profile_user_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/countries_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/forget_pass_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/login_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rigow/features/authentication/domain/usecases/send_email_verification.dart';
@@ -25,7 +29,7 @@ Future<void> init() async {
 //! Features - auchentication
 
 // Usecases
-
+  sl.registerLazySingleton<LoginUsecase>(() => LoginUsecase(repository: sl()));
   sl.registerLazySingleton<RegisterUsecase>(
       () => RegisterUsecase(repository: sl()));
 
@@ -49,7 +53,13 @@ Future<void> init() async {
 
   sl.registerLazySingleton<CityUsecase>(() => CityUsecase(repository: sl()));
 
+  sl.registerLazySingleton<ForgetPassUsecase>(
+      () => ForgetPassUsecase(repository: sl()));
+
 // Repository
+
+  sl.registerLazySingleton<LoginRepository>(
+      () => LoginRepositryImp(graphQLClient: sl()));
 
   sl.registerLazySingleton<RegisterRepository>(
       () => RegisterRepositryImp(graphQLClient: sl()));
@@ -75,6 +85,10 @@ Future<void> init() async {
   sl.registerLazySingleton<CityRepository>(
       () => CityRepositoryImp(graphQLClient: sl()));
 
+  sl.registerLazySingleton<ForgetPassRepository>(
+      () => ForgetPassRepositoryImp(graphQLClient: sl()));
+
+//---------------------------------------------------------------------------------------------------
   sl.registerLazySingleton<GraphQLClient>(() {
     final authLink = AuthLink(getToken: () async {
       final token = await getToken();
