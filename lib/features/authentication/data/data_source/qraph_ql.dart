@@ -133,3 +133,26 @@ mutation forgetPassword ($input:ForgetPasswordInput!){
   }
 }
 """;
+
+const String resetPasswordByEmaill = r"""
+mutation resetPasswordByEmail ($input:ResetPasswordInput!){
+  resetPasswordByEmail(input:$input){
+    data
+    code
+    success
+    message
+    
+  }
+}
+""";
+
+const String verifyForgetPasswordCodee = r"""
+mutation verifyForgetPasswordCode($input:VerifyForgetPasswordCodeInput!){
+  verifyForgetPasswordCode(input:$input){
+    data
+    code
+    success
+    message
+  }
+}
+""";

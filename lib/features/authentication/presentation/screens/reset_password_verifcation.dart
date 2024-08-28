@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
-import 'package:rigow/features/authentication/domain/entities/verify_user_entity.dart';
-import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_cubit.dart';
+import 'package:rigow/features/authentication/domain/entities/verify_forget_password_entity.dart';
+import 'package:rigow/features/authentication/presentation/cubits/verify_forget_pass_cubit/verify_forget_cubit.dart';
+import 'package:rigow/features/authentication/presentation/cubits/verify_forget_pass_cubit/verify_forget_state.dart';
+import 'package:rigow/features/authentication/presentation/screens/new_password_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/reset_password_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/vervication_body.dart';
 import 'package:rigow/injection_container.dart';
@@ -17,7 +19,7 @@ class ResetPasswordVerifcation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => VerifyUserCubit(verifyUserUsecase: sl()),
+      create: (context) => VerifyForgetCubit(verifyForgetPasswordUsecase: sl()),
       child: _ResetPasswordVerifcation(email: email),
     );
   }
@@ -80,44 +82,71 @@ class _ResetPasswordVerifcationState extends State<_ResetPasswordVerifcation> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: const ResetPasswordAppbar(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-        child: Column(
-          children: [
-            VervicationBody(
-              whatVerify: AppLocalizations.of(context)!.emailAddress,
-              blackText: _isTimerEnded
-                  ? AppLocalizations.of(context)!.didnotReceiveAnyCodeYet
-                  : AppLocalizations.of(context)!.resendCodeIn,
-              colors: _isTimerEnded
-                  ? AppColors.mainRed
-                  : [Colors.black, Colors.black],
-              controller: _otpCode,
-              onCompleted: (p0) {
-                succsess();
-              },
-              changeOnTap: () {},
-              redText: _isTimerEnded
-                  ? AppLocalizations.of(context)!.resendCode
-                  : getTimerText(),
-              resendOnTap: () {
-                if (_isTimerEnded) {
-                  resetTimer();
-                }
-              },
+    return BlocConsumer<VerifyForgetCubit, VerifyForgetState>(
+      listener: (context, state) {
+        if (state is ErrorVerifyForgetState) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text(state.message.toString()),
+            action: SnackBarAction(
+              label: 'Undo',
+              textColor: Colors.white,
+              onPressed: () {},
             ),
-          ],
-        ),
-      ),
+          ));
+        } else if (state is SucsessVerifyForgetState) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => NewPasswordPage(
+                    email: widget.email,
+                    otpCode: _otpCode.text,
+                  )));
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: const ResetPasswordAppbar(),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: Column(
+              children: [
+                VervicationBody(
+                  color: state is ErrorVerifyForgetState
+                      ? Colors.red
+                      : Colors.green,
+                  whatVerify: AppLocalizations.of(context)!.emailAddress,
+                  blackText: _isTimerEnded
+                      ? AppLocalizations.of(context)!.didnotReceiveAnyCodeYet
+                      : AppLocalizations.of(context)!.resendCodeIn,
+                  colors: _isTimerEnded
+                      ? AppColors.mainRed
+                      : [Colors.black, Colors.black],
+                  controller: _otpCode,
+                  onCompleted: (p0) {
+                    succsess();
+                  },
+                  changeOnTap: () {},
+                  redText: _isTimerEnded
+                      ? AppLocalizations.of(context)!.resendCode
+                      : getTimerText(),
+                  resendOnTap: () {
+                    if (_isTimerEnded) {
+                      resetTimer();
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
   void succsess() {
     if (_otpCode.text.isNotEmpty) {
-      BlocProvider.of<VerifyUserCubit>(context).verifyUser(VerifyUserEntity(
+      BlocProvider.of<VerifyForgetCubit>(context)
+          .verifyForgetPassword(VerifyForgetPasswordEntity(
         email: widget.email,
         verificationCode: _otpCode.text,
       ));

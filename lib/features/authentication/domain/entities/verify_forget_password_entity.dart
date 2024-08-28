@@ -1,10 +1,8 @@
-class VerifyUserEntity {
+class VerifyForgetPasswordEntity {
   final String email;
   final String verificationCode;
-  final String useCase;
 
-  VerifyUserEntity({
-    required this.useCase,
+  VerifyForgetPasswordEntity({
     required this.email,
     required this.verificationCode,
   });
@@ -13,7 +11,6 @@ class VerifyUserEntity {
     return {
       "email": email,
       "verificationCode": verificationCode,
-      "useCase": useCase.toUpperCase(),
     };
   }
 }

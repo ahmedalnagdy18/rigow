@@ -6,7 +6,7 @@ class ForgetPassUsecase {
 
   ForgetPassUsecase({required this.repository});
 
-  Future<void> call(ForgetPassEntity forgetPassEntity) async {
+  Future<void> call({required ForgetPassEntity forgetPassEntity}) async {
     return await repository.forgetPassword(forgetPassEntity);
   }
 }

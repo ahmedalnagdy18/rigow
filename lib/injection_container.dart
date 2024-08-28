@@ -6,9 +6,11 @@ import 'package:rigow/features/authentication/data/repositories/countries_reposi
 import 'package:rigow/features/authentication/data/repositories/forget_pass_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/login_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/register_repository_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/reset_password_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/send_email_verification.dart';
 import 'package:rigow/features/authentication/data/repositories/states_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/validate_username_repository_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/verify_forget_password_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/verify_user_repository_imp.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:rigow/features/authentication/domain/usecases/city_usecase.dart';
@@ -18,9 +20,11 @@ import 'package:rigow/features/authentication/domain/usecases/forget_pass_usecas
 import 'package:rigow/features/authentication/domain/usecases/login_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_usecase.dart';
 import 'package:get_it/get_it.dart';
+import 'package:rigow/features/authentication/domain/usecases/reset_password_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/send_email_verification.dart';
 import 'package:rigow/features/authentication/domain/usecases/states_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/validate_username_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/verify_forget_password_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/verify_user_usecase.dart';
 
 final sl = GetIt.instance;
@@ -56,6 +60,12 @@ Future<void> init() async {
   sl.registerLazySingleton<ForgetPassUsecase>(
       () => ForgetPassUsecase(repository: sl()));
 
+  sl.registerLazySingleton<ResetPasswordUsecase>(
+      () => ResetPasswordUsecase(repository: sl()));
+
+  sl.registerLazySingleton<VerifyForgetPasswordUsecase>(
+      () => VerifyForgetPasswordUsecase(repository: sl()));
+
 // Repository
 
   sl.registerLazySingleton<LoginRepository>(
@@ -87,6 +97,12 @@ Future<void> init() async {
 
   sl.registerLazySingleton<ForgetPassRepository>(
       () => ForgetPassRepositoryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<ResetPasswordRepository>(
+      () => ResetPasswordRepositoryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<VerifyForgetPasswordRepository>(
+      () => VerifyForgetPasswordRepositoryImp(graphQLClient: sl()));
 
 //---------------------------------------------------------------------------------------------------
   sl.registerLazySingleton<GraphQLClient>(() {

@@ -133,6 +133,7 @@ class _VerificationPageState extends State<_VerificationPage> {
       BlocProvider.of<VerifyUserCubit>(context).verifyUser(VerifyUserEntity(
         email: widget.email,
         verificationCode: _otpCode.text,
+        useCase: 'EMAIL_VERIFICATION',
       ));
     }
   }

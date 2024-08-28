@@ -16,7 +16,7 @@ class ForgetPassCubit extends Cubit<ForgetPassState> {
   void forget(ForgetPassEntity forgetPassEntity) async {
     emit(LoadingForgetPass());
     try {
-      await forgetPassUsecase.call(forgetPassEntity);
+      await forgetPassUsecase.call(forgetPassEntity: forgetPassEntity);
       emit(SucsessForgetPass());
     } catch (e) {
       if (e is FormatException) {

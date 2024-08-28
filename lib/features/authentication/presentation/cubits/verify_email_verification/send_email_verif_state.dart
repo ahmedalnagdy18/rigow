@@ -16,7 +16,7 @@ class LoadingVerifyUserState extends VerifyUserState {}
 class SucsessVerifyUserState extends VerifyUserState {
   final UserDataForComplete dataForComplete;
 
-  SucsessVerifyUserState({required this.dataForComplete});
+  const SucsessVerifyUserState({required this.dataForComplete});
 }
 
 class ErrorVerifyUserState extends VerifyUserState {
