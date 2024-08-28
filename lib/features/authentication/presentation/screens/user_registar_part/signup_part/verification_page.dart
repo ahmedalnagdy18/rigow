@@ -6,7 +6,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/features/authentication/domain/entities/verify_user_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_state.dart';
-import 'package:rigow/features/authentication/presentation/screens/main_complete_profile.dart';
+import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/main_complete_profile.dart';
 import 'package:rigow/features/authentication/presentation/widgets/vervication_body.dart';
 import 'package:rigow/injection_container.dart';
 

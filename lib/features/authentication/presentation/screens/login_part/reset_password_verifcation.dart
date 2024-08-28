@@ -6,7 +6,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/features/authentication/domain/entities/verify_forget_password_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_forget_pass_cubit/verify_forget_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_forget_pass_cubit/verify_forget_state.dart';
-import 'package:rigow/features/authentication/presentation/screens/new_password_page.dart';
+import 'package:rigow/features/authentication/presentation/screens/login_part/new_password_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/reset_password_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/vervication_body.dart';
 import 'package:rigow/injection_container.dart';

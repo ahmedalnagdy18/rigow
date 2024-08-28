@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/features/authentication/presentation/cubits/register_cubit/register_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/register_cubit/register_state.dart';
-import 'package:rigow/features/authentication/presentation/screens/login_page.dart';
+import 'package:rigow/features/authentication/presentation/screens/login_part/login_page.dart';
 
 import 'package:rigow/features/authentication/presentation/widgets/dont_have_acc_part.dart';
 

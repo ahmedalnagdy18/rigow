@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
-import 'package:rigow/features/authentication/presentation/screens/main_google_signup.dart';
-import 'package:rigow/features/authentication/presentation/screens/main_signup.dart';
+import 'package:rigow/features/authentication/presentation/screens/google_part/main_google_signup.dart';
+import 'package:rigow/features/authentication/presentation/screens/user_registar_part/signup_part/main_signup.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class SignWithButtonsWidget extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/presentation/screens/login_page.dart';
+import 'package:rigow/features/authentication/presentation/screens/login_part/login_page.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class GetStartedEndBody extends StatelessWidget {

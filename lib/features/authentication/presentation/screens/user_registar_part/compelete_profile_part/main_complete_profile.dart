@@ -1,21 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/custom_indicator.dart';
-import 'package:rigow/features/authentication/presentation/screens/complete_profile_page.dart';
-import 'package:rigow/features/authentication/presentation/screens/google_signup_page.dart';
-import 'package:rigow/features/authentication/presentation/screens/welcome_to_rigow_page.dart';
+import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_cubit.dart';
+import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/complete_profile_page.dart';
+import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/select_country_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
+import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
-class MainGoogleSignUpPage extends StatefulWidget {
-  const MainGoogleSignUpPage({super.key});
+class MainCompleteYourProfilePage extends StatelessWidget {
+  const MainCompleteYourProfilePage(
+      {super.key, required this.firstName, required this.lastName});
+  final String firstName;
+  final String lastName;
 
   @override
-  State<MainGoogleSignUpPage> createState() =>
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) =>
+          MainCompleteProfileCubit(completeProfileUserUsecase: sl()),
+      child: _MainCompleteYourProfilePage(
+          firstName: firstName, lastName: lastName),
+    );
+  }
+}
+
+class _MainCompleteYourProfilePage extends StatefulWidget {
+  final String firstName;
+  final String lastName;
+  const _MainCompleteYourProfilePage(
+      {required this.firstName, required this.lastName});
+
+  @override
+  State<_MainCompleteYourProfilePage> createState() =>
       _MainCompleteYourProfilePageState();
 }
 
-class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
+class _MainCompleteYourProfilePageState
+    extends State<_MainCompleteYourProfilePage> {
   int _currint = 0;
   final PageController _controller = PageController(initialPage: 0);
   String? username;
@@ -28,10 +51,8 @@ class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
       this.username = username;
       this.gender = gender;
       this.birthdate = birthdate;
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const WelcomeToRigowPage(
-                firstName: '',
-              )));
+      _controller.jumpToPage(1);
+      _currint = 1;
     });
   }
 
@@ -40,10 +61,8 @@ class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AuthenticationAppbar(
-        title: _currint == 0
-            ? AppLocalizations.of(context)!.signUp
-            : AppLocalizations.of(context)!.completeProfile,
-        automaticallyImplyLeading: true,
+        title: AppLocalizations.of(context)!.completeProfile,
+        automaticallyImplyLeading: false,
       ),
       body: SafeArea(
         child: Padding(
@@ -66,24 +85,16 @@ class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
                     });
                   },
                   children: [
-                    GoogleSignupPage(
-                      onPressed: () {
-                        _controller.jumpToPage(1);
-
-                        setState(() {
-                          _currint = 1;
-                        });
-                      },
-                    ),
                     CompleteProfilePage(
-                      firstName: '',
-                      lastName: '',
+                      firstName: widget.firstName,
+                      lastName: widget.lastName,
                       onPressed: _onCompleteProfilePagePressed,
-                      // () {
-
-                      //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      //       builder: (context) => const WelcomeToRigowPage()));
-                      // },
+                    ),
+                    SelectCountryPage(
+                      firstName: widget.firstName,
+                      birthdate: birthdate ?? DateTime.now(),
+                      gender: gender ?? "",
+                      username: username ?? "",
                     ),
                   ],
                 ),
