@@ -21,3 +21,16 @@ class ErrorVerifyForgetState extends VerifyForgetState {
   @override
   List<Object> get props => [message];
 }
+
+class LoadingEmailVerificationCodeState extends VerifyForgetState {}
+
+class SucsessEmailVerificationCodeState extends VerifyForgetState {}
+
+class ErrorEmailVerificationCodeState extends VerifyForgetState {
+  final String message;
+
+  const ErrorEmailVerificationCodeState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

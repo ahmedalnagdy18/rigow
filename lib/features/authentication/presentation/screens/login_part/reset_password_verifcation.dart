@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
+import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/domain/entities/verify_forget_password_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_forget_pass_cubit/verify_forget_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_forget_pass_cubit/verify_forget_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/login_part/new_password_page.dart';
+import 'package:rigow/features/authentication/presentation/screens/login_part/reset_password_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/reset_password_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/vervication_body.dart';
 import 'package:rigow/injection_container.dart';
@@ -19,7 +21,9 @@ class ResetPasswordVerifcation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => VerifyForgetCubit(verifyForgetPasswordUsecase: sl()),
+      create: (context) => VerifyForgetCubit(
+          verifyForgetPasswordUsecase: sl(),
+          sendEmailVerificationCodeUsecase: sl()),
       child: _ResetPasswordVerifcation(email: email),
     );
   }
@@ -125,12 +129,16 @@ class _ResetPasswordVerifcationState extends State<_ResetPasswordVerifcation> {
                   onCompleted: (p0) {
                     succsess();
                   },
-                  changeOnTap: () {},
+                  changeOnTap: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const ResetPasswordPage()));
+                  },
                   redText: _isTimerEnded
                       ? AppLocalizations.of(context)!.resendCode
                       : getTimerText(),
                   resendOnTap: () {
                     if (_isTimerEnded) {
+                      sendCodeAgian();
                       resetTimer();
                     }
                   },
@@ -141,6 +149,14 @@ class _ResetPasswordVerifcationState extends State<_ResetPasswordVerifcation> {
         );
       },
     );
+  }
+
+  void sendCodeAgian() {
+    BlocProvider.of<VerifyForgetCubit>(context)
+        .sendEmailVerificationCode(SendEmailVerificationCodeEntity(
+      email: widget.email,
+      useCase: 'PASSWORD_RESET',
+    ));
   }
 
   void succsess() {

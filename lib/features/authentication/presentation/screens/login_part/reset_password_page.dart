@@ -108,7 +108,9 @@ class _ResetPasswordPageState extends State<_ResetPasswordPage> {
                         _nextButton(context);
                       }
                     },
-                    text: AppLocalizations.of(context)!.next,
+                    text: state is LoadingEmailVerificationCodeState
+                        ? AppLocalizations.of(context)!.loading
+                        : AppLocalizations.of(context)!.next,
                     textColor: Colors.white,
                   ),
                 ),

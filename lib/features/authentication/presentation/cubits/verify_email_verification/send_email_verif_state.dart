@@ -27,3 +27,16 @@ class ErrorVerifyUserState extends VerifyUserState {
   @override
   List<Object> get props => [message];
 }
+
+class LoadingEmailVerificationCodeState extends VerifyUserState {}
+
+class SucsessEmailVerificationCodeState extends VerifyUserState {}
+
+class ErrorEmailVerificationCodeState extends VerifyUserState {
+  final String message;
+
+  const ErrorEmailVerificationCodeState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

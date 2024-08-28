@@ -178,7 +178,9 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
                                   _resetPassword(context);
                                 }
                               : null,
-                          text: AppLocalizations.of(context)!.resetPassword,
+                          text: state is LoadingResetPasswordState
+                              ? AppLocalizations.of(context)!.loading
+                              : AppLocalizations.of(context)!.resetPassword,
                           textColor: Colors.white,
                         ),
                       );

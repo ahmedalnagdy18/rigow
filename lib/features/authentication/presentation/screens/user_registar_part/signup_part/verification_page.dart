@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
+import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/domain/entities/verify_user_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_state.dart';
@@ -17,7 +18,8 @@ class VerificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => VerifyUserCubit(verifyUserUsecase: sl()),
+      create: (context) => VerifyUserCubit(
+          verifyUserUsecase: sl(), sendEmailVerificationCodeUsecase: sl()),
       child: _VerificationPage(onTap: onTap, email: email),
     );
   }
@@ -120,12 +122,21 @@ class _VerificationPageState extends State<_VerificationPage> {
               redText: _isTimerEnded ? 'Resend code' : getTimerText(),
               resendOnTap: () {
                 if (_isTimerEnded) {
+                  sendCodeAgian();
                   resetTimer();
                 }
               },
             ));
       },
     );
+  }
+
+  void sendCodeAgian() {
+    BlocProvider.of<VerifyUserCubit>(context)
+        .sendEmailVerificationCode(SendEmailVerificationCodeEntity(
+      email: widget.email,
+      useCase: 'EMAIL_VERIFICATION',
+    ));
   }
 
   void succsess() {
