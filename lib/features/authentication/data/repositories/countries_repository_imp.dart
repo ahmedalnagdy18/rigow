@@ -17,6 +17,7 @@ class CountriesRepositoryImp implements CountriesRepository {
       QueryOptions(
         document: gql(countriess),
         variables: {
+          "searchKey": countriesEntity.searchKey,
           "paginate": {
             "page": countriesEntity.page,
             "limit": countriesEntity.limit,

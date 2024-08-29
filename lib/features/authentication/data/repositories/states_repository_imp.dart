@@ -17,6 +17,7 @@ class StatesRepositoryImp implements StatesRepository {
         document: gql(statess),
         variables: {
           "input": {
+            "searchKey": statesEntity.searchKey,
             "countryId": statesEntity.countryId,
           },
         },

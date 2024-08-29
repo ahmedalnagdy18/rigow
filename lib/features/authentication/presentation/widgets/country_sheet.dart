@@ -13,12 +13,16 @@ class CountrySheet extends StatelessWidget {
   final Function(CountriesModel) onSelect;
   final CountriesModel? selectedValue;
   final PagingController<int, CountriesModel> pagingController;
+  final Function(String) onChanged;
+  final TextEditingController mycontroller;
 
   const CountrySheet({
     super.key,
     required this.onSelect,
     this.selectedValue,
     required this.pagingController,
+    required this.onChanged,
+    required this.mycontroller,
   });
 
   @override
@@ -53,6 +57,8 @@ class CountrySheet extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             TextFieldWidget(
+              mycontroller: mycontroller,
+              onChanged: onChanged,
               prefixIcon: const Icon(Icons.search, size: 20),
               hintText: AppLocalizations.of(context)!.searchCountry,
               obscureText: false,

@@ -76,33 +76,52 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
   CountriesModel? selectedCountry;
   StatesModel? selectedCity;
   CityModel? selectedArea;
+  final searchController = TextEditingController();
+  final citySearchController = TextEditingController();
+  final stateSearchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+
     _pagingController.addPageRequestListener((pageKey) {
       _fetchCountries(pageKey);
     });
+
     _pagingController2.addPageRequestListener((pageKey) {
       if (selectedCountry != null) {
         _fetchStates(pageKey);
       }
     });
+
     _pagingController3.addPageRequestListener((pageKey) {
       if (selectedCity != null) {
         _fetchCities(pageKey);
       }
     });
-    context
-        .read<CountriesCubit>()
-        .countries(CountriesEntity(page: 1, limit: _pageSize));
+
+    context.read<CountriesCubit>().countries(CountriesEntity(
+        page: 1, limit: _pageSize, searchKey: searchController.text));
+
+    if (selectedCountry != null) {
+      context.read<CountriesCubit>().states(StatesEntity(
+          searchKey: stateSearchController.text,
+          countryId: selectedCountry!.id));
+    }
+
+    if (selectedCity != null) {
+      context.read<CountriesCubit>().cities(CityEntity(
+          searchKey: citySearchController.text, stateId: selectedCity!.id));
+    }
   }
 
   Future<void> _fetchCountries(int pageKey) async {
     try {
       final cubit = context.read<CountriesCubit>();
-      final data = await cubit.countriesUsecase
-          .call(CountriesEntity(page: pageKey, limit: _pageSize));
+
+      final data = await cubit.countriesUsecase.call(CountriesEntity(
+          page: pageKey, limit: _pageSize, searchKey: searchController.text));
+
       final isLastPage = data.data.length < _pageSize;
       if (isLastPage) {
         _pagingController.appendLastPage(data.data);
@@ -118,8 +137,9 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
   Future<void> _fetchStates(int pageKey) async {
     try {
       final cubit = context.read<CountriesCubit>();
-      final data = await cubit.statesUsecase
-          .call(StatesEntity(countryId: selectedCountry!.id));
+      final data = await cubit.statesUsecase.call(StatesEntity(
+          countryId: selectedCountry!.id,
+          searchKey: stateSearchController.text));
       final isLastPage = data.length < _pageSize;
       if (isLastPage) {
         _pagingController2.appendLastPage(data);
@@ -135,8 +155,8 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
   Future<void> _fetchCities(int pageKey) async {
     try {
       final cubit = context.read<CountriesCubit>();
-      final cityData =
-          await cubit.cityUsecase.call(CityEntity(stateId: selectedCity!.id));
+      final cityData = await cubit.cityUsecase.call(CityEntity(
+          stateId: selectedCity!.id, searchKey: citySearchController.text));
       final isLastPage = cityData.length < _pageSize;
       if (isLastPage) {
         _pagingController3.appendLastPage(cityData);
@@ -151,6 +171,9 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
 
   @override
   void dispose() {
+    stateSearchController.dispose();
+    citySearchController.dispose();
+    searchController.dispose();
     _pagingController.dispose();
     _pagingController2.dispose();
     _pagingController3.dispose();
@@ -188,6 +211,10 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                       context: context,
                       builder: (BuildContext context) {
                         return CountrySheet(
+                          mycontroller: searchController,
+                          onChanged: (value) {
+                            _pagingController.refresh();
+                          },
                           pagingController: _pagingController,
                           selectedValue: selectedCountry,
                           onSelect: (value) {
@@ -220,6 +247,10 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                         context: context,
                         builder: (BuildContext context) {
                           return StatesSheet(
+                            stateController: stateSearchController,
+                            stateOnChanged: (value) {
+                              _pagingController2.refresh();
+                            },
                             pagingController: _pagingController2,
                             selectedValue: selectedCity,
                             onSelect: (value) {
@@ -251,6 +282,10 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                         context: context,
                         builder: (BuildContext context) {
                           return CitySheet(
+                            cityController: citySearchController,
+                            cityOnChanged: (value) {
+                              _pagingController3.refresh();
+                            },
                             pagingController: _pagingController3,
                             selectedValue: selectedArea,
                             onSelect: (value) {

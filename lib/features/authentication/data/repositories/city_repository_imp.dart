@@ -18,6 +18,7 @@ class CityRepositoryImp implements CityRepository {
         variables: {
           "cityid": {
             "stateId": cityEntity.stateId,
+            "searchKey": cityEntity.searchKey,
           },
         },
       ),

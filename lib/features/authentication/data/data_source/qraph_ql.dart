@@ -78,8 +78,8 @@ mutation completeProfileAsUser($input:CompleteProfileInput!){
 """;
 
 const String countriess = r"""
-query countries($paginate:PaginatorInput){
-  countries(paginate:$paginate){
+query countries($paginate:PaginatorInput, $searchKey: String){
+  countries(paginate:$paginate, searchKey:$searchKey){
     data{
       items{
         id

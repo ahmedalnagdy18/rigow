@@ -13,12 +13,16 @@ class StatesSheet extends StatelessWidget {
   final Function(StatesModel) onSelect;
   final StatesModel? selectedValue;
   final PagingController<int, StatesModel> pagingController;
+  final Function(String) stateOnChanged;
+  final TextEditingController stateController;
 
   const StatesSheet({
     super.key,
     required this.onSelect,
     this.selectedValue,
     required this.pagingController,
+    required this.stateOnChanged,
+    required this.stateController,
   });
 
   @override
@@ -53,6 +57,8 @@ class StatesSheet extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             TextFieldWidget(
+              mycontroller: stateController,
+              onChanged: stateOnChanged,
               prefixIcon: const Icon(Icons.search, size: 20),
               hintText: AppLocalizations.of(context)!.searchCountry,
               obscureText: false,
