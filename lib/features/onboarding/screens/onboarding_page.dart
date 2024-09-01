@@ -75,11 +75,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                     ),
                     const SizedBox(height: 46),
-                    if (currentPage != 2)
-                      DotsWidget(
-                        dotsCount: onboardingList.length,
-                        position: currentPage,
-                      ),
+                    DotsWidget(
+                      dotsCount: onboardingList.length,
+                      position: currentPage,
+                    ),
                     const SizedBox(height: 32),
                     ColoredButtonWidget(
                         text: currentPage == 2

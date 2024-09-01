@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
@@ -104,6 +105,9 @@ class _LoginPageState extends State<_LoginPageBody> {
                         ),
                         const SizedBox(height: 24),
                         TextFieldWidget(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                          ],
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) => EmailValidator.validate(value!)
                               ? null
@@ -114,6 +118,9 @@ class _LoginPageState extends State<_LoginPageBody> {
                         ),
                         const SizedBox(height: 16),
                         TextFieldWidget(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                          ],
                           mycontroller: _password,
                           suffixIcon: GestureDetector(
                             onTap: () {

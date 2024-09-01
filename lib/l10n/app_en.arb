@@ -72,5 +72,6 @@
     "city": "City",
     "selectYourCountry": "Select your country",
     "searchCountry": "Search country",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "emailValidator": "Please enter a valid email"
 }

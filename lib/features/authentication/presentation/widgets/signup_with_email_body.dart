@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
@@ -62,6 +63,10 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
             children: [
               Expanded(
                 child: TextFieldWidget(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+                  ],
+                  maxLength: 15,
                   mycontroller: _firstName,
                   hintText: AppLocalizations.of(context)!.firstName,
                   obscureText: false,
@@ -70,6 +75,10 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
               const SizedBox(width: 8),
               Expanded(
                 child: TextFieldWidget(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+                  ],
+                  maxLength: 15,
                   mycontroller: _lastName,
                   hintText: AppLocalizations.of(context)!.lastName,
                   obscureText: false,
@@ -89,16 +98,22 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
           ),
           const SizedBox(height: 16),
           TextFieldWidget(
+            inputFormatters: [
+              FilteringTextInputFormatter.deny(RegExp(r'\s')),
+            ],
             keyboardType: TextInputType.emailAddress,
             validator: (value) => EmailValidator.validate(value!)
                 ? null
-                : "Please enter a valid email",
+                : AppLocalizations.of(context)!.emailValidator,
             mycontroller: _email,
             hintText: AppLocalizations.of(context)!.emailAddress,
             obscureText: false,
           ),
           const SizedBox(height: 16),
           TextFieldWidget(
+            inputFormatters: [
+              FilteringTextInputFormatter.deny(RegExp(r'\s')),
+            ],
             mycontroller: _password,
             suffixIcon: GestureDetector(
               onTap: () {

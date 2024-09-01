@@ -16,6 +16,7 @@ class TextFieldWidget extends StatelessWidget {
   final Function(String)? onChanged;
   final List<TextInputFormatter>? inputFormatters;
   final TextStyle? errorStyle;
+  final int? maxLength;
 
   const TextFieldWidget({
     super.key,
@@ -31,6 +32,7 @@ class TextFieldWidget extends StatelessWidget {
     this.onChanged,
     this.inputFormatters,
     this.errorStyle,
+    this.maxLength,
   });
 
   @override
@@ -39,12 +41,14 @@ class TextFieldWidget extends StatelessWidget {
       style: AppTexts.miniRegular,
       onChanged: onChanged,
       obscureText: obscureText,
+      maxLength: maxLength,
       controller: mycontroller,
       validator: validator,
       inputFormatters: inputFormatters,
       keyboardType: keyboardType,
       decoration: InputDecoration(
         labelText: label,
+        counterText: '',
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: AppColors.textfieldBorder,
@@ -68,6 +72,7 @@ class TextFieldWidget extends StatelessWidget {
             color: AppColors.textfieldBorder,
           ),
         ),
+
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,

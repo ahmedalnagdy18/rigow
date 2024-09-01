@@ -227,4 +227,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loading => 'تحميل...';
+
+  @override
+  String get emailValidator => 'الرجاء إدخال بريد إلكتروني صالح';
 }
