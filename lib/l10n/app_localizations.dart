@@ -149,6 +149,12 @@ abstract class AppLocalizations {
   /// **'العربيه'**
   String get lang;
 
+  /// No description provided for @continueAsAnUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue as an User'**
+  String get continueAsAnUser;
+
   /// No description provided for @continueAsAnExpert.
   ///
   /// In en, this message translates to:
@@ -544,6 +550,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please enter a valid email'**
   String get emailValidator;
+
+  /// No description provided for @exonboarding1.
+  ///
+  /// In en, this message translates to:
+  /// **'Share posts, join rooms, and communicate with others'**
+  String get exonboarding1;
+
+  /// No description provided for @exonboarding2.
+  ///
+  /// In en, this message translates to:
+  /// **'Create reels and stories, write blogs, and give answers to community queries as an administrator'**
+  String get exonboarding2;
+
+  /// No description provided for @setYourExpertAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your Expert account'**
+  String get setYourExpertAccount;
+
+  /// No description provided for @confirmYourQualifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your qualifications'**
+  String get confirmYourQualifications;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

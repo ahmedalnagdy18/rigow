@@ -10,8 +10,12 @@ import 'package:rigow/features/authentication/presentation/widgets/signup_with_e
 import 'package:rigow/l10n/app_localizations.dart';
 
 class SignupByEmailPage extends StatefulWidget {
+  final String role;
   const SignupByEmailPage(
-      {super.key, required this.controller, required this.onNextTap});
+      {super.key,
+      required this.controller,
+      required this.onNextTap,
+      required this.role});
   final PageController controller;
   final Function(String email) onNextTap;
 
@@ -60,7 +64,9 @@ class _SignupByEmailPageState extends State<SignupByEmailPage> {
                 child: DontHaveAccPart(
                   redTextOnTap: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const LoginPage()));
+                        builder: (context) => LoginPage(
+                              role: widget.role,
+                            )));
                   },
                   blackText: AppLocalizations.of(context)!.alreadyHaveAnAccount,
                   redText: AppLocalizations.of(context)!.logIn,

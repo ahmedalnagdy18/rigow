@@ -7,7 +7,8 @@ import 'package:rigow/features/authentication/presentation/widgets/sign_with_but
 import 'package:rigow/l10n/app_localizations.dart';
 
 class GetStartedPage extends StatelessWidget {
-  const GetStartedPage({super.key});
+  final String role;
+  const GetStartedPage({super.key, required this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,9 @@ class GetStartedPage extends StatelessWidget {
                   style: AppTexts.regular,
                 ),
                 const SizedBox(height: 24),
-                const SignWithButtonsWidget(),
+                SignWithButtonsWidget(
+                  role: role,
+                ),
                 const SizedBox(height: 24),
                 Padding(
                   padding: const EdgeInsets.only(right: 50),
@@ -93,7 +96,9 @@ class GetStartedPage extends StatelessWidget {
                 const SizedBox(
                   height: 84,
                 ),
-                const GetStartedEndBody(),
+                GetStartedEndBody(
+                  role: role,
+                ),
               ],
             ),
           ),

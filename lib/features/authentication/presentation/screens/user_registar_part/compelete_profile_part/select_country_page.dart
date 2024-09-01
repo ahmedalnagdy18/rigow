@@ -29,36 +29,47 @@ class SelectCountryPage extends StatelessWidget {
       required this.username,
       required this.gender,
       required this.birthdate,
-      required this.firstName});
+      required this.firstName,
+      required this.role,
+      required this.controller});
   final String username;
   final String gender;
   final DateTime birthdate;
   final String firstName;
+  final String role;
+  final PageController controller;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CountriesCubit(
           countriesUsecase: sl(), statesUsecase: sl(), cityUsecase: sl()),
       child: _SelectCountryPage(
+        role: role,
         birthdate: birthdate,
         gender: gender,
         username: username,
         firstName: firstName,
+        controller: controller,
       ),
     );
   }
 }
 
 class _SelectCountryPage extends StatefulWidget {
+  final String role;
   final String firstName;
   final String username;
   final String gender;
   final DateTime birthdate;
+  final PageController controller;
   const _SelectCountryPage(
       {required this.username,
       required this.gender,
       required this.birthdate,
-      required this.firstName});
+      required this.firstName,
+      required this.role,
+      required this.controller});
 
   @override
   State<_SelectCountryPage> createState() => _SelectCountryPageState();
@@ -314,12 +325,22 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                     MainCompleteProfileState>(
                   listener: (context, state) {
                     if (state is SucsessCompleteProfileUserState) {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) =>
-                              WelcomeToRigowPage(firstName: widget.firstName)));
+                      widget.role == 'Expert'
+                          ? (widget.controller).animateToPage(
+                              2,
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.ease,
+                            )
+                          : Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) => WelcomeToRigowPage(
+                                    firstName: widget.firstName),
+                              ),
+                            );
                     }
                   },
                   builder: (context, state) {
+                    print("The role is = ${widget.role}");
                     return ColoredButtonWidget(
                       text: AppLocalizations.of(context)!.next,
                       onPressed: selectedArea == null

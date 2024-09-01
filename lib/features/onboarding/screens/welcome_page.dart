@@ -15,6 +15,7 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
+
     return Scaffold(
       body: Stack(
         alignment: AlignmentDirectional.bottomCenter,
@@ -39,25 +40,31 @@ class _WelcomePageState extends State<WelcomePage> {
                       ColoredButtonWidget(
                         grideantColors: const [Colors.white, Colors.white],
                         onPressed: () {
+                          // Navigate role as "User"
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const OnboardingScreen()));
+                              builder: (context) => const OnboardingScreen(
+                                    role: 'User',
+                                  )));
                         },
                         text: AppLocalizations.of(context)!.next,
                         textColor: Colors.black,
                       ),
                       const SizedBox(height: 16),
                       TranceparentButtonWidget(
-                        onPressed: () {},
+                        onPressed: () {
+                          // Navigate role as "Expert"
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const OnboardingScreen(
+                                    role: 'Expert',
+                                  )));
+                        },
                         text: AppLocalizations.of(context)!.continueAsAnExpert,
                         textColor: Colors.white,
                         borderColor: Colors.white,
                       ),
                       const SizedBox(height: 16),
                       InkWell(
-                        onTap: () {
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //     builder: (context) => const Navbar()));
-                        },
+                        onTap: () {},
                         child: Text(
                           AppLocalizations.of(context)!.exploreTheApp,
                           style: const TextStyle(

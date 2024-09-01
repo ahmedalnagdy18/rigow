@@ -8,7 +8,8 @@ import 'package:rigow/features/authentication/presentation/screens/user_registar
 import 'package:rigow/l10n/app_localizations.dart';
 
 class SignWithButtonsWidget extends StatelessWidget {
-  const SignWithButtonsWidget({super.key});
+  final String role;
+  const SignWithButtonsWidget({super.key, required this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,9 @@ class SignWithButtonsWidget extends StatelessWidget {
           color: AppColors.lightGrey,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const MainSignUpPage()));
+                builder: (context) => MainSignUpPage(
+                      role: role,
+                    )));
           },
           text: AppLocalizations.of(context)!.signUpByEmail,
           textColor: Colors.black,

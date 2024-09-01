@@ -34,6 +34,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get lang => 'English';
 
   @override
+  String get continueAsAnUser => 'استمر كمستخدم';
+
+  @override
   String get continueAsAnExpert => 'استمر كخبير';
 
   @override
@@ -230,4 +233,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get emailValidator => 'الرجاء إدخال بريد إلكتروني صالح';
+
+  @override
+  String get exonboarding1 => 'شارك المنشورات، وانضم إلى الغرف للحصول على المشوره ، واستمتع بالتواصل مع الآخرين';
+
+  @override
+  String get exonboarding2 => 'شارك نشاطاتك من خلال مقاطع الفيديو والحالات يوميه، اكتب مقالات وقدم إجابات لاستفسارات المجتمع كمسؤول للغرفه';
+
+  @override
+  String get setYourExpertAccount => 'إعداد حساب خبير';
+
+  @override
+  String get confirmYourQualifications => 'قم بإكمال البيانات ادناه لتأكيد مؤهلاتك';
 }

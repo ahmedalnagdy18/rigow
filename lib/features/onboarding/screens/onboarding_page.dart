@@ -10,7 +10,8 @@ import 'package:rigow/features/onboarding/widgets/onboarding_widget.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+  final String role;
+  const OnboardingScreen({super.key, required this.role});
 
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
@@ -29,7 +30,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
-    final onboardingList = createOnboardingList(context);
+    final onboardingList = widget.role == 'Expert'
+        ? createExpertOnboardingList(context)
+        : createUserOnboardingList(context);
 
     return Scaffold(
       body: Stack(
@@ -82,12 +85,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const SizedBox(height: 32),
                     ColoredButtonWidget(
                         text: currentPage == 2
-                            ? AppLocalizations.of(context)!.getStarted
+                            ? widget.role == 'Expert'
+                                ? AppLocalizations.of(context)!
+                                    .continueAsAnExpert
+                                : AppLocalizations.of(context)!.getStarted
                             : AppLocalizations.of(context)!.next,
                         onPressed: () {
                           if (currentPage == 2) {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const GetStartedPage(),
+                              builder: (context) => GetStartedPage(
+                                role: widget.role,
+                              ),
                             ));
                           } else {
                             pageController.nextPage(
@@ -101,11 +109,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     InkWell(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const GetStartedPage()));
+                            builder: (context) => GetStartedPage(
+                                  role: widget.role,
+                                )));
                       },
                       child: Text(
                         currentPage == 2
-                            ? AppLocalizations.of(context)!.continueAsAnExpert
+                            ? widget.role == 'Expert'
+                                ? AppLocalizations.of(context)!.continueAsAnUser
+                                : AppLocalizations.of(context)!
+                                    .continueAsAnExpert
                             : AppLocalizations.of(context)!.skip,
                         style: AppTexts.medium.copyWith(color: Colors.white),
                       ),

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
-import 'package:rigow/core/common/custom_indicator.dart';
+import 'package:rigow/core/common/expert_custom_indicator.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_cubit.dart';
+import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/set_expert_acc_page.dart';
+import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/page4.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/complete_profile_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/select_country_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
-class MainCompleteYourProfilePage extends StatelessWidget {
-  const MainCompleteYourProfilePage(
+class ExpertMainComplete extends StatelessWidget {
+  const ExpertMainComplete(
       {super.key,
       required this.firstName,
       required this.lastName,
@@ -24,29 +26,25 @@ class MainCompleteYourProfilePage extends StatelessWidget {
     return BlocProvider(
       create: (context) =>
           MainCompleteProfileCubit(completeProfileUserUsecase: sl()),
-      child: _MainCompleteYourProfilePage(
-        firstName: firstName,
-        lastName: lastName,
-        role: role,
-      ),
+      child: _ExpertMainComplete(
+          firstName: firstName, lastName: lastName, role: role),
     );
   }
 }
 
-class _MainCompleteYourProfilePage extends StatefulWidget {
+class _ExpertMainComplete extends StatefulWidget {
   final String firstName;
   final String lastName;
   final String role;
-  const _MainCompleteYourProfilePage(
+
+  const _ExpertMainComplete(
       {required this.firstName, required this.lastName, required this.role});
 
   @override
-  State<_MainCompleteYourProfilePage> createState() =>
-      _MainCompleteYourProfilePageState();
+  State<_ExpertMainComplete> createState() => _ExpertMainCompleteState();
 }
 
-class _MainCompleteYourProfilePageState
-    extends State<_MainCompleteYourProfilePage> {
+class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
   int _currint = 0;
   final PageController _controller = PageController(initialPage: 0);
   String? username;
@@ -67,7 +65,9 @@ class _MainCompleteYourProfilePageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: _currint == 0 || _currint == 1 || _currint == 3
+          ? Colors.white
+          : AppColors.grey,
       appBar: AuthenticationAppbar(
         title: AppLocalizations.of(context)!.completeProfile,
         automaticallyImplyLeading: false,
@@ -77,15 +77,13 @@ class _MainCompleteYourProfilePageState
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Column(
             children: [
-              CustomIndicator(
-                colors:
-                    _currint == 1 ? AppColors.mainRed : AppColors.greyLoader,
+              ExpertCustomIndicator(
+                currentPage: _currint,
+                totalPages: 4,
               ),
               const SizedBox(height: 24),
               Expanded(
                 child: PageView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
                   controller: _controller,
                   onPageChanged: (int value) {
                     setState(() {
@@ -99,13 +97,15 @@ class _MainCompleteYourProfilePageState
                       onPressed: _onCompleteProfilePagePressed,
                     ),
                     SelectCountryPage(
-                      controller: _controller,
                       role: widget.role,
+                      controller: _controller,
                       firstName: widget.firstName,
                       birthdate: birthdate ?? DateTime.now(),
                       gender: gender ?? "",
                       username: username ?? "",
                     ),
+                    const SetExpertAccountPage(),
+                    const Page4(),
                   ],
                 ),
               ),

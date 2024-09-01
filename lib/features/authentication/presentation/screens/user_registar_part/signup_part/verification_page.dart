@@ -7,28 +7,37 @@ import 'package:rigow/features/authentication/domain/entities/send_email_verific
 import 'package:rigow/features/authentication/domain/entities/verify_user_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_state.dart';
+import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/expert_main_complete.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/main_complete_profile.dart';
 import 'package:rigow/features/authentication/presentation/widgets/vervication_body.dart';
 import 'package:rigow/injection_container.dart';
 
 class VerificationPage extends StatelessWidget {
-  const VerificationPage({super.key, required this.onTap, required this.email});
+  const VerificationPage(
+      {super.key,
+      required this.onTap,
+      required this.email,
+      required this.role});
   final Function() onTap;
   final String email;
+  final String role;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => VerifyUserCubit(
           verifyUserUsecase: sl(), sendEmailVerificationCodeUsecase: sl()),
-      child: _VerificationPage(onTap: onTap, email: email),
+      child: _VerificationPage(onTap: onTap, email: email, role: role),
     );
   }
 }
 
 class _VerificationPage extends StatefulWidget {
-  const _VerificationPage({required this.onTap, required this.email});
+  const _VerificationPage(
+      {required this.onTap, required this.email, required this.role});
   final Function() onTap;
   final String email;
+  final String role;
 
   @override
   State<_VerificationPage> createState() => _VerificationPageState();
@@ -95,11 +104,19 @@ class _VerificationPageState extends State<_VerificationPage> {
             ),
           ));
         } else if (state is SucsessVerifyUserState) {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => MainCompleteYourProfilePage(
-                    firstName: state.dataForComplete.firstName,
-                    lastName: state.dataForComplete.lastName,
-                  )));
+          widget.role == 'Expert'
+              ? Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => ExpertMainComplete(
+                        role: widget.role,
+                        firstName: state.dataForComplete.firstName,
+                        lastName: state.dataForComplete.lastName,
+                      )))
+              : Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => MainCompleteYourProfilePage(
+                        role: widget.role,
+                        firstName: state.dataForComplete.firstName,
+                        lastName: state.dataForComplete.lastName,
+                      )));
         }
       },
       builder: (context, state) {

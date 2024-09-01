@@ -6,7 +6,8 @@ import 'package:rigow/features/authentication/presentation/screens/login_part/lo
 import 'package:rigow/l10n/app_localizations.dart';
 
 class GetStartedEndBody extends StatelessWidget {
-  const GetStartedEndBody({super.key});
+  final String role;
+  const GetStartedEndBody({super.key, required this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +23,8 @@ class GetStartedEndBody extends StatelessWidget {
             const SizedBox(width: 4),
             InkWell(
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const LoginPage()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => LoginPage(role: role)));
               },
               child: RedText(
                   text: AppLocalizations.of(context)!.logIn,
@@ -35,7 +36,9 @@ class GetStartedEndBody extends StatelessWidget {
         TranceparentButtonWidget(
           borderColor: Colors.red,
           onPressed: () {},
-          text: AppLocalizations.of(context)!.continueAsAnExpert,
+          text: role == 'Expert'
+              ? AppLocalizations.of(context)!.continueAsAnUser
+              : AppLocalizations.of(context)!.continueAsAnExpert,
           textColor: Colors.red,
         ),
         const SizedBox(height: 24),

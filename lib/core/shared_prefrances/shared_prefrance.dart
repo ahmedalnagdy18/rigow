@@ -21,4 +21,14 @@ class SharedPrefrance {
   Future<bool> removeFromShared({required String key}) {
     return sharedPreferences.remove(key);
   }
+
+  // Future<void> saveUserRole(String role) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('user_role', role);
+  // }
+
+  // Future<String?> getUserRole() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString('user_role');
+  // }
 }

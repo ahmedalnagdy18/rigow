@@ -10,20 +10,22 @@ import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class MainSignUpPage extends StatelessWidget {
-  const MainSignUpPage({super.key});
+  final String role;
+  const MainSignUpPage({super.key, required this.role});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => RegisterCubit(
           registerUsecase: sl(), sendEmailVerificationCodeUsecase: sl()),
-      child: const _MainSignUpPage(),
+      child: _MainSignUpPage(role: role),
     );
   }
 }
 
 class _MainSignUpPage extends StatefulWidget {
-  const _MainSignUpPage();
+  final String role;
+  const _MainSignUpPage({required this.role});
 
   @override
   State<_MainSignUpPage> createState() => _MainSignUpPageState();
@@ -65,6 +67,7 @@ class _MainSignUpPageState extends State<_MainSignUpPage> {
                   },
                   children: [
                     SignupByEmailPage(
+                      role: widget.role,
                       controller: _controller,
                       onNextTap: (email) {
                         setState(() {
@@ -74,6 +77,7 @@ class _MainSignUpPageState extends State<_MainSignUpPage> {
                       },
                     ),
                     VerificationPage(
+                      role: widget.role,
                       onTap: () {
                         _controller.jumpToPage(0);
 

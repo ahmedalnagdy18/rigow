@@ -8,6 +8,7 @@
     "emailAddress": "Email address",
     "password": "Password",
     "lang": "العربيه",
+    "continueAsAnUser" : "Continue as an User",
     "continueAsAnExpert" : "Continue as an expert",
     "exploreTheApp" : "Explore the app",
     "onboarding1" : "Share posts, join rooms to ask for experts' advice, and enjoy communicating with others",
@@ -73,5 +74,9 @@
     "selectYourCountry": "Select your country",
     "searchCountry": "Search country",
     "loading": "Loading...",
-    "emailValidator": "Please enter a valid email"
+    "emailValidator": "Please enter a valid email",
+    "exonboarding1" : "Share posts, join rooms, and communicate with others",
+    "exonboarding2" : "Create reels and stories, write blogs, and give answers to community queries as an administrator",
+    "setYourExpertAccount": "Set your Expert account",
+    "confirmYourQualifications": "Confirm your qualifications"
 }

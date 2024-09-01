@@ -10,7 +10,7 @@ class Onboarding {
   Onboarding({required this.image, required this.title});
 }
 
-List<Onboarding> createOnboardingList(BuildContext context) {
+List<Onboarding> createUserOnboardingList(BuildContext context) {
   bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
   return [
     Onboarding(
@@ -22,6 +22,29 @@ List<Onboarding> createOnboardingList(BuildContext context) {
       image:
           isArabic ? "assets/images/ar2.png" : "assets/images/onboarding2.png",
       title: AppLocalizations.of(context)!.onboarding2,
+    ),
+    Onboarding(
+      image:
+          isArabic ? "assets/images/ar3.png" : "assets/images/onboarding3.png",
+      title: AppLocalizations.of(context)!.onboarding3,
+    ),
+  ];
+}
+
+List<Onboarding> createExpertOnboardingList(BuildContext context) {
+  bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
+  return [
+    Onboarding(
+      image: isArabic
+          ? "assets/images/arexonboarding1.png"
+          : "assets/images/exonboarding1.png",
+      title: AppLocalizations.of(context)!.exonboarding1,
+    ),
+    Onboarding(
+      image: isArabic
+          ? "assets/images/arexonboarding2.png"
+          : "assets/images/exonboarding2.png",
+      title: AppLocalizations.of(context)!.exonboarding2,
     ),
     Onboarding(
       image:

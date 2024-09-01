@@ -18,19 +18,22 @@ import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final String role;
+
+  const LoginPage({super.key, required this.role});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => LoginCubit(loginUsecase: sl()),
-      child: const _LoginPageBody(),
+      child: _LoginPageBody(role: role),
     );
   }
 }
 
 class _LoginPageBody extends StatefulWidget {
-  const _LoginPageBody();
+  final String role;
+  const _LoginPageBody({required this.role});
 
   @override
   State<_LoginPageBody> createState() => _LoginPageState();
@@ -189,7 +192,9 @@ class _LoginPageState extends State<_LoginPageBody> {
                   child: DontHaveAccPart(
                     redTextOnTap: () {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const MainSignUpPage()));
+                          builder: (context) => MainSignUpPage(
+                                role: widget.role,
+                              )));
                     },
                     blackText: AppLocalizations.of(context)!.dontHaveAcc,
                     redText: AppLocalizations.of(context)!.signUp,
