@@ -17,6 +17,7 @@ class TextFieldWidget extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextStyle? errorStyle;
   final int? maxLength;
+  final double? raduisSize;
 
   const TextFieldWidget({
     super.key,
@@ -33,6 +34,7 @@ class TextFieldWidget extends StatelessWidget {
     this.inputFormatters,
     this.errorStyle,
     this.maxLength,
+    this.raduisSize,
   });
 
   @override
@@ -50,6 +52,7 @@ class TextFieldWidget extends StatelessWidget {
         labelText: label,
         counterText: '',
         errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(raduisSize ?? 4),
           borderSide: BorderSide(
             color: AppColors.textfieldBorder,
           ),
@@ -64,10 +67,12 @@ class TextFieldWidget extends StatelessWidget {
             color: AppColors.textfieldBorder,
           ),
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(raduisSize ?? 4),
+          borderSide: const BorderSide(color: Colors.grey),
         ),
         enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(raduisSize ?? 4),
           borderSide: BorderSide(
             color: AppColors.textfieldBorder,
           ),

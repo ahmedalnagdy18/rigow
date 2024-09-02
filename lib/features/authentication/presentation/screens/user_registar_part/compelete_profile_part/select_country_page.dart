@@ -340,7 +340,6 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                     }
                   },
                   builder: (context, state) {
-                    print("The role is = ${widget.role}");
                     return ColoredButtonWidget(
                       text: AppLocalizations.of(context)!.next,
                       onPressed: selectedArea == null

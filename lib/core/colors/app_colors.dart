@@ -11,6 +11,7 @@ class AppColors {
   static Color tapBorder = const Color(0xff858589);
   static Color textfieldBorder = const Color(0xFF9D9C99);
   static Color clickedTextfieldBorder = const Color(0xFF858589);
+  static Color iconAdd = const Color(0xFF6A717F);
   //text colors
   static Color hintText = const Color(0xFF9D9C99);
   static Color forgetPassword = const Color(0xFF6A717F);
