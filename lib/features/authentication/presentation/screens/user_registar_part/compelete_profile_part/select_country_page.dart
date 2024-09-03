@@ -17,9 +17,9 @@ import 'package:rigow/features/authentication/presentation/cubits/countries/coun
 import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/welcome_to_rigow_page.dart';
-import 'package:rigow/features/authentication/presentation/widgets/city_sheet.dart';
-import 'package:rigow/features/authentication/presentation/widgets/country_sheet.dart';
-import 'package:rigow/features/authentication/presentation/widgets/states_sheet.dart';
+import 'package:rigow/features/authentication/presentation/widgets/user_registar_part/complete_profile_part/city_sheet.dart';
+import 'package:rigow/features/authentication/presentation/widgets/user_registar_part/complete_profile_part/country_sheet.dart';
+import 'package:rigow/features/authentication/presentation/widgets/user_registar_part/complete_profile_part/states_sheet.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 

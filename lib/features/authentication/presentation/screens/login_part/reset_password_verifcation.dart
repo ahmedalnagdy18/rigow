@@ -9,7 +9,7 @@ import 'package:rigow/features/authentication/presentation/cubits/verify_forget_
 import 'package:rigow/features/authentication/presentation/cubits/verify_forget_pass_cubit/verify_forget_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/login_part/new_password_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/login_part/reset_password_page.dart';
-import 'package:rigow/features/authentication/presentation/widgets/reset_password_appbar.dart';
+import 'package:rigow/features/authentication/presentation/widgets/login_part/reset_password_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/vervication_body.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';

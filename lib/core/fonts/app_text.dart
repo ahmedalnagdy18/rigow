@@ -57,10 +57,12 @@ class RedText extends StatelessWidget {
     super.key,
     required this.text,
     required this.gradient,
+    this.fontWeight,
   });
 
   final String text;
   final Gradient gradient;
+  final FontWeight? fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +72,9 @@ class RedText extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 14,
-          fontWeight: FontWeight.w600,
+          fontWeight: fontWeight ?? FontWeight.w600,
           color: Colors.white,
         ),
       ),

@@ -11,7 +11,7 @@ import 'package:rigow/features/authentication/domain/entities/send_email_verific
 import 'package:rigow/features/authentication/presentation/cubits/forget_password/forget_pass_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/forget_password/forget_pass_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/login_part/reset_password_verifcation.dart';
-import 'package:rigow/features/authentication/presentation/widgets/reset_password_appbar.dart';
+import 'package:rigow/features/authentication/presentation/widgets/login_part/reset_password_appbar.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 

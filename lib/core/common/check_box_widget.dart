@@ -9,12 +9,14 @@ class CheckBoxWidget extends StatelessWidget {
     required this.groupValue,
     required this.onChanged,
     required this.title,
+    this.style,
   });
 
   final dynamic value;
   final dynamic groupValue;
   final void Function(dynamic) onChanged;
   final String title;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class CheckBoxWidget extends StatelessWidget {
           const SizedBox(width: 4),
           Text(
             title,
-            style: AppTexts.miniRegular,
+            style: style ?? AppTexts.regular,
           ),
         ],
       ),

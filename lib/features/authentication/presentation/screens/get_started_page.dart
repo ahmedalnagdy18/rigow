@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/get_started_end_body.dart';
-import 'package:rigow/features/authentication/presentation/widgets/sign_with_buttons.dart';
+import 'package:rigow/features/authentication/presentation/widgets/user_registar_part/signup_part/sign_with_buttons.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class GetStartedPage extends StatelessWidget {

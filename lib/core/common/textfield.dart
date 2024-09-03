@@ -50,6 +50,11 @@ class TextFieldWidget extends StatelessWidget {
       keyboardType: keyboardType,
       decoration: InputDecoration(
         labelText: label,
+        labelStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: AppColors.hintText,
+        ),
         counterText: '',
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(raduisSize ?? 4),

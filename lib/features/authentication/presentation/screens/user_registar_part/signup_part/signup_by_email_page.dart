@@ -6,7 +6,7 @@ import 'package:rigow/features/authentication/presentation/screens/login_part/lo
 
 import 'package:rigow/features/authentication/presentation/widgets/dont_have_acc_part.dart';
 
-import 'package:rigow/features/authentication/presentation/widgets/signup_with_email_body.dart';
+import 'package:rigow/features/authentication/presentation/widgets/user_registar_part/signup_part/signup_with_email_body.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class SignupByEmailPage extends StatefulWidget {

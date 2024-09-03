@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rigow/core/colors/app_colors.dart';
+import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/common/custom_widgets/main_appbar.dart';
 import 'package:rigow/core/common/textfield.dart';
@@ -11,6 +12,8 @@ import 'package:rigow/features/authentication/domain/entities/countries_entity.d
 import 'package:rigow/features/authentication/domain/model/countries_model.dart';
 import 'package:rigow/features/authentication/presentation/cubits/countries/countries_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/countries/countries_state.dart';
+import 'package:rigow/features/authentication/presentation/widgets/addto_buttom_sheet_widget.dart';
+import 'package:rigow/features/authentication/presentation/widgets/expert_part/added_body_item.dart';
 import 'package:rigow/injection_container.dart';
 
 class FacultyPage extends StatelessWidget {
@@ -20,7 +23,10 @@ class FacultyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CountriesCubit(
-          countriesUsecase: sl(), statesUsecase: sl(), cityUsecase: sl()),
+        countriesUsecase: sl(),
+        statesUsecase: sl(),
+        cityUsecase: sl(),
+      ),
       child: const _FacultyPage(),
     );
   }
@@ -30,10 +36,10 @@ class _FacultyPage extends StatefulWidget {
   const _FacultyPage();
 
   @override
-  State<_FacultyPage> createState() => _SpecialtyPageState();
+  State<_FacultyPage> createState() => _FacultyPageState();
 }
 
-class _SpecialtyPageState extends State<_FacultyPage> {
+class _FacultyPageState extends State<_FacultyPage> {
   final PagingController<int, CountriesModel> _pagingController =
       PagingController(firstPageKey: 1);
   static const _pageSize = 20;
@@ -83,6 +89,33 @@ class _SpecialtyPageState extends State<_FacultyPage> {
     super.dispose();
   }
 
+  List<Widget> dynamicWidgets = [];
+
+  void addSpecificRate() {
+    if (dynamicWidgets.length >= 2) {
+      return;
+    }
+    setState(() {
+      dynamicWidgets.add(buildSpecificRate());
+    });
+  }
+
+  void removeSpecificRate(int index) {
+    setState(() {
+      dynamicWidgets.removeAt(index);
+    });
+  }
+
+  Widget buildSpecificRate() {
+    return AddedBodyItem(
+      title: controller.text,
+      onTap: () {
+        removeSpecificRate(0);
+      },
+    );
+  }
+
+  final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CountriesCubit, CountriesState>(
@@ -123,18 +156,13 @@ class _SpecialtyPageState extends State<_FacultyPage> {
                         return const Center(
                             child: CupertinoActivityIndicator());
                       },
-                      noMoreItemsIndicatorBuilder: (context) {
-                        return const Center(
-                            child: Padding(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Text('No more countries!'),
-                        ));
-                      },
                       firstPageProgressIndicatorBuilder: (context) {
                         return const Center(
                             child: CupertinoActivityIndicator());
                       },
                       itemBuilder: (context, country, index) {
+                        final isLastIndex = index ==
+                            (_pagingController.itemList?.length ?? 0) - 1;
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -145,15 +173,60 @@ class _SpecialtyPageState extends State<_FacultyPage> {
                                 setState(() {
                                   selectedCountry = country;
                                 });
-                                Navigator.pop(context, selectedCountry);
                               },
                               title: country.name,
                             ),
                             Divider(color: AppColors.lightGrey),
+                            if (isLastIndex) ...[
+                              dynamicWidgets.isEmpty
+                                  ? InkWell(
+                                      onTap: () {
+                                        AddToButtomSheetWidget.show(
+                                          controller: controller,
+                                          context,
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            addSpecificRate();
+                                          },
+                                        );
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Icon(Icons.add,
+                                                color: AppColors
+                                                    .clickedTextfieldBorder),
+                                            const SizedBox(width: 8),
+                                            const Text('Add Faculty',
+                                                style: AppTexts.regular),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : Column(
+                                      children: dynamicWidgets,
+                                    ),
+                            ],
                           ],
                         );
                       },
                     ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: ColoredButtonWidget(
+                    text: 'Next',
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    grideantColors: AppColors.mainRed,
+                    textColor: Colors.white,
                   ),
                 ),
               ],

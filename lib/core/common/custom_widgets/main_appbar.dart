@@ -15,11 +15,12 @@ class MainAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     bool isRtl = Localizations.localeOf(context).languageCode == 'ar';
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xffFFFFFF),
       elevation: 0.25,
       centerTitle: true,
       iconTheme: IconThemeData(color: AppColors.appBarRed),
       automaticallyImplyLeading: false,
+      scrolledUnderElevation: 0,
       shadowColor: Colors.black,
       leadingWidth: 100,
       leading: InkWell(
