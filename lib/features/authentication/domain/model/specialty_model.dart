@@ -1,4 +1,4 @@
-import 'package:rigow/features/authentication/data/model/api_specialty.dart';
+import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_specialty.dart';
 
 class SpecialtyModel {
   final int id;

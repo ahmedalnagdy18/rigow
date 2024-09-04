@@ -1,4 +1,4 @@
-import 'package:rigow/features/authentication/domain/entities/validate_username_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/validate_username_entity.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 
 class ValidateUsernameUsecase {

@@ -1,4 +1,4 @@
-import 'package:rigow/features/authentication/domain/entities/login_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/login_part_entity/login_entity.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 
 class LoginUsecase {

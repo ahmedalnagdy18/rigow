@@ -6,7 +6,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/forget_pass_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/login_part_entity/forget_pass_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/presentation/cubits/forget_password/forget_pass_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/forget_password/forget_pass_state.dart';

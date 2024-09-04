@@ -4,8 +4,13 @@ import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 
 class AddedBodyItem extends StatelessWidget {
-  const AddedBodyItem({super.key, required this.onTap, required this.title});
-  final Function() onTap;
+  const AddedBodyItem(
+      {super.key,
+      required this.deleteOnTap,
+      required this.title,
+      required this.editOnTap});
+  final Function() deleteOnTap;
+  final Function() editOnTap;
   final String title;
 
   @override
@@ -43,17 +48,20 @@ class AddedBodyItem extends StatelessWidget {
                   color: AppColors.clickedTextfieldBorder,
                 ),
                 const SizedBox(width: 5),
-                RedText(
-                  text: 'Edit',
-                  fontWeight: FontWeight.w400,
-                  gradient: LinearGradient(colors: AppColors.mainRed),
+                InkWell(
+                  onTap: editOnTap,
+                  child: RedText(
+                    text: 'Edit',
+                    fontWeight: FontWeight.w400,
+                    gradient: LinearGradient(colors: AppColors.mainRed),
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Icon(Icons.delete_forever_outlined,
                     color: AppColors.clickedTextfieldBorder, size: 20),
                 const SizedBox(width: 5),
                 InkWell(
-                  onTap: onTap,
+                  onTap: deleteOnTap,
                   child: RedText(
                     text: 'Delete',
                     fontWeight: FontWeight.w400,

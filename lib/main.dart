@@ -5,7 +5,6 @@ import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
 import 'package:rigow/features/authentication/presentation/cubits/lang_cubit/lang_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/lang_cubit/lang_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/expert_main_complete.dart';
-import 'package:rigow/features/onboarding/screens/splash_screen.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';

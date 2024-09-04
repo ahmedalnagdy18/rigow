@@ -6,7 +6,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/login_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/login_part_entity/login_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/login_cubit/login_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/login_cubit/login_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/signup_part/main_signup.dart';

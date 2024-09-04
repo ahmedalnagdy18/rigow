@@ -4,23 +4,25 @@ import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/widgets/addto_buttom_sheet_widget.dart';
 
 class AddOntherSectionWidget extends StatelessWidget {
-  const AddOntherSectionWidget(
-      {super.key,
-      required this.title,
-      required this.controller,
-      required this.onPressed});
+  const AddOntherSectionWidget({
+    super.key,
+    required this.title,
+    required this.getTextEntyered,
+    this.initialText,
+  });
   final String title;
-  final TextEditingController controller;
-  final void Function(BuildContext context) onPressed;
+  final String? initialText;
+
+  final void Function(String?) getTextEntyered;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         AddToButtomSheetWidget.show(
-          controller: controller,
           context,
-          onPressed: onPressed,
+          getTextEntyered: getTextEntyered,
+          initialText: initialText,
         );
       },
       child: Padding(

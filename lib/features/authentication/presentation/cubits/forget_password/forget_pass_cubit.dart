@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rigow/features/authentication/domain/entities/forget_pass_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/login_part_entity/forget_pass_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
-import 'package:rigow/features/authentication/domain/usecases/forget_pass_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/login_part_usecase/forget_pass_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/send_email_verification.dart';
 import 'package:rigow/features/authentication/presentation/cubits/forget_password/forget_pass_state.dart';
 

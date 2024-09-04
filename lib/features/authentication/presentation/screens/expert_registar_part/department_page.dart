@@ -9,10 +9,11 @@ import 'package:rigow/core/common/custom_widgets/main_appbar.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/countries_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/countries_entity.dart';
 import 'package:rigow/features/authentication/domain/model/countries_model.dart';
 import 'package:rigow/features/authentication/presentation/cubits/countries/countries_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/countries/countries_state.dart';
+import 'package:rigow/features/authentication/presentation/widgets/addto_buttom_sheet_widget.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/add_onther_widget.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/added_body_item.dart';
 import 'package:rigow/injection_container.dart';
@@ -46,7 +47,7 @@ class _MyWidgetState extends State<_DepartmentPage> {
   static const _pageSize = 20;
   final searchController = TextEditingController();
   CountriesModel? selectedCountry;
-  final TextEditingController addDepartmentController = TextEditingController();
+  String? _addDepartmentName;
 
   @override
   void initState() {
@@ -89,32 +90,6 @@ class _MyWidgetState extends State<_DepartmentPage> {
     searchController.dispose();
     _pagingController.dispose();
     super.dispose();
-  }
-
-  List<Widget> dynamicWidgets = [];
-
-  void addDepartment() {
-    if (dynamicWidgets.length >= 2) {
-      return;
-    }
-    setState(() {
-      dynamicWidgets.add(buildAddDepartment());
-    });
-  }
-
-  void removeDepartment(int index) {
-    setState(() {
-      dynamicWidgets.removeAt(index);
-    });
-  }
-
-  Widget buildAddDepartment() {
-    return AddedBodyItem(
-      title: addDepartmentController.text,
-      onTap: () {
-        removeDepartment(0);
-      },
-    );
   }
 
   @override
@@ -162,19 +137,37 @@ class _MyWidgetState extends State<_DepartmentPage> {
                             child: CupertinoActivityIndicator());
                       },
                       noItemsFoundIndicatorBuilder: (context) {
-                        return dynamicWidgets.isEmpty
+                        return _addDepartmentName == null
                             ? AddOntherSectionWidget(
-                                controller: addDepartmentController,
-                                onPressed: (context) {
+                                getTextEntyered: (text) {
+                                  _addDepartmentName = text;
+                                  Navigator.pop(context);
                                   showToastMessage(
                                       message: "Added successfully");
-                                  Navigator.pop(context);
-                                  addDepartment();
+                                  setState(() {});
                                 },
                                 title: 'Add Department',
+                                initialText: _addDepartmentName,
                               )
-                            : Column(
-                                children: dynamicWidgets,
+                            : AddedBodyItem(
+                                editOnTap: () {
+                                  AddToButtomSheetWidget.show(context,
+                                      getTextEntyered: (text) {
+                                    _addDepartmentName = text;
+                                    Navigator.pop(context);
+                                    showToastMessage(
+                                        message: "Added successfully");
+                                    setState(() {});
+                                  },
+                                      initialText: _addDepartmentName,
+                                      isEdit: true);
+                                },
+                                deleteOnTap: () {
+                                  setState(() {
+                                    _addDepartmentName = null;
+                                  });
+                                },
+                                title: _addDepartmentName ?? "Any",
                               );
                       },
                       itemBuilder: (context, country, index) {
@@ -185,7 +178,7 @@ class _MyWidgetState extends State<_DepartmentPage> {
                           children: [
                             CheckBoxWidget(
                               value: country,
-                              groupValue: addDepartmentController.text.isEmpty
+                              groupValue: (_addDepartmentName == null)
                                   ? selectedCountry
                                   : null,
                               onChanged: (country) {
@@ -197,19 +190,37 @@ class _MyWidgetState extends State<_DepartmentPage> {
                             ),
                             Divider(color: AppColors.lightGrey),
                             if (isLastIndex) ...[
-                              dynamicWidgets.isEmpty
+                              _addDepartmentName == null
                                   ? AddOntherSectionWidget(
-                                      controller: addDepartmentController,
-                                      onPressed: (context) {
+                                      getTextEntyered: (text) {
+                                        _addDepartmentName = text;
+                                        Navigator.pop(context);
                                         showToastMessage(
                                             message: "Added successfully");
-                                        Navigator.pop(context);
-                                        addDepartment();
+                                        setState(() {});
                                       },
                                       title: 'Add Department',
+                                      initialText: _addDepartmentName,
                                     )
-                                  : Column(
-                                      children: dynamicWidgets,
+                                  : AddedBodyItem(
+                                      editOnTap: () {
+                                        AddToButtomSheetWidget.show(context,
+                                            getTextEntyered: (text) {
+                                          _addDepartmentName = text;
+                                          Navigator.pop(context);
+                                          showToastMessage(
+                                              message: "Added successfully");
+                                          setState(() {});
+                                        },
+                                            initialText: _addDepartmentName,
+                                            isEdit: true);
+                                      },
+                                      deleteOnTap: () {
+                                        setState(() {
+                                          _addDepartmentName = null;
+                                        });
+                                      },
+                                      title: _addDepartmentName ?? "Any",
                                     ),
                             ],
                           ],
@@ -224,9 +235,8 @@ class _MyWidgetState extends State<_DepartmentPage> {
                   child: ColoredButtonWidget(
                     text: 'Next',
                     onPressed: () {
-                      final enteredText = addDepartmentController.text.trim();
-                      if (enteredText.isNotEmpty) {
-                        Navigator.pop(context, enteredText);
+                      if (_addDepartmentName != null) {
+                        Navigator.pop(context, _addDepartmentName);
                       } else {
                         Navigator.pop(context, selectedCountry);
                       }

@@ -7,7 +7,7 @@ import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/common/custom_widgets/main_appbar.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/specialty_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/specialty_entity.dart';
 import 'package:rigow/features/authentication/domain/model/specialty_model.dart';
 import 'package:rigow/features/authentication/presentation/cubits/specialty_cubit/specialty_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/specialty_cubit/specialty_state.dart';

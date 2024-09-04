@@ -1,4 +1,4 @@
-import 'package:rigow/features/authentication/domain/entities/register_input.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/signup_part_entity/register_input.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 
 class RegisterUsecase {

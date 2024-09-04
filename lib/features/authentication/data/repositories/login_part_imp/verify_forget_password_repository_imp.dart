@@ -1,7 +1,7 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rigow/features/authentication/data/data_source/qraph_ql.dart';
-import 'package:rigow/features/authentication/data/model/api_verify_forget_password.dart';
-import 'package:rigow/features/authentication/domain/entities/verify_forget_password_entity.dart';
+import 'package:rigow/features/authentication/data/model/api_login_part/api_verify_forget_password.dart';
+import 'package:rigow/features/authentication/domain/entities/login_part_entity/verify_forget_password_entity.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 
 class VerifyForgetPasswordRepositoryImp

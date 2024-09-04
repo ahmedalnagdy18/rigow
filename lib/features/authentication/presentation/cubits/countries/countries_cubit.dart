@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rigow/features/authentication/domain/entities/city_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/countries_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/states_entity.dart';
-import 'package:rigow/features/authentication/domain/usecases/city_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/countries_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/states_usecase.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/city_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/countries_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/states_entity.dart';
+import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/city_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/countries_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/states_usecase.dart';
 import 'package:rigow/features/authentication/presentation/cubits/countries/countries_state.dart';
 
 class CountriesCubit extends Cubit<CountriesState> {

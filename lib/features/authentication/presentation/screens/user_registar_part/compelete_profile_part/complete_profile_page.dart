@@ -12,7 +12,7 @@ import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/common/cliked_textfield_widget.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/validate_username_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/validate_username_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_state.dart';
 import 'package:rigow/injection_container.dart';

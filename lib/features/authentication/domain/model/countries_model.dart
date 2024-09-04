@@ -1,4 +1,4 @@
-import 'package:rigow/features/authentication/data/model/api_countries.dart';
+import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_countries.dart';
 
 class CountriesModel {
   final int id;

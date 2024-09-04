@@ -1,4 +1,4 @@
-import 'package:rigow/features/authentication/data/model/api_states.dart';
+import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_states.dart';
 
 class StatesModel {
   final int id;
