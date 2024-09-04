@@ -17,8 +17,8 @@ import 'package:rigow/features/authentication/presentation/widgets/expert_part/a
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/added_body_item.dart';
 import 'package:rigow/injection_container.dart';
 
-class FacultyPage extends StatelessWidget {
-  const FacultyPage({super.key});
+class DepartmentPage extends StatelessWidget {
+  const DepartmentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,25 +28,25 @@ class FacultyPage extends StatelessWidget {
         statesUsecase: sl(),
         cityUsecase: sl(),
       ),
-      child: const _FacultyPage(),
+      child: const _DepartmentPage(),
     );
   }
 }
 
-class _FacultyPage extends StatefulWidget {
-  const _FacultyPage();
+class _DepartmentPage extends StatefulWidget {
+  const _DepartmentPage();
 
   @override
-  State<_FacultyPage> createState() => _FacultyPageState();
+  State<_DepartmentPage> createState() => _MyWidgetState();
 }
 
-class _FacultyPageState extends State<_FacultyPage> {
+class _MyWidgetState extends State<_DepartmentPage> {
   final PagingController<int, CountriesModel> _pagingController =
       PagingController(firstPageKey: 1);
   static const _pageSize = 20;
   final searchController = TextEditingController();
   CountriesModel? selectedCountry;
-  final TextEditingController addFacultyController = TextEditingController();
+  final TextEditingController addDepartmentController = TextEditingController();
 
   @override
   void initState() {
@@ -93,26 +93,26 @@ class _FacultyPageState extends State<_FacultyPage> {
 
   List<Widget> dynamicWidgets = [];
 
-  void addFaculty() {
+  void addDepartment() {
     if (dynamicWidgets.length >= 2) {
       return;
     }
     setState(() {
-      dynamicWidgets.add(buildAddFaculty());
+      dynamicWidgets.add(buildAddDepartment());
     });
   }
 
-  void removeFaculty(int index) {
+  void removeDepartment(int index) {
     setState(() {
       dynamicWidgets.removeAt(index);
     });
   }
 
-  Widget buildAddFaculty() {
+  Widget buildAddDepartment() {
     return AddedBodyItem(
-      title: addFacultyController.text,
+      title: addDepartmentController.text,
       onTap: () {
-        removeFaculty(0);
+        removeDepartment(0);
       },
     );
   }
@@ -129,7 +129,7 @@ class _FacultyPageState extends State<_FacultyPage> {
           backgroundColor: Colors.white,
           appBar: const MainAppbarWidget(
             backText: 'Back',
-            title: "Faculty",
+            title: "Department",
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -137,7 +137,7 @@ class _FacultyPageState extends State<_FacultyPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Select your faculty',
+                  'Select your Faculty department',
                   style: AppTexts.title,
                 ),
                 const SizedBox(height: 16),
@@ -161,6 +161,22 @@ class _FacultyPageState extends State<_FacultyPage> {
                         return const Center(
                             child: CupertinoActivityIndicator());
                       },
+                      noItemsFoundIndicatorBuilder: (context) {
+                        return dynamicWidgets.isEmpty
+                            ? AddOntherSectionWidget(
+                                controller: addDepartmentController,
+                                onPressed: (context) {
+                                  showToastMessage(
+                                      message: "Added successfully");
+                                  Navigator.pop(context);
+                                  addDepartment();
+                                },
+                                title: 'Add Department',
+                              )
+                            : Column(
+                                children: dynamicWidgets,
+                              );
+                      },
                       itemBuilder: (context, country, index) {
                         final isLastIndex = index ==
                             (_pagingController.itemList?.length ?? 0) - 1;
@@ -169,7 +185,7 @@ class _FacultyPageState extends State<_FacultyPage> {
                           children: [
                             CheckBoxWidget(
                               value: country,
-                              groupValue: addFacultyController.text.isEmpty
+                              groupValue: addDepartmentController.text.isEmpty
                                   ? selectedCountry
                                   : null,
                               onChanged: (country) {
@@ -183,14 +199,14 @@ class _FacultyPageState extends State<_FacultyPage> {
                             if (isLastIndex) ...[
                               dynamicWidgets.isEmpty
                                   ? AddOntherSectionWidget(
-                                      controller: addFacultyController,
+                                      controller: addDepartmentController,
                                       onPressed: (context) {
                                         showToastMessage(
                                             message: "Added successfully");
                                         Navigator.pop(context);
-                                        addFaculty();
+                                        addDepartment();
                                       },
-                                      title: 'Add Faculty',
+                                      title: 'Add Department',
                                     )
                                   : Column(
                                       children: dynamicWidgets,
@@ -208,7 +224,7 @@ class _FacultyPageState extends State<_FacultyPage> {
                   child: ColoredButtonWidget(
                     text: 'Next',
                     onPressed: () {
-                      final enteredText = addFacultyController.text.trim();
+                      final enteredText = addDepartmentController.text.trim();
                       if (enteredText.isNotEmpty) {
                         Navigator.pop(context, enteredText);
                       } else {

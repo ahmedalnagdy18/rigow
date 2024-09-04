@@ -73,8 +73,8 @@ class _CirtificateContainerWidgetState
               (_selectedImage != null)
                   ? const Padding(
                       padding: EdgeInsets.only(right: 8),
-                      child:
-                          Icon(Icons.verified, color: Colors.green, size: 18),
+                      child: Icon(Icons.check_circle,
+                          color: Colors.green, size: 18),
                     )
                   : const SizedBox(),
               Text(

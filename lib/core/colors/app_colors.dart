@@ -12,6 +12,7 @@ class AppColors {
   static Color textfieldBorder = const Color(0xFF9D9C99);
   static Color clickedTextfieldBorder = const Color(0xFF858589);
   static Color iconAdd = const Color(0xFF6A717F);
+  static Color toastmessage = const Color(0xff04FFAA);
   //text colors
   static Color hintText = const Color(0xFF9D9C99);
   static Color forgetPassword = const Color(0xFF6A717F);
@@ -29,5 +30,9 @@ class AppColors {
   static List<Color> greyLoader = const [
     Color(0xffE0E0E0),
     Color(0xffE0E0E0),
+  ];
+  static List<Color> mainToastmessage = const [
+    Color(0xff04FFAA),
+    Color(0xff00F2D0),
   ];
 }

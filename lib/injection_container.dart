@@ -8,6 +8,7 @@ import 'package:rigow/features/authentication/data/repositories/login_repository
 import 'package:rigow/features/authentication/data/repositories/register_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/reset_password_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/send_email_verification.dart';
+import 'package:rigow/features/authentication/data/repositories/specialty_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/states_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/validate_username_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/verify_forget_password_repository_imp.dart';
@@ -22,6 +23,7 @@ import 'package:rigow/features/authentication/domain/usecases/register_usecase.d
 import 'package:get_it/get_it.dart';
 import 'package:rigow/features/authentication/domain/usecases/reset_password_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/usecases/specialty_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/states_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/validate_username_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/verify_forget_password_usecase.dart';
@@ -66,6 +68,8 @@ Future<void> init() async {
   sl.registerLazySingleton<VerifyForgetPasswordUsecase>(
       () => VerifyForgetPasswordUsecase(repository: sl()));
 
+  sl.registerLazySingleton<SpecialtyUsecase>(
+      () => SpecialtyUsecase(repository: sl()));
 // Repository
 
   sl.registerLazySingleton<LoginRepository>(
@@ -103,6 +107,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<VerifyForgetPasswordRepository>(
       () => VerifyForgetPasswordRepositoryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<SpecialtyRepository>(
+      () => SpecialtyRepositoryImp(graphQLClient: sl()));
 
 //---------------------------------------------------------------------------------------------------
   sl.registerLazySingleton<GraphQLClient>(() {

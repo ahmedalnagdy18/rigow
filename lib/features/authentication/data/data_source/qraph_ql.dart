@@ -156,3 +156,19 @@ mutation verifyForgetPasswordCode($input:VerifyForgetPasswordCodeInput!){
   }
 }
 """;
+
+const String specialtiess = r"""
+query specialties($paginate:PaginatorInput, $filter: SpecialtiesFilterInput){
+  specialties(paginate:$paginate, filter:$filter){
+    data{
+      items{
+        id
+        name
+      }
+    }
+    code
+    success
+    message
+  }
+}
+""";

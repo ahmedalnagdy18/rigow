@@ -6,6 +6,7 @@ import 'package:rigow/features/authentication/domain/entities/login_entity.dart'
 import 'package:rigow/features/authentication/domain/entities/register_input.dart';
 import 'package:rigow/features/authentication/domain/entities/reset_password_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/entities/specialty_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/states_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/user_data_for_complete.dart';
 import 'package:rigow/features/authentication/domain/entities/validate_username_entity.dart';
@@ -13,6 +14,7 @@ import 'package:rigow/features/authentication/domain/entities/verify_forget_pass
 import 'package:rigow/features/authentication/domain/entities/verify_user_entity.dart';
 import 'package:rigow/features/authentication/domain/model/city_model.dart';
 import 'package:rigow/features/authentication/domain/model/countries_model.dart';
+import 'package:rigow/features/authentication/domain/model/specialty_model.dart';
 import 'package:rigow/features/authentication/domain/model/states_model.dart';
 
 abstract class LoginRepository {
@@ -66,4 +68,9 @@ abstract class ResetPasswordRepository {
 abstract class VerifyForgetPasswordRepository {
   Future<void> verifyForgetPassword(
       VerifyForgetPasswordEntity verifyForgetPasswordEntity);
+}
+
+abstract class SpecialtyRepository {
+  Future<PaginateddData<SpecialtyModel>> specialty(
+      SpecialtyEntity specialtyEntity);
 }

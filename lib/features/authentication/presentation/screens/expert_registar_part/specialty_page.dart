@@ -7,10 +7,10 @@ import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/common/custom_widgets/main_appbar.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/countries_entity.dart';
-import 'package:rigow/features/authentication/domain/model/countries_model.dart';
-import 'package:rigow/features/authentication/presentation/cubits/countries/countries_cubit.dart';
-import 'package:rigow/features/authentication/presentation/cubits/countries/countries_state.dart';
+import 'package:rigow/features/authentication/domain/entities/specialty_entity.dart';
+import 'package:rigow/features/authentication/domain/model/specialty_model.dart';
+import 'package:rigow/features/authentication/presentation/cubits/specialty_cubit/specialty_cubit.dart';
+import 'package:rigow/features/authentication/presentation/cubits/specialty_cubit/specialty_state.dart';
 import 'package:rigow/injection_container.dart';
 
 class SpecialtyPage extends StatelessWidget {
@@ -19,8 +19,7 @@ class SpecialtyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CountriesCubit(
-          countriesUsecase: sl(), statesUsecase: sl(), cityUsecase: sl()),
+      create: (context) => SpecialtyCubit(specialtyUsecase: sl()),
       child: const _SpecialtyPage(),
     );
   }
@@ -34,11 +33,11 @@ class _SpecialtyPage extends StatefulWidget {
 }
 
 class _SpecialtyPageState extends State<_SpecialtyPage> {
-  final PagingController<int, CountriesModel> _pagingController =
+  final PagingController<int, SpecialtyModel> _pagingController =
       PagingController(firstPageKey: 1);
   static const _pageSize = 20;
   final searchController = TextEditingController();
-  CountriesModel? selectedCountry;
+  SpecialtyModel? selectedSpecialty;
 
   @override
   void initState() {
@@ -50,7 +49,7 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
 
     searchController.addListener(() {
       _pagingController.refresh();
-      context.read<CountriesCubit>().countries(CountriesEntity(
+      context.read<SpecialtyCubit>().specialties(SpecialtyEntity(
           page: 1, limit: _pageSize, searchKey: searchController.text));
     });
 
@@ -59,9 +58,9 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
 
   Future<void> _fetchCountries(int pageKey) async {
     try {
-      final cubit = context.read<CountriesCubit>();
+      final cubit = context.read<SpecialtyCubit>();
 
-      final data = await cubit.countriesUsecase.call(CountriesEntity(
+      final data = await cubit.specialtyUsecase.call(SpecialtyEntity(
           page: pageKey, limit: _pageSize, searchKey: searchController.text));
 
       final isLastPage = data.data.length < _pageSize;
@@ -85,9 +84,9 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CountriesCubit, CountriesState>(
+    return BlocConsumer<SpecialtyCubit, SpecialtyState>(
         listener: (context, state) {
-      if (state is ErrorCountriesState) {
+      if (state is ErrorSpecialtyState) {
         _pagingController.error = state.message;
       }
     }, builder: (context, state) {
@@ -116,7 +115,7 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
                 ),
                 const SizedBox(height: 16),
                 Expanded(
-                  child: PagedListView<int, CountriesModel>(
+                  child: PagedListView<int, SpecialtyModel>(
                     pagingController: _pagingController,
                     builderDelegate: PagedChildBuilderDelegate(
                       newPageProgressIndicatorBuilder: (context) {
@@ -140,12 +139,12 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
                           children: [
                             CheckBoxWidget(
                               value: country,
-                              groupValue: selectedCountry,
+                              groupValue: selectedSpecialty,
                               onChanged: (country) {
                                 setState(() {
-                                  selectedCountry = country;
+                                  selectedSpecialty = country;
                                 });
-                                Navigator.pop(context, selectedCountry);
+                                Navigator.pop(context, selectedSpecialty);
                               },
                               title: country.name,
                             ),

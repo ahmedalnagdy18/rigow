@@ -6,12 +6,12 @@ import 'package:rigow/core/extentions/app_extentions.dart';
 class AddToButtomSheetWidget extends StatelessWidget {
   const AddToButtomSheetWidget(
       {super.key, required this.onPressed, required this.controller});
-  final void Function() onPressed;
+  final void Function(BuildContext context) onPressed;
   final TextEditingController controller;
 
   static void show(
     BuildContext context, {
-    required void Function() onPressed,
+    required void Function(BuildContext context) onPressed,
     required TextEditingController controller,
   }) {
     showModalBottomSheet(
@@ -99,7 +99,9 @@ class AddToButtomSheetWidget extends StatelessWidget {
                           Expanded(
                             child: ColoredButtonWidget(
                               text: 'Next',
-                              onPressed: onPressed,
+                              onPressed: () {
+                                onPressed(context);
+                              },
                               grideantColors: AppColors.mainRed,
                               textColor: Colors.white,
                             ),

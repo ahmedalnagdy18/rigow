@@ -3,8 +3,8 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/model/countries_model.dart';
+import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/department_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/faculty_page.dart';
-import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/specialty_page.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class FacultyBody extends StatefulWidget {
@@ -41,6 +41,10 @@ class _FacultyBodyState extends State<FacultyBody> {
                   setState(() {
                     selectedFaculty = result.name;
                   });
+                } else if (result is String) {
+                  setState(() {
+                    selectedFaculty = result;
+                  });
                 }
               },
               child: Row(
@@ -52,7 +56,7 @@ class _FacultyBodyState extends State<FacultyBody> {
                         selectedFaculty != null
                             ? const Padding(
                                 padding: EdgeInsets.only(right: 8),
-                                child: Icon(Icons.verified,
+                                child: Icon(Icons.check_circle,
                                     color: Colors.green, size: 18),
                               )
                             : const SizedBox(),
@@ -86,10 +90,14 @@ class _FacultyBodyState extends State<FacultyBody> {
                     onTap: () async {
                       final result = await Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (context) => const SpecialtyPage()));
+                              builder: (context) => const DepartmentPage()));
                       if (result != null && result is CountriesModel) {
                         setState(() {
                           selectedDepartment = result.name;
+                        });
+                      } else if (result is String) {
+                        setState(() {
+                          selectedDepartment = result;
                         });
                       }
                     },
@@ -102,7 +110,7 @@ class _FacultyBodyState extends State<FacultyBody> {
                               selectedDepartment != null
                                   ? const Padding(
                                       padding: EdgeInsets.only(right: 8),
-                                      child: Icon(Icons.verified,
+                                      child: Icon(Icons.check_circle,
                                           color: Colors.green, size: 18),
                                     )
                                   : const SizedBox(),
