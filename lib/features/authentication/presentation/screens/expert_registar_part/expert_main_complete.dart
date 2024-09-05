@@ -67,7 +67,7 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
     return Scaffold(
       backgroundColor: _currint == 0 || _currint == 1 || _currint == 3
           ? Colors.white
-          : AppColors.grey,
+          : AppColors.backgroundColor,
       appBar: AuthenticationAppbar(
         title: AppLocalizations.of(context)!.completeProfile,
         automaticallyImplyLeading: false,

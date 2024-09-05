@@ -148,7 +148,7 @@ class _CirtificateContainerWidgetState
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
-                        color: AppColors.grey,
+                        color: AppColors.backgroundColor,
                       ),
                       child: Row(
                         children: [

@@ -5,6 +5,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/social_links_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/cirtificate_body.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/experience_body.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/faculty_body.dart';
@@ -123,40 +124,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     size: 8,
                   ),
                   const SizedBox(height: 32),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 16),
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(8),
-                            bottomRight: Radius.circular(8))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Social links',
-                          style: AppTexts.title.copyWith(fontSize: 18),
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.add,
-                              size: 24,
-                              color: AppColors.iconAdd,
-                            ),
-                            const SizedBox(width: 8),
-                            Text('Add link',
-                                style: AppTexts.miniRegular
-                                    .copyWith(color: AppColors.hintText))
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  const SocialLinksPage(),
                   const SizedBox(height: 32),
                 ],
               ),
