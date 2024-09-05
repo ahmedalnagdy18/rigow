@@ -10,7 +10,7 @@ class SpecialtyCubit extends Cubit<SpecialtyState> {
     required this.specialtyUsecase,
   }) : super(SpecialtyInitial());
 
-  void specialties(SpecialtyEntity specialtyEntity) async {
+  void getAllSpecialtiesFuc(SpecialtyEntity specialtyEntity) async {
     emit(LoadingSpecialtyState());
     try {
       final data = await specialtyUsecase.call(specialtyEntity);

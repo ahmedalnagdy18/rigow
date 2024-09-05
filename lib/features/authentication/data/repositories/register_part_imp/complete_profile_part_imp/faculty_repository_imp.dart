@@ -19,6 +19,7 @@ class FacultyRepositoryImp implements FacultyRepository {
         variables: {
           "filter": {
             "searchKey": facultyEntity.searchKey,
+            "specialtyId": facultyEntity.specialtyId,
           },
           "paginate": {
             "page": facultyEntity.page,

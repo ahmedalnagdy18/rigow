@@ -9,8 +9,11 @@ import 'package:rigow/features/authentication/presentation/screens/expert_regist
 import 'package:rigow/l10n/app_localizations.dart';
 
 class FacultyBody extends StatefulWidget {
-  const FacultyBody({super.key});
-
+  const FacultyBody({
+    super.key,
+    required this.selectedSpecialtyId,
+  });
+  final int selectedSpecialtyId;
   @override
   State<FacultyBody> createState() => _FacultyBodyState();
 }
@@ -35,9 +38,11 @@ class _FacultyBodyState extends State<FacultyBody> {
             padding: const EdgeInsets.only(top: 14),
             child: InkWell(
               onTap: () async {
-                final result = await Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => const FacultyPage()));
+                final result =
+                    await Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => FacultyPage(
+                              selectedSpecialtyId: widget.selectedSpecialtyId,
+                            )));
                 if (result != null && result is FacultyModel) {
                   setState(() {
                     selectedFaculty = result.name;

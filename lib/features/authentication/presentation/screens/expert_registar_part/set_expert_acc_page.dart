@@ -22,11 +22,11 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
   //! xxxxxxxxxx
   // ignore: unused_field
   File? _universitySelectedimage;
-
+  int? _specialityId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.grey,
+      backgroundColor: AppColors.backgroundColor,
       body: Column(
         children: [
           Expanded(
@@ -41,9 +41,17 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                       style: AppTexts.miniRegular),
                   const SizedBox(height: 32),
                   //! experience part
-                  const ExperienceBody(),
+                  ExperienceBody(
+                    onSelectedSpecialityIdCallBack: (secialityId) {
+                      _specialityId = secialityId;
+                      setState(() {});
+                    },
+                  ),
                   const SizedBox(height: 4),
-                  const FacultyBody(),
+                  //todo: get faculty page if specialtiy id is selected ...
+                  FacultyBody(
+                    selectedSpecialtyId: _specialityId ?? 0,
+                  ),
                   const SizedBox(height: 4),
                   CirtificateContainerWidget(
                     onSelectedTakeImage: (takeImage) {},

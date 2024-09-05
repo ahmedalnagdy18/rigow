@@ -6,14 +6,15 @@ import 'package:rigow/features/authentication/presentation/screens/expert_regist
 import 'package:rigow/l10n/app_localizations.dart';
 
 class ExperienceBody extends StatefulWidget {
-  const ExperienceBody({super.key});
-
+  const ExperienceBody(
+      {super.key, required this.onSelectedSpecialityIdCallBack});
+  final void Function(int?) onSelectedSpecialityIdCallBack;
   @override
   State<ExperienceBody> createState() => _ExperienceBodyState();
 }
 
 class _ExperienceBodyState extends State<ExperienceBody> {
-  String? selectedSpecialty;
+  SpecialtyModel? _selectedSpecialty;
   @override
   Widget build(BuildContext context) {
     bool isRtl = Localizations.localeOf(context).languageCode == 'ar';
@@ -35,11 +36,24 @@ class _ExperienceBodyState extends State<ExperienceBody> {
           const SizedBox(height: 35),
           InkWell(
             onTap: () async {
-              final result = await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const SpecialtyPage()));
+              final result = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => SpecialtyPage(
+                    onSelectedSpecialty: (secialty) {
+                      _selectedSpecialty = secialty;
+                      widget.onSelectedSpecialityIdCallBack(secialty?.id ?? 0);
+                      setState(() {});
+                    },
+                    initialSelected: SpecialtyModel(
+                      id: _selectedSpecialty?.id ?? 0,
+                      name: _selectedSpecialty?.name ?? '',
+                    ),
+                  ),
+                ),
+              );
               if (result != null && result is SpecialtyModel) {
                 setState(() {
-                  selectedSpecialty = result.name;
+                  _selectedSpecialty = result;
                 });
               }
             },
@@ -48,7 +62,7 @@ class _ExperienceBodyState extends State<ExperienceBody> {
                 Expanded(
                   child: Row(
                     children: [
-                      selectedSpecialty != null
+                      _selectedSpecialty != null
                           ? const Padding(
                               padding: EdgeInsets.only(right: 8),
                               child: Icon(Icons.check_circle,
@@ -63,9 +77,10 @@ class _ExperienceBodyState extends State<ExperienceBody> {
                   ),
                 ),
                 Text(
-                  selectedSpecialty ?? AppLocalizations.of(context)!.tapToSet,
+                  _selectedSpecialty?.name ??
+                      AppLocalizations.of(context)!.tapToSet,
                   style: AppTexts.miniRegular.copyWith(
-                    color: selectedSpecialty == null
+                    color: _selectedSpecialty == null
                         ? AppColors.clickedTextfieldBorder
                         : Colors.black,
                   ),

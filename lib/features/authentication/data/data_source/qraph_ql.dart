@@ -164,6 +164,16 @@ query specialties($paginate:PaginatorInput, $filter: SpecialtiesFilterInput){
       items{
         id
         name
+        faculties{
+          id
+          name
+        }
+      }
+      pageInfo{
+        page
+        limit
+        hasNext
+        totalCount
       }
     }
     code
@@ -176,6 +186,22 @@ query specialties($paginate:PaginatorInput, $filter: SpecialtiesFilterInput){
 const String facultiess = r"""
 query faculties($paginate:PaginatorInput, $filter: FacultiesFilterInput){
   faculties(paginate:$paginate, filter:$filter){
+    data{
+      items{
+        id
+        name
+      }
+    }
+    code
+    success
+    message
+  }
+}
+""";
+
+const String departmentss = r"""
+query departments($paginate:PaginatorInput, $filter: DepartmentsFilterInput){
+  departments(paginate:$paginate, filter:$filter){
     data{
       items{
         id

@@ -9,10 +9,11 @@ import 'package:rigow/core/common/custom_widgets/main_appbar.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/countries_entity.dart';
-import 'package:rigow/features/authentication/domain/model/countries_model.dart';
-import 'package:rigow/features/authentication/presentation/cubits/countries/countries_cubit.dart';
-import 'package:rigow/features/authentication/presentation/cubits/countries/countries_state.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/department_entity.dart';
+import 'package:rigow/features/authentication/domain/model/department_model.dart';
+import 'package:rigow/features/authentication/domain/model/faculty_model.dart';
+import 'package:rigow/features/authentication/presentation/cubits/departments_cubit/department_cubit.dart';
+import 'package:rigow/features/authentication/presentation/cubits/departments_cubit/department_state.dart';
 import 'package:rigow/features/authentication/presentation/widgets/addto_buttom_sheet_widget.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/add_onther_widget.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/added_body_item.dart';
@@ -24,10 +25,8 @@ class DepartmentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CountriesCubit(
-        countriesUsecase: sl(),
-        statesUsecase: sl(),
-        cityUsecase: sl(),
+      create: (context) => DepartmentCubit(
+        departmentUsecase: sl(),
       ),
       child: const _DepartmentPage(),
     );
@@ -42,12 +41,13 @@ class _DepartmentPage extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<_DepartmentPage> {
-  final PagingController<int, CountriesModel> _pagingController =
+  final PagingController<int, DepartmentModel> _pagingController =
       PagingController(firstPageKey: 1);
   static const _pageSize = 20;
   final searchController = TextEditingController();
-  CountriesModel? selectedCountry;
+  DepartmentModel? selectedCountry;
   String? _addDepartmentName;
+  FacultyModel? facultyModel;
 
   @override
   void initState() {
@@ -59,19 +59,18 @@ class _MyWidgetState extends State<_DepartmentPage> {
 
     searchController.addListener(() {
       _pagingController.refresh();
-      context.read<CountriesCubit>().countries(CountriesEntity(
-          page: 1, limit: _pageSize, searchKey: searchController.text));
     });
-
-    _fetchCountries(1);
   }
 
   Future<void> _fetchCountries(int pageKey) async {
     try {
-      final cubit = context.read<CountriesCubit>();
+      final cubit = context.read<DepartmentCubit>();
 
-      final data = await cubit.countriesUsecase.call(CountriesEntity(
-          page: pageKey, limit: _pageSize, searchKey: searchController.text));
+      final data = await cubit.departmentUsecase.call(DepartmentEntity(
+          page: pageKey,
+          limit: _pageSize,
+          searchKey: searchController.text,
+          facultyId: facultyModel?.id ?? 0));
 
       final isLastPage = data.data.length < _pageSize;
       if (isLastPage) {
@@ -94,9 +93,9 @@ class _MyWidgetState extends State<_DepartmentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CountriesCubit, CountriesState>(
+    return BlocConsumer<DepartmentCubit, DepartmentState>(
         listener: (context, state) {
-      if (state is ErrorCountriesState) {
+      if (state is ErrorDepartmentState) {
         _pagingController.error = state.message;
       }
     }, builder: (context, state) {
@@ -125,7 +124,7 @@ class _MyWidgetState extends State<_DepartmentPage> {
                 ),
                 const SizedBox(height: 16),
                 Expanded(
-                  child: PagedListView<int, CountriesModel>(
+                  child: PagedListView<int, DepartmentModel>(
                     pagingController: _pagingController,
                     builderDelegate: PagedChildBuilderDelegate(
                       newPageProgressIndicatorBuilder: (context) {

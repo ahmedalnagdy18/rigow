@@ -19,7 +19,11 @@ import 'package:rigow/features/authentication/presentation/widgets/expert_part/a
 import 'package:rigow/injection_container.dart';
 
 class FacultyPage extends StatelessWidget {
-  const FacultyPage({super.key});
+  final int selectedSpecialtyId;
+  const FacultyPage({
+    super.key,
+    required this.selectedSpecialtyId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +31,18 @@ class FacultyPage extends StatelessWidget {
       create: (context) => FacultyCubit(
         facultyUsecase: sl(),
       ),
-      child: const _FacultyPage(),
+      child: _FacultyPage(
+        selectedSpecialtyId: selectedSpecialtyId,
+      ),
     );
   }
 }
 
 class _FacultyPage extends StatefulWidget {
-  const _FacultyPage();
+  final int selectedSpecialtyId;
+  const _FacultyPage({
+    required this.selectedSpecialtyId,
+  });
 
   @override
   State<_FacultyPage> createState() => _FacultyPageState();
@@ -45,23 +54,26 @@ class _FacultyPageState extends State<_FacultyPage> {
   static const _pageSize = 20;
   final searchController = TextEditingController();
   FacultyModel? selectedFaculty;
+  // SpecialtyModel? selectedSpecialty;
   String? _addFacultyName;
 
   @override
   void initState() {
     super.initState();
-
+    print("========${widget.selectedSpecialtyId}");
     _pagingController.addPageRequestListener((pageKey) {
+      context.read<FacultyCubit>().getFaculties(FacultyEntity(
+            specialtyId: widget.selectedSpecialtyId,
+            page: pageKey,
+            limit: 15,
+            searchKey: '',
+          ));
       _fetchfaculties(pageKey);
     });
 
     searchController.addListener(() {
       _pagingController.refresh();
-      context.read<FacultyCubit>().getFaculties(FacultyEntity(
-          page: 1, limit: _pageSize, searchKey: searchController.text));
     });
-
-    _fetchfaculties(1);
   }
 
   Future<void> _fetchfaculties(int pageKey) async {
@@ -69,7 +81,10 @@ class _FacultyPageState extends State<_FacultyPage> {
       final cubit = context.read<FacultyCubit>();
 
       final data = await cubit.facultyUsecase.call(FacultyEntity(
-          page: pageKey, limit: _pageSize, searchKey: searchController.text));
+          page: pageKey,
+          limit: _pageSize,
+          searchKey: searchController.text,
+          specialtyId: widget.selectedSpecialtyId));
 
       final isLastPage = data.data.length < _pageSize;
       if (isLastPage) {
@@ -133,23 +148,23 @@ class _FacultyPageState extends State<_FacultyPage> {
                         return const Center(
                             child: CupertinoActivityIndicator());
                       },
-                      itemBuilder: (context, country, index) {
+                      itemBuilder: (context, FacultyModel item, index) {
                         final isLastIndex = index ==
                             (_pagingController.itemList?.length ?? 0) - 1;
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CheckBoxWidget(
-                              value: country,
+                              value: item,
                               groupValue: (_addFacultyName == null)
                                   ? selectedFaculty
                                   : null,
-                              onChanged: (country) {
+                              onChanged: (value) {
                                 setState(() {
-                                  selectedFaculty = country;
+                                  selectedFaculty = value;
                                 });
                               },
-                              title: country.name,
+                              title: item.name,
                             ),
                             Divider(color: AppColors.lightGrey),
                             if (isLastIndex) ...[

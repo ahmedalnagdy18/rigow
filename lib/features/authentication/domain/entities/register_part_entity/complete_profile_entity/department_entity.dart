@@ -1,12 +1,14 @@
-class SpecialtyEntity {
+class DepartmentEntity {
   final int page;
   final int limit;
   final String searchKey;
+  final int facultyId;
 
-  SpecialtyEntity({
+  DepartmentEntity({
     required this.page,
     required this.limit,
     required this.searchKey,
+    required this.facultyId,
   });
 
   toJson() {
@@ -14,12 +16,13 @@ class SpecialtyEntity {
       "page": page,
       "limit": limit,
       "searchKey": searchKey,
+      "facultyId": facultyId,
     };
   }
 }
 
-class PaginateddData<T> {
+class DepartmentPaginatedData<T> {
   final List<T> data;
 
-  PaginateddData({required this.data});
+  DepartmentPaginatedData({required this.data});
 }

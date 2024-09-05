@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rigow/core/colors/app_colors.dart';
+import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/common/custom_widgets/main_appbar.dart';
 import 'package:rigow/core/common/textfield.dart';
@@ -14,19 +15,27 @@ import 'package:rigow/features/authentication/presentation/cubits/specialty_cubi
 import 'package:rigow/injection_container.dart';
 
 class SpecialtyPage extends StatelessWidget {
-  const SpecialtyPage({super.key});
-
+  final void Function(SpecialtyModel?) onSelectedSpecialty;
+  final SpecialtyModel? initialSelected;
+  const SpecialtyPage(
+      {super.key, required this.onSelectedSpecialty, this.initialSelected});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SpecialtyCubit(specialtyUsecase: sl()),
-      child: const _SpecialtyPage(),
+      child: _SpecialtyPage(
+        onSelectedSpecialty: onSelectedSpecialty,
+        initialSelected: initialSelected,
+      ),
     );
   }
 }
 
 class _SpecialtyPage extends StatefulWidget {
-  const _SpecialtyPage();
+  final void Function(SpecialtyModel?) onSelectedSpecialty;
+  final SpecialtyModel? initialSelected;
+  const _SpecialtyPage(
+      {required this.onSelectedSpecialty, this.initialSelected});
 
   @override
   State<_SpecialtyPage> createState() => _SpecialtyPageState();
@@ -37,23 +46,21 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
       PagingController(firstPageKey: 1);
   static const _pageSize = 20;
   final searchController = TextEditingController();
-  SpecialtyModel? selectedSpecialty;
+  late SpecialtyModel selectedSpecialty;
 
   @override
   void initState() {
     super.initState();
-
+    if (widget.initialSelected != null) {
+      selectedSpecialty = widget.initialSelected!;
+    }
     _pagingController.addPageRequestListener((pageKey) {
       _fetchCountries(pageKey);
     });
 
     searchController.addListener(() {
       _pagingController.refresh();
-      context.read<SpecialtyCubit>().specialties(SpecialtyEntity(
-          page: 1, limit: _pageSize, searchKey: searchController.text));
     });
-
-    _fetchCountries(1);
   }
 
   Future<void> _fetchCountries(int pageKey) async {
@@ -61,7 +68,10 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
       final cubit = context.read<SpecialtyCubit>();
 
       final data = await cubit.specialtyUsecase.call(SpecialtyEntity(
-          page: pageKey, limit: _pageSize, searchKey: searchController.text));
+        page: pageKey,
+        limit: _pageSize,
+        searchKey: searchController.text,
+      ));
 
       final isLastPage = data.data.length < _pageSize;
       if (isLastPage) {
@@ -123,36 +133,46 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
                             child: CupertinoActivityIndicator());
                       },
                       noMoreItemsIndicatorBuilder: (context) {
-                        return const Center(
-                            child: Padding(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Text('No more countries!'),
-                        ));
+                        return const SizedBox();
                       },
                       firstPageProgressIndicatorBuilder: (context) {
                         return const Center(
                             child: CupertinoActivityIndicator());
                       },
-                      itemBuilder: (context, country, index) {
+                      itemBuilder: (context, SpecialtyModel item, index) {
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CheckBoxWidget(
-                              value: country,
+                              value: item,
                               groupValue: selectedSpecialty,
-                              onChanged: (country) {
-                                setState(() {
-                                  selectedSpecialty = country;
-                                });
-                                Navigator.pop(context, selectedSpecialty);
+                              onChanged: (value) {
+                                if (value != null) {
+                                  setState(() {
+                                    selectedSpecialty = value;
+                                  });
+                                }
                               },
-                              title: country.name,
+                              title: item.name,
                             ),
                             Divider(color: AppColors.lightGrey),
                           ],
                         );
                       },
                     ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  child: ColoredButtonWidget(
+                    text: 'Next',
+                    onPressed: () {
+                      widget.onSelectedSpecialty(selectedSpecialty);
+                      Navigator.pop(context);
+                    },
+                    grideantColors: AppColors.mainRed,
+                    textColor: Colors.white,
                   ),
                 ),
               ],
