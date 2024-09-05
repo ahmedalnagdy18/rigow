@@ -9,10 +9,10 @@ import 'package:rigow/core/common/custom_widgets/main_appbar.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/countries_entity.dart';
-import 'package:rigow/features/authentication/domain/model/countries_model.dart';
-import 'package:rigow/features/authentication/presentation/cubits/countries/countries_cubit.dart';
-import 'package:rigow/features/authentication/presentation/cubits/countries/countries_state.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/faculty_entity.dart';
+import 'package:rigow/features/authentication/domain/model/faculty_model.dart';
+import 'package:rigow/features/authentication/presentation/cubits/faculty_cubit/faculty_cubit.dart';
+import 'package:rigow/features/authentication/presentation/cubits/faculty_cubit/faculty_state.dart';
 import 'package:rigow/features/authentication/presentation/widgets/addto_buttom_sheet_widget.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/add_onther_widget.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/added_body_item.dart';
@@ -24,10 +24,8 @@ class FacultyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CountriesCubit(
-        countriesUsecase: sl(),
-        statesUsecase: sl(),
-        cityUsecase: sl(),
+      create: (context) => FacultyCubit(
+        facultyUsecase: sl(),
       ),
       child: const _FacultyPage(),
     );
@@ -42,11 +40,11 @@ class _FacultyPage extends StatefulWidget {
 }
 
 class _FacultyPageState extends State<_FacultyPage> {
-  final PagingController<int, CountriesModel> _pagingController =
+  final PagingController<int, FacultyModel> _pagingController =
       PagingController(firstPageKey: 1);
   static const _pageSize = 20;
   final searchController = TextEditingController();
-  CountriesModel? selectedCountry;
+  FacultyModel? selectedFaculty;
   String? _addFacultyName;
 
   @override
@@ -54,23 +52,23 @@ class _FacultyPageState extends State<_FacultyPage> {
     super.initState();
 
     _pagingController.addPageRequestListener((pageKey) {
-      _fetchCountries(pageKey);
+      _fetchfaculties(pageKey);
     });
 
     searchController.addListener(() {
       _pagingController.refresh();
-      context.read<CountriesCubit>().countries(CountriesEntity(
+      context.read<FacultyCubit>().getFaculties(FacultyEntity(
           page: 1, limit: _pageSize, searchKey: searchController.text));
     });
 
-    _fetchCountries(1);
+    _fetchfaculties(1);
   }
 
-  Future<void> _fetchCountries(int pageKey) async {
+  Future<void> _fetchfaculties(int pageKey) async {
     try {
-      final cubit = context.read<CountriesCubit>();
+      final cubit = context.read<FacultyCubit>();
 
-      final data = await cubit.countriesUsecase.call(CountriesEntity(
+      final data = await cubit.facultyUsecase.call(FacultyEntity(
           page: pageKey, limit: _pageSize, searchKey: searchController.text));
 
       final isLastPage = data.data.length < _pageSize;
@@ -94,9 +92,8 @@ class _FacultyPageState extends State<_FacultyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CountriesCubit, CountriesState>(
-        listener: (context, state) {
-      if (state is ErrorCountriesState) {
+    return BlocConsumer<FacultyCubit, FacultyState>(listener: (context, state) {
+      if (state is ErrorFacultyState) {
         _pagingController.error = state.message;
       }
     }, builder: (context, state) {
@@ -125,7 +122,7 @@ class _FacultyPageState extends State<_FacultyPage> {
                 ),
                 const SizedBox(height: 16),
                 Expanded(
-                  child: PagedListView<int, CountriesModel>(
+                  child: PagedListView<int, FacultyModel>(
                     pagingController: _pagingController,
                     builderDelegate: PagedChildBuilderDelegate(
                       newPageProgressIndicatorBuilder: (context) {
@@ -145,11 +142,11 @@ class _FacultyPageState extends State<_FacultyPage> {
                             CheckBoxWidget(
                               value: country,
                               groupValue: (_addFacultyName == null)
-                                  ? selectedCountry
+                                  ? selectedFaculty
                                   : null,
                               onChanged: (country) {
                                 setState(() {
-                                  selectedCountry = country;
+                                  selectedFaculty = country;
                                 });
                               },
                               title: country.name,
@@ -204,7 +201,7 @@ class _FacultyPageState extends State<_FacultyPage> {
                       if (_addFacultyName != null) {
                         Navigator.pop(context, _addFacultyName);
                       } else {
-                        Navigator.pop(context, selectedCountry);
+                        Navigator.pop(context, selectedFaculty);
                       }
                     },
                     grideantColors: AppColors.mainRed,

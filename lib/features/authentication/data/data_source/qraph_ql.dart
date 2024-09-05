@@ -172,3 +172,19 @@ query specialties($paginate:PaginatorInput, $filter: SpecialtiesFilterInput){
   }
 }
 """;
+
+const String facultiess = r"""
+query faculties($paginate:PaginatorInput, $filter: FacultiesFilterInput){
+  faculties(paginate:$paginate, filter:$filter){
+    data{
+      items{
+        id
+        name
+      }
+    }
+    code
+    success
+    message
+  }
+}
+""";

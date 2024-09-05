@@ -28,22 +28,28 @@ class CheckBoxWidget extends StatelessWidget {
           onChanged(value);
         }
       },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Radio<dynamic>(
-            value: value,
-            groupValue: groupValue,
-            onChanged: onChanged,
-            activeColor: AppColors.mainRed[0],
-            visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-          ),
-          const SizedBox(width: 4),
-          Text(
-            title,
-            style: style ?? AppTexts.regular,
-          ),
-        ],
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width - 150,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Radio<dynamic>(
+              value: value,
+              groupValue: groupValue,
+              onChanged: onChanged,
+              activeColor: AppColors.mainRed[0],
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+            ),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Text(
+                title,
+                style: style ?? AppTexts.regular,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

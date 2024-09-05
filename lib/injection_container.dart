@@ -5,6 +5,7 @@ import 'package:rigow/features/authentication/data/repositories/register_part_im
 import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/countries_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/login_part_imp/forget_pass_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/login_part_imp/login_repository_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/faculty_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/register_part_imp/signup_part_imp/register_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/login_part_imp/reset_password_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/send_email_verification.dart';
@@ -19,6 +20,7 @@ import 'package:rigow/features/authentication/domain/usecases/register_part_usec
 import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/countries_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/login_part_usecase/forget_pass_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/login_part_usecase/login_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/faculty_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/signup_part/register_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rigow/features/authentication/domain/usecases/login_part_usecase/reset_password_usecase.dart';
@@ -70,6 +72,10 @@ Future<void> init() async {
 
   sl.registerLazySingleton<SpecialtyUsecase>(
       () => SpecialtyUsecase(repository: sl()));
+
+  sl.registerLazySingleton<FacultyUsecase>(
+      () => FacultyUsecase(repository: sl()));
+
 // Repository
 
   sl.registerLazySingleton<LoginRepository>(
@@ -110,6 +116,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<SpecialtyRepository>(
       () => SpecialtyRepositoryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<FacultyRepository>(
+      () => FacultyRepositoryImp(graphQLClient: sl()));
 
 //---------------------------------------------------------------------------------------------------
   sl.registerLazySingleton<GraphQLClient>(() {

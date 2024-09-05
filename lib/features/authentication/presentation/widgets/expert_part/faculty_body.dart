@@ -3,6 +3,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/model/countries_model.dart';
+import 'package:rigow/features/authentication/domain/model/faculty_model.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/department_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/faculty_page.dart';
 import 'package:rigow/l10n/app_localizations.dart';
@@ -37,7 +38,7 @@ class _FacultyBodyState extends State<FacultyBody> {
                 final result = await Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) => const FacultyPage()));
-                if (result != null && result is CountriesModel) {
+                if (result != null && result is FacultyModel) {
                   setState(() {
                     selectedFaculty = result.name;
                   });
@@ -48,7 +49,6 @@ class _FacultyBodyState extends State<FacultyBody> {
                 }
               },
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Row(
@@ -67,12 +67,16 @@ class _FacultyBodyState extends State<FacultyBody> {
                       ],
                     ),
                   ),
-                  Text(
-                    selectedFaculty ?? AppLocalizations.of(context)!.tapToSet,
-                    style: AppTexts.miniRegular.copyWith(
-                      color: selectedFaculty == null
-                          ? AppColors.clickedTextfieldBorder
-                          : Colors.black,
+                  Expanded(
+                    child: Text(
+                      selectedFaculty ?? AppLocalizations.of(context)!.tapToSet,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.end,
+                      style: AppTexts.miniRegular.copyWith(
+                        color: selectedFaculty == null
+                            ? AppColors.clickedTextfieldBorder
+                            : Colors.black,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -121,13 +125,17 @@ class _FacultyBodyState extends State<FacultyBody> {
                             ],
                           ),
                         ),
-                        Text(
-                          selectedDepartment ??
-                              AppLocalizations.of(context)!.tapToSet,
-                          style: AppTexts.miniRegular.copyWith(
-                            color: selectedDepartment == null
-                                ? AppColors.clickedTextfieldBorder
-                                : Colors.black,
+                        Expanded(
+                          child: Text(
+                            selectedDepartment ??
+                                AppLocalizations.of(context)!.tapToSet,
+                            textAlign: TextAlign.end,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTexts.miniRegular.copyWith(
+                              color: selectedDepartment == null
+                                  ? AppColors.clickedTextfieldBorder
+                                  : Colors.black,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
