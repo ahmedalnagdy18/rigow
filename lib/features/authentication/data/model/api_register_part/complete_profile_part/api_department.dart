@@ -57,7 +57,7 @@ class Departments {
 }
 
 class Data {
-  final List<Item>? items;
+  final List<ApiDepartmentItem>? items;
 
   Data({
     this.items,
@@ -70,7 +70,8 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         items: json["items"] == null
             ? []
-            : List<Item>.from(json["items"]!.map((x) => Item.fromJson(x))),
+            : List<ApiDepartmentItem>.from(
+                json["items"]!.map((x) => ApiDepartmentItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -80,20 +81,22 @@ class Data {
       };
 }
 
-class Item {
+class ApiDepartmentItem {
   final int? id;
   final String? name;
 
-  Item({
+  ApiDepartmentItem({
     this.id,
     this.name,
   });
 
-  factory Item.fromRawJson(String str) => Item.fromJson(json.decode(str));
+  factory ApiDepartmentItem.fromRawJson(String str) =>
+      ApiDepartmentItem.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory ApiDepartmentItem.fromJson(Map<String, dynamic> json) =>
+      ApiDepartmentItem(
         id: json["id"],
         name: json["name"],
       );

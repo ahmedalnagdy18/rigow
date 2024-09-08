@@ -33,12 +33,13 @@ class DepartmentRepositoryImp implements DepartmentRepository {
       throw Exception(result.exception.toString());
     }
 
-    final response = ApiDepartments.fromJson(result.data!);
-
-    if (response.departments?.data != null) {
-      final data = response.departments?.data?.items ?? [];
-      final specialList = data.map((e) => e.reviewMap()).toList();
-      return DepartmentPaginatedData(data: specialList);
+    final response = ApiDepartments.fromJson(result.data!).departments;
+    if (response?.data != null) {
+      final data = response?.data?.items ?? [];
+      final departmentList = data.map((e) => e.reviewMap()).toList();
+      return DepartmentPaginatedData(
+        data: departmentList,
+      );
     } else {
       throw FormatException("Invalid response: ${result.data}");
     }

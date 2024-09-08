@@ -214,3 +214,20 @@ query departments($paginate:PaginatorInput, $filter: DepartmentsFilterInput){
   }
 }
 """;
+
+const String createExpertRequestt = r"""
+mutation createExpertRequest($input : CreateExpertRequest!){
+  createExpertRequest(input:$input){
+     data{
+       token
+      firstName
+      lastName
+      profilePicture
+    }
+    code
+    success
+    message
+   
+} 
+}
+""";

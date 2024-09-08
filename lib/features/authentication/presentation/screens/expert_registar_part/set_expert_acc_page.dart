@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
@@ -20,9 +18,14 @@ class SetExpertAccountPage extends StatefulWidget {
 
 class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
   //! xxxxxxxxxx
-  // ignore: unused_field
-  File? _universitySelectedimage;
+  String? _universitySelectedimage;
+  String? _otherCertificationsimages;
+  String? _governmentPermitImage;
+  String? _nationalFrontId;
+  String? __nationalBackId;
   int? _specialityId;
+  int? _fucltyId;
+  int? _departmentId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +51,16 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     },
                   ),
                   const SizedBox(height: 4),
-                  //todo: get faculty page if specialtiy id is selected ...
+
                   FacultyBody(
+                    onSelectedFacultyIdCallBack: (fucltyId) {
+                      _fucltyId = fucltyId;
+                      setState(() {});
+                    },
+                    onSelectedDepartmentIdCallBack: (departmentId) {
+                      _departmentId = departmentId;
+                      setState(() {});
+                    },
                     selectedSpecialtyId: _specialityId ?? 0,
                   ),
                   const SizedBox(height: 4),
@@ -57,7 +68,8 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     onSelectedTakeImage: (takeImage) {},
                     isPdf: true,
                     onSelectedImageBack: (selectedImage) {
-                      _universitySelectedimage = selectedImage;
+                      _universitySelectedimage = selectedImage?.path;
+
                       setState(() {});
                     },
                     title: 'University degree',
@@ -67,7 +79,9 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                   CirtificateContainerWidget(
                     onSelectedTakeImage: (takeImage) {},
                     isPdf: true,
-                    onSelectedImageBack: (selectedImage) {},
+                    onSelectedImageBack: (selectedImage) {
+                      _otherCertificationsimages = selectedImage?.path;
+                    },
                     title: 'Other certifications',
                     iconImage: 'assets/images/cirtificate.png',
                   ),
@@ -75,7 +89,9 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                   CirtificateContainerWidget(
                     isPdf: true,
                     onSelectedTakeImage: (takeImage) {},
-                    onSelectedImageBack: (selectedImage) {},
+                    onSelectedImageBack: (selectedImage) {
+                      _governmentPermitImage = selectedImage?.path;
+                    },
                     title: 'Government permit',
                     iconImage: 'assets/images/file.png',
                     size: 8,
@@ -101,7 +117,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                         ),
                         const SizedBox(height: 16),
                         const TextFieldWidget(
-                          label: 'Full name in national ID ',
+                          label: 'Full name in national ID',
                           obscureText: false,
                           hintText: 'Type your full name in your national ID',
                         ),
@@ -118,7 +134,9 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                   CirtificateContainerWidget(
                     onSelectedTakeImage: (takeImage) {},
                     isPdf: false,
-                    onSelectedImageBack: (selectedImage) {},
+                    onSelectedImageBack: (selectedationalFrontIdImage) {
+                      _nationalFrontId = selectedationalFrontIdImage?.path;
+                    },
                     title: 'National ID (front)',
                     iconImage: 'assets/images/cirtificate.png',
                   ),
@@ -126,7 +144,9 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                   CirtificateContainerWidget(
                     onSelectedTakeImage: (takeImage) {},
                     isPdf: false,
-                    onSelectedImageBack: (selectedImage) {},
+                    onSelectedImageBack: (selectedImage) {
+                      __nationalBackId = selectedImage?.path;
+                    },
                     title: 'National ID (back)',
                     iconImage: 'assets/images/cirtificate.png',
                     size: 8,
@@ -140,7 +160,17 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
           ),
           ColoredButtonWidget(
             text: 'Next',
-            onPressed: () {},
+            onPressed: () {
+              // Navigator.of(context).push(MaterialPageRoute(
+              // builder: (context) => const Page4()));
+              print(
+                  'result: 1=== $_specialityId, 2==== $_fucltyId, 3=== $_departmentId');
+              print(_universitySelectedimage);
+              print(_otherCertificationsimages);
+              print(_governmentPermitImage);
+              print(_nationalFrontId);
+              print(__nationalBackId);
+            },
             grideantColors: AppColors.mainRed,
             textColor: Colors.white,
           ),

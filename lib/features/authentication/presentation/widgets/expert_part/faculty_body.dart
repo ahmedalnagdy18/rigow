@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/model/countries_model.dart';
+import 'package:rigow/features/authentication/domain/model/department_model.dart';
 import 'package:rigow/features/authentication/domain/model/faculty_model.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/department_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/faculty_page.dart';
@@ -12,15 +12,20 @@ class FacultyBody extends StatefulWidget {
   const FacultyBody({
     super.key,
     required this.selectedSpecialtyId,
+    required this.onSelectedFacultyIdCallBack,
+    required this.onSelectedDepartmentIdCallBack,
   });
   final int selectedSpecialtyId;
+  final void Function(int?) onSelectedFacultyIdCallBack;
+  final void Function(int?) onSelectedDepartmentIdCallBack;
   @override
   State<FacultyBody> createState() => _FacultyBodyState();
 }
 
 class _FacultyBodyState extends State<FacultyBody> {
-  String? selectedFaculty;
-  String? selectedDepartment;
+  FacultyModel? selectedFaculty;
+  DepartmentModel? selectedDepartment;
+  // FacultyModel? initialSelect;
   @override
   Widget build(BuildContext context) {
     bool isRtl = Localizations.localeOf(context).languageCode == 'ar';
@@ -38,16 +43,24 @@ class _FacultyBodyState extends State<FacultyBody> {
             padding: const EdgeInsets.only(top: 14),
             child: InkWell(
               onTap: () async {
-                final result =
-                    await Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => FacultyPage(
-                              selectedSpecialtyId: widget.selectedSpecialtyId,
-                            )));
+                final result = await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FacultyPage(
+                      selectedSpecialtyId: widget.selectedSpecialtyId,
+                      initialSelected: FacultyModel(
+                        id: selectedFaculty?.id ?? 0,
+                        name: selectedFaculty?.name ?? '',
+                      ),
+                      onSelectedFaculty: (faculty) {
+                        setState(() {
+                          selectedFaculty = faculty;
+                        });
+                        widget.onSelectedFacultyIdCallBack(faculty?.id);
+                      },
+                    ),
+                  ),
+                );
                 if (result != null && result is FacultyModel) {
-                  setState(() {
-                    selectedFaculty = result.name;
-                  });
-                } else if (result is String) {
                   setState(() {
                     selectedFaculty = result;
                   });
@@ -74,7 +87,8 @@ class _FacultyBodyState extends State<FacultyBody> {
                   ),
                   Expanded(
                     child: Text(
-                      selectedFaculty ?? AppLocalizations.of(context)!.tapToSet,
+                      selectedFaculty?.name ??
+                          AppLocalizations.of(context)!.tapToSet,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.end,
                       style: AppTexts.miniRegular.copyWith(
@@ -98,13 +112,25 @@ class _FacultyBodyState extends State<FacultyBody> {
                   child: InkWell(
                     onTap: () async {
                       final result = await Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => const DepartmentPage()));
-                      if (result != null && result is CountriesModel) {
-                        setState(() {
-                          selectedDepartment = result.name;
-                        });
-                      } else if (result is String) {
+                        MaterialPageRoute(
+                          builder: (context) => DepartmentPage(
+                            onSelectedDepartment: (department) {
+                              setState(() {
+                                selectedDepartment = department;
+                              });
+                              widget.onSelectedDepartmentIdCallBack(
+                                  department?.id);
+                              Navigator.pop(context);
+                            },
+                            initialSelected: DepartmentModel(
+                              id: selectedDepartment?.id ?? 0,
+                              name: selectedDepartment?.name ?? '',
+                            ),
+                            facultyId: selectedFaculty?.id ?? -1,
+                          ),
+                        ),
+                      );
+                      if (result != null && result is DepartmentModel) {
                         setState(() {
                           selectedDepartment = result;
                         });
@@ -132,7 +158,7 @@ class _FacultyBodyState extends State<FacultyBody> {
                         ),
                         Expanded(
                           child: Text(
-                            selectedDepartment ??
+                            selectedDepartment?.name ??
                                 AppLocalizations.of(context)!.tapToSet,
                             textAlign: TextAlign.end,
                             overflow: TextOverflow.ellipsis,

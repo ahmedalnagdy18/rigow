@@ -2,13 +2,13 @@ import 'package:equatable/equatable.dart';
 import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_department.dart';
 
 class DepartmentModel extends Equatable {
-  final int id;
+  final int? id;
   final String name;
 
   const DepartmentModel({required this.id, required this.name});
   @override
   String toString() {
-    return 'CountriesModel(id: $id, name: $name)';
+    return 'DepartmentModel(id: $id, name: $name)';
   }
 
   @override
@@ -19,7 +19,7 @@ class DepartmentModel extends Equatable {
       ];
 }
 
-extension DepartmentItems on Item {
+extension DepartmentItems on ApiDepartmentItem {
   DepartmentModel reviewMap() {
     return DepartmentModel(
       id: id ?? 0,

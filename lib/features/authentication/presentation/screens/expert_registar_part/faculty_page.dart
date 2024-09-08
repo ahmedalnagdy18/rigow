@@ -19,10 +19,14 @@ import 'package:rigow/features/authentication/presentation/widgets/expert_part/a
 import 'package:rigow/injection_container.dart';
 
 class FacultyPage extends StatelessWidget {
+  final void Function(FacultyModel?) onSelectedFaculty;
   final int selectedSpecialtyId;
+  final FacultyModel? initialSelected;
   const FacultyPage({
     super.key,
     required this.selectedSpecialtyId,
+    this.initialSelected,
+    required this.onSelectedFaculty,
   });
 
   @override
@@ -33,15 +37,21 @@ class FacultyPage extends StatelessWidget {
       ),
       child: _FacultyPage(
         selectedSpecialtyId: selectedSpecialtyId,
+        initialSelected: initialSelected,
+        onSelectedFaculty: onSelectedFaculty,
       ),
     );
   }
 }
 
 class _FacultyPage extends StatefulWidget {
+  final void Function(FacultyModel?) onSelectedFaculty;
   final int selectedSpecialtyId;
+  final FacultyModel? initialSelected;
   const _FacultyPage({
     required this.selectedSpecialtyId,
+    this.initialSelected,
+    required this.onSelectedFaculty,
   });
 
   @override
@@ -54,13 +64,15 @@ class _FacultyPageState extends State<_FacultyPage> {
   static const _pageSize = 20;
   final searchController = TextEditingController();
   FacultyModel? selectedFaculty;
-  // SpecialtyModel? selectedSpecialty;
   String? _addFacultyName;
 
   @override
   void initState() {
     super.initState();
-    print("========${widget.selectedSpecialtyId}");
+
+    if (widget.initialSelected != null) {
+      selectedFaculty = widget.initialSelected!;
+    }
     _pagingController.addPageRequestListener((pageKey) {
       context.read<FacultyCubit>().getFaculties(FacultyEntity(
             specialtyId: widget.selectedSpecialtyId,
@@ -103,6 +115,44 @@ class _FacultyPageState extends State<_FacultyPage> {
     searchController.dispose();
     _pagingController.dispose();
     super.dispose();
+  }
+
+  Widget _buildFacultySection(BuildContext context) {
+    return _addFacultyName == null
+        ? AddOntherSectionWidget(
+            getTextEntyered: (text) {
+              _addFacultyName = text;
+              selectedFaculty = FacultyModel(
+                id: null,
+                name: _addFacultyName ?? "",
+              );
+              Navigator.pop(context);
+              showToastMessage(message: "Added successfully");
+              setState(() {});
+            },
+            title: 'Add Faculty',
+            initialText: _addFacultyName,
+          )
+        : AddedBodyItem(
+            editOnTap: () {
+              AddToButtomSheetWidget.show(context, getTextEntyered: (text) {
+                _addFacultyName = text;
+                selectedFaculty = FacultyModel(
+                  id: null,
+                  name: _addFacultyName ?? "",
+                );
+                Navigator.pop(context);
+                showToastMessage(message: "Added successfully");
+                setState(() {});
+              }, initialText: _addFacultyName, isEdit: true);
+            },
+            deleteOnTap: () {
+              setState(() {
+                _addFacultyName = null;
+              });
+            },
+            title: _addFacultyName ?? "Any",
+          );
   }
 
   @override
@@ -148,6 +198,39 @@ class _FacultyPageState extends State<_FacultyPage> {
                         return const Center(
                             child: CupertinoActivityIndicator());
                       },
+                      noItemsFoundIndicatorBuilder: (context) {
+                        return _addFacultyName == null
+                            ? Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 16,
+                                      horizontal: 16,
+                                    ),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 30,
+                                        horizontal: 53,
+                                      ),
+                                      child: Text(
+                                        'No departments found for selected faculty',
+                                        textAlign: TextAlign.center,
+                                        style: AppTexts.regular.copyWith(
+                                          color: AppColors.hintText,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const Divider(),
+                                  _buildFacultySection(context),
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  Center(child: _buildFacultySection(context)),
+                                ],
+                              );
+                      },
                       itemBuilder: (context, FacultyModel item, index) {
                         final isLastIndex = index ==
                             (_pagingController.itemList?.length ?? 0) - 1;
@@ -168,38 +251,7 @@ class _FacultyPageState extends State<_FacultyPage> {
                             ),
                             Divider(color: AppColors.lightGrey),
                             if (isLastIndex) ...[
-                              _addFacultyName == null
-                                  ? AddOntherSectionWidget(
-                                      getTextEntyered: (text) {
-                                        _addFacultyName = text;
-                                        Navigator.pop(context);
-                                        showToastMessage(
-                                            message: "Added successfully");
-                                        setState(() {});
-                                      },
-                                      title: 'Add Faculty',
-                                      initialText: _addFacultyName,
-                                    )
-                                  : AddedBodyItem(
-                                      editOnTap: () {
-                                        AddToButtomSheetWidget.show(context,
-                                            getTextEntyered: (text) {
-                                          _addFacultyName = text;
-                                          Navigator.pop(context);
-                                          showToastMessage(
-                                              message: "Added successfully");
-                                          setState(() {});
-                                        },
-                                            initialText: _addFacultyName,
-                                            isEdit: true);
-                                      },
-                                      deleteOnTap: () {
-                                        setState(() {
-                                          _addFacultyName = null;
-                                        });
-                                      },
-                                      title: _addFacultyName ?? "Any",
-                                    ),
+                              _buildFacultySection(context),
                             ],
                           ],
                         );
@@ -213,11 +265,8 @@ class _FacultyPageState extends State<_FacultyPage> {
                   child: ColoredButtonWidget(
                     text: 'Next',
                     onPressed: () {
-                      if (_addFacultyName != null) {
-                        Navigator.pop(context, _addFacultyName);
-                      } else {
-                        Navigator.pop(context, selectedFaculty);
-                      }
+                      widget.onSelectedFaculty(selectedFaculty);
+                      Navigator.pop(context);
                     },
                     grideantColors: AppColors.mainRed,
                     textColor: Colors.white,
