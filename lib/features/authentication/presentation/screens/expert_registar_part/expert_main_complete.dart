@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/expert_custom_indicator.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/set_expert_acc_page.dart';
-import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/page4.dart';
+import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/expert_polices.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/complete_profile_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/select_country_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
@@ -47,12 +48,28 @@ class _ExpertMainComplete extends StatefulWidget {
 class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
   int _currint = 0;
   final PageController _controller = PageController(initialPage: 0);
+  String? _bioText;
   String? username;
   String? gender;
   DateTime? birthdate;
-
+  // ******************
+  int? _countryId;
+  int? _statesId;
+  int? _areaId;
+  int? _specialityId;
+  int? _facultyId;
+  int? _departmentId;
+  String? _universityImage;
+  String? _universityName;
+  String? _otherCertificationsImage;
+  String? _governmentPermitImage;
+  String? _nationalFrontId;
+  String? _nationalBackId;
+  String? _fullNameInNationalId;
+  String? _nationalIdNumber;
+  List<String>? _socialLinks;
   void _onCompleteProfilePagePressed(
-      String username, String gender, DateTime birthdate) {
+      String bioText, String username, String gender, DateTime birthdate) {
     setState(() {
       this.username = username;
       this.gender = gender;
@@ -92,6 +109,8 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                   },
                   children: [
                     CompleteProfilePage(
+                      bioText: _bioText ?? '',
+                      role: widget.role,
                       firstName: widget.firstName,
                       lastName: widget.lastName,
                       onPressed: _onCompleteProfilePagePressed,
@@ -103,9 +122,60 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                       birthdate: birthdate ?? DateTime.now(),
                       gender: gender ?? "",
                       username: username ?? "",
+                      onNextPressed: (int countryId, int cityId, int areaId) {
+                        _countryId = countryId;
+                        _statesId = cityId;
+                        _areaId = areaId;
+                      },
                     ),
-                    const SetExpertAccountPage(),
-                    const Page4(),
+                    SetExpertAccountPage(
+                      onNextPressed: (dataInfo) {
+                        _specialityId = dataInfo.specialityId;
+                        _facultyId = dataInfo.facultyId;
+                        _departmentId = dataInfo.departmentId;
+                        _universityImage = dataInfo.universityImage;
+                        _universityName = dataInfo.universityName;
+                        _otherCertificationsImage =
+                            dataInfo.otherCertificationsImage;
+                        _governmentPermitImage = dataInfo.governmentPermitImage;
+                        _nationalFrontId = dataInfo.nationalFrontId;
+                        _nationalBackId = dataInfo.nationalBackId;
+                        _fullNameInNationalId = dataInfo.fullNameInNationalId;
+                        _nationalIdNumber = dataInfo.nationalIdNumber;
+                        _socialLinks = dataInfo.socialLinks;
+                        _controller.jumpToPage(3);
+                      },
+                    ),
+                    ExpertPolicesPage(
+                      onNextPress: () {
+                        final input = CompleteExpertProfileInput(
+                          profilePicture: 'test.com',
+                          username: username ?? "",
+                          bio: _bioText,
+                          gender: gender ?? "",
+                          birthDate: birthdate ?? DateTime.now(),
+                          countryId: _countryId,
+                          cityId: _areaId,
+                          stateId: _statesId,
+                          specialtyId: _specialityId,
+                          facultyId: _facultyId,
+                          departmentId: _departmentId,
+                          universityDegreeUrl: _universityImage,
+                          universityName: _universityName,
+                          otherCertificates: [_otherCertificationsImage!],
+                          governmentPermitUrl: _governmentPermitImage,
+                          nationalIdFront: _nationalFrontId,
+                          nationalIdBack: _nationalBackId,
+                          customDepartment: 'test.com',
+                          customFaculty: 'test.com',
+                          fullNameInNationalId: _fullNameInNationalId,
+                          nationalIdNumber: _nationalIdNumber,
+                          socialLinks: _socialLinks,
+                        );
+                        print("input result: ${input}");
+                        print("input result: ${input.bio}");
+                      },
+                    ),
                   ],
                 ),
               ),

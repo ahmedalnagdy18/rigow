@@ -5,14 +5,18 @@ import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/widgets/addto_buttom_sheet_widget.dart';
 
 class SocialLinksPage extends StatefulWidget {
-  const SocialLinksPage({super.key});
+  final void Function(List<String>? links) getSocialLinks;
+  const SocialLinksPage({
+    super.key,
+    required this.getSocialLinks,
+  });
 
   @override
   State<SocialLinksPage> createState() => _SocialLinksPageState();
 }
 
 class _SocialLinksPageState extends State<SocialLinksPage> {
-  final List<String> _socialLinks = [];
+  List<String> _socialLinks = [];
   _getIconForLink(String link) {
     if (link.contains("www.facebook.com")) {
       return SizedBox(
@@ -101,6 +105,7 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
                       onPressed: () {
                         setState(() {
                           _socialLinks.remove(link);
+                          widget.getSocialLinks(_socialLinks);
                         });
                       },
                       color: Colors.red,
@@ -121,6 +126,7 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
                     if (_socialLinks.length < 5) {
                       setState(() {
                         _socialLinks.add(text ?? '');
+                        widget.getSocialLinks(_socialLinks);
                       });
                       Navigator.pop(context);
                       showToastMessage(message: "Added successfully");

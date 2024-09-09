@@ -14,10 +14,12 @@ class FacultyBody extends StatefulWidget {
     required this.selectedSpecialtyId,
     required this.onSelectedFacultyIdCallBack,
     required this.onSelectedDepartmentIdCallBack,
+    required this.mycontroller,
   });
   final int selectedSpecialtyId;
   final void Function(int?) onSelectedFacultyIdCallBack;
   final void Function(int?) onSelectedDepartmentIdCallBack;
+  final TextEditingController mycontroller;
   @override
   State<FacultyBody> createState() => _FacultyBodyState();
 }
@@ -182,7 +184,8 @@ class _FacultyBodyState extends State<FacultyBody> {
                 )
               : const SizedBox(),
           const SizedBox(height: 24),
-          const TextFieldWidget(
+          TextFieldWidget(
+            mycontroller: widget.mycontroller,
             obscureText: false,
             hintText: 'Type your university name',
           ),

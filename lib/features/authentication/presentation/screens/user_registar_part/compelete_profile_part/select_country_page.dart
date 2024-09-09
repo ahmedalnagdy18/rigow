@@ -31,13 +31,15 @@ class SelectCountryPage extends StatelessWidget {
       required this.birthdate,
       required this.firstName,
       required this.role,
-      required this.controller});
+      required this.controller,
+      required this.onNextPressed});
   final String username;
   final String gender;
   final DateTime birthdate;
   final String firstName;
   final String role;
   final PageController controller;
+  final void Function(int countryId, int cityId, int areaId) onNextPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class SelectCountryPage extends StatelessWidget {
         username: username,
         firstName: firstName,
         controller: controller,
+        onNextPressed: onNextPressed,
       ),
     );
   }
@@ -63,13 +66,15 @@ class _SelectCountryPage extends StatefulWidget {
   final String gender;
   final DateTime birthdate;
   final PageController controller;
+  final void Function(int countryId, int cityId, int areaId) onNextPressed;
   const _SelectCountryPage(
       {required this.username,
       required this.gender,
       required this.birthdate,
       required this.firstName,
       required this.role,
-      required this.controller});
+      required this.controller,
+      required this.onNextPressed});
 
   @override
   State<_SelectCountryPage> createState() => _SelectCountryPageState();
@@ -345,6 +350,11 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                       onPressed: selectedArea == null
                           ? null
                           : () {
+                              widget.onNextPressed(
+                                selectedCountry!.id,
+                                selectedCity!.id,
+                                selectedArea!.id,
+                              );
                               final input = CompleteProfileUserInput(
                                 countryId: selectedCountry!.id,
                                 stateId: selectedCity!.id,

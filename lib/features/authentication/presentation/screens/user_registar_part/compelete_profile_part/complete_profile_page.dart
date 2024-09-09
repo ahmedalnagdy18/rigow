@@ -23,11 +23,17 @@ class CompleteProfilePage extends StatelessWidget {
       {super.key,
       required this.onPressed,
       required this.firstName,
-      required this.lastName});
-  final void Function(String username, String gender, DateTime birthdate)
+      required this.lastName,
+      required this.role,
+      required this.bioText});
+  final void Function(
+          String bioText, String username, String gender, DateTime birthdate)
       onPressed;
+  final String bioText;
   final String firstName;
+
   final String lastName;
+  final String role;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -36,6 +42,8 @@ class CompleteProfilePage extends StatelessWidget {
         firstName: firstName,
         lastName: lastName,
         onPressed: onPressed,
+        role: role,
+        bioText: bioText,
       ),
     );
   }
@@ -45,11 +53,16 @@ class _CompleteProfilePage extends StatefulWidget {
   const _CompleteProfilePage(
       {required this.onPressed,
       required this.firstName,
-      required this.lastName});
-  final void Function(String username, String gender, DateTime birthdate)
+      required this.lastName,
+      required this.role,
+      required this.bioText});
+  final void Function(
+          String bioText, String username, String gender, DateTime birthdate)
       onPressed;
+  final String bioText;
   final String firstName;
   final String lastName;
+  final String role;
 
   @override
   State<_CompleteProfilePage> createState() => _CompleteProfilePageState();
@@ -67,6 +80,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
 
   final TextEditingController _userName = TextEditingController();
   String? selectedGender;
+  final bioText = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +116,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                   TextFieldWidget(
                     suffixIcon: state is SucsessValidateUsernameState
                         ? Icon(
-                            Icons.verified,
+                            Icons.check_circle,
                             color: AppColors.appBarRed,
                             size: 16,
                           )
@@ -155,7 +169,23 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                     },
                     title: AppLocalizations.of(context)!.female,
                   ),
-                  const SizedBox(height: 40),
+                  SizedBox(height: widget.role == 'Expert' ? 40 : 0),
+                  widget.role == 'Expert'
+                      ? const Text(
+                          'Biography',
+                          style: AppTexts.midTitle,
+                        )
+                      : const SizedBox(),
+                  const SizedBox(height: 16),
+                  widget.role == 'Expert'
+                      ? TextFieldWidget(
+                          mycontroller: bioText,
+                          obscureText: false,
+                          hintText: 'Tell about your self',
+                          maxLength: 600,
+                        )
+                      : const SizedBox(),
+                  const SizedBox(height: 32),
                   InkWell(
                     onTap: () {
                       _openDatePicker(context);
@@ -181,6 +211,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                         ? null
                         : () {
                             widget.onPressed(
+                              bioText.text,
                               _userName.text,
                               selectedGender!,
                               selectedDate!,

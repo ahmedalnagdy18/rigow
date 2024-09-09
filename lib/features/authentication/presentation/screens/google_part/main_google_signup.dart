@@ -23,7 +23,7 @@ class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
   DateTime? birthdate;
 
   void _onCompleteProfilePagePressed(
-      String username, String gender, DateTime birthdate) {
+      String bioText, String username, String gender, DateTime birthdate) {
     setState(() {
       this.username = username;
       this.gender = gender;
@@ -76,6 +76,8 @@ class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
                       },
                     ),
                     CompleteProfilePage(
+                      bioText: '',
+                      role: '',
                       firstName: '',
                       lastName: '',
                       onPressed: _onCompleteProfilePagePressed,

@@ -1,6 +1,7 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
 import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/city_repository_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/complete_expert_profile_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/complete_profile_user_repo_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/countries_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/login_part_imp/forget_pass_repository_imp.dart';
@@ -17,6 +18,7 @@ import 'package:rigow/features/authentication/data/repositories/login_part_imp/v
 import 'package:rigow/features/authentication/data/repositories/verify_user_repository_imp.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/city_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/complete_expert_profile_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/complete_profile_user_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/countries_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/login_part_usecase/forget_pass_usecase.dart';
@@ -81,6 +83,9 @@ Future<void> init() async {
   sl.registerLazySingleton<DepartmentUsecase>(
       () => DepartmentUsecase(repository: sl()));
 
+  sl.registerLazySingleton<CompleteExpertProfileUsecase>(
+      () => CompleteExpertProfileUsecase(repository: sl()));
+
 // Repository
 
   sl.registerLazySingleton<LoginRepository>(
@@ -127,6 +132,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<DepartmentRepository>(
       () => DepartmentRepositoryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<SetExpertCompleteProfileRepository>(
+      () => CompleteExpertProfileRepositoryImp(graphQLClient: sl()));
 //---------------------------------------------------------------------------------------------------
   sl.registerLazySingleton<GraphQLClient>(() {
     final authLink = AuthLink(getToken: () async {

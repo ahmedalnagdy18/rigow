@@ -54,7 +54,7 @@ class _MainCompleteYourProfilePageState
   DateTime? birthdate;
 
   void _onCompleteProfilePagePressed(
-      String username, String gender, DateTime birthdate) {
+      String bioText, String username, String gender, DateTime birthdate) {
     setState(() {
       this.username = username;
       this.gender = gender;
@@ -94,6 +94,8 @@ class _MainCompleteYourProfilePageState
                   },
                   children: [
                     CompleteProfilePage(
+                      bioText: '',
+                      role: widget.role,
                       firstName: widget.firstName,
                       lastName: widget.lastName,
                       onPressed: _onCompleteProfilePagePressed,
@@ -105,6 +107,7 @@ class _MainCompleteYourProfilePageState
                       birthdate: birthdate ?? DateTime.now(),
                       gender: gender ?? "",
                       username: username ?? "",
+                      onNextPressed: (int countryId, int cityId, int areaId) {},
                     ),
                   ],
                 ),

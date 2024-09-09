@@ -1,4 +1,5 @@
 import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/city_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_profile_user_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/countries_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/login_part_entity/forget_pass_entity.dart';
@@ -86,4 +87,9 @@ abstract class FacultyRepository {
 abstract class DepartmentRepository {
   Future<DepartmentPaginatedData<DepartmentModel>> department(
       DepartmentEntity departmentEntity);
+}
+
+abstract class SetExpertCompleteProfileRepository {
+  Future<void> setExpertCompleteProfile(
+      CompleteExpertProfileInput completeExpertProfileInput);
 }
