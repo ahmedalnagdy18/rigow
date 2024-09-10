@@ -113,6 +113,36 @@ abstract class AppLocalizations {
   /// **'Skip'**
   String get skip;
 
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @addedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Added successfully'**
+  String get addedSuccessfully;
+
   /// No description provided for @continuee.
   ///
   /// In en, this message translates to:
@@ -580,6 +610,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You will continue as an expert, but you will have limited interactions until receiving a notification with account confirmation then you can  manage all account features'**
   String get expertWelcomeDescreption;
+
+  /// No description provided for @biography.
+  ///
+  /// In en, this message translates to:
+  /// **'Biography'**
+  String get biography;
+
+  /// No description provided for @tellAboutYourSelf.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell about your self'**
+  String get tellAboutYourSelf;
+
+  /// No description provided for @universityDegree.
+  ///
+  /// In en, this message translates to:
+  /// **'University degree'**
+  String get universityDegree;
+
+  /// No description provided for @otherCertifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Other certifications'**
+  String get otherCertifications;
+
+  /// No description provided for @governmentPermit.
+  ///
+  /// In en, this message translates to:
+  /// **'Government permit'**
+  String get governmentPermit;
+
+  /// No description provided for @nationality.
+  ///
+  /// In en, this message translates to:
+  /// **'Nationality'**
+  String get nationality;
+
+  /// No description provided for @fullNameInNationalId.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name in national ID'**
+  String get fullNameInNationalId;
+
+  /// No description provided for @typeYourFullNationalId.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your full name in your national ID'**
+  String get typeYourFullNationalId;
+
+  /// No description provided for @nationalIdNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'National ID number'**
+  String get nationalIdNumber;
+
+  /// No description provided for @typeYourNationalIdNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your national ID number'**
+  String get typeYourNationalIdNumber;
+
+  /// No description provided for @nationalIdFront.
+  ///
+  /// In en, this message translates to:
+  /// **'National ID (front)'**
+  String get nationalIdFront;
+
+  /// No description provided for @nationalIdBack.
+  ///
+  /// In en, this message translates to:
+  /// **'National ID (back)'**
+  String get nationalIdBack;
+
+  /// No description provided for @experience.
+  ///
+  /// In en, this message translates to:
+  /// **'Experience'**
+  String get experience;
+
+  /// No description provided for @specialty.
+  ///
+  /// In en, this message translates to:
+  /// **'Specialty'**
+  String get specialty;
+
+  /// No description provided for @faculty.
+  ///
+  /// In en, this message translates to:
+  /// **'Faculty'**
+  String get faculty;
+
+  /// No description provided for @department.
+  ///
+  /// In en, this message translates to:
+  /// **'Department'**
+  String get department;
+
+  /// No description provided for @typeYourUniversityName.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your university name'**
+  String get typeYourUniversityName;
+
+  /// No description provided for @tapToUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to upload'**
+  String get tapToUpload;
+
+  /// No description provided for @addFacultyNameHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Faculty name here'**
+  String get addFacultyNameHere;
+
+  /// No description provided for @addDepartment.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Department'**
+  String get addDepartment;
+
+  /// No description provided for @selectYourFacultyDepartment.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your Faculty department'**
+  String get selectYourFacultyDepartment;
+
+  /// No description provided for @searchDepartment.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Department'**
+  String get searchDepartment;
+
+  /// No description provided for @noDepartmentsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No departments found for selected faculty'**
+  String get noDepartmentsFound;
+
+  /// No description provided for @selectYourSpecialty.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your specialty'**
+  String get selectYourSpecialty;
+
+  /// No description provided for @searchSpecialty.
+  ///
+  /// In en, this message translates to:
+  /// **'Search specialty'**
+  String get searchSpecialty;
+
+  /// No description provided for @selectYourFaculty.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your faculty'**
+  String get selectYourFaculty;
+
+  /// No description provided for @searchFaculty.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Faculty'**
+  String get searchFaculty;
+
+  /// No description provided for @addFaculty.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Faculty'**
+  String get addFaculty;
+
+  /// No description provided for @socialLinks.
+  ///
+  /// In en, this message translates to:
+  /// **'Social links'**
+  String get socialLinks;
+
+  /// No description provided for @addLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Add link'**
+  String get addLink;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -5,6 +5,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/success_alert_dailog.dart';
 import 'package:rigow/core/common/textfield.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/login_part_entity/reset_password_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/reset_password_cubit/reset_password_cubit.dart';
@@ -56,15 +57,7 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
     return BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
       listener: (context, state) {
         if (state is ErrorResetPasswordState) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(state.message.toString()),
-            action: SnackBarAction(
-              label: 'Undo',
-              textColor: Colors.white,
-              onPressed: () {},
-            ),
-          ));
+          showErrorToastMessage(message: state.message);
         }
       },
       builder: (context, state) {

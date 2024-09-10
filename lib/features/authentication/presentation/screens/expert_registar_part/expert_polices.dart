@@ -277,13 +277,6 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
         socialLinks: widget.socialLinks,
       ),
     );
-    print(widget.gender);
-    print(widget.bioText);
-    print(widget.countryId);
-    print(widget.socialLinks);
-    print(widget.otherCertificationsImage);
-    print(widget.specialityId);
-    print(widget.universityImage);
   }
 }
 

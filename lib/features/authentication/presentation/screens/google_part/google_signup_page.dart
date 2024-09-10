@@ -67,6 +67,7 @@ class _GoogleSignupPageState extends State<GoogleSignupPage> {
           ),
           const SizedBox(height: 32),
           Phonetextfield(
+            initialCountryCode: 'EG',
             onCountryChanged: (p0) {},
             validator: (value) => _phoneNumber.text.isNotEmpty
                 ? null

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/domain/entities/verify_user_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_cubit.dart';
@@ -94,15 +95,7 @@ class _VerificationPageState extends State<_VerificationPage> {
     return BlocConsumer<VerifyUserCubit, VerifyUserState>(
       listener: (context, state) {
         if (state is ErrorVerifyUserState) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(state.message.toString()),
-            action: SnackBarAction(
-              label: 'Undo',
-              textColor: Colors.white,
-              onPressed: () {},
-            ),
-          ));
+          showErrorToastMessage(message: state.message);
         } else if (state is SucsessVerifyUserState) {
           widget.role == 'Expert'
               ? Navigator.of(context).pushReplacement(MaterialPageRoute(

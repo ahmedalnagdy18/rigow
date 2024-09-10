@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class AddedBodyItem extends StatelessWidget {
   const AddedBodyItem(
@@ -51,7 +52,7 @@ class AddedBodyItem extends StatelessWidget {
                 InkWell(
                   onTap: editOnTap,
                   child: RedText(
-                    text: 'Edit',
+                    text: AppLocalizations.of(context)!.edit,
                     fontWeight: FontWeight.w400,
                     gradient: LinearGradient(colors: AppColors.mainRed),
                   ),
@@ -63,7 +64,7 @@ class AddedBodyItem extends StatelessWidget {
                 InkWell(
                   onTap: deleteOnTap,
                   child: RedText(
-                    text: 'Delete',
+                    text: AppLocalizations.of(context)!.delete,
                     fontWeight: FontWeight.w400,
                     gradient: LinearGradient(colors: AppColors.mainRed),
                   ),

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/domain/entities/login_part_entity/verify_forget_password_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_forget_pass_cubit/verify_forget_cubit.dart';
@@ -89,15 +90,7 @@ class _ResetPasswordVerifcationState extends State<_ResetPasswordVerifcation> {
     return BlocConsumer<VerifyForgetCubit, VerifyForgetState>(
       listener: (context, state) {
         if (state is ErrorVerifyForgetState) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(state.message.toString()),
-            action: SnackBarAction(
-              label: 'Undo',
-              textColor: Colors.white,
-              onPressed: () {},
-            ),
-          ));
+          showErrorToastMessage(message: state.message);
         } else if (state is SucsessVerifyForgetState) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => NewPasswordPage(

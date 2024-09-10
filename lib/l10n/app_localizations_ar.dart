@@ -16,6 +16,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get skip => 'تخطى';
 
   @override
+  String get edit => 'تعديل';
+
+  @override
+  String get delete => 'حذف';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get back => 'رجوع';
+
+  @override
+  String get addedSuccessfully => 'تمت الإضافة بنجاح';
+
+  @override
   String get continuee => 'استمرار';
 
   @override
@@ -248,4 +263,94 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get expertWelcomeDescreption => 'ستستمر كخبير، ولكن سيكون لديك تفاعلات محدودة حتى تتلقى بريد الكتروني بتأكيد الحساب، ثم يمكنك إدارة جميع ميزات الحساب , افحص بريدك الالكتروني بشكل دوري';
+
+  @override
+  String get biography => 'السيرة الذاتية';
+
+  @override
+  String get tellAboutYourSelf => 'أخبرنا عن نفسك';
+
+  @override
+  String get universityDegree => 'الدرجة الجامعية';
+
+  @override
+  String get otherCertifications => 'شهادات أخرى';
+
+  @override
+  String get governmentPermit => 'تصريح حكومي';
+
+  @override
+  String get nationality => 'الجنسية';
+
+  @override
+  String get fullNameInNationalId => 'الاسم الكامل في الهوية الوطنية';
+
+  @override
+  String get typeYourFullNationalId => 'اكتب اسمك الكامل في هويتك الوطنية';
+
+  @override
+  String get nationalIdNumber => 'رقم الهوية الوطنية';
+
+  @override
+  String get typeYourNationalIdNumber => 'اكتب رقم هويتك الوطنية';
+
+  @override
+  String get nationalIdFront => 'الهوية الوطنية (الواجهة)';
+
+  @override
+  String get nationalIdBack => 'الهوية الوطنية (الخلفية)';
+
+  @override
+  String get experience => 'الخبرة';
+
+  @override
+  String get specialty => 'التخصص';
+
+  @override
+  String get faculty => 'الكلية';
+
+  @override
+  String get department => 'القسم';
+
+  @override
+  String get typeYourUniversityName => 'اكتب اسم جامعتك';
+
+  @override
+  String get tapToUpload => 'اضغط للتحميل';
+
+  @override
+  String get addFacultyNameHere => 'أضف اسم الكلية هنا';
+
+  @override
+  String get addDepartment => 'أضف القسم';
+
+  @override
+  String get selectYourFacultyDepartment => 'اختر قسم الكلية';
+
+  @override
+  String get searchDepartment => 'ابحث عن القسم';
+
+  @override
+  String get noDepartmentsFound => 'لم يتم العثور على أقسام للكلية المختارة';
+
+  @override
+  String get selectYourSpecialty => 'اختر تخصصك';
+
+  @override
+  String get searchSpecialty => 'ابحث عن التخصص';
+
+  @override
+  String get selectYourFaculty => 'اختر كليتك';
+
+  @override
+  String get searchFaculty => 'ابحث عن الكلية';
+
+  @override
+  String get addFaculty => 'أضف الكلية';
+
+  @override
+  String get socialLinks => 'روابط التواصل الاجتماعي';
+
+  @override
+  String get addLink => 'أضف الرابط';
 }

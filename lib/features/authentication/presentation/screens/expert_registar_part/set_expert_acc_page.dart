@@ -92,7 +92,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                         _isEnabled();
                         setState(() {});
                       },
-                      title: 'University degree',
+                      title: AppLocalizations.of(context)!.universityDegree,
                       iconImage: 'assets/images/cirtificate.png',
                     ),
                     const SizedBox(height: 4),
@@ -103,7 +103,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                         _isEnabled();
                         _otherCertificationsimages = selectedImage?.path;
                       },
-                      title: 'Other certifications',
+                      title: AppLocalizations.of(context)!.otherCertifications,
                       iconImage: 'assets/images/cirtificate.png',
                     ),
                     const SizedBox(height: 4),
@@ -114,7 +114,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                         _isEnabled();
                         _governmentPermitImage = selectedImage?.path;
                       },
-                      title: 'Government permit',
+                      title: AppLocalizations.of(context)!.governmentPermit,
                       iconImage: 'assets/images/file.png',
                       size: 8,
                     ),
@@ -134,22 +134,26 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Nationality',
+                            AppLocalizations.of(context)!.nationality,
                             style: AppTexts.title.copyWith(fontSize: 18),
                           ),
                           const SizedBox(height: 16),
                           TextFieldWidget(
                             mycontroller: _fullNameInNationalId,
-                            label: 'Full name in national ID',
+                            label: AppLocalizations.of(context)!
+                                .fullNameInNationalId,
                             obscureText: false,
-                            hintText: 'Type your full name in your national ID',
+                            hintText: AppLocalizations.of(context)!
+                                .typeYourFullNationalId,
                           ),
                           const SizedBox(height: 8),
                           TextFieldWidget(
                             mycontroller: _nationalIdNumber,
-                            label: 'National ID number',
+                            label:
+                                AppLocalizations.of(context)!.nationalIdNumber,
                             obscureText: false,
-                            hintText: 'Type your national ID number',
+                            hintText: AppLocalizations.of(context)!
+                                .typeYourNationalIdNumber,
                           ),
                         ],
                       ),
@@ -162,7 +166,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                         _nationalFrontId = selectedationalFrontIdImage?.path;
                         _isEnabled();
                       },
-                      title: 'National ID (front)',
+                      title: AppLocalizations.of(context)!.nationalIdFront,
                       iconImage: 'assets/images/cirtificate.png',
                     ),
                     const SizedBox(height: 4),
@@ -173,7 +177,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                         __nationalBackId = selectedImage?.path;
                         _isEnabled();
                       },
-                      title: 'National ID (back)',
+                      title: AppLocalizations.of(context)!.nationalIdBack,
                       iconImage: 'assets/images/cirtificate.png',
                       size: 8,
                     ),
@@ -191,7 +195,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
               ),
             ),
             ColoredButtonWidget(
-              text: 'Next',
+              text: AppLocalizations.of(context)!.next,
               onPressed: _isButtonEnabled
                   ? () {
                       {

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/login_part_entity/forget_pass_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
@@ -50,15 +51,7 @@ class _ResetPasswordPageState extends State<_ResetPasswordPage> {
     return BlocConsumer<ForgetPassCubit, ForgetPassState>(
         listener: (context, state) {
       if (state is ErrorForgetPass) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(state.message.toString()),
-          action: SnackBarAction(
-            label: 'Undo',
-            textColor: Colors.white,
-            onPressed: () {},
-          ),
-        ));
+        showErrorToastMessage(message: state.message);
       }
     }, builder: (context, state) {
       return Scaffold(

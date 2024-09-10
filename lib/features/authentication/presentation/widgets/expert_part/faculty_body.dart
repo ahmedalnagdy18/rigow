@@ -80,8 +80,8 @@ class _FacultyBodyState extends State<FacultyBody> {
                                     color: Colors.green, size: 18),
                               )
                             : const SizedBox(),
-                        const Text(
-                          'Faculty',
+                        Text(
+                          AppLocalizations.of(context)!.faculty,
                           style: AppTexts.regular,
                         ),
                       ],
@@ -151,8 +151,8 @@ class _FacultyBodyState extends State<FacultyBody> {
                                           color: Colors.green, size: 18),
                                     )
                                   : const SizedBox(),
-                              const Text(
-                                'Department',
+                              Text(
+                                AppLocalizations.of(context)!.department,
                                 style: AppTexts.regular,
                               ),
                             ],
@@ -187,7 +187,7 @@ class _FacultyBodyState extends State<FacultyBody> {
           TextFieldWidget(
             mycontroller: widget.mycontroller,
             obscureText: false,
-            hintText: 'Type your university name',
+            hintText: AppLocalizations.of(context)!.typeYourUniversityName,
           ),
         ],
       ),

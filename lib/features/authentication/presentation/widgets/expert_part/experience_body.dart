@@ -30,7 +30,7 @@ class _ExperienceBodyState extends State<ExperienceBody> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Experience',
+            AppLocalizations.of(context)!.experience,
             style: AppTexts.title.copyWith(fontSize: 18),
           ),
           const SizedBox(height: 35),
@@ -69,8 +69,8 @@ class _ExperienceBodyState extends State<ExperienceBody> {
                                   color: Colors.green, size: 18),
                             )
                           : const SizedBox(),
-                      const Text(
-                        'Specialty',
+                      Text(
+                        AppLocalizations.of(context)!.specialty,
                         style: AppTexts.regular,
                       ),
                     ],

@@ -6,6 +6,7 @@ import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/widgets/select_file_sheet_widget.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class CirtificateContainerWidget extends StatefulWidget {
   final String title;
@@ -126,7 +127,7 @@ class _CirtificateContainerWidgetState
                         ),
                         const SizedBox(width: 10),
                         Text(
-                          'Tap to upload',
+                          AppLocalizations.of(context)!.tapToUpload,
                           style: AppTexts.miniRegular.copyWith(
                             color: AppColors.textfieldBorder,
                           ),

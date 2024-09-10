@@ -3,6 +3,7 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/widgets/addto_buttom_sheet_widget.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class SocialLinksPage extends StatefulWidget {
   final void Function(List<String>? links) getSocialLinks;
@@ -67,7 +68,7 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Social links',
+            AppLocalizations.of(context)!.socialLinks,
             style: AppTexts.title.copyWith(fontSize: 18),
           ),
           const SizedBox(height: 20),
@@ -129,7 +130,9 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
                         widget.getSocialLinks(_socialLinks);
                       });
                       Navigator.pop(context);
-                      showToastMessage(message: "Added successfully");
+                      showToastMessage(
+                          message:
+                              AppLocalizations.of(context)!.addedSuccessfully);
                     }
                   },
                 );
@@ -143,7 +146,7 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
                           color: AppColors.iconAdd,
                         ),
                         const SizedBox(width: 8),
-                        Text('Add link',
+                        Text(AppLocalizations.of(context)!.addLink,
                             style: AppTexts.miniRegular
                                 .copyWith(color: AppColors.hintText)),
                       ],

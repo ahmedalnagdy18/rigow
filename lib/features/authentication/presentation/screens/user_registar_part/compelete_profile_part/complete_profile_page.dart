@@ -171,8 +171,8 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                   ),
                   SizedBox(height: widget.role == 'Expert' ? 40 : 0),
                   widget.role == 'Expert'
-                      ? const Text(
-                          'Biography',
+                      ? Text(
+                          AppLocalizations.of(context)!.biography,
                           style: AppTexts.midTitle,
                         )
                       : const SizedBox(),
@@ -181,7 +181,8 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                       ? TextFieldWidget(
                           mycontroller: bioText,
                           obscureText: false,
-                          hintText: 'Tell about your self',
+                          hintText:
+                              AppLocalizations.of(context)!.tellAboutYourSelf,
                           maxLength: 600,
                         )
                       : const SizedBox(),

@@ -20,7 +20,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController pageController = PageController();
   int currentPage = 0;
-
+  late String role;
   @override
   void initState() {
     currentPage = pageController.initialPage;
@@ -108,9 +108,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const SizedBox(height: 28),
                     InkWell(
                       onTap: () {
+                        setState(() {
+                          role = widget.role == 'Expert' ? 'User' : 'Expert';
+                        });
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => GetStartedPage(
-                                  role: widget.role,
+                                  role: role,
                                 )));
                       },
                       child: Text(

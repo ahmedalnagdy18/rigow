@@ -30,8 +30,7 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
   final _firstName = TextEditingController();
   final _lastName = TextEditingController();
 
-  String _currentCountryCode = 'EG';
-  String plus = '+';
+  String _currentCountryCode = '+20';
   bool isObscuretext = true;
   bool _isButtonEnabled = false;
 
@@ -90,8 +89,9 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
           ),
           const SizedBox(height: 32),
           Phonetextfield(
+            initialCountryCode: 'EG',
             onCountryChanged: (country) {
-              _currentCountryCode = country.dialCode;
+              _currentCountryCode = '+${country.dialCode}';
             },
             validator: (value) => _phoneNumber.text.isNotEmpty
                 ? null
@@ -173,7 +173,7 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
     final input = RegisterInput(
       firstName: _firstName.text,
       lastName: _lastName.text,
-      phone: plus + _currentCountryCode + _phoneNumber.text,
+      phone: _currentCountryCode + _phoneNumber.text,
       email: _email.text,
       password: _password.text,
       loginDetails: LoginDetailsInput("", DeviceEnum.android),

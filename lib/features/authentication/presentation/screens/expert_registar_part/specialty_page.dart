@@ -13,6 +13,7 @@ import 'package:rigow/features/authentication/domain/model/specialty_model.dart'
 import 'package:rigow/features/authentication/presentation/cubits/specialty_cubit/specialty_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/specialty_cubit/specialty_state.dart';
 import 'package:rigow/injection_container.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class SpecialtyPage extends StatelessWidget {
   final void Function(SpecialtyModel?) onSelectedSpecialty;
@@ -102,24 +103,24 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
     }, builder: (context, state) {
       return Scaffold(
           backgroundColor: Colors.white,
-          appBar: const MainAppbarWidget(
-            backText: 'Back',
-            title: "Specialty",
+          appBar: MainAppbarWidget(
+            backText: AppLocalizations.of(context)!.back,
+            title: AppLocalizations.of(context)!.specialty,
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Select your specialty',
+                Text(
+                  AppLocalizations.of(context)!.selectYourSpecialty,
                   style: AppTexts.title,
                 ),
                 const SizedBox(height: 16),
                 TextFieldWidget(
                   mycontroller: searchController,
                   prefixIcon: const Icon(Icons.search, size: 20),
-                  hintText: 'Search specialty',
+                  hintText: AppLocalizations.of(context)!.searchSpecialty,
                   obscureText: false,
                   raduisSize: 8,
                 ),
@@ -166,7 +167,7 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: ColoredButtonWidget(
-                    text: 'Next',
+                    text: AppLocalizations.of(context)!.next,
                     onPressed: () {
                       widget.onSelectedSpecialty(selectedSpecialty);
                       Navigator.pop(context);

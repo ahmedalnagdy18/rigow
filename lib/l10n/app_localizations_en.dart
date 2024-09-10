@@ -16,6 +16,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get skip => 'Skip';
 
   @override
+  String get edit => 'Edit';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get addedSuccessfully => 'Added successfully';
+
+  @override
   String get continuee => 'Continue';
 
   @override
@@ -248,4 +263,94 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get expertWelcomeDescreption => 'You will continue as an expert, but you will have limited interactions until receiving a notification with account confirmation then you can  manage all account features';
+
+  @override
+  String get biography => 'Biography';
+
+  @override
+  String get tellAboutYourSelf => 'Tell about your self';
+
+  @override
+  String get universityDegree => 'University degree';
+
+  @override
+  String get otherCertifications => 'Other certifications';
+
+  @override
+  String get governmentPermit => 'Government permit';
+
+  @override
+  String get nationality => 'Nationality';
+
+  @override
+  String get fullNameInNationalId => 'Full name in national ID';
+
+  @override
+  String get typeYourFullNationalId => 'Type your full name in your national ID';
+
+  @override
+  String get nationalIdNumber => 'National ID number';
+
+  @override
+  String get typeYourNationalIdNumber => 'Type your national ID number';
+
+  @override
+  String get nationalIdFront => 'National ID (front)';
+
+  @override
+  String get nationalIdBack => 'National ID (back)';
+
+  @override
+  String get experience => 'Experience';
+
+  @override
+  String get specialty => 'Specialty';
+
+  @override
+  String get faculty => 'Faculty';
+
+  @override
+  String get department => 'Department';
+
+  @override
+  String get typeYourUniversityName => 'Type your university name';
+
+  @override
+  String get tapToUpload => 'Tap to upload';
+
+  @override
+  String get addFacultyNameHere => 'Add Faculty name here';
+
+  @override
+  String get addDepartment => 'Add Department';
+
+  @override
+  String get selectYourFacultyDepartment => 'Select your Faculty department';
+
+  @override
+  String get searchDepartment => 'Search Department';
+
+  @override
+  String get noDepartmentsFound => 'No departments found for selected faculty';
+
+  @override
+  String get selectYourSpecialty => 'Select your specialty';
+
+  @override
+  String get searchSpecialty => 'Search specialty';
+
+  @override
+  String get selectYourFaculty => 'Select your faculty';
+
+  @override
+  String get searchFaculty => 'Search Faculty';
+
+  @override
+  String get addFaculty => 'Add Faculty';
+
+  @override
+  String get socialLinks => 'Social links';
+
+  @override
+  String get addLink => 'Add link';
 }

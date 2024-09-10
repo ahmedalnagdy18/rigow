@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/login_part_entity/login_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/login_cubit/login_cubit.dart';
@@ -57,15 +58,7 @@ class _LoginPageState extends State<_LoginPageBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(listener: (context, state) {
       if (state is ErrorLoginState) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(state.message.toString()),
-          action: SnackBarAction(
-            label: 'Undo',
-            textColor: Colors.white,
-            onPressed: () {},
-          ),
-        ));
+        showErrorToastMessage(message: state.message);
       }
     }, builder: (context, state) {
       return Scaffold(

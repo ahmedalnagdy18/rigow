@@ -22,14 +22,24 @@ void showToastMessage({required String message}) {
     fontSize: 14.0,
   );
 }
-// showToastMessage(message: "Added successfully");   to call it 
+// showToastMessage(message: "Added successfully");   to call it
 
+void showErrorToastMessage({required String message}) {
+  Fluttertoast.showToast(
+    msg: message,
+    backgroundColor: AppColors.appBarRed,
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.TOP,
+    timeInSecForIosWeb: 2,
+    textColor: Colors.white,
+    fontSize: 14.0,
+  );
+}
+// showErrorToastMessage(message: state.message);   to call it
 
+// to Navigat to any page
 
-// to Navigat to any page 
+// Navigator.of(context).push(MaterialPageRoute(
+// builder: (context) => const Navbar()));
 
- // Navigator.of(context).push(MaterialPageRoute(     
- // builder: (context) => const Navbar()));
-
- //    AppLocalizations.of(context)!.appName,   to localization 
-
+//    AppLocalizations.of(context)!.appName,   to localization

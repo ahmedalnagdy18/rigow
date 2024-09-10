@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class AddToButtomSheetWidget extends StatefulWidget {
   const AddToButtomSheetWidget({
@@ -100,7 +101,8 @@ class _AddToButtomSheetWidgetState extends State<AddToButtomSheetWidget> {
                           ),
                           fillColor: Colors.white,
                           filled: true,
-                          hintText: 'Add Faculty name here',
+                          hintText:
+                              AppLocalizations.of(context)!.addFacultyNameHere,
                           border: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -118,14 +120,14 @@ class _AddToButtomSheetWidgetState extends State<AddToButtomSheetWidget> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              text: "Cancel",
+                              text: AppLocalizations.of(context)!.cancel,
                               textColor: Colors.red,
                             ),
                           ),
                           const SizedBox(width: 16),
                           Expanded(
                             child: ColoredButtonWidget(
-                              text: 'Next',
+                              text: AppLocalizations.of(context)!.next,
                               onPressed: () {
                                 widget
                                     .getTextEntyered(_nameTextController.text);

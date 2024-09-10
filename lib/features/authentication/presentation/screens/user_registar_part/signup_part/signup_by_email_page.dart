@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/features/authentication/presentation/cubits/register_cubit/register_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/register_cubit/register_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/login_part/login_page.dart';
@@ -29,19 +30,10 @@ class _SignupByEmailPageState extends State<SignupByEmailPage> {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is ErrorRegsisterState) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(state.message.toString()),
-            action: SnackBarAction(
-              label: 'Undo',
-              textColor: Colors.white,
-              onPressed: () {},
-            ),
-          ));
+          showErrorToastMessage(message: state.message);
         }
       },
       builder: (context, state) {
-        print(widget.role);
         return Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,

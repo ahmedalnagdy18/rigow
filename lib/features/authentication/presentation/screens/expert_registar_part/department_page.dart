@@ -17,6 +17,7 @@ import 'package:rigow/features/authentication/presentation/widgets/addto_buttom_
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/add_onther_widget.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/added_body_item.dart';
 import 'package:rigow/injection_container.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class DepartmentPage extends StatelessWidget {
   final void Function(DepartmentModel? selectedDepartment) onSelectedDepartment;
@@ -71,7 +72,6 @@ class _MyWidgetState extends State<_DepartmentPage> {
   @override
   void initState() {
     super.initState();
-    print("ssssssss ${widget.facultyId}");
     if (widget.initialSelected != null) {
       selectedDepartment = widget.initialSelected!;
     }
@@ -124,10 +124,11 @@ class _MyWidgetState extends State<_DepartmentPage> {
                 name: _addDepartmentName ?? '',
               );
               Navigator.pop(context);
-              showToastMessage(message: "Added successfully");
+              showToastMessage(
+                  message: AppLocalizations.of(context)!.addedSuccessfully);
               setState(() {});
             },
-            title: 'Add Department',
+            title: AppLocalizations.of(context)!.addDepartment,
             initialText: _addDepartmentName,
           )
         : AddedBodyItem(
@@ -139,7 +140,9 @@ class _MyWidgetState extends State<_DepartmentPage> {
                   name: _addDepartmentName ?? '',
                 );
                 Navigator.pop(context);
-                showToastMessage(message: "Added successfully");
+                showToastMessage(
+                  message: AppLocalizations.of(context)!.addedSuccessfully,
+                );
                 setState(() {});
               }, initialText: _addDepartmentName, isEdit: true);
             },
@@ -162,24 +165,24 @@ class _MyWidgetState extends State<_DepartmentPage> {
     }, builder: (context, state) {
       return Scaffold(
           backgroundColor: Colors.white,
-          appBar: const MainAppbarWidget(
-            backText: 'Back',
-            title: "Department",
+          appBar: MainAppbarWidget(
+            backText: AppLocalizations.of(context)!.back,
+            title: AppLocalizations.of(context)!.department,
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Select your Faculty department',
+                Text(
+                  AppLocalizations.of(context)!.selectYourFacultyDepartment,
                   style: AppTexts.title,
                 ),
                 const SizedBox(height: 16),
                 TextFieldWidget(
                   mycontroller: searchController,
                   prefixIcon: const Icon(Icons.search, size: 20),
-                  hintText: 'Search Faculty',
+                  hintText: AppLocalizations.of(context)!.searchDepartment,
                   obscureText: false,
                   raduisSize: 8,
                 ),
@@ -211,7 +214,8 @@ class _MyWidgetState extends State<_DepartmentPage> {
                                         horizontal: 53,
                                       ),
                                       child: Text(
-                                        'No departments found for selected faculty',
+                                        AppLocalizations.of(context)!
+                                            .noDepartmentsFound,
                                         textAlign: TextAlign.center,
                                         style: AppTexts.regular.copyWith(
                                           color: AppColors.hintText,
@@ -262,7 +266,7 @@ class _MyWidgetState extends State<_DepartmentPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: ColoredButtonWidget(
-                    text: 'Next',
+                    text: AppLocalizations.of(context)!.next,
                     onPressed: () {
                       widget.onSelectedDepartment(selectedDepartment);
                     },

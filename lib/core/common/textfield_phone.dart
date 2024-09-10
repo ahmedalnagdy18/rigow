@@ -13,11 +13,13 @@ class Phonetextfield extends StatelessWidget {
       this.focusNode,
       this.controller,
       this.validator,
-      required this.onCountryChanged});
+      required this.onCountryChanged,
+      required this.initialCountryCode});
   final FocusNode? focusNode;
   final TextEditingController? controller;
   final FutureOr<String?> Function(PhoneNumber?)? validator;
   final Function(Country) onCountryChanged;
+  final String? initialCountryCode;
   @override
   Widget build(BuildContext context) {
     bool isArabic = Localizations.localeOf(context).languageCode == 'ar';
@@ -29,14 +31,15 @@ class Phonetextfield extends StatelessWidget {
       flagsButtonPadding: const EdgeInsets.only(left: 16),
       controller: controller,
       focusNode: focusNode,
-      //  initialCountryCode: 'EG',
-      disableLengthCheck: true,
+      initialCountryCode: initialCountryCode,
+      disableLengthCheck: false,
       dropdownDecoration: const BoxDecoration(
           border:
               Border.symmetric(vertical: BorderSide(color: Color(0xFF9D9C99)))),
       showCountryFlag: false,
       dropdownIconPosition: IconPosition.trailing,
       decoration: InputDecoration(
+        counter: const SizedBox(),
         hintText: isArabic ? 'رقم الهاتف' : "Phone Number",
         hintStyle: TextStyle(
           fontSize: 14,
