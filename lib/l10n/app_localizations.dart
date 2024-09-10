@@ -574,6 +574,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Confirm your qualifications'**
   String get confirmYourQualifications;
+
+  /// No description provided for @expertWelcomeDescreption.
+  ///
+  /// In en, this message translates to:
+  /// **'You will continue as an expert, but you will have limited interactions until receiving a notification with account confirmation then you can  manage all account features'**
+  String get expertWelcomeDescreption;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -330,18 +330,14 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                     MainCompleteProfileState>(
                   listener: (context, state) {
                     if (state is SucsessCompleteProfileUserState) {
-                      widget.role == 'Expert'
-                          ? (widget.controller).animateToPage(
-                              2,
-                              duration: const Duration(seconds: 1),
-                              curve: Curves.ease,
-                            )
-                          : Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => WelcomeToRigowPage(
-                                    firstName: widget.firstName),
-                              ),
-                            );
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => WelcomeToRigowPage(
+                            firstName: widget.firstName,
+                            role: widget.role,
+                          ),
+                        ),
+                      );
                     }
                   },
                   builder: (context, state) {
@@ -364,8 +360,15 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                                     widget.birthdate.millisecondsSinceEpoch,
                                 username: widget.username,
                               );
-                              BlocProvider.of<MainCompleteProfileCubit>(context)
-                                  .getAllUserData(input);
+                              widget.role == 'Expert'
+                                  ? (widget.controller).animateToPage(
+                                      2,
+                                      duration: const Duration(seconds: 1),
+                                      curve: Curves.ease,
+                                    )
+                                  : BlocProvider.of<MainCompleteProfileCubit>(
+                                          context)
+                                      .getAllUserData(input);
                             },
                       grideantColors: selectedArea == null
                           ? AppColors.greyLoader

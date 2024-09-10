@@ -31,6 +31,7 @@ class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const WelcomeToRigowPage(
                 firstName: '',
+                role: '',
               )));
     });
   }

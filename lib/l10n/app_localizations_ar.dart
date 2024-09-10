@@ -245,4 +245,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get confirmYourQualifications => 'قم بإكمال البيانات ادناه لتأكيد مؤهلاتك';
+
+  @override
+  String get expertWelcomeDescreption => 'ستستمر كخبير، ولكن سيكون لديك تفاعلات محدودة حتى تتلقى بريد الكتروني بتأكيد الحساب، ثم يمكنك إدارة جميع ميزات الحساب , افحص بريدك الالكتروني بشكل دوري';
 }

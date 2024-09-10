@@ -209,11 +209,14 @@ class _LoginPageState extends State<_LoginPageBody> {
   }
 
   void _loginButton(BuildContext context) {
-    BlocProvider.of<LoginCubit>(context).login(LoginEntity(
+    BlocProvider.of<LoginCubit>(context).login(
+      LoginEntity(
         email: _email.text,
         password: _password.text,
         deviceType: 'IOS',
-        role: 'USER'));
+        role: widget.role,
+      ),
+    );
   }
 
   void _isEnabled() {

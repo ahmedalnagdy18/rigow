@@ -78,5 +78,6 @@
     "exonboarding1" : "Share posts, join rooms, and communicate with others",
     "exonboarding2" : "Create reels and stories, write blogs, and give answers to community queries as an administrator",
     "setYourExpertAccount": "Set your Expert account",
-    "confirmYourQualifications": "Confirm your qualifications"
+    "confirmYourQualifications": "Confirm your qualifications",
+    "expertWelcomeDescreption": "You will continue as an expert, but you will have limited interactions until receiving a notification with account confirmation then you can  manage all account features"
 }

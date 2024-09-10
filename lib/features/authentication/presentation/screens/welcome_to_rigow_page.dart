@@ -6,8 +6,10 @@ import 'package:rigow/l10n/app_localizations.dart';
 
 class WelcomeToRigowPage extends StatelessWidget {
   final String firstName;
+  final String role;
 
-  const WelcomeToRigowPage({super.key, required this.firstName});
+  const WelcomeToRigowPage(
+      {super.key, required this.firstName, required this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +55,21 @@ class WelcomeToRigowPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 32),
+                  role == 'Expert'
+                      ? Text(
+                          'Your Request have been sent successfully',
+                          style: AppTexts.midTitle
+                              .copyWith(fontWeight: FontWeight.w600),
+                        )
+                      : const SizedBox(),
+                  SizedBox(height: role == 'Expert' ? 16 : 0),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      AppLocalizations.of(context)!.welcomeDescreption,
+                      role == 'Expert'
+                          ? AppLocalizations.of(context)!
+                              .expertWelcomeDescreption
+                          : AppLocalizations.of(context)!.welcomeDescreption,
                       textAlign: TextAlign.center,
                       style: AppTexts.miniRegular,
                     ),

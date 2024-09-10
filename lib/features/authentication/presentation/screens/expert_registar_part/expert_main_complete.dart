@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/expert_custom_indicator.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/set_expert_acc_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/expert_polices.dart';
@@ -48,7 +47,7 @@ class _ExpertMainComplete extends StatefulWidget {
 class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
   int _currint = 0;
   final PageController _controller = PageController(initialPage: 0);
-  String? _bioText;
+  String? bioText;
   String? username;
   String? gender;
   DateTime? birthdate;
@@ -71,6 +70,7 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
   void _onCompleteProfilePagePressed(
       String bioText, String username, String gender, DateTime birthdate) {
     setState(() {
+      this.bioText = bioText;
       this.username = username;
       this.gender = gender;
       this.birthdate = birthdate;
@@ -109,7 +109,7 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                   },
                   children: [
                     CompleteProfilePage(
-                      bioText: _bioText ?? '',
+                      bioText: bioText ?? 'error to get bio',
                       role: widget.role,
                       firstName: widget.firstName,
                       lastName: widget.lastName,
@@ -147,34 +147,55 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                       },
                     ),
                     ExpertPolicesPage(
-                      onNextPress: () {
-                        final input = CompleteExpertProfileInput(
-                          profilePicture: 'test.com',
-                          username: username ?? "",
-                          bio: _bioText,
-                          gender: gender ?? "",
-                          birthDate: birthdate ?? DateTime.now(),
-                          countryId: _countryId,
-                          cityId: _areaId,
-                          stateId: _statesId,
-                          specialtyId: _specialityId,
-                          facultyId: _facultyId,
-                          departmentId: _departmentId,
-                          universityDegreeUrl: _universityImage,
-                          universityName: _universityName,
-                          otherCertificates: [_otherCertificationsImage!],
-                          governmentPermitUrl: _governmentPermitImage,
-                          nationalIdFront: _nationalFrontId,
-                          nationalIdBack: _nationalBackId,
-                          customDepartment: 'test.com',
-                          customFaculty: 'test.com',
-                          fullNameInNationalId: _fullNameInNationalId,
-                          nationalIdNumber: _nationalIdNumber,
-                          socialLinks: _socialLinks,
-                        );
-                        print("input result: ${input}");
-                        print("input result: ${input.bio}");
-                      },
+                      bioText: bioText ?? '',
+                      username: username ?? "",
+                      gender: gender ?? "",
+                      birthdate: birthdate ?? DateTime.now(),
+                      countryId: _countryId ?? 0,
+                      statesId: _statesId ?? 0,
+                      areaId: _areaId ?? 0,
+                      specialityId: _specialityId ?? 0,
+                      facultyId: _facultyId ?? 0,
+                      departmentId: _departmentId ?? 0,
+                      universityImage: _universityImage ?? '',
+                      universityName: _universityName ?? '',
+                      otherCertificationsImage: _otherCertificationsImage ?? '',
+                      governmentPermitImage: _governmentPermitImage ?? '',
+                      nationalFrontId: _nationalFrontId ?? '',
+                      nationalBackId: _nationalBackId ?? '',
+                      fullNameInNationalId: _fullNameInNationalId ?? '',
+                      nationalIdNumber: _nationalIdNumber ?? '',
+                      socialLinks: _socialLinks ?? [],
+                      firstName: widget.firstName,
+                      role: widget.role,
+                      // onNextPress: () {
+                      //   final input = CompleteExpertProfileInput(
+                      //     profilePicture: 'test.com',
+                      //     username: username ?? "",
+                      //     bio: bioText,
+                      //     gender: gender ?? "",
+                      //     birthDate: birthdate ?? DateTime.now(),
+                      //     countryId: _countryId,
+                      //     cityId: _areaId,
+                      //     stateId: _statesId,
+                      //     specialtyId: _specialityId,
+                      //     facultyId: _facultyId,
+                      //     departmentId: _departmentId,
+                      //     universityDegreeUrl: _universityImage,
+                      //     universityName: _universityName,
+                      //     otherCertificates: [_otherCertificationsImage!],
+                      //     governmentPermitUrl: _governmentPermitImage,
+                      //     nationalIdFront: _nationalFrontId,
+                      //     nationalIdBack: _nationalBackId,
+                      //     customDepartment: 'test.com',
+                      //     customFaculty: 'test.com',
+                      //     fullNameInNationalId: _fullNameInNationalId,
+                      //     nationalIdNumber: _nationalIdNumber,
+                      //     socialLinks: _socialLinks,
+                      //   );
+                      //   print("input result: ${input}");
+                      //   print("input result: ${input.bio}");
+                      // },
                     ),
                   ],
                 ),

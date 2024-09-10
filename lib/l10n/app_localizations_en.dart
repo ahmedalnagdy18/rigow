@@ -245,4 +245,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get confirmYourQualifications => 'Confirm your qualifications';
+
+  @override
+  String get expertWelcomeDescreption => 'You will continue as an expert, but you will have limited interactions until receiving a notification with account confirmation then you can  manage all account features';
 }
