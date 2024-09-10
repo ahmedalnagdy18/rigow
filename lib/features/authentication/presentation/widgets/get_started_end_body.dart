@@ -5,9 +5,26 @@ import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/screens/login_part/login_page.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
-class GetStartedEndBody extends StatelessWidget {
-  final String role;
-  const GetStartedEndBody({super.key, required this.role});
+class GetStartedEndBody extends StatefulWidget {
+  final String initialRole;
+  final void Function(String?) getCurrentRole;
+  const GetStartedEndBody({
+    super.key,
+    required this.initialRole,
+    required this.getCurrentRole,
+  });
+
+  @override
+  State<GetStartedEndBody> createState() => _GetStartedEndBodyState();
+}
+
+class _GetStartedEndBodyState extends State<GetStartedEndBody> {
+  late String role;
+  @override
+  void initState() {
+    role = widget.initialRole;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +52,12 @@ class GetStartedEndBody extends StatelessWidget {
         const SizedBox(height: 24),
         TranceparentButtonWidget(
           borderColor: Colors.red,
-          onPressed: () {},
+          onPressed: () {
+            setState(() {
+              role = role == 'Expert' ? 'User' : 'Expert';
+              widget.getCurrentRole(role);
+            });
+          },
           text: role == 'Expert'
               ? AppLocalizations.of(context)!.continueAsAnUser
               : AppLocalizations.of(context)!.continueAsAnExpert,

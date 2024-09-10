@@ -41,6 +41,7 @@ class _SignupByEmailPageState extends State<SignupByEmailPage> {
         }
       },
       builder: (context, state) {
+        print(widget.role);
         return Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,

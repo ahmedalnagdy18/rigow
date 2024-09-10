@@ -6,9 +6,21 @@ import 'package:rigow/features/authentication/presentation/widgets/get_started_e
 import 'package:rigow/features/authentication/presentation/widgets/user_registar_part/signup_part/sign_with_buttons.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
-class GetStartedPage extends StatelessWidget {
+class GetStartedPage extends StatefulWidget {
   final String role;
   const GetStartedPage({super.key, required this.role});
+
+  @override
+  State<GetStartedPage> createState() => _GetStartedPageState();
+}
+
+class _GetStartedPageState extends State<GetStartedPage> {
+  String? _currentRole;
+  @override
+  void initState() {
+    _currentRole = widget.role;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +58,7 @@ class GetStartedPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 SignWithButtonsWidget(
-                  role: role,
+                  role: _currentRole ?? '',
                 ),
                 const SizedBox(height: 24),
                 Padding(
@@ -97,7 +109,12 @@ class GetStartedPage extends StatelessWidget {
                   height: 84,
                 ),
                 GetStartedEndBody(
-                  role: role,
+                  initialRole: widget.role,
+                  getCurrentRole: (currentRole) {
+                    setState(() {
+                      _currentRole = currentRole;
+                    });
+                  },
                 ),
               ],
             ),
