@@ -52,6 +52,7 @@ class _MainCompleteYourProfilePageState
   String? username;
   String? gender;
   DateTime? birthdate;
+  String? imageOfprofile;
 
   void _onCompleteProfilePagePressed(
       String bioText, String username, String gender, DateTime birthdate) {
@@ -94,6 +95,11 @@ class _MainCompleteYourProfilePageState
                   },
                   children: [
                     CompleteProfilePage(
+                      onSelectedImage: (selectedImage) {
+                        imageOfprofile = selectedImage?.path;
+                        print(selectedImage?.path);
+                        setState(() {});
+                      },
                       bioText: '',
                       role: widget.role,
                       firstName: widget.firstName,
@@ -101,6 +107,7 @@ class _MainCompleteYourProfilePageState
                       onPressed: _onCompleteProfilePagePressed,
                     ),
                     SelectCountryPage(
+                      imageOfprofile: imageOfprofile ?? 'dd',
                       controller: _controller,
                       role: widget.role,
                       firstName: widget.firstName,

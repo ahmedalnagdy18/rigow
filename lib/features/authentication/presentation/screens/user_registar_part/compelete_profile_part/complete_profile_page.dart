@@ -15,6 +15,7 @@ import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/validate_username_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_state.dart';
+import 'package:rigow/features/authentication/presentation/widgets/select_file_sheet_widget.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
@@ -25,13 +26,14 @@ class CompleteProfilePage extends StatelessWidget {
       required this.firstName,
       required this.lastName,
       required this.role,
-      required this.bioText});
+      required this.bioText,
+      required this.onSelectedImage});
   final void Function(
           String bioText, String username, String gender, DateTime birthdate)
       onPressed;
   final String bioText;
   final String firstName;
-
+  final void Function(File? selectedImage) onSelectedImage;
   final String lastName;
   final String role;
   @override
@@ -41,6 +43,7 @@ class CompleteProfilePage extends StatelessWidget {
       child: _CompleteProfilePage(
         firstName: firstName,
         lastName: lastName,
+        onSelectedImage: onSelectedImage,
         onPressed: onPressed,
         role: role,
         bioText: bioText,
@@ -55,12 +58,14 @@ class _CompleteProfilePage extends StatefulWidget {
       required this.firstName,
       required this.lastName,
       required this.role,
-      required this.bioText});
+      required this.bioText,
+      required this.onSelectedImage});
   final void Function(
           String bioText, String username, String gender, DateTime birthdate)
       onPressed;
   final String bioText;
   final String firstName;
+  final void Function(File? selectedImage) onSelectedImage;
   final String lastName;
   final String role;
 
@@ -71,11 +76,20 @@ class _CompleteProfilePage extends StatefulWidget {
 class _CompleteProfilePageState extends State<_CompleteProfilePage> {
   File? image;
   DateTime? selectedDate;
+
   Future pickImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) return;
     final imageTemp = File(image.path);
+    widget.onSelectedImage(imageTemp);
     setState(() => this.image = imageTemp);
+  }
+
+  Future takeImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+    if (image == null) return;
+    final takeImage = File(image.path);
+    setState(() => this.image = takeImage);
   }
 
   final TextEditingController _userName = TextEditingController();
@@ -105,7 +119,24 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                       child: AddPhotoWidget(
                     imageFile: image,
                     onTap: () {
-                      pickImage();
+                      showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SelectFileSheetWidget(
+                              cameraTap: () {
+                                takeImage();
+                                Navigator.pop(context);
+                              },
+                              pdfTap: () {
+                                pickImage();
+                                Navigator.pop(context);
+                              },
+                              onTap: () {
+                                pickImage();
+                                Navigator.pop(context);
+                              },
+                            );
+                          });
                     },
                   )),
                   const SizedBox(height: 16),

@@ -85,7 +85,7 @@ class _ExperienceBodyState extends State<ExperienceBody> {
                         : Colors.black,
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: 16),
                 Icon(!isRtl ? Icons.arrow_forward_ios : Icons.arrow_back_ios,
                     color: Colors.red, size: 16),
               ],

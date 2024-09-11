@@ -8,6 +8,7 @@ import 'package:rigow/features/authentication/presentation/cubits/main_complete_
 import 'package:rigow/features/authentication/presentation/cubits/main_complete_expert_cubit/complete_expert_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/welcome_to_rigow_page.dart';
 import 'package:rigow/injection_container.dart';
+import 'package:rigow/l10n/app_localizations.dart';
 
 class ExpertPolicesPage extends StatelessWidget {
   const ExpertPolicesPage(
@@ -32,7 +33,9 @@ class ExpertPolicesPage extends StatelessWidget {
       required this.nationalIdNumber,
       required this.socialLinks,
       required this.firstName,
-      required this.role});
+      required this.role,
+      required this.imageOfprofile});
+  final String imageOfprofile;
   final String bioText;
   final String username;
   final String gender;
@@ -61,6 +64,7 @@ class ExpertPolicesPage extends StatelessWidget {
       create: (context) =>
           CompleteExpertCubit(completeExpertProfileUsecase: sl()),
       child: _ExpertPolicesPage(
+        imageOfprofile: imageOfprofile,
         bioText: bioText,
         username: username,
         gender: gender,
@@ -88,6 +92,7 @@ class ExpertPolicesPage extends StatelessWidget {
 }
 
 class _ExpertPolicesPage extends StatefulWidget {
+  final String imageOfprofile;
   final String bioText;
   final String username;
   final String gender;
@@ -131,7 +136,8 @@ class _ExpertPolicesPage extends StatefulWidget {
       required this.nationalIdNumber,
       required this.socialLinks,
       required this.firstName,
-      required this.role});
+      required this.role,
+      required this.imageOfprofile});
 
   @override
   State<_ExpertPolicesPage> createState() => _ExpertPolicesPageState();
@@ -159,68 +165,61 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Expanded(
+            Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Expert account Polices",
+                      AppLocalizations.of(context)!.expertAccountPolices,
                       style: AppTexts.title,
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
-                      "To have an expert user account in the RIGOW, the following policies could be implemented:",
+                      AppLocalizations.of(context)!.toHaveExpertUserRIGOW,
                       style: AppTexts.medium,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     PolicesTextWidget(
-                      title: "Certification Requirement: ",
-                      hintText:
-                          "You must provide proof of certification or accreditation in a relevant fitness or wellness field to make sure that you have the necessary knowledge and expertise to contribute meaningfully to the community.",
+                      title: AppLocalizations.of(context)!.policesTitle1,
+                      hintText: AppLocalizations.of(context)!.policesHintText1,
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     PolicesTextWidget(
-                      title: "Content Quality Standards: ",
-                      hintText:
-                          "you are required to maintain high-quality standards in your content, including accuracy, relevance, and professionalism. Regular audits or reviews of your posts may be conducted to ensure adherence to these standards.",
+                      title: AppLocalizations.of(context)!.policesTitle2,
+                      hintText: AppLocalizations.of(context)!.policesHintText2,
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     PolicesTextWidget(
-                      title: "Engagement Criteria: ",
-                      hintText:
-                          "you should demonstrate active engagement within the RIGOW community by regularly posting informative and valuable content, interacting with other users, and participating in discussions or challenges related to fitness and wellness.",
+                      title: AppLocalizations.of(context)!.policesTitle3,
+                      hintText: AppLocalizations.of(context)!.policesHintText3,
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     PolicesTextWidget(
-                      title: "Community Contribution: ",
-                      hintText:
-                          "Expert users encourage other users to contribute to the community by sharing insights, offering advice, and providing support to them. Their contributions should enrich the overall experience of the app and align with its mission of promoting health and well-being.",
+                      title: AppLocalizations.of(context)!.policesTitle4,
+                      hintText: AppLocalizations.of(context)!.policesHintText4,
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     PolicesTextWidget(
-                      title: "Continuous Education: ",
-                      hintText:
-                          "Expert users are expected to stay updated with the latest trends, research, and developments in the fitness and wellness industry. Participation in continuing education programs or workshops may be encouraged to ensure your knowledge remains current and relevant.",
+                      title: AppLocalizations.of(context)!.policesTitle5,
+                      hintText: AppLocalizations.of(context)!.policesHintText5,
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     PolicesTextWidget(
-                      title: "Review Process: ",
-                      hintText:
-                          "The upgrade to an expert user account may involve a review process conducted by the app administrators or a designated panel. This review assesses the user's qualifications, experience, and contributions to determine eligibility for the expert status.",
+                      title: AppLocalizations.of(context)!.policesTitle6,
+                      hintText: AppLocalizations.of(context)!.policesHintText6,
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     PolicesTextWidget(
-                      title: "Code of Conduct: ",
-                      hintText:
-                          "Expert users must adhere to a strict code of conduct, which prohibits the dissemination of false information, engagement in harmful practices, or any behavior that undermines the integrity of the RIGOW community.",
+                      title: AppLocalizations.of(context)!.policesTitle7,
+                      hintText: AppLocalizations.of(context)!.policesHintText7,
                     ),
-                    SizedBox(height: 24),
+                    const SizedBox(height: 24),
                     Text(
-                      "By implementing these policies, RIGOW can ensure that its expert user accounts uphold the highest standards of professionalism, expertise, and contribution to foster a vibrant and supportive community focused on fitness and wellness.",
+                      AppLocalizations.of(context)!.policesEndText,
                       style: AppTexts.regular,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                   ],
                 ),
               ),
@@ -232,11 +231,12 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
                       builder: (context) => WelcomeToRigowPage(
                             firstName: widget.firstName,
                             role: widget.role,
+                            imageOfprofile: widget.imageOfprofile,
                           )));
                 }
               },
               child: ColoredButtonWidget(
-                text: 'Send the request',
+                text: AppLocalizations.of(context)!.sendTheRequest,
                 onPressed: () {
                   _sendRequestButton(context);
                 },

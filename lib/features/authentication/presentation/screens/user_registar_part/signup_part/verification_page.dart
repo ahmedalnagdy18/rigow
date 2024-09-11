@@ -116,6 +116,7 @@ class _VerificationPageState extends State<_VerificationPage> {
         return Scaffold(
             backgroundColor: Colors.white,
             body: VervicationBody(
+              emailText: widget.email,
               color: state is ErrorVerifyUserState ? Colors.red : Colors.green,
               whatVerify: 'account',
               blackText: _isTimerEnded

@@ -32,6 +32,7 @@ class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
           builder: (context) => const WelcomeToRigowPage(
                 firstName: '',
                 role: '',
+                imageOfprofile: '',
               )));
     });
   }
@@ -77,6 +78,7 @@ class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
                       },
                     ),
                     CompleteProfilePage(
+                      onSelectedImage: (selectedImage) {},
                       bioText: '',
                       role: '',
                       firstName: '',

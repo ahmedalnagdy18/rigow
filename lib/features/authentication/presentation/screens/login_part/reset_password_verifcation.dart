@@ -108,6 +108,7 @@ class _ResetPasswordVerifcationState extends State<_ResetPasswordVerifcation> {
             child: Column(
               children: [
                 VervicationBody(
+                  emailText: widget.email,
                   color: state is ErrorVerifyForgetState
                       ? Colors.red
                       : Colors.green,

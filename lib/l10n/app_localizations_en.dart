@@ -353,4 +353,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addLink => 'Add link';
+
+  @override
+  String get expertAccountPolices => 'Expert account Polices';
+
+  @override
+  String get toHaveExpertUserRIGOW => 'To have an expert user account in the RIGOW, the following policies could be implemented:';
+
+  @override
+  String get policesTitle1 => 'Certification Requirement: ';
+
+  @override
+  String get policesTitle2 => 'Content Quality Standards: ';
+
+  @override
+  String get policesTitle3 => 'Engagement Criteria: ';
+
+  @override
+  String get policesTitle4 => 'Community Contribution: ';
+
+  @override
+  String get policesTitle5 => 'Continuous Education: ';
+
+  @override
+  String get policesTitle6 => 'Review Process: ';
+
+  @override
+  String get policesTitle7 => 'Code of Conduct: ';
+
+  @override
+  String get policesHintText1 => 'You must provide proof of certification or accreditation in a relevant fitness or wellness field to make sure that you have the necessary knowledge and expertise to contribute meaningfully to the community.';
+
+  @override
+  String get policesHintText2 => 'you are required to maintain high-quality standards in your content, including accuracy, relevance, and professionalism. Regular audits or reviews of your posts may be conducted to ensure adherence to these standards.';
+
+  @override
+  String get policesHintText3 => 'you should demonstrate active engagement within the RIGOW community by regularly posting informative and valuable content, interacting with other users, and participating in discussions or challenges related to fitness and wellness.';
+
+  @override
+  String get policesHintText4 => 'Expert users encourage other users to contribute to the community by sharing insights, offering advice, and providing support to them. Their contributions should enrich the overall experience of the app and align with its mission of promoting health and well-being.';
+
+  @override
+  String get policesHintText5 => 'Expert users are expected to stay updated with the latest trends, research, and developments in the fitness and wellness industry. Participation in continuing education programs or workshops may be encouraged to ensure your knowledge remains current and relevant.';
+
+  @override
+  String get policesHintText6 => 'The upgrade to an expert user account may involve a review process conducted by the app administrators or a designated panel. This review assesses the user\'s qualifications, experience, and contributions to determine eligibility for the expert status.';
+
+  @override
+  String get policesHintText7 => 'Expert users must adhere to a strict code of conduct, which prohibits the dissemination of false information, engagement in harmful practices, or any behavior that undermines the integrity of the RIGOW community.';
+
+  @override
+  String get policesEndText => 'By implementing these policies, RIGOW can ensure that its expert user accounts uphold the highest standards of professionalism, expertise, and contribution to foster a vibrant and supportive community focused on fitness and wellness.';
+
+  @override
+  String get sendTheRequest => 'Send the request';
+
+  @override
+  String get yourRequestSuccessfully => 'Your Request have been sent successfully';
 }

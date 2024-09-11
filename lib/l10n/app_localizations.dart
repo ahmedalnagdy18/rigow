@@ -790,6 +790,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add link'**
   String get addLink;
+
+  /// No description provided for @expertAccountPolices.
+  ///
+  /// In en, this message translates to:
+  /// **'Expert account Polices'**
+  String get expertAccountPolices;
+
+  /// No description provided for @toHaveExpertUserRIGOW.
+  ///
+  /// In en, this message translates to:
+  /// **'To have an expert user account in the RIGOW, the following policies could be implemented:'**
+  String get toHaveExpertUserRIGOW;
+
+  /// No description provided for @policesTitle1.
+  ///
+  /// In en, this message translates to:
+  /// **'Certification Requirement: '**
+  String get policesTitle1;
+
+  /// No description provided for @policesTitle2.
+  ///
+  /// In en, this message translates to:
+  /// **'Content Quality Standards: '**
+  String get policesTitle2;
+
+  /// No description provided for @policesTitle3.
+  ///
+  /// In en, this message translates to:
+  /// **'Engagement Criteria: '**
+  String get policesTitle3;
+
+  /// No description provided for @policesTitle4.
+  ///
+  /// In en, this message translates to:
+  /// **'Community Contribution: '**
+  String get policesTitle4;
+
+  /// No description provided for @policesTitle5.
+  ///
+  /// In en, this message translates to:
+  /// **'Continuous Education: '**
+  String get policesTitle5;
+
+  /// No description provided for @policesTitle6.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Process: '**
+  String get policesTitle6;
+
+  /// No description provided for @policesTitle7.
+  ///
+  /// In en, this message translates to:
+  /// **'Code of Conduct: '**
+  String get policesTitle7;
+
+  /// No description provided for @policesHintText1.
+  ///
+  /// In en, this message translates to:
+  /// **'You must provide proof of certification or accreditation in a relevant fitness or wellness field to make sure that you have the necessary knowledge and expertise to contribute meaningfully to the community.'**
+  String get policesHintText1;
+
+  /// No description provided for @policesHintText2.
+  ///
+  /// In en, this message translates to:
+  /// **'you are required to maintain high-quality standards in your content, including accuracy, relevance, and professionalism. Regular audits or reviews of your posts may be conducted to ensure adherence to these standards.'**
+  String get policesHintText2;
+
+  /// No description provided for @policesHintText3.
+  ///
+  /// In en, this message translates to:
+  /// **'you should demonstrate active engagement within the RIGOW community by regularly posting informative and valuable content, interacting with other users, and participating in discussions or challenges related to fitness and wellness.'**
+  String get policesHintText3;
+
+  /// No description provided for @policesHintText4.
+  ///
+  /// In en, this message translates to:
+  /// **'Expert users encourage other users to contribute to the community by sharing insights, offering advice, and providing support to them. Their contributions should enrich the overall experience of the app and align with its mission of promoting health and well-being.'**
+  String get policesHintText4;
+
+  /// No description provided for @policesHintText5.
+  ///
+  /// In en, this message translates to:
+  /// **'Expert users are expected to stay updated with the latest trends, research, and developments in the fitness and wellness industry. Participation in continuing education programs or workshops may be encouraged to ensure your knowledge remains current and relevant.'**
+  String get policesHintText5;
+
+  /// No description provided for @policesHintText6.
+  ///
+  /// In en, this message translates to:
+  /// **'The upgrade to an expert user account may involve a review process conducted by the app administrators or a designated panel. This review assesses the user\'s qualifications, experience, and contributions to determine eligibility for the expert status.'**
+  String get policesHintText6;
+
+  /// No description provided for @policesHintText7.
+  ///
+  /// In en, this message translates to:
+  /// **'Expert users must adhere to a strict code of conduct, which prohibits the dissemination of false information, engagement in harmful practices, or any behavior that undermines the integrity of the RIGOW community.'**
+  String get policesHintText7;
+
+  /// No description provided for @policesEndText.
+  ///
+  /// In en, this message translates to:
+  /// **'By implementing these policies, RIGOW can ensure that its expert user accounts uphold the highest standards of professionalism, expertise, and contribution to foster a vibrant and supportive community focused on fitness and wellness.'**
+  String get policesEndText;
+
+  /// No description provided for @sendTheRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Send the request'**
+  String get sendTheRequest;
+
+  /// No description provided for @yourRequestSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Request have been sent successfully'**
+  String get yourRequestSuccessfully;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

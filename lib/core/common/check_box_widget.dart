@@ -40,7 +40,6 @@ class CheckBoxWidget extends StatelessWidget {
               activeColor: AppColors.mainRed[0],
               visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
             ),
-            const SizedBox(width: 4),
             Expanded(
               child: Text(
                 title,

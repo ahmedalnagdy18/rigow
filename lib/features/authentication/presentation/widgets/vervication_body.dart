@@ -15,7 +15,8 @@ class VervicationBody extends StatelessWidget {
       required this.colors,
       required this.resendOnTap,
       required this.whatVerify,
-      this.color});
+      this.color,
+      required this.emailText});
   final TextEditingController controller;
   final Function(String) onCompleted;
   final Function() changeOnTap;
@@ -25,6 +26,7 @@ class VervicationBody extends StatelessWidget {
   final Function() resendOnTap;
   final String whatVerify;
   final Color? color;
+  final String emailText;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,17 +40,28 @@ class VervicationBody extends StatelessWidget {
         const SizedBox(height: 8),
         Text(AppLocalizations.of(context)!.enterVerificationCodeSent,
             style: AppTexts.miniRegular),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Text('“ahmed34@gmail.com“', style: AppTexts.medium),
-            InkWell(
-              onTap: changeOnTap,
-              child: RedText(
-                  text: AppLocalizations.of(context)!.change,
-                  gradient: LinearGradient(colors: AppColors.mainRed)),
-            )
-          ],
+        RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: '"$emailText"',
+                style: AppTexts.medium,
+              ),
+              const TextSpan(
+                text: ' ',
+              ),
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: InkWell(
+                  onTap: changeOnTap,
+                  child: RedText(
+                    text: AppLocalizations.of(context)!.change,
+                    gradient: LinearGradient(colors: AppColors.mainRed),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 24),
         OtpWidget(

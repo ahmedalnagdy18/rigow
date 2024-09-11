@@ -32,13 +32,15 @@ class SelectCountryPage extends StatelessWidget {
       required this.firstName,
       required this.role,
       required this.controller,
-      required this.onNextPressed});
+      required this.onNextPressed,
+      required this.imageOfprofile});
   final String username;
   final String gender;
   final DateTime birthdate;
   final String firstName;
   final String role;
   final PageController controller;
+  final String imageOfprofile;
   final void Function(int countryId, int cityId, int areaId) onNextPressed;
 
   @override
@@ -54,12 +56,14 @@ class SelectCountryPage extends StatelessWidget {
         firstName: firstName,
         controller: controller,
         onNextPressed: onNextPressed,
+        imageOfprofile: imageOfprofile,
       ),
     );
   }
 }
 
 class _SelectCountryPage extends StatefulWidget {
+  final String imageOfprofile;
   final String role;
   final String firstName;
   final String username;
@@ -74,7 +78,8 @@ class _SelectCountryPage extends StatefulWidget {
       required this.firstName,
       required this.role,
       required this.controller,
-      required this.onNextPressed});
+      required this.onNextPressed,
+      required this.imageOfprofile});
 
   @override
   State<_SelectCountryPage> createState() => _SelectCountryPageState();
@@ -335,6 +340,7 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                           builder: (context) => WelcomeToRigowPage(
                             firstName: widget.firstName,
                             role: widget.role,
+                            imageOfprofile: widget.imageOfprofile,
                           ),
                         ),
                       );

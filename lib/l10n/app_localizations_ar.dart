@@ -353,4 +353,61 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addLink => 'أضف الرابط';
+
+  @override
+  String get expertAccountPolices => 'سياسات حساب الخبراء';
+
+  @override
+  String get toHaveExpertUserRIGOW => 'للحصول على حساب مستخدم خبير في RIGOW، يمكن تطبيق السياسات التالية:';
+
+  @override
+  String get policesTitle1 => 'متطلبات الشهادات: ';
+
+  @override
+  String get policesTitle2 => 'معايير جودة المحتوى: ';
+
+  @override
+  String get policesTitle3 => 'معايير التفاعل: ';
+
+  @override
+  String get policesTitle4 => 'المساهمة في المجتمع: ';
+
+  @override
+  String get policesTitle5 => 'التعليم المستمر: ';
+
+  @override
+  String get policesTitle6 => 'عملية المراجعة: ';
+
+  @override
+  String get policesTitle7 => 'مدونة السلوك: ';
+
+  @override
+  String get policesHintText1 => 'يجب عليك تقديم دليل على الشهادة أو الاعتماد في مجال اللياقة البدنية أو الصحة ذات الصلة للتأكد من أن لديك المعرفة والخبرة اللازمة للمساهمة بشكل فعال في المجتمع.';
+
+  @override
+  String get policesHintText2 => 'يتطلب منك الحفاظ على معايير عالية الجودة في محتواك، بما في ذلك الدقة، والملاءمة، والاحترافية. قد يتم إجراء تدقيقات أو مراجعات منتظمة على منشوراتك للتأكد من الالتزام بهذه المعايير.';
+
+  @override
+  String get policesHintText3 => 'يجب عليك إظهار تفاعل نشط داخل مجتمع RIGOW من خلال نشر محتوى قيم ومفيد بانتظام، والتفاعل مع المستخدمين الآخرين، والمشاركة في المناقشات أو التحديات المتعلقة باللياقة البدنية والصحة.';
+
+  @override
+  String get policesHintText4 => 'يشجع الخبراء المستخدمين الآخرين على المساهمة في المجتمع من خلال مشاركة الأفكار، وتقديم النصائح، وتقديم الدعم لهم. يجب أن تثري مساهماتهم التجربة العامة للتطبيق وتتماشى مع مهمته في تعزيز الصحة والرفاهية.';
+
+  @override
+  String get policesHintText5 => 'يتوقع من الخبراء البقاء على اطلاع بأحدث الاتجاهات والأبحاث والتطورات في صناعة اللياقة البدنية والصحة. قد يتم تشجيعهم على المشاركة في برامج التعليم المستمر أو ورش العمل لضمان بقاء معرفتهم محدثة وذات صلة.';
+
+  @override
+  String get policesHintText6 => 'قد تتضمن الترقية إلى حساب خبير عملية مراجعة يتم إجراؤها من قبل مسؤولي التطبيق أو لجنة معينة. تقيّم هذه المراجعة مؤهلات المستخدم وخبراته ومساهماته لتحديد أهليته للحصول على حالة الخبير.';
+
+  @override
+  String get policesHintText7 => 'يجب على الخبراء الالتزام بمدونة سلوك صارمة تمنع نشر المعلومات الخاطئة أو الانخراط في ممارسات ضارة أو أي سلوك يقوض نزاهة مجتمع RIGOW.';
+
+  @override
+  String get policesEndText => 'من خلال تطبيق هذه السياسات، يمكن لـ RIGOW ضمان أن حسابات المستخدمين الخبراء تحافظ على أعلى معايير الاحترافية والخبرة والمساهمة، لتعزيز مجتمع نشط وداعم يركز على اللياقة البدنية والصحة.';
+
+  @override
+  String get sendTheRequest => 'أرسل الطلب';
+
+  @override
+  String get yourRequestSuccessfully => 'تم إرسال طلبك بنجاح';
 }

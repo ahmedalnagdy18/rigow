@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
@@ -7,9 +9,13 @@ import 'package:rigow/l10n/app_localizations.dart';
 class WelcomeToRigowPage extends StatelessWidget {
   final String firstName;
   final String role;
+  final String imageOfprofile;
 
   const WelcomeToRigowPage(
-      {super.key, required this.firstName, required this.role});
+      {super.key,
+      required this.firstName,
+      required this.role,
+      required this.imageOfprofile});
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +56,18 @@ class WelcomeToRigowPage extends StatelessWidget {
                     decoration: const BoxDecoration(
                       color: Colors.white,
                     ),
-                    child: const CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/man.png'),
+                    child: CircleAvatar(
+                      backgroundImage: FileImage(File(imageOfprofile)),
+                      //   AssetImage(
+                      // imageOfprofile,
+                      //  'assets/images/man.png'
+                      //   ),
                     ),
                   ),
                   const SizedBox(height: 32),
                   role == 'Expert'
                       ? Text(
-                          'Your Request have been sent successfully',
+                          AppLocalizations.of(context)!.yourRequestSuccessfully,
                           style: AppTexts.midTitle
                               .copyWith(fontWeight: FontWeight.w600),
                         )
@@ -78,6 +88,7 @@ class WelcomeToRigowPage extends StatelessWidget {
                   ColoredButtonWidget(
                       text: AppLocalizations.of(context)!.next,
                       onPressed: () {
+                        print('  asdadadadd $imageOfprofile');
                         // Navigator.of(context).push(MaterialPageRoute(
                         //     builder: (context) => const WelcomeToRigowPage()));
                       },

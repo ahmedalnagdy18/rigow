@@ -28,7 +28,8 @@ class Phonetextfield extends StatelessWidget {
         FilteringTextInputFormatter.digitsOnly
       ],
       keyboardType: TextInputType.number,
-      flagsButtonPadding: const EdgeInsets.only(left: 16),
+      flagsButtonPadding:
+          EdgeInsets.only(left: isArabic ? 0 : 16, right: isArabic ? 16 : 0),
       controller: controller,
       focusNode: focusNode,
       initialCountryCode: initialCountryCode,

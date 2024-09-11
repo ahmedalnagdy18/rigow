@@ -47,6 +47,7 @@ class _ExpertMainComplete extends StatefulWidget {
 class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
   int _currint = 0;
   final PageController _controller = PageController(initialPage: 0);
+  String? imageOfprofile;
   String? bioText;
   String? username;
   String? gender;
@@ -109,6 +110,10 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                   },
                   children: [
                     CompleteProfilePage(
+                      onSelectedImage: (selectedImage) {
+                        imageOfprofile = selectedImage?.path;
+                        setState(() {});
+                      },
                       bioText: bioText ?? 'error to get bio',
                       role: widget.role,
                       firstName: widget.firstName,
@@ -127,6 +132,7 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                         _statesId = cityId;
                         _areaId = areaId;
                       },
+                      imageOfprofile: imageOfprofile ?? "dd",
                     ),
                     SetExpertAccountPage(
                       onNextPressed: (dataInfo) {
@@ -168,6 +174,7 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                       socialLinks: _socialLinks ?? [],
                       firstName: widget.firstName,
                       role: widget.role,
+                      imageOfprofile: imageOfprofile ?? "dd",
                     ),
                   ],
                 ),
