@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bottom_picker/bottom_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -75,7 +76,23 @@ class _CompleteProfilePage extends StatefulWidget {
 
 class _CompleteProfilePageState extends State<_CompleteProfilePage> {
   File? image;
+  File? pdf;
   DateTime? selectedDate;
+
+  Future getPdf() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (result != null) {
+      File pdfFile = File(result.files.single.path!);
+      widget.onSelectedImage(pdfFile);
+      setState(() => pdf = pdfFile);
+    } else {
+      return;
+    }
+  }
 
   Future pickImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -128,7 +145,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                                 Navigator.pop(context);
                               },
                               pdfTap: () {
-                                pickImage();
+                                getPdf();
                                 Navigator.pop(context);
                               },
                               onTap: () {

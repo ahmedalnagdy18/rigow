@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
@@ -41,6 +42,21 @@ class _CirtificateContainerWidgetState
     setState(() {});
   }
 
+  Future getPdf() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (result != null) {
+      File pdfFile = File(result.files.single.path!);
+      widget.onSelectedImageBack(pdfFile);
+      setState(() => pdf = pdfFile);
+    } else {
+      return;
+    }
+  }
+
   Future takeImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
     if (image == null) return;
@@ -50,10 +66,12 @@ class _CirtificateContainerWidgetState
     setState(() {});
   }
 
+  File? pdf;
   File? _selectedImage;
   File? _takeImage;
 
   _CirtificateContainerWidgetState();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -85,7 +103,7 @@ class _CirtificateContainerWidgetState
             ],
           ),
           const SizedBox(height: 18),
-          (_selectedImage == null)
+          (_selectedImage == null && pdf == null)
               ? GestureDetector(
                   onTap: () => showModalBottomSheet<void>(
                     context: context,
@@ -96,7 +114,7 @@ class _CirtificateContainerWidgetState
                           Navigator.pop(context);
                         },
                         pdfTap: () {
-                          pickImage();
+                          getPdf();
                           Navigator.pop(context);
                         },
                         onTap: () {
@@ -184,6 +202,7 @@ class _CirtificateContainerWidgetState
                               onPressed: () {
                                 setState(() {
                                   _selectedImage = null;
+                                  pdf = null;
                                   widget.onSelectedImageBack(null);
                                 });
                               },

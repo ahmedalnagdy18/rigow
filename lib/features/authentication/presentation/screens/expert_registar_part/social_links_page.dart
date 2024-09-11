@@ -17,7 +17,7 @@ class SocialLinksPage extends StatefulWidget {
 }
 
 class _SocialLinksPageState extends State<SocialLinksPage> {
-  List<String> _socialLinks = [];
+  List<String> socialLinks = [];
   _getIconForLink(String link) {
     if (link.contains("www.facebook.com")) {
       return SizedBox(
@@ -73,7 +73,7 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
           ),
           const SizedBox(height: 20),
           Column(
-            children: _socialLinks.map((link) {
+            children: socialLinks.map((link) {
               return Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
@@ -105,8 +105,8 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
                       icon: const Icon(Icons.delete_outline),
                       onPressed: () {
                         setState(() {
-                          _socialLinks.remove(link);
-                          widget.getSocialLinks(_socialLinks);
+                          socialLinks.remove(link);
+                          widget.getSocialLinks(socialLinks);
                         });
                       },
                       color: Colors.red,
@@ -116,7 +116,7 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
               );
             }).toList(),
           ),
-          _socialLinks.isNotEmpty
+          socialLinks.isNotEmpty
               ? const SizedBox(height: 20)
               : const SizedBox(),
           InkWell(
@@ -124,10 +124,10 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
                 AddToButtomSheetWidget.show(
                   context,
                   getTextEntyered: (text) {
-                    if (_socialLinks.length < 5) {
+                    if (socialLinks.length < 5) {
                       setState(() {
-                        _socialLinks.add(text ?? '');
-                        widget.getSocialLinks(_socialLinks);
+                        socialLinks.add(text ?? '');
+                        widget.getSocialLinks(socialLinks);
                       });
                       Navigator.pop(context);
                       showToastMessage(
@@ -137,7 +137,7 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
                   },
                 );
               },
-              child: _socialLinks.length != 4
+              child: socialLinks.length != 4
                   ? Row(
                       children: [
                         Icon(

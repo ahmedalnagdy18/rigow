@@ -57,7 +57,7 @@ class _GetStartedEndBodyState extends State<GetStartedEndBody> {
             setState(() {
               role = role == 'Expert' ? 'User' : 'Expert';
               widget.getCurrentRole(role);
-              showToastMessage(message: "you are now $role succesfully");
+              showToastMessage(message: "You are now $role");
             });
           },
           text: role == 'Expert'

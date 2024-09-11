@@ -8,6 +8,7 @@ import 'package:rigow/features/authentication/presentation/widgets/expert_part/c
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/experience_body.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/faculty_body.dart';
 import 'package:rigow/l10n/app_localizations.dart';
+import 'package:path/path.dart' as path;
 
 class SetExpertAccountPage extends StatefulWidget {
   final void Function(CollectedExpertEnteredData dataInfo) onNextPressed;
@@ -40,6 +41,18 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
     _nationalIdNumber.dispose();
     _universityName.dispose();
     super.dispose();
+  }
+
+  bool _checkIfFileIsPdf(String? filePath) {
+    if (filePath == null) return false;
+    final extension = path.extension(filePath).toLowerCase();
+    return extension == '.pdf';
+  }
+
+  bool _checkIfFileIsPdfs(String? filePath) {
+    if (filePath == null) return false;
+    final extension = path.extension(filePath).toLowerCase();
+    return extension == '.pdf';
   }
 
   @override
@@ -84,13 +97,17 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                       mycontroller: _universityName,
                     ),
                     const SizedBox(height: 4),
+                    //university
+
                     CirtificateContainerWidget(
+                      key: ValueKey(_isEnabled()),
                       onSelectedTakeImage: (takeImage) {},
-                      isPdf: true,
+                      isPdf: _checkIfFileIsPdfs(_universitySelectedimage),
                       onSelectedImageBack: (selectedImage) {
-                        _universitySelectedimage = selectedImage?.path;
-                        _isEnabled();
-                        setState(() {});
+                        setState(() {
+                          _universitySelectedimage = selectedImage?.path;
+                          _isEnabled();
+                        });
                       },
                       title: AppLocalizations.of(context)!.universityDegree,
                       iconImage: 'assets/images/cirtificate.png',
@@ -98,7 +115,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     const SizedBox(height: 4),
                     CirtificateContainerWidget(
                       onSelectedTakeImage: (takeImage) {},
-                      isPdf: true,
+                      isPdf: _checkIfFileIsPdf(_otherCertificationsimages),
                       onSelectedImageBack: (selectedImage) {
                         _isEnabled();
                         _otherCertificationsimages = selectedImage?.path;
@@ -108,7 +125,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     ),
                     const SizedBox(height: 4),
                     CirtificateContainerWidget(
-                      isPdf: true,
+                      isPdf: _checkIfFileIsPdf(_governmentPermitImage),
                       onSelectedTakeImage: (takeImage) {},
                       onSelectedImageBack: (selectedImage) {
                         _isEnabled();
@@ -161,7 +178,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     const SizedBox(height: 4),
                     CirtificateContainerWidget(
                       onSelectedTakeImage: (takeImage) {},
-                      isPdf: false,
+                      isPdf: _checkIfFileIsPdf(_nationalFrontId),
                       onSelectedImageBack: (selectedationalFrontIdImage) {
                         _nationalFrontId = selectedationalFrontIdImage?.path;
                         _isEnabled();
@@ -172,7 +189,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     const SizedBox(height: 4),
                     CirtificateContainerWidget(
                       onSelectedTakeImage: (takeImage) {},
-                      isPdf: false,
+                      isPdf: _checkIfFileIsPdf(__nationalBackId),
                       onSelectedImageBack: (selectedImage) {
                         __nationalBackId = selectedImage?.path;
                         _isEnabled();
