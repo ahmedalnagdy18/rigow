@@ -11,6 +11,7 @@ import 'package:rigow/features/authentication/domain/entities/login_part_entity/
 import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/specialty_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/states_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/user_data_for_complete.dart';
 import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/validate_username_entity.dart';
 import 'package:rigow/features/authentication/domain/entities/login_part_entity/verify_forget_password_entity.dart';
@@ -92,4 +93,8 @@ abstract class DepartmentRepository {
 abstract class SetExpertCompleteProfileRepository {
   Future<void> setExpertCompleteProfile(
       CompleteExpertProfileInput completeExpertProfileInput);
+}
+
+abstract class UploadFileRepository {
+  Future<void> uploadfile(UploadFiledEntity uploadFiledEntity);
 }

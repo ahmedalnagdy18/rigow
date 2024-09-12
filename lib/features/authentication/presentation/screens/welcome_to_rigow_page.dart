@@ -58,6 +58,9 @@ class WelcomeToRigowPage extends StatelessWidget {
                     ),
                     child: CircleAvatar(
                       backgroundImage: FileImage(File(imageOfprofile)),
+                      //         NetworkImage(
+                      //   addBaseUrls(imageOfprofile),
+                      // )
                       //   AssetImage(
                       // imageOfprofile,
                       //  'assets/images/man.png'
@@ -102,4 +105,8 @@ class WelcomeToRigowPage extends StatelessWidget {
       ),
     );
   }
+}
+
+String addBaseUrls(String url) {
+  return "https://beta-api.rigow.com/$url";
 }

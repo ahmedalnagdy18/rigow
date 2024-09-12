@@ -21,3 +21,16 @@ class ErrorValidateUsernameState extends CompleteProfileState {
   @override
   List<Object> get props => [message];
 }
+
+class LoadingUploadFileState extends CompleteProfileState {}
+
+class SucsessUploadFileState extends CompleteProfileState {}
+
+class ErrorUploadFileState extends CompleteProfileState {
+  final String message;
+
+  const ErrorUploadFileState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

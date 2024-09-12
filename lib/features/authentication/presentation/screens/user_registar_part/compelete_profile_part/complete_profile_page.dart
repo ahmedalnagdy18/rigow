@@ -16,6 +16,7 @@ import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/validate_username_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_state.dart';
 import 'package:rigow/features/authentication/presentation/widgets/select_file_sheet_widget.dart';
@@ -42,7 +43,8 @@ class CompleteProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CompleteProfileCubit(validateUsernameUsecase: sl()),
+      create: (context) => CompleteProfileCubit(
+          validateUsernameUsecase: sl(), uploadFileUsecase: sl()),
       child: _CompleteProfilePage(
         firstName: firstName,
         lastName: lastName,
@@ -100,7 +102,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) return;
     final imageTemp = File(image.path);
-    widget.onSelectedImage(imageTemp);
+    // widget.onSelectedImage(imageTemp);
     setState(() => this.image = imageTemp);
   }
 
@@ -234,9 +236,6 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                   widget.role == 'Expert'
                       ? TextFieldWidget(
                           inputFormatters: [
-                            // FilteringTextInputFormatter.allow(
-                            //   RegExp(r'^[a-zA-Z\u0600-\u06FF\s]+$'),
-                            // ),
                             noSpaceFormatter(),
                           ],
                           mycontroller: bioText,
@@ -271,6 +270,8 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                             selectedDate == null)
                         ? null
                         : () {
+                            widget.onSelectedImage(image);
+                            _uploadPhoto(context);
                             widget.onPressed(
                               bioText.text,
                               _userName.text,
@@ -287,6 +288,15 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
           ),
         );
       },
+    );
+  }
+
+  void _uploadPhoto(BuildContext context) {
+    BlocProvider.of<CompleteProfileCubit>(context).uploadFile(
+      UploadFiledEntity(
+        file: image?.path ?? "",
+        model: "PROFILE_PICTURE",
+      ),
     );
   }
 

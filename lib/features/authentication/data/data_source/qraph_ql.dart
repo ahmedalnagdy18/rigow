@@ -231,3 +231,14 @@ mutation createExpertRequest($input : CreateExpertRequest!){
 } 
 }
 """;
+
+const String uploadFilee = r"""
+mutation uploadFile($file:Upload!){
+  uploadFile(file:$file,model:PROFILE_PICTURE){
+    data
+    code
+     success
+    message
+  }
+}
+""";

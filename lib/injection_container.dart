@@ -15,6 +15,7 @@ import 'package:rigow/features/authentication/data/repositories/register_part_im
 import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/states_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/validate_username_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/login_part_imp/verify_forget_password_repository_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/upload_imp/upload_photo_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/verify_user_repository_imp.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/city_usecase.dart';
@@ -33,6 +34,7 @@ import 'package:rigow/features/authentication/domain/usecases/register_part_usec
 import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/states_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/validate_username_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/login_part_usecase/verify_forget_password_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/upload_usecase/upload_photo_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/verify_user_usecase.dart';
 
 final sl = GetIt.instance;
@@ -86,6 +88,9 @@ Future<void> init() async {
   sl.registerLazySingleton<CompleteExpertProfileUsecase>(
       () => CompleteExpertProfileUsecase(repository: sl()));
 
+  sl.registerLazySingleton<UploadFileUsecase>(
+      () => UploadFileUsecase(repository: sl()));
+
 // Repository
 
   sl.registerLazySingleton<LoginRepository>(
@@ -135,6 +140,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<SetExpertCompleteProfileRepository>(
       () => CompleteExpertProfileRepositoryImp(graphQLClient: sl()));
+
+  sl.registerLazySingleton<UploadFileRepository>(
+      () => UploadFileRepositoryImp(graphQLClient: sl()));
 //---------------------------------------------------------------------------------------------------
   sl.registerLazySingleton<GraphQLClient>(() {
     final authLink = AuthLink(getToken: () async {
