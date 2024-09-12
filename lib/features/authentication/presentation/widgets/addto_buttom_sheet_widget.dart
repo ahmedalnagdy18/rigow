@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
@@ -10,16 +11,19 @@ class AddToButtomSheetWidget extends StatefulWidget {
     required this.getTextEntyered,
     this.isEdit = false,
     this.initialText,
+    required this.bottomSheetHintText,
   });
   final void Function(String?) getTextEntyered;
   final bool isEdit;
   final String? initialText;
+  final String bottomSheetHintText;
 
   static void show(
     BuildContext context, {
     required void Function(String?) getTextEntyered,
     bool? isEdit,
     String? initialText,
+    required String bottomSheetHintText,
   }) {
     showModalBottomSheet(
       context: context,
@@ -29,6 +33,7 @@ class AddToButtomSheetWidget extends StatefulWidget {
           getTextEntyered: getTextEntyered,
           isEdit: isEdit ?? false,
           initialText: initialText,
+          bottomSheetHintText: bottomSheetHintText,
         );
       },
     );
@@ -92,6 +97,9 @@ class _AddToButtomSheetWidgetState extends State<AddToButtomSheetWidget> {
                   children: [
                     Expanded(
                       child: TextField(
+                        inputFormatters: [
+                          noSpaceFormatter(),
+                        ],
                         controller: _nameTextController,
                         decoration: InputDecoration(
                           hintStyle: TextStyle(
@@ -101,8 +109,7 @@ class _AddToButtomSheetWidgetState extends State<AddToButtomSheetWidget> {
                           ),
                           fillColor: Colors.white,
                           filled: true,
-                          hintText:
-                              AppLocalizations.of(context)!.addFacultyNameHere,
+                          hintText: widget.bottomSheetHintText,
                           border: InputBorder.none,
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,

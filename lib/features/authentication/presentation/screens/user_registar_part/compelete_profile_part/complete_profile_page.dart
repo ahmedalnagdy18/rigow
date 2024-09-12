@@ -4,6 +4,7 @@ import 'package:bottom_picker/bottom_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rigow/core/colors/app_colors.dart';
@@ -12,6 +13,7 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/common/cliked_textfield_widget.dart';
 import 'package:rigow/core/common/textfield.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/validate_username_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_cubit.dart';
@@ -162,6 +164,9 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                           style: AppTexts.midTitle)),
                   const SizedBox(height: 24),
                   TextFieldWidget(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                    ],
                     suffixIcon: state is SucsessValidateUsernameState
                         ? Icon(
                             Icons.check_circle,
@@ -207,6 +212,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                     },
                     title: AppLocalizations.of(context)!.male,
                   ),
+                  const SizedBox(height: 8),
                   CheckBoxWidget(
                     value: 'Female',
                     groupValue: selectedGender,
@@ -227,6 +233,12 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                   const SizedBox(height: 16),
                   widget.role == 'Expert'
                       ? TextFieldWidget(
+                          inputFormatters: [
+                            // FilteringTextInputFormatter.allow(
+                            //   RegExp(r'^[a-zA-Z\u0600-\u06FF\s]+$'),
+                            // ),
+                            noSpaceFormatter(),
+                          ],
                           mycontroller: bioText,
                           obscureText: false,
                           hintText:

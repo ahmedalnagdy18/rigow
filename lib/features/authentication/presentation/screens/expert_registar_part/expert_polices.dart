@@ -251,6 +251,7 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
   }
 
   void _sendRequestButton(BuildContext context) {
+    print('eeeeeee ${widget.bioText}');
     BlocProvider.of<CompleteExpertCubit>(context).setExpertData(
       CompleteExpertProfileInput(
         profilePicture: 'test.com',

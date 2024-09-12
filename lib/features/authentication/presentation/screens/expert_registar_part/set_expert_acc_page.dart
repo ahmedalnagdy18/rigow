@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/social_links_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/cirtificate_body.dart';
@@ -53,6 +55,28 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
     if (filePath == null) return false;
     final extension = path.extension(filePath).toLowerCase();
     return extension == '.pdf';
+  }
+
+  bool validateNationalId(String nationalId) {
+    return nationalId.length == 14 && RegExp(r'^\d+$').hasMatch(nationalId);
+  }
+
+  bool universityName(String universityName) {
+    return universityName.length >= 4 &&
+        RegExp(r'^[a-zA-Z\u0600-\u06FF\s]+$').hasMatch(universityName);
+  }
+
+  bool socialLinksValidate(String socialLink) {
+    const urlPattern =
+        r'^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}\/?$';
+    return socialLink.length >= 4 && RegExp(urlPattern).hasMatch(socialLink);
+  }
+
+  bool validateSocialLinks(List<String>? socialLinks) {
+    if (socialLinks != null && socialLinks.isNotEmpty) {
+      return socialLinks.every((link) => socialLinksValidate(link));
+    }
+    return false;
   }
 
   @override
@@ -113,6 +137,8 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                       iconImage: 'assets/images/cirtificate.png',
                     ),
                     const SizedBox(height: 4),
+                    //otherCertifications
+
                     CirtificateContainerWidget(
                       onSelectedTakeImage: (takeImage) {},
                       isPdf: _checkIfFileIsPdf(_otherCertificationsimages),
@@ -124,6 +150,8 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                       iconImage: 'assets/images/cirtificate.png',
                     ),
                     const SizedBox(height: 4),
+                    //governmentPermitImage
+
                     CirtificateContainerWidget(
                       isPdf: _checkIfFileIsPdf(_governmentPermitImage),
                       onSelectedTakeImage: (takeImage) {},
@@ -155,7 +183,17 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                             style: AppTexts.title.copyWith(fontSize: 18),
                           ),
                           const SizedBox(height: 16),
+                          //fullNameInNationalId
+
                           TextFieldWidget(
+                            counterText: '',
+                            maxLength: 50,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                RegExp(r'[\u0600-\u06FF\s]'),
+                              ),
+                              noSpaceFormatter(),
+                            ],
                             mycontroller: _fullNameInNationalId,
                             label: AppLocalizations.of(context)!
                                 .fullNameInNationalId,
@@ -164,8 +202,17 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                                 .typeYourFullNationalId,
                           ),
                           const SizedBox(height: 8),
+                          //nationalIdNumber
+
                           TextFieldWidget(
                             mycontroller: _nationalIdNumber,
+                            counterText: '',
+                            keyboardType:
+                                const TextInputType.numberWithOptions(),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            maxLength: 14,
                             label:
                                 AppLocalizations.of(context)!.nationalIdNumber,
                             obscureText: false,
@@ -176,6 +223,8 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                       ),
                     ),
                     const SizedBox(height: 4),
+                    //nationalFrontId
+
                     CirtificateContainerWidget(
                       onSelectedTakeImage: (takeImage) {},
                       isPdf: _checkIfFileIsPdf(_nationalFrontId),
@@ -187,6 +236,8 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                       iconImage: 'assets/images/cirtificate.png',
                     ),
                     const SizedBox(height: 4),
+                    //nationalBackId
+
                     CirtificateContainerWidget(
                       onSelectedTakeImage: (takeImage) {},
                       isPdf: _checkIfFileIsPdf(__nationalBackId),
@@ -199,6 +250,8 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                       size: 8,
                     ),
                     const SizedBox(height: 32),
+                    //! SocialLinks
+
                     SocialLinksPage(
                       getSocialLinks: (links) {
                         _socialLinks = links;
@@ -248,7 +301,14 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
   }
 
   void _isEnabled() {
-    if (_universityName.text.isNotEmpty &&
+    bool isNationalIdValid = validateNationalId(_nationalIdNumber.text);
+    bool universityNameValid = universityName(_universityName.text);
+    bool linkIsValid = validateSocialLinks(_socialLinks);
+
+    if (linkIsValid &&
+        universityNameValid &&
+        isNationalIdValid &&
+        _universityName.text.isNotEmpty &&
         _nationalIdNumber.text.isNotEmpty &&
         _fullNameInNationalId.text.isNotEmpty &&
         _universitySelectedimage != null &&

@@ -9,9 +9,11 @@ class AddOntherSectionWidget extends StatelessWidget {
     required this.title,
     required this.getTextEntyered,
     this.initialText,
+    required this.bottomSheetHintText,
   });
   final String title;
   final String? initialText;
+  final String? bottomSheetHintText;
 
   final void Function(String?) getTextEntyered;
 
@@ -19,11 +21,10 @@ class AddOntherSectionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        AddToButtomSheetWidget.show(
-          context,
-          getTextEntyered: getTextEntyered,
-          initialText: initialText,
-        );
+        AddToButtomSheetWidget.show(context,
+            getTextEntyered: getTextEntyered,
+            initialText: initialText,
+            bottomSheetHintText: bottomSheetHintText ?? "test test test");
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),

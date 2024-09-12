@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 import 'package:rigow/core/colors/app_colors.dart';
@@ -198,7 +199,7 @@ class _CirtificateContainerWidgetState
                           ),
                           const Spacer(),
                           IconButton(
-                              icon: const Icon(Icons.delete_outline),
+                              icon: const Icon(Iconsax.trash),
                               onPressed: () {
                                 setState(() {
                                   _selectedImage = null;

@@ -121,6 +121,8 @@ class _FacultyPageState extends State<_FacultyPage> {
   Widget _buildFacultySection(BuildContext context) {
     return _addFacultyName == null
         ? AddOntherSectionWidget(
+            bottomSheetHintText:
+                AppLocalizations.of(context)!.addFacultyNameHere,
             getTextEntyered: (text) {
               _addFacultyName = text;
               selectedFaculty = FacultyModel(
@@ -137,7 +139,9 @@ class _FacultyPageState extends State<_FacultyPage> {
           )
         : AddedBodyItem(
             editOnTap: () {
-              AddToButtomSheetWidget.show(context, getTextEntyered: (text) {
+              AddToButtomSheetWidget.show(context,
+                  bottomSheetHintText: AppLocalizations.of(context)!
+                      .addFacultyNameHere, getTextEntyered: (text) {
                 _addFacultyName = text;
                 selectedFaculty = FacultyModel(
                   id: null,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
@@ -102,7 +103,7 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.delete_outline),
+                      icon: const Icon(Iconsax.trash),
                       onPressed: () {
                         setState(() {
                           socialLinks.remove(link);
@@ -122,6 +123,7 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
           InkWell(
               onTap: () {
                 AddToButtomSheetWidget.show(
+                  bottomSheetHintText: 'Past your link here',
                   context,
                   getTextEntyered: (text) {
                     if (socialLinks.length < 5) {

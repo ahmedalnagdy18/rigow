@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 
@@ -36,6 +37,25 @@ void showErrorToastMessage({required String message}) {
   );
 }
 // showErrorToastMessage(message: state.message);   to call it
+
+TextInputFormatter noSpaceFormatter() {
+  return TextInputFormatter.withFunction(
+    (oldValue, newValue) {
+      if (newValue.text.startsWith(' ')) {
+        final newText = newValue.text.trimLeft();
+        return newValue.copyWith(
+          text: newText,
+          selection: TextSelection.fromPosition(
+            TextPosition(offset: newText.length),
+          ),
+        );
+      }
+      return newValue;
+    },
+  );
+} //  noSpaceFormatter(),   to call it 
+
+
 
 // to Navigat to any page
 

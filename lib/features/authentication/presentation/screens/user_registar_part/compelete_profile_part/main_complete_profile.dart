@@ -97,7 +97,6 @@ class _MainCompleteYourProfilePageState
                     CompleteProfilePage(
                       onSelectedImage: (selectedImage) {
                         imageOfprofile = selectedImage?.path;
-                        print(selectedImage?.path);
                         setState(() {});
                       },
                       bioText: '',

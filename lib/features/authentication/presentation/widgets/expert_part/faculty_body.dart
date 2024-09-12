@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
@@ -187,6 +188,27 @@ class _FacultyBodyState extends State<FacultyBody> {
           TextFieldWidget(
             mycontroller: widget.mycontroller,
             obscureText: false,
+            maxLength: 25,
+            counterText: '',
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(
+                RegExp(r'[a-zA-Z\u0600-\u06FF\s]'),
+              ),
+              TextInputFormatter.withFunction(
+                (oldValue, newValue) {
+                  if (newValue.text.startsWith(' ')) {
+                    final newText = newValue.text.trimLeft();
+                    return newValue.copyWith(
+                      text: newText,
+                      selection: TextSelection.fromPosition(
+                        TextPosition(offset: newText.length),
+                      ),
+                    );
+                  }
+                  return newValue;
+                },
+              ),
+            ],
             hintText: AppLocalizations.of(context)!.typeYourUniversityName,
           ),
         ],

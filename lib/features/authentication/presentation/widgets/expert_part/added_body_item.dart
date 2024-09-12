@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/fonts/app_text.dart';
@@ -58,7 +59,7 @@ class AddedBodyItem extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 16),
-                Icon(Icons.delete_forever_outlined,
+                Icon(Iconsax.trash,
                     color: AppColors.clickedTextfieldBorder, size: 20),
                 const SizedBox(width: 5),
                 InkWell(

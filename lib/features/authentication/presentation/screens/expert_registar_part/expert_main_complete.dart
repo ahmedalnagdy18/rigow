@@ -81,6 +81,13 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
   }
 
   @override
+  @override
+  void initState() {
+    print("InitStated::::${widget.role}");
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _currint == 0 || _currint == 1 || _currint == 3
@@ -114,7 +121,7 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                         imageOfprofile = selectedImage?.path;
                         setState(() {});
                       },
-                      bioText: bioText ?? 'error to get bio',
+                      bioText: bioText ?? '',
                       role: widget.role,
                       firstName: widget.firstName,
                       lastName: widget.lastName,

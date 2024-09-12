@@ -4,7 +4,6 @@ import 'package:rigow/core/common/custom_widgets/app_asset_image.dart';
 import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
 import 'package:rigow/features/authentication/presentation/cubits/lang_cubit/lang_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/lang_cubit/lang_state.dart';
-import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/expert_main_complete.dart';
 import 'package:rigow/features/onboarding/screens/splash_screen.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
@@ -53,12 +52,13 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            home: const ExpertMainComplete(
-              firstName: 'nagdy',
-              lastName: 'ahmed',
-              role: 'EXPERT',
-            ),
-            // const SplashScreen(),
+            home:
+                // const ExpertMainComplete(
+                //   firstName: 'nagdy',
+                //   lastName: 'ahmed',
+                //   role: 'Expert',
+                // ),
+                const SplashScreen(),
           );
         },
       ),

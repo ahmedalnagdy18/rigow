@@ -117,6 +117,7 @@ class _MyWidgetState extends State<_DepartmentPage> {
   Widget _buildDepartmentSection(BuildContext context) {
     return _addDepartmentName == null
         ? AddOntherSectionWidget(
+            bottomSheetHintText: AppLocalizations.of(context)!.addDepartment,
             getTextEntyered: (text) {
               _addDepartmentName = text;
               selectedDepartment = DepartmentModel(
@@ -133,7 +134,9 @@ class _MyWidgetState extends State<_DepartmentPage> {
           )
         : AddedBodyItem(
             editOnTap: () {
-              AddToButtomSheetWidget.show(context, getTextEntyered: (text) {
+              AddToButtomSheetWidget.show(context,
+                  bottomSheetHintText: AppLocalizations.of(context)!
+                      .addDepartment, getTextEntyered: (text) {
                 _addDepartmentName = text;
                 selectedDepartment = DepartmentModel(
                   id: null,
