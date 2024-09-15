@@ -317,7 +317,6 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
         _fullNameInNationalId.text.isNotEmpty &&
         _universitySelectedimage != null &&
         _otherCertificationsimages != null &&
-        _governmentPermitImage != null &&
         _nationalFrontId != null &&
         __nationalBackId != null) {
       _isButtonEnabled = true;

@@ -67,8 +67,11 @@ class _ExperienceBodyState extends State<ExperienceBody> {
                       _selectedSpecialty != null
                           ? const Padding(
                               padding: EdgeInsets.only(right: 8),
-                              child: Icon(Icons.check_circle,
-                                  color: Colors.green, size: 18),
+                              child: Icon(
+                                Icons.check_circle,
+                                color: Colors.green,
+                                size: 18,
+                              ),
                             )
                           : const SizedBox(),
                       Text(

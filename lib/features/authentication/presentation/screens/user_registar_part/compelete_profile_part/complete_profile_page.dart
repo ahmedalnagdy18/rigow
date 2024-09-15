@@ -102,7 +102,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) return;
     final imageTemp = File(image.path);
-    // widget.onSelectedImage(imageTemp);
+    widget.onSelectedImage(imageTemp);
     setState(() => this.image = imageTemp);
   }
 

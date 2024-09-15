@@ -10,7 +10,7 @@ class UploadFileRepositoryImp implements UploadFileRepository {
   UploadFileRepositoryImp({required this.graphQLClient});
 
   @override
-  Future<void> uploadfile(UploadFiledEntity uploadFiledEntity) async {
+  Future<String> uploadfile(UploadFiledEntity uploadFiledEntity) async {
     final result = await graphQLClient.mutate(MutationOptions(
         document: gql(uploadFilee),
         variables: {"input": uploadFiledEntity.toJson()}));
@@ -19,7 +19,7 @@ class UploadFileRepositoryImp implements UploadFileRepository {
     }
     final response = ApiUploadFile.fromJson(result.data!);
     if (response.uploadFile != null && response.uploadFile?.code == 200) {
-      return;
+      return response.uploadFile?.data ?? "";
     } else {
       throw FormatException(response.uploadFile?.message ?? "");
     }

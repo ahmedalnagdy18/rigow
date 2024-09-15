@@ -108,13 +108,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     const SizedBox(height: 28),
                     InkWell(
                       onTap: () {
-                        setState(() {
-                          role = widget.role == 'Expert' ? 'User' : 'Expert';
-                        });
-                        Navigator.of(context).push(MaterialPageRoute(
+                        if (currentPage == 2) {
+                          String newRole =
+                              widget.role == 'Expert' ? 'User' : 'Expert';
+                          Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => GetStartedPage(
-                                  role: role,
-                                )));
+                              role: newRole,
+                            ),
+                          ));
+                        } else {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => GetStartedPage(
+                              role: widget.role,
+                            ),
+                          ));
+                        }
                       },
                       child: Text(
                         currentPage == 2

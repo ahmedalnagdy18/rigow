@@ -91,7 +91,9 @@ class WelcomeToRigowPage extends StatelessWidget {
                   ColoredButtonWidget(
                       text: AppLocalizations.of(context)!.next,
                       onPressed: () {
-                        print('  asdadadadd $imageOfprofile');
+                        print('asdadadadd $imageOfprofile');
+                        addBaseUrls(imageOfprofile);
+                        print('final path ${addBaseUrls(imageOfprofile)}');
                         // Navigator.of(context).push(MaterialPageRoute(
                         //     builder: (context) => const WelcomeToRigowPage()));
                       },
@@ -108,5 +110,5 @@ class WelcomeToRigowPage extends StatelessWidget {
 }
 
 String addBaseUrls(String url) {
-  return "https://beta-api.rigow.com/$url";
+  return "https://www.rigow.com/$url";
 }
