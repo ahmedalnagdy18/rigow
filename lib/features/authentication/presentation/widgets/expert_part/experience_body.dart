@@ -8,7 +8,7 @@ import 'package:rigow/l10n/app_localizations.dart';
 class ExperienceBody extends StatefulWidget {
   const ExperienceBody(
       {super.key, required this.onSelectedSpecialityIdCallBack});
-  final void Function(int?) onSelectedSpecialityIdCallBack;
+  final void Function(SpecialtyModel?) onSelectedSpecialityIdCallBack;
   @override
   State<ExperienceBody> createState() => _ExperienceBodyState();
 }
@@ -41,12 +41,14 @@ class _ExperienceBodyState extends State<ExperienceBody> {
                   builder: (context) => SpecialtyPage(
                     onSelectedSpecialty: (secialty) {
                       _selectedSpecialty = secialty;
-                      widget.onSelectedSpecialityIdCallBack(secialty?.id ?? 0);
+                      widget.onSelectedSpecialityIdCallBack(secialty);
                       setState(() {});
                     },
                     initialSelected: SpecialtyModel(
                       id: _selectedSpecialty?.id ?? 0,
                       name: _selectedSpecialty?.name ?? '',
+                      governmentPermitRequired:
+                          _selectedSpecialty?.governmentPermitRequired ?? false,
                     ),
                   ),
                 ),

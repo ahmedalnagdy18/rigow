@@ -164,6 +164,7 @@ query specialties($paginate:PaginatorInput, $filter: SpecialtiesFilterInput){
       items{
         id
         name
+        governmentPermitRequired
         faculties{
           id
           name

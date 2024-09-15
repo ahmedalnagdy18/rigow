@@ -89,11 +89,13 @@ class Data {
 class Item {
   final int? id;
   final String? name;
+  final bool? governmentPermitRequired;
   final List<Faculty>? faculties;
 
   Item({
     this.id,
     this.name,
+    this.governmentPermitRequired,
     this.faculties,
   });
 
@@ -104,6 +106,7 @@ class Item {
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         id: json["id"],
         name: json["name"],
+        governmentPermitRequired: json["governmentPermitRequired"],
         faculties: json["faculties"] == null
             ? []
             : List<Faculty>.from(
@@ -113,6 +116,7 @@ class Item {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "governmentPermitRequired": governmentPermitRequired,
         "faculties": faculties == null
             ? []
             : List<dynamic>.from(faculties!.map((x) => x.toJson())),

@@ -4,20 +4,22 @@ import 'package:rigow/features/authentication/data/model/api_register_part/compl
 class SpecialtyModel extends Equatable {
   final int id;
   final String name;
+  final bool governmentPermitRequired;
 
-  const SpecialtyModel({
-    required this.id,
-    required this.name,
-  });
+  const SpecialtyModel(
+      {required this.id,
+      required this.name,
+      required this.governmentPermitRequired});
   @override
   String toString() {
-    return 'SpecialtyModel(id: $id, name: $name)';
+    return 'SpecialtyModel(id: $id, name: $name ,governmentPermitRequired: $governmentPermitRequired )';
   }
 
   @override
   List<Object?> get props => [
         id,
         name,
+        governmentPermitRequired,
       ];
 }
 
@@ -26,6 +28,7 @@ extension PoostItems on Item {
     return SpecialtyModel(
       id: id ?? 0,
       name: name ?? "",
+      governmentPermitRequired: governmentPermitRequired ?? false,
     );
   }
 }

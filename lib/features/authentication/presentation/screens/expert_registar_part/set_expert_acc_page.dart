@@ -5,6 +5,7 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/features/authentication/domain/model/specialty_model.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/social_links_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/cirtificate_body.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/experience_body.dart';
@@ -21,8 +22,6 @@ class SetExpertAccountPage extends StatefulWidget {
 }
 
 class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
-  //! xxxxxxxxx
-
   int? _specialityId;
   int? _fucltyId;
   int? _departmentId;
@@ -36,6 +35,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
   final _universityName = TextEditingController();
   List<String>? _socialLinks;
   bool _isButtonEnabled = false;
+  SpecialtyModel? specialtyModel;
 
   @override
   void dispose() {
@@ -79,6 +79,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
     return false;
   }
 
+  bool _isShowGovernmentPermit = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,8 +102,10 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     const SizedBox(height: 32),
                     //! experience part
                     ExperienceBody(
-                      onSelectedSpecialityIdCallBack: (secialityId) {
-                        _specialityId = secialityId;
+                      onSelectedSpecialityIdCallBack: (seciality) {
+                        _specialityId = seciality?.id ?? 0;
+                        _isShowGovernmentPermit =
+                            seciality?.governmentPermitRequired ?? false;
                         setState(() {});
                       },
                     ),
@@ -148,21 +151,22 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                       },
                       title: AppLocalizations.of(context)!.otherCertifications,
                       iconImage: 'assets/images/cirtificate.png',
+                      size: _isShowGovernmentPermit ? 0 : 8,
                     ),
                     const SizedBox(height: 4),
                     //governmentPermitImage
-
-                    CirtificateContainerWidget(
-                      isPdf: _checkIfFileIsPdf(_governmentPermitImage),
-                      onSelectedTakeImage: (takeImage) {},
-                      onSelectedImageBack: (selectedImage) {
-                        _isEnabled();
-                        _governmentPermitImage = selectedImage?.path;
-                      },
-                      title: AppLocalizations.of(context)!.governmentPermit,
-                      iconImage: 'assets/images/file.png',
-                      size: 8,
-                    ),
+                    if (_isShowGovernmentPermit)
+                      CirtificateContainerWidget(
+                        isPdf: _checkIfFileIsPdf(_governmentPermitImage),
+                        onSelectedTakeImage: (takeImage) {},
+                        onSelectedImageBack: (selectedImage) {
+                          _isEnabled();
+                          _governmentPermitImage = selectedImage?.path;
+                        },
+                        title: AppLocalizations.of(context)!.governmentPermit,
+                        iconImage: 'assets/images/file.png',
+                        size: 8,
+                      ),
                     const SizedBox(height: 32),
                     //! Nationality part
                     Container(
