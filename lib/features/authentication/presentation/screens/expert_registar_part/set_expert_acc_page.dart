@@ -68,7 +68,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
 
   bool socialLinksValidate(String socialLink) {
     const urlPattern =
-        r'^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}\/?$';
+        r'^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}([\/\w .-]*)*\/?(\?.*)?$';
     return socialLink.length >= 4 && RegExp(urlPattern).hasMatch(socialLink);
   }
 

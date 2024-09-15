@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_complete_expert_cubit/complete_expert_cubit.dart';
@@ -34,7 +35,8 @@ class ExpertPolicesPage extends StatelessWidget {
       required this.socialLinks,
       required this.firstName,
       required this.role,
-      required this.imageOfprofile});
+      required this.imageOfprofile,
+      required this.onSendRequestPressed});
   final String imageOfprofile;
   final String bioText;
   final String username;
@@ -57,6 +59,7 @@ class ExpertPolicesPage extends StatelessWidget {
   final List<String> socialLinks;
   final String firstName;
   final String role;
+  final void Function() onSendRequestPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +89,7 @@ class ExpertPolicesPage extends StatelessWidget {
         socialLinks: socialLinks,
         firstName: firstName,
         role: role,
+        onSendRequestPressed: onSendRequestPressed,
       ),
     );
   }
@@ -114,6 +118,7 @@ class _ExpertPolicesPage extends StatefulWidget {
   final List<String> socialLinks;
   final String firstName;
   final String role;
+  final void Function() onSendRequestPressed;
 
   const _ExpertPolicesPage(
       {required this.bioText,
@@ -137,7 +142,8 @@ class _ExpertPolicesPage extends StatefulWidget {
       required this.socialLinks,
       required this.firstName,
       required this.role,
-      required this.imageOfprofile});
+      required this.imageOfprofile,
+      required this.onSendRequestPressed});
 
   @override
   State<_ExpertPolicesPage> createState() => _ExpertPolicesPageState();
@@ -149,15 +155,7 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
     return BlocConsumer<CompleteExpertCubit, CompleteExpertState>(
         listener: (context, state) {
       if (state is ErrorCompleteExpertState) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.red,
-          content: Text(state.message.toString()),
-          action: SnackBarAction(
-            label: 'Undo',
-            textColor: Colors.white,
-            onPressed: () {},
-          ),
-        ));
+        showErrorToastMessage(message: state.message);
       }
     }, builder: (context, state) {
       return Scaffold(
@@ -234,6 +232,9 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
                             imageOfprofile: widget.imageOfprofile,
                           )));
                 }
+                if (state is ErrorCompleteExpertState) {
+                  widget.onSendRequestPressed();
+                }
               },
               child: ColoredButtonWidget(
                 text: AppLocalizations.of(context)!.sendTheRequest,
@@ -251,10 +252,9 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
   }
 
   void _sendRequestButton(BuildContext context) {
-    print('eeeeeee ${widget.bioText}');
     BlocProvider.of<CompleteExpertCubit>(context).setExpertData(
       CompleteExpertProfileInput(
-        profilePicture: 'test.com',
+        profilePicture: widget.imageOfprofile,
         username: widget.username,
         bio: widget.bioText,
         gender: widget.gender,

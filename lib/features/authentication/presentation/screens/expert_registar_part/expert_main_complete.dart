@@ -81,13 +81,6 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
   }
 
   @override
-  @override
-  void initState() {
-    print("InitStated::::${widget.role}");
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _currint == 0 || _currint == 1 || _currint == 3
@@ -160,6 +153,11 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                       },
                     ),
                     ExpertPolicesPage(
+                      onSendRequestPressed: () {
+                        _controller.previousPage(
+                            duration: const Duration(seconds: 1),
+                            curve: Curves.easeIn);
+                      },
                       bioText: bioText ?? '',
                       username: username ?? "",
                       gender: gender ?? "",
