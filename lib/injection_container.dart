@@ -150,7 +150,12 @@ Future<void> init() async {
       return "Bearer $token";
     });
 
-    final httpLink = HttpLink("https://beta-api.rigow.com/graphql");
+    final httpLink = HttpLink(
+      "https://beta-api.rigow.com/graphql",
+      defaultHeaders: {
+        "Apollo-Require-Preflight": "true",
+      },
+    );
 
     return GraphQLClient(
       link: authLink.concat(httpLink),

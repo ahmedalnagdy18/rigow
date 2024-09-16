@@ -5,7 +5,7 @@ class UploadFileUsecase {
   final UploadFileRepository repository;
 
   UploadFileUsecase({required this.repository});
-  Future<void> call(UploadFiledEntity uploadFiledEntity) async {
+  Future<String> call(UploadFiledEntity uploadFiledEntity) async {
     return await repository.uploadfile(uploadFiledEntity);
   }
 }

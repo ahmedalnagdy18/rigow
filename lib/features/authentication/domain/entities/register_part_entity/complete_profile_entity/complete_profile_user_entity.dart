@@ -1,4 +1,5 @@
 class CompleteProfileUserInput {
+  final String profilePicture;
   final int countryId;
   final String username;
   final int stateId;
@@ -7,6 +8,7 @@ class CompleteProfileUserInput {
   final int birthDate;
 
   CompleteProfileUserInput({
+    required this.profilePicture,
     required this.countryId,
     required this.stateId,
     required this.cityId,
@@ -16,6 +18,7 @@ class CompleteProfileUserInput {
   });
   toJson() {
     return {
+      "profilePicture": profilePicture,
       "countryId": countryId,
       "username": username,
       "stateId": stateId,

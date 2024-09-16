@@ -1,5 +1,3 @@
-// onboarding_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';

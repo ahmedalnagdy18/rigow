@@ -26,11 +26,12 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     }
   }
 
-  void uploadFile(UploadFiledEntity uploadFiledEntity) async {
+  Future<String> uploadFile(UploadFiledEntity uploadFiledEntity) async {
     emit(LoadingUploadFileState());
     try {
-      await uploadFileUsecase.call(uploadFiledEntity);
+      String filePath = await uploadFileUsecase.call(uploadFiledEntity);
       emit(SucsessUploadFileState());
+      return filePath;
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorUploadFileState(message: e.message));

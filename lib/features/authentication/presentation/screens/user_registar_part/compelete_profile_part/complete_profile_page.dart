@@ -263,15 +263,22 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                   ),
                   const SizedBox(height: 24),
                   ColoredButtonWidget(
-                    text: AppLocalizations.of(context)!.next,
+                    text: state is LoadingUploadFileState
+                        ? AppLocalizations.of(context)!.loading
+                        : AppLocalizations.of(context)!.next,
                     onPressed: (state is ErrorValidateUsernameState ||
                             selectedGender == null ||
                             _userName.text.isEmpty ||
                             selectedDate == null)
                         ? null
-                        : () {
-                            widget.onSelectedImage(image);
-                            _uploadPhoto(context);
+                        : () async {
+                            final path = await _uploadPhoto(context);
+                            setState(() {
+                              widget.onSelectedImage(File(path));
+
+                              //    String filePath = path;
+                            });
+
                             widget.onPressed(
                               bioText.text,
                               _userName.text,
@@ -291,13 +298,16 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
     );
   }
 
-  void _uploadPhoto(BuildContext context) {
-    BlocProvider.of<CompleteProfileCubit>(context).uploadFile(
+  final String filePath = '';
+  Future<String> _uploadPhoto(BuildContext context) async {
+    final filePath =
+        await BlocProvider.of<CompleteProfileCubit>(context).uploadFile(
       UploadFiledEntity(
         file: image?.path ?? "",
         model: "PROFILE_PICTURE",
       ),
     );
+    return filePath;
   }
 
   void _openDatePicker(BuildContext context) {

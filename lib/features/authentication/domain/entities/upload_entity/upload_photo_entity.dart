@@ -3,11 +3,4 @@ class UploadFiledEntity {
   final String model;
 
   UploadFiledEntity({required this.file, required this.model});
-
-  toJson() {
-    return {
-      "file": file,
-      "model": model,
-    };
-  }
 }

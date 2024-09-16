@@ -358,6 +358,7 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                                 selectedArea!.id,
                               );
                               final input = CompleteProfileUserInput(
+                                profilePicture: widget.imageOfprofile,
                                 countryId: selectedCountry!.id,
                                 stateId: selectedCity!.id,
                                 cityId: selectedArea!.id,

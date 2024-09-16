@@ -96,5 +96,5 @@ abstract class SetExpertCompleteProfileRepository {
 }
 
 abstract class UploadFileRepository {
-  Future<void> uploadfile(UploadFiledEntity uploadFiledEntity);
+  Future<String> uploadfile(UploadFiledEntity uploadFiledEntity);
 }

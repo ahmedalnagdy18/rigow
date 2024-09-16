@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
@@ -57,15 +55,15 @@ class WelcomeToRigowPage extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child: CircleAvatar(
-                      backgroundImage: FileImage(File(imageOfprofile)),
-                      //         NetworkImage(
-                      //   addBaseUrls(imageOfprofile),
-                      // )
-                      //   AssetImage(
-                      // imageOfprofile,
-                      //  'assets/images/man.png'
-                      //   ),
-                    ),
+                        backgroundImage: NetworkImage(
+                      addBaseUrls(imageOfprofile),
+                    )
+                        //FileImage(File(imageOfprofile))
+                        //   AssetImage(
+                        // imageOfprofile,
+                        //  'assets/images/man.png'
+                        //   ),
+                        ),
                   ),
                   const SizedBox(height: 32),
                   role == 'Expert'
@@ -110,5 +108,6 @@ class WelcomeToRigowPage extends StatelessWidget {
 }
 
 String addBaseUrls(String url) {
-  return "https://www.rigow.com/$url";
+  print("url ${url}");
+  return "https://beta-api.rigow.com/$url";
 }

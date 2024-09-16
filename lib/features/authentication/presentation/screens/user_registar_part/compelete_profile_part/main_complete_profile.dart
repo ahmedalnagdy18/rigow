@@ -85,7 +85,7 @@ class _MainCompleteYourProfilePageState
               const SizedBox(height: 24),
               Expanded(
                 child: PageView(
-                  physics: const NeverScrollableScrollPhysics(),
+                  // physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   controller: _controller,
                   onPageChanged: (int value) {
