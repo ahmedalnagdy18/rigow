@@ -13,5 +13,6 @@ class ApiUploadFileInput {
   factory ApiUploadFileInput.frominput(UploadFiledEntity input) {
     return ApiUploadFileInput(file: input.file, model: input.model);
   }
+
   Map<String, dynamic> toJson() => _$ApiUploadFileInputToJson(this);
 }

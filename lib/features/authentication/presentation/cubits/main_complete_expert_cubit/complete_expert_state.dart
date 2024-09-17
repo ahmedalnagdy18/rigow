@@ -20,3 +20,16 @@ class ErrorCompleteExpertState extends CompleteExpertState {
   @override
   List<Object> get props => [message];
 }
+
+class LoadingUploadFileState extends CompleteExpertState {}
+
+class SucsessUploadFileState extends CompleteExpertState {}
+
+class ErrorUploadFileState extends CompleteExpertState {
+  final String message;
+
+  const ErrorUploadFileState({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

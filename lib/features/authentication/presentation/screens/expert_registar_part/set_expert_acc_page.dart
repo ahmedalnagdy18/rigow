@@ -5,6 +5,7 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/features/authentication/domain/model/faculty_model.dart';
 import 'package:rigow/features/authentication/domain/model/specialty_model.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/social_links_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/expert_part/cirtificate_body.dart';
@@ -23,7 +24,7 @@ class SetExpertAccountPage extends StatefulWidget {
 
 class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
   int? _specialityId;
-  int? _fucltyId;
+  FacultyModel? _fucltyModel;
   int? _departmentId;
   String? _universitySelectedimage;
   String? _otherCertificationsimages;
@@ -102,18 +103,22 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     const SizedBox(height: 32),
                     //! experience part
                     ExperienceBody(
+                      facultyModel:
+                          _fucltyModel ?? FacultyModel(id: -1, name: ""),
                       onSelectedSpecialityIdCallBack: (seciality) {
                         _specialityId = seciality?.id ?? 0;
                         _isShowGovernmentPermit =
                             seciality?.governmentPermitRequired ?? false;
+
                         setState(() {});
                       },
                     ),
                     const SizedBox(height: 4),
 
                     FacultyBody(
-                      onSelectedFacultyIdCallBack: (fucltyId) {
-                        _fucltyId = fucltyId;
+                      onSelectedFacultyIdCallBack: (fuclty) {
+                        _fucltyModel = FacultyModel(
+                            id: fuclty?.id, name: fuclty?.name ?? '');
                         setState(() {});
                       },
                       onSelectedDepartmentIdCallBack: (departmentId) {
@@ -128,7 +133,6 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
 
                     CirtificateContainerWidget(
                       key: ValueKey(_isEnabled()),
-                      onSelectedTakeImage: (takeImage) {},
                       isPdf: _checkIfFileIsPdfs(_universitySelectedimage),
                       onSelectedImageBack: (selectedImage) {
                         setState(() {
@@ -143,7 +147,6 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     //otherCertifications
 
                     CirtificateContainerWidget(
-                      onSelectedTakeImage: (takeImage) {},
                       isPdf: _checkIfFileIsPdf(_otherCertificationsimages),
                       onSelectedImageBack: (selectedImage) {
                         _isEnabled();
@@ -158,7 +161,6 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     if (_isShowGovernmentPermit)
                       CirtificateContainerWidget(
                         isPdf: _checkIfFileIsPdf(_governmentPermitImage),
-                        onSelectedTakeImage: (takeImage) {},
                         onSelectedImageBack: (selectedImage) {
                           _isEnabled();
                           _governmentPermitImage = selectedImage?.path;
@@ -230,7 +232,6 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     //nationalFrontId
 
                     CirtificateContainerWidget(
-                      onSelectedTakeImage: (takeImage) {},
                       isPdf: _checkIfFileIsPdf(_nationalFrontId),
                       onSelectedImageBack: (selectedationalFrontIdImage) {
                         _nationalFrontId = selectedationalFrontIdImage?.path;
@@ -243,7 +244,6 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     //nationalBackId
 
                     CirtificateContainerWidget(
-                      onSelectedTakeImage: (takeImage) {},
                       isPdf: _checkIfFileIsPdf(__nationalBackId),
                       onSelectedImageBack: (selectedImage) {
                         __nationalBackId = selectedImage?.path;
@@ -276,7 +276,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                         widget.onNextPressed(
                           CollectedExpertEnteredData(
                             specialityId: _specialityId,
-                            facultyId: _fucltyId,
+                            facultyId: _fucltyModel?.id,
                             departmentId: _departmentId,
                             universityImage: _universitySelectedimage,
                             otherCertificationsImage:

@@ -14,15 +14,17 @@ class UploadFileRepositoryImp implements UploadFileRepository {
 
   @override
   Future<String> uploadfile(UploadFiledEntity input) async {
+    print("FILEEE");
+    print(input.file);
     final MultipartFile file = await MultipartFile.fromPath('', input.file,
-        filename: "fileName.png", contentType: getMimeType(input.file));
+        contentType: getMimeType(input.file));
 
-    final result = await graphQLClient.mutate(MutationOptions(
-        document: gql(uploadFilee),
-        variables: {
-          "file": file,
-          "model": "PROFILE_PICTURE"
-        })); //ApiUploadFileInput.frominput(input).toJson()
+    final result = await graphQLClient
+        .mutate(MutationOptions(document: gql(uploadFilee), variables: {
+      "file": file,
+      "model": input.model,
+    }));
+    //ApiUploadFileInput.frominput(input).toJson()
     if (result.data == null) {
       throw Exception();
     }

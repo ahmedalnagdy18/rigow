@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/features/authentication/domain/model/faculty_model.dart';
 import 'package:rigow/features/authentication/domain/model/specialty_model.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/specialty_page.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class ExperienceBody extends StatefulWidget {
   const ExperienceBody(
-      {super.key, required this.onSelectedSpecialityIdCallBack});
+      {super.key,
+      required this.onSelectedSpecialityIdCallBack,
+      required this.facultyModel});
+
   final void Function(SpecialtyModel?) onSelectedSpecialityIdCallBack;
+  final FacultyModel facultyModel;
   @override
   State<ExperienceBody> createState() => _ExperienceBodyState();
 }
@@ -50,6 +55,7 @@ class _ExperienceBodyState extends State<ExperienceBody> {
                       governmentPermitRequired:
                           _selectedSpecialty?.governmentPermitRequired ?? false,
                     ),
+                    facultyModel: widget.facultyModel,
                   ),
                 ),
               );

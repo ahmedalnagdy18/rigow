@@ -275,8 +275,6 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                             final path = await _uploadPhoto(context);
                             setState(() {
                               widget.onSelectedImage(File(path));
-
-                              //    String filePath = path;
                             });
 
                             widget.onPressed(
@@ -298,7 +296,6 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
     );
   }
 
-  final String filePath = '';
   Future<String> _uploadPhoto(BuildContext context) async {
     final filePath =
         await BlocProvider.of<CompleteProfileCubit>(context).uploadFile(

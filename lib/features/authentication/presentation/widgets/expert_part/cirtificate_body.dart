@@ -15,17 +15,16 @@ class CirtificateContainerWidget extends StatefulWidget {
   final String iconImage;
   final double? size;
   final void Function(File? selectedImage) onSelectedImageBack;
-  final void Function(File? takeImage) onSelectedTakeImage;
   final bool isPdf;
 
-  const CirtificateContainerWidget(
-      {super.key,
-      required this.title,
-      required this.iconImage,
-      this.size,
-      required this.onSelectedImageBack,
-      required this.isPdf,
-      required this.onSelectedTakeImage});
+  const CirtificateContainerWidget({
+    super.key,
+    required this.title,
+    required this.iconImage,
+    this.size,
+    required this.onSelectedImageBack,
+    required this.isPdf,
+  });
 
   @override
   State<CirtificateContainerWidget> createState() =>
@@ -63,7 +62,7 @@ class _CirtificateContainerWidgetState
     if (image == null) return;
     final takeImage = File(image.path);
     _takeImage = takeImage;
-    widget.onSelectedTakeImage(_takeImage);
+    widget.onSelectedImageBack(_takeImage);
     setState(() {});
   }
 

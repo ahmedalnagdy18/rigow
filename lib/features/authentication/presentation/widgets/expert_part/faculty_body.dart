@@ -18,7 +18,7 @@ class FacultyBody extends StatefulWidget {
     required this.mycontroller,
   });
   final int selectedSpecialtyId;
-  final void Function(int?) onSelectedFacultyIdCallBack;
+  final void Function(FacultyModel?) onSelectedFacultyIdCallBack;
   final void Function(int?) onSelectedDepartmentIdCallBack;
   final TextEditingController mycontroller;
   @override
@@ -58,7 +58,7 @@ class _FacultyBodyState extends State<FacultyBody> {
                         setState(() {
                           selectedFaculty = faculty;
                         });
-                        widget.onSelectedFacultyIdCallBack(faculty?.id);
+                        widget.onSelectedFacultyIdCallBack(faculty);
                       },
                     ),
                   ),

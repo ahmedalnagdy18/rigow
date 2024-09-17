@@ -5,6 +5,7 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_expert_profile_data_input.dart';
+import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_entity.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_complete_expert_cubit/complete_expert_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_complete_expert_cubit/complete_expert_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/welcome_to_rigow_page.dart';
@@ -64,8 +65,8 @@ class ExpertPolicesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          CompleteExpertCubit(completeExpertProfileUsecase: sl()),
+      create: (context) => CompleteExpertCubit(
+          completeExpertProfileUsecase: sl(), uploadFileUsecase: sl()),
       child: _ExpertPolicesPage(
         imageOfprofile: imageOfprofile,
         bioText: bioText,
@@ -237,7 +238,9 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
                 }
               },
               child: ColoredButtonWidget(
-                text: AppLocalizations.of(context)!.sendTheRequest,
+                text: state is LoadingUploadFileState
+                    ? AppLocalizations.of(context)!.loading
+                    : AppLocalizations.of(context)!.sendTheRequest,
                 onPressed: () {
                   _sendRequestButton(context);
                 },
@@ -251,33 +254,106 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
     });
   }
 
-  void _sendRequestButton(BuildContext context) {
-    BlocProvider.of<CompleteExpertCubit>(context).setExpertData(
-      CompleteExpertProfileInput(
-        profilePicture: widget.imageOfprofile,
-        username: widget.username,
-        bio: widget.bioText,
-        gender: widget.gender,
-        birthDate: widget.birthdate,
-        countryId: widget.countryId,
-        cityId: widget.areaId,
-        stateId: widget.statesId,
-        specialtyId: widget.specialityId,
-        facultyId: widget.facultyId,
-        departmentId: widget.departmentId,
-        universityDegreeUrl: widget.universityImage,
-        universityName: widget.universityName,
-        otherCertificates: [widget.otherCertificationsImage],
-        governmentPermitUrl: widget.governmentPermitImage,
-        nationalIdFront: widget.nationalFrontId,
-        nationalIdBack: widget.nationalBackId,
-        customDepartment: 'test.com',
-        customFaculty: 'test.com',
-        fullNameInNationalId: widget.fullNameInNationalId,
-        nationalIdNumber: widget.nationalIdNumber,
-        socialLinks: widget.socialLinks,
+  Future<String> _uploadUniversityImage(BuildContext context) async {
+    final filePath =
+        await BlocProvider.of<CompleteExpertCubit>(context).uploadExpertFile(
+      UploadFiledEntity(
+        file: widget.universityImage,
+        model: "EXPERT_DOCUMENT",
       ),
     );
+    return filePath;
+  }
+
+  Future<String> _uploadOtherCertificationsImage(BuildContext context) async {
+    final filePath =
+        await BlocProvider.of<CompleteExpertCubit>(context).uploadExpertFile(
+      UploadFiledEntity(
+        file: widget.otherCertificationsImage,
+        model: "EXPERT_DOCUMENT",
+      ),
+    );
+    return filePath;
+  }
+
+  Future<String> _uploadGovernmentPermitImage(BuildContext context) async {
+    if (widget.governmentPermitImage.isNotEmpty) {
+      final filePath =
+          await BlocProvider.of<CompleteExpertCubit>(context).uploadExpertFile(
+        UploadFiledEntity(
+          file: widget.governmentPermitImage,
+          model: "EXPERT_DOCUMENT",
+        ),
+      );
+
+      return filePath;
+    }
+
+    return '';
+  }
+
+  Future<String> _uploadNationalFrontIdImage(BuildContext context) async {
+    final filePath =
+        await BlocProvider.of<CompleteExpertCubit>(context).uploadExpertFile(
+      UploadFiledEntity(
+        file: widget.nationalFrontId,
+        model: "EXPERT_DOCUMENT",
+      ),
+    );
+    return filePath;
+  }
+
+  Future<String> _uploadNationalBackIdImage(BuildContext context) async {
+    final filePath =
+        await BlocProvider.of<CompleteExpertCubit>(context).uploadExpertFile(
+      UploadFiledEntity(
+        file: widget.nationalBackId,
+        model: "EXPERT_DOCUMENT",
+      ),
+    );
+    return filePath;
+  }
+
+  void _sendRequestButton(BuildContext context) async {
+    String uploadedUniversityImageUrl = await _uploadUniversityImage(context);
+    if (mounted) {
+      String uploadOtherCertificationsImageUrl =
+          await _uploadOtherCertificationsImage(mounted ? context : context);
+      String uploadGovernmentPermitImageUrl =
+          await _uploadGovernmentPermitImage(mounted ? context : context);
+      String uploadNationalFrontIdImageUrl =
+          await _uploadNationalFrontIdImage(mounted ? context : context);
+      String uploadNationalBackIdImageUrl =
+          await _uploadNationalBackIdImage(mounted ? context : context);
+      print('========Hi=========== $uploadedUniversityImageUrl');
+      BlocProvider.of<CompleteExpertCubit>(mounted ? context : context)
+          .setExpertData(
+        CompleteExpertProfileInput(
+          profilePicture: widget.imageOfprofile,
+          username: widget.username,
+          bio: widget.bioText,
+          gender: widget.gender,
+          birthDate: widget.birthdate,
+          countryId: widget.countryId,
+          cityId: widget.areaId,
+          stateId: widget.statesId,
+          specialtyId: widget.specialityId,
+          facultyId: widget.facultyId,
+          departmentId: widget.departmentId,
+          universityDegreeUrl: uploadedUniversityImageUrl,
+          universityName: widget.universityName,
+          otherCertificates: [uploadOtherCertificationsImageUrl],
+          governmentPermitUrl: uploadGovernmentPermitImageUrl,
+          nationalIdFront: uploadNationalFrontIdImageUrl,
+          nationalIdBack: uploadNationalBackIdImageUrl,
+          customDepartment: 'test.com',
+          customFaculty: 'test.com',
+          fullNameInNationalId: widget.fullNameInNationalId,
+          nationalIdNumber: widget.nationalIdNumber,
+          socialLinks: widget.socialLinks,
+        ),
+      );
+    }
   }
 }
 

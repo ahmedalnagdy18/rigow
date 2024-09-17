@@ -48,15 +48,16 @@ class SignWithButtonsWidget extends StatelessWidget {
           text: AppLocalizations.of(context)!.continueWithFacebook,
           textColor: Colors.white,
         ),
-        if (Platform.isIOS) const SizedBox(height: 8),
-        if (Platform.isIOS)
-          SocialAuthenticationButton(
-            image: 'assets/images/apple.png',
-            color: Colors.black,
-            onPressed: () {},
-            text: AppLocalizations.of(context)!.continueWithApple,
-            textColor: Colors.white,
-          ),
+        SizedBox(height: Platform.isIOS ? 8 : 0),
+        Platform.isIOS
+            ? SocialAuthenticationButton(
+                image: 'assets/images/apple.png',
+                color: Colors.black,
+                onPressed: () {},
+                text: AppLocalizations.of(context)!.continueWithApple,
+                textColor: Colors.white,
+              )
+            : const SizedBox(),
       ],
     );
   }
