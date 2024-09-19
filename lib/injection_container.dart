@@ -7,24 +7,24 @@ import 'package:rigow/features/authentication/domain/repositories/authentication
 import 'package:rigow/features/authentication/domain/repositories/complete_profile_repository.dart';
 import 'package:rigow/features/authentication/domain/repositories/upload_files_repository.dart';
 
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/city_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/complete_expert_profile_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/complete_profile_user_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/countries_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/login_part_usecase/forget_pass_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/login_part_usecase/login_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/department_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/faculty_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/signup_part/register_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/city_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/complete_expert_profile_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/complete_profile_user_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/countries_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/forget_pass_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/login_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/department_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/faculty_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/register_usecase.dart';
 import 'package:get_it/get_it.dart';
-import 'package:rigow/features/authentication/domain/usecases/login_part_usecase/reset_password_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/send_email_verification.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/specialty_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/states_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/validate_username_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/login_part_usecase/verify_forget_password_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/reset_password_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/specialty_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/states_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/validate_username_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/verify_forget_password_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/upload_usecase/upload_photo_usecase.dart';
-import 'package:rigow/features/authentication/domain/usecases/verify_user_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/verify_user_usecase.dart';
 
 final sl = GetIt.instance;
 

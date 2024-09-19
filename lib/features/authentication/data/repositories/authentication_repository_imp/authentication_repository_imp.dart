@@ -1,22 +1,22 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
 import 'package:rigow/features/authentication/data/data_source/qraph_ql.dart';
-import 'package:rigow/features/authentication/data/model/api_login_part/api_forget_pass.dart';
-import 'package:rigow/features/authentication/data/model/api_login_part/api_login.dart';
-import 'package:rigow/features/authentication/data/model/api_login_part/api_reset_password.dart';
-import 'package:rigow/features/authentication/data/model/api_login_part/api_verify_forget_password.dart';
-import 'package:rigow/features/authentication/data/model/api_register_part/sign_up_part/api_register_resonse_result.dart';
-import 'package:rigow/features/authentication/data/model/api_send_email_verif.dart';
-import 'package:rigow/features/authentication/data/model/api_verify_user.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_forget_pass.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_login.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_reset_password.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_verify_forget_password.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_register_resonse_result.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_send_email_verif.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_verify_user.dart';
 import 'package:rigow/features/authentication/data/model/input/register/api_register_input.dart';
-import 'package:rigow/features/authentication/domain/entities/login_part_entity/forget_pass_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/login_part_entity/login_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/login_part_entity/reset_password_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/login_part_entity/verify_forget_password_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/signup_part_entity/register_input.dart';
-import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
-import 'package:rigow/features/authentication/domain/entities/user_data_for_complete.dart';
-import 'package:rigow/features/authentication/domain/entities/verify_user_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/forget_pass_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/login_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/reset_password_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_forget_password_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/register_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/user_data_for_complete.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_user_input.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 
 class AuthenticationRepositoryImp extends AuthenticationRepository {
@@ -25,7 +25,7 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
   AuthenticationRepositoryImp({required this.graphQLClient});
 
   @override
-  Future<void> forgetPassword(ForgetPassEntity forgetPassEntity) async {
+  Future<void> forgetPassword(ForgetPassInput forgetPassEntity) async {
     final result = await graphQLClient.mutate(MutationOptions(
         document: gql(forgetPasswordd),
         variables: {"input": forgetPassEntity.toJson()}));
@@ -41,7 +41,7 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
   }
 
   @override
-  Future<void> loginWithEmailAndPassword(LoginEntity loginEntity) async {
+  Future<void> loginWithEmailAndPassword(LoginInput loginEntity) async {
     final result = await graphQLClient.mutate(MutationOptions(
         document: gql(loginn), variables: {"input": loginEntity.toJson()}));
 
@@ -79,7 +79,7 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
 
   @override
   Future<void> resetPasswordByEmail(
-      ResetPasswordEntity resetPasswordEntity) async {
+      ResetPasswordInput resetPasswordEntity) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(resetPasswordByEmaill),
@@ -104,7 +104,7 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
 
   @override
   Future<void> sendEmailVerificationCode(
-      SendEmailVerificationCodeEntity emailVerificationCodeEntity) async {
+      SendEmailVerificationCodeInput emailVerificationCodeEntity) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(sendEmailVerificationCodee),
@@ -127,7 +127,7 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
 
   @override
   Future<void> verifyForgetPassword(
-      VerifyForgetPasswordEntity verifyForgetPasswordEntity) async {
+      VerifyForgetPasswordInput verifyForgetPasswordEntity) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(verifyForgetPasswordCodee),
@@ -155,7 +155,7 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
 
   @override
   Future<UserDataForComplete> verifyUserByEmail(
-      VerifyUserEntity verifyUserEntity) async {
+      VerifyUserInput verifyUserEntity) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(verifyUserByEmailInput),

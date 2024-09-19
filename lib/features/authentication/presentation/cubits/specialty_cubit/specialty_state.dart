@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/specialty_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/specialty_input.dart';
 import 'package:rigow/features/authentication/domain/model/specialty_model.dart';
 
 abstract class SpecialtyState extends Equatable {

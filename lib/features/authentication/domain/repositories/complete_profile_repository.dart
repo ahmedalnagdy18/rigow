@@ -1,12 +1,12 @@
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/city_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_expert_profile_data_input.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_profile_user_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/countries_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/department_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/faculty_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/specialty_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/states_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/validate_username_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/city_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_profile_user_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/countries_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/department_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/faculty_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/specialty_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/states_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/validate_username_input.dart';
 import 'package:rigow/features/authentication/domain/model/city_model.dart';
 import 'package:rigow/features/authentication/domain/model/countries_model.dart';
 import 'package:rigow/features/authentication/domain/model/department_model.dart';
@@ -18,18 +18,18 @@ abstract class CompleteProfileRepository {
   Future<void> completeProfile(CompleteProfileUserInput input);
 
   Future<PaginatedData<CountriesModel>> countries(
-      CountriesEntity countriesEntity);
+      CountriesInput countriesEntity);
 
-  Future<List<StatesModel>> states(StatesEntity statesEntity);
-  Future<List<CityModel>> cities(CityEntity cityEntity);
+  Future<List<StatesModel>> states(StatesInput statesEntity);
+  Future<List<CityModel>> cities(CityInput cityEntity);
   Future<PaginateddData<SpecialtyModel>> specialty(
-      SpecialtyEntity specialtyEntity);
+      SpecialtyInput specialtyEntity);
 
-  Future<ToPaginatedData<FacultyModel>> faculty(FacultyEntity facultyEntity);
+  Future<ToPaginatedData<FacultyModel>> faculty(FacultyInput facultyEntity);
 
   Future<DepartmentPaginatedData<DepartmentModel>> department(
-      DepartmentEntity departmentEntity);
+      DepartmentInput departmentEntity);
   Future<void> setExpertCompleteProfile(
       CompleteExpertProfileInput completeExpertProfileInput);
-  Future<void> validateUsername(ValidateUsernameEntity validateUsernameEntity);
+  Future<void> validateUsername(ValidateUsernameInput validateUsernameEntity);
 }

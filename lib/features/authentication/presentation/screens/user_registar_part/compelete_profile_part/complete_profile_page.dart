@@ -15,8 +15,8 @@ import 'package:rigow/core/common/cliked_textfield_widget.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/validate_username_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/validate_username_input.dart';
+import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_state.dart';
 import 'package:rigow/features/authentication/presentation/widgets/select_file_sheet_widget.dart';
@@ -181,7 +181,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                     onChanged: (value) {
                       BlocProvider.of<CompleteProfileCubit>(context)
                           .validateUsername(
-                              ValidateUsernameEntity(username: value));
+                              ValidateUsernameInput(username: value));
                     },
                     validator: (value) {
                       final state =
@@ -300,7 +300,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
   Future<String> _uploadPhoto(BuildContext context) async {
     final filePath =
         await BlocProvider.of<CompleteProfileCubit>(context).uploadFile(
-      UploadFiledEntity(
+      UploadFiledInput(
         file: image?.path ?? "",
         model: "PROFILE_PICTURE",
       ),

@@ -5,10 +5,10 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/cliked_textfield_widget.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/city_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_profile_user_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/countries_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/states_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/city_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_profile_user_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/countries_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/states_input.dart';
 import 'package:rigow/features/authentication/domain/model/city_model.dart';
 import 'package:rigow/features/authentication/domain/model/countries_model.dart';
 import 'package:rigow/features/authentication/domain/model/states_model.dart';
@@ -121,17 +121,17 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
       }
     });
 
-    context.read<CountriesCubit>().countries(CountriesEntity(
+    context.read<CountriesCubit>().countries(CountriesInput(
         page: 1, limit: _pageSize, searchKey: searchController.text));
 
     if (selectedCountry != null) {
-      context.read<CountriesCubit>().states(StatesEntity(
+      context.read<CountriesCubit>().states(StatesInput(
           searchKey: stateSearchController.text,
           countryId: selectedCountry!.id));
     }
 
     if (selectedCity != null) {
-      context.read<CountriesCubit>().cities(CityEntity(
+      context.read<CountriesCubit>().cities(CityInput(
           searchKey: citySearchController.text, stateId: selectedCity!.id));
     }
   }
@@ -140,7 +140,7 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
     try {
       final cubit = context.read<CountriesCubit>();
 
-      final data = await cubit.countriesUsecase.call(CountriesEntity(
+      final data = await cubit.countriesUsecase.call(CountriesInput(
           page: pageKey, limit: _pageSize, searchKey: searchController.text));
 
       final isLastPage = data.data.length < _pageSize;
@@ -158,7 +158,7 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
   Future<void> _fetchStates(int pageKey) async {
     try {
       final cubit = context.read<CountriesCubit>();
-      final data = await cubit.statesUsecase.call(StatesEntity(
+      final data = await cubit.statesUsecase.call(StatesInput(
           countryId: selectedCountry!.id,
           searchKey: stateSearchController.text));
       final isLastPage = data.length < _pageSize;
@@ -176,7 +176,7 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
   Future<void> _fetchCities(int pageKey) async {
     try {
       final cubit = context.read<CountriesCubit>();
-      final cityData = await cubit.cityUsecase.call(CityEntity(
+      final cityData = await cubit.cityUsecase.call(CityInput(
           stateId: selectedCity!.id, searchKey: citySearchController.text));
       final isLastPage = cityData.length < _pageSize;
       if (isLastPage) {

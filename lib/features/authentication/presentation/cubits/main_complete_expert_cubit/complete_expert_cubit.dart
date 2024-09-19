@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_expert_profile_data_input.dart';
-import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_entity.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/complete_expert_profile_usecase.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
+import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_input.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/complete_expert_profile_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/upload_usecase/upload_photo_usecase.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_complete_expert_cubit/complete_expert_state.dart';
 
@@ -28,7 +28,7 @@ class CompleteExpertCubit extends Cubit<CompleteExpertState> {
     }
   }
 
-  Future<String> uploadExpertFile(UploadFiledEntity uploadFiledEntity) async {
+  Future<String> uploadExpertFile(UploadFiledInput uploadFiledEntity) async {
     emit(LoadingUploadFileState());
     try {
       String filePath = await uploadFileUsecase.call(uploadFiledEntity);

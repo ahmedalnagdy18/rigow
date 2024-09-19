@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/signup_part_entity/register_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/register_input.dart';
 
 part 'api_login_details_input.g.dart';
 

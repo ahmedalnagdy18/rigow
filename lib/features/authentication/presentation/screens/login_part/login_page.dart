@@ -7,7 +7,7 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/login_part_entity/login_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/login_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/login_cubit/login_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/login_cubit/login_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/signup_part/main_signup.dart';
@@ -203,7 +203,7 @@ class _LoginPageState extends State<_LoginPageBody> {
 
   void _loginButton(BuildContext context) {
     BlocProvider.of<LoginCubit>(context).login(
-      LoginEntity(
+      LoginInput(
         email: _email.text,
         password: _password.text,
         deviceType: 'IOS',

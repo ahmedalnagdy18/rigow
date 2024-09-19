@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_profile_user_entity.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/complete_profile_user_usecase.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_profile_user_input.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/complete_profile_user_usecase.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_state.dart';
 
 class MainCompleteProfileCubit extends Cubit<MainCompleteProfileState> {

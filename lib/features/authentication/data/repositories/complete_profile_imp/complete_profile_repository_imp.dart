@@ -1,23 +1,23 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rigow/features/authentication/data/data_source/qraph_ql.dart';
-import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_city.dart';
-import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_complete_profile.dart';
-import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_countries.dart';
-import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_department.dart';
-import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_expert_request.dart';
-import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_faculty.dart';
-import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_specialty.dart';
-import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_states.dart';
-import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_validate_username.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/city_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_expert_profile_data_input.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_profile_user_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/countries_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/department_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/faculty_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/specialty_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/states_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/validate_username_entity.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/api_city.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/api_complete_profile.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/api_countries.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/api_department.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/api_expert_request.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/api_faculty.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/api_specialty.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/api_states.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/api_validate_username.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/city_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_profile_user_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/countries_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/department_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/faculty_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/specialty_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/states_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/validate_username_input.dart';
 import 'package:rigow/features/authentication/domain/model/city_model.dart';
 import 'package:rigow/features/authentication/domain/model/countries_model.dart';
 import 'package:rigow/features/authentication/domain/model/department_model.dart';
@@ -32,7 +32,7 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
   CompleteProfileRepositoryImp({required this.graphQLClient});
 
   @override
-  Future<List<CityModel>> cities(CityEntity cityEntity) async {
+  Future<List<CityModel>> cities(CityInput cityEntity) async {
     final result = await graphQLClient.query(
       QueryOptions(
         document: gql(citiess),
@@ -83,7 +83,7 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
 
   @override
   Future<PaginatedData<CountriesModel>> countries(
-      CountriesEntity countriesEntity) async {
+      CountriesInput countriesEntity) async {
     final result = await graphQLClient.query(
       QueryOptions(
         document: gql(countriess),
@@ -114,7 +114,7 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
 
   @override
   Future<DepartmentPaginatedData<DepartmentModel>> department(
-      DepartmentEntity departmentEntity) async {
+      DepartmentInput departmentEntity) async {
     final result = await graphQLClient.query(
       QueryOptions(
         document: gql(departmentss),
@@ -149,7 +149,7 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
 
   @override
   Future<ToPaginatedData<FacultyModel>> faculty(
-      FacultyEntity facultyEntity) async {
+      FacultyInput facultyEntity) async {
     final result = await graphQLClient.query(
       QueryOptions(
         document: gql(facultiess),
@@ -206,7 +206,7 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
 
   @override
   Future<PaginateddData<SpecialtyModel>> specialty(
-      SpecialtyEntity specialtyEntity) async {
+      SpecialtyInput specialtyEntity) async {
     final result = await graphQLClient.query(
       QueryOptions(
         document: gql(specialtiess),
@@ -238,7 +238,7 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
   }
 
   @override
-  Future<List<StatesModel>> states(StatesEntity statesEntity) async {
+  Future<List<StatesModel>> states(StatesInput statesEntity) async {
     final result = await graphQLClient.query(
       QueryOptions(
         document: gql(statess),
@@ -266,7 +266,7 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
 
   @override
   Future<void> validateUsername(
-      ValidateUsernameEntity validateUsernameEntity) async {
+      ValidateUsernameInput validateUsernameEntity) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(validateUsernamee),

@@ -9,7 +9,7 @@ import 'package:rigow/core/common/custom_widgets/main_appbar.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/faculty_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/faculty_input.dart';
 import 'package:rigow/features/authentication/domain/model/faculty_model.dart';
 import 'package:rigow/features/authentication/presentation/cubits/faculty_cubit/faculty_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/faculty_cubit/faculty_state.dart';
@@ -75,7 +75,7 @@ class _FacultyPageState extends State<_FacultyPage> {
       selectedFaculty = widget.initialSelected!;
     }
     _pagingController.addPageRequestListener((pageKey) {
-      context.read<FacultyCubit>().getFaculties(FacultyEntity(
+      context.read<FacultyCubit>().getFaculties(FacultyInput(
             specialtyId: widget.selectedSpecialtyId,
             page: pageKey,
             limit: 15,
@@ -93,7 +93,7 @@ class _FacultyPageState extends State<_FacultyPage> {
     try {
       final cubit = context.read<FacultyCubit>();
 
-      final data = await cubit.facultyUsecase.call(FacultyEntity(
+      final data = await cubit.facultyUsecase.call(FacultyInput(
           page: pageKey,
           limit: _pageSize,
           searchKey: searchController.text,

@@ -8,7 +8,7 @@ import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/common/custom_widgets/main_appbar.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/specialty_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/specialty_input.dart';
 import 'package:rigow/features/authentication/domain/model/faculty_model.dart';
 import 'package:rigow/features/authentication/domain/model/specialty_model.dart';
 import 'package:rigow/features/authentication/presentation/cubits/specialty_cubit/specialty_cubit.dart';
@@ -78,7 +78,7 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
     try {
       final cubit = context.read<SpecialtyCubit>();
 
-      final data = await cubit.specialtyUsecase.call(SpecialtyEntity(
+      final data = await cubit.specialtyUsecase.call(SpecialtyInput(
         page: pageKey,
         limit: _pageSize,
         searchKey: searchController.text,

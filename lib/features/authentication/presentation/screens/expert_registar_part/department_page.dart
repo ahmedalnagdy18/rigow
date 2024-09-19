@@ -9,7 +9,7 @@ import 'package:rigow/core/common/custom_widgets/main_appbar.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/department_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/department_input.dart';
 import 'package:rigow/features/authentication/domain/model/department_model.dart';
 import 'package:rigow/features/authentication/presentation/cubits/departments_cubit/department_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/departments_cubit/department_state.dart';
@@ -88,7 +88,7 @@ class _MyWidgetState extends State<_DepartmentPage> {
     try {
       final cubit = context.read<DepartmentCubit>();
 
-      final data = await cubit.departmentUsecase.call(DepartmentEntity(
+      final data = await cubit.departmentUsecase.call(DepartmentInput(
         page: pageKey,
         limit: _pageSize,
         searchKey: searchController.text,

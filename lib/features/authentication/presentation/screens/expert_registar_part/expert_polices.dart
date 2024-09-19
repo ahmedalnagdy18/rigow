@@ -4,8 +4,8 @@ import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/complete_expert_profile_data_input.dart';
-import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
+import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_complete_expert_cubit/complete_expert_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_complete_expert_cubit/complete_expert_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/welcome_to_rigow_page.dart';
@@ -257,7 +257,7 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
   Future<String> _uploadUniversityImage(BuildContext context) async {
     final filePath =
         await BlocProvider.of<CompleteExpertCubit>(context).uploadExpertFile(
-      UploadFiledEntity(
+      UploadFiledInput(
         file: widget.universityImage,
         model: "EXPERT_DOCUMENT",
       ),
@@ -268,7 +268,7 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
   Future<String> _uploadOtherCertificationsImage(BuildContext context) async {
     final filePath =
         await BlocProvider.of<CompleteExpertCubit>(context).uploadExpertFile(
-      UploadFiledEntity(
+      UploadFiledInput(
         file: widget.otherCertificationsImage,
         model: "EXPERT_DOCUMENT",
       ),
@@ -280,7 +280,7 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
     if (widget.governmentPermitImage.isNotEmpty) {
       final filePath =
           await BlocProvider.of<CompleteExpertCubit>(context).uploadExpertFile(
-        UploadFiledEntity(
+        UploadFiledInput(
           file: widget.governmentPermitImage,
           model: "EXPERT_DOCUMENT",
         ),
@@ -295,7 +295,7 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
   Future<String> _uploadNationalFrontIdImage(BuildContext context) async {
     final filePath =
         await BlocProvider.of<CompleteExpertCubit>(context).uploadExpertFile(
-      UploadFiledEntity(
+      UploadFiledInput(
         file: widget.nationalFrontId,
         model: "EXPERT_DOCUMENT",
       ),
@@ -306,7 +306,7 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
   Future<String> _uploadNationalBackIdImage(BuildContext context) async {
     final filePath =
         await BlocProvider.of<CompleteExpertCubit>(context).uploadExpertFile(
-      UploadFiledEntity(
+      UploadFiledInput(
         file: widget.nationalBackId,
         model: "EXPERT_DOCUMENT",
       ),

@@ -7,8 +7,8 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/login_part_entity/forget_pass_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/forget_pass_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/presentation/cubits/forget_password/forget_pass_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/forget_password/forget_pass_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/login_part/reset_password_verifcation.dart';
@@ -120,11 +120,11 @@ class _ResetPasswordPageState extends State<_ResetPasswordPage> {
   }
 
   void _nextButton(BuildContext context) {
-    BlocProvider.of<ForgetPassCubit>(context).forget(ForgetPassEntity(
+    BlocProvider.of<ForgetPassCubit>(context).forget(ForgetPassInput(
       email: _email.text,
     ));
     BlocProvider.of<ForgetPassCubit>(context)
-        .sendEmailVerificationCode(SendEmailVerificationCodeEntity(
+        .sendEmailVerificationCode(SendEmailVerificationCodeInput(
       email: _email.text,
       useCase: 'PASSWORD_RESET',
     ));

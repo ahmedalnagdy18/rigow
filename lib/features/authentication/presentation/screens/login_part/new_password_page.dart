@@ -7,7 +7,7 @@ import 'package:rigow/core/common/success_alert_dailog.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/login_part_entity/reset_password_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/reset_password_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/reset_password_cubit/reset_password_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/reset_password_cubit/reset_password_state.dart';
 import 'package:rigow/features/authentication/presentation/widgets/login_part/reset_password_appbar.dart';
@@ -190,7 +190,7 @@ class _NewPasswordPageState extends State<_NewPasswordPage> {
 
   void _resetPassword(BuildContext context) {
     BlocProvider.of<ResetPasswordCubit>(context)
-        .resetPassword(ResetPasswordEntity(
+        .resetPassword(ResetPasswordInput(
       email: widget.email,
       code: widget.otpCode,
       newPassword: _newPassword.text,

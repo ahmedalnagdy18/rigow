@@ -1,4 +1,4 @@
-import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_input.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'api_upload_file.g.dart';
@@ -10,7 +10,7 @@ class ApiUploadFileInput {
 
   ApiUploadFileInput({required this.file, required this.model});
 
-  factory ApiUploadFileInput.frominput(UploadFiledEntity input) {
+  factory ApiUploadFileInput.frominput(UploadFiledInput input) {
     return ApiUploadFileInput(file: input.file, model: input.model);
   }
 

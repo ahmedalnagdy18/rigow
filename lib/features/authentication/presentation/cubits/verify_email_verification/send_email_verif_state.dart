@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../domain/entities/user_data_for_complete.dart';
+import '../../../domain/entities/complete_profile_entities/user_data_for_complete.dart';
 
 abstract class VerifyUserState extends Equatable {
   const VerifyUserState();

@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
-import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
-import 'package:rigow/features/authentication/domain/entities/verify_user_entity.dart';
-import 'package:rigow/features/authentication/domain/usecases/send_email_verification.dart';
-import 'package:rigow/features/authentication/domain/usecases/verify_user_usecase.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_user_input.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/verify_user_usecase.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_state.dart';
 
 class VerifyUserCubit extends Cubit<VerifyUserState> {
@@ -14,7 +14,7 @@ class VerifyUserCubit extends Cubit<VerifyUserState> {
       required this.sendEmailVerificationCodeUsecase})
       : super(VerifyUserInitial());
 
-  void verifyUser(VerifyUserEntity verifyUserEntity) async {
+  void verifyUser(VerifyUserInput verifyUserEntity) async {
     emit(LoadingVerifyUserState());
 
     try {
@@ -30,7 +30,7 @@ class VerifyUserCubit extends Cubit<VerifyUserState> {
   }
 
   void sendEmailVerificationCode(
-      SendEmailVerificationCodeEntity sendEmailVerificationCodeEntity) async {
+      SendEmailVerificationCodeInput sendEmailVerificationCodeEntity) async {
     emit(LoadingEmailVerificationCodeState());
     try {
       await sendEmailVerificationCodeUsecase

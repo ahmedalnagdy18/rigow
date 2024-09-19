@@ -7,8 +7,8 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/common/textfield_phone.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/signup_part_entity/register_input.dart';
-import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/register_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/presentation/cubits/register_cubit/register_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/register_cubit/register_state.dart';
 import 'package:rigow/l10n/app_localizations.dart';
@@ -136,7 +136,7 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
             listener: (context, state) {
               if (state is SucsessRegsisterState) {
                 BlocProvider.of<RegisterCubit>(context)
-                    .sendEmailVerificationCode(SendEmailVerificationCodeEntity(
+                    .sendEmailVerificationCode(SendEmailVerificationCodeInput(
                   email: _email.text,
                   useCase: 'EMAIL_VERIFICATION',
                 ));

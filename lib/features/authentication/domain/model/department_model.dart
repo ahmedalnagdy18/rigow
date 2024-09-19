@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_department.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/api_department.dart';
 
 class DepartmentModel extends Equatable {
   final int? id;

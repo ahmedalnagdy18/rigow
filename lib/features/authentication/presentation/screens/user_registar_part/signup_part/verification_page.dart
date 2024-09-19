@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
-import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
-import 'package:rigow/features/authentication/domain/entities/verify_user_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_user_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_email_verification/send_email_verif_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/expert_main_complete.dart';
@@ -144,7 +144,7 @@ class _VerificationPageState extends State<_VerificationPage> {
 
   void sendCodeAgian() {
     BlocProvider.of<VerifyUserCubit>(context)
-        .sendEmailVerificationCode(SendEmailVerificationCodeEntity(
+        .sendEmailVerificationCode(SendEmailVerificationCodeInput(
       email: widget.email,
       useCase: 'EMAIL_VERIFICATION',
     ));
@@ -152,7 +152,7 @@ class _VerificationPageState extends State<_VerificationPage> {
 
   void succsess() {
     if (_otpCode.text.isNotEmpty) {
-      BlocProvider.of<VerifyUserCubit>(context).verifyUser(VerifyUserEntity(
+      BlocProvider.of<VerifyUserCubit>(context).verifyUser(VerifyUserInput(
         email: widget.email,
         verificationCode: _otpCode.text,
         useCase: 'EMAIL_VERIFICATION',

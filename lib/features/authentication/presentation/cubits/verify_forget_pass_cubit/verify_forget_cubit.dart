@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
-import 'package:rigow/features/authentication/domain/entities/login_part_entity/verify_forget_password_entity.dart';
-import 'package:rigow/features/authentication/domain/usecases/send_email_verification.dart';
-import 'package:rigow/features/authentication/domain/usecases/login_part_usecase/verify_forget_password_usecase.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_forget_password_input.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/verify_forget_password_usecase.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_forget_pass_cubit/verify_forget_state.dart';
 
 class VerifyForgetCubit extends Cubit<VerifyForgetState> {
@@ -14,7 +14,7 @@ class VerifyForgetCubit extends Cubit<VerifyForgetState> {
       : super(VerifyForgetInitial());
 
   void verifyForgetPassword(
-      VerifyForgetPasswordEntity verifyForgetPasswordEntity) async {
+      VerifyForgetPasswordInput verifyForgetPasswordEntity) async {
     emit(LoadingVerifyForgetState());
 
     try {
@@ -29,7 +29,7 @@ class VerifyForgetCubit extends Cubit<VerifyForgetState> {
   }
 
   void sendEmailVerificationCode(
-      SendEmailVerificationCodeEntity sendEmailVerificationCodeEntity) async {
+      SendEmailVerificationCodeInput sendEmailVerificationCodeEntity) async {
     emit(LoadingEmailVerificationCodeState());
     try {
       await sendEmailVerificationCodeUsecase

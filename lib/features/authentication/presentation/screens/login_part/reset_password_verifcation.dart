@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
-import 'package:rigow/features/authentication/domain/entities/send_email_verification.dart';
-import 'package:rigow/features/authentication/domain/entities/login_part_entity/verify_forget_password_entity.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/send_email_verification.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_forget_password_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_forget_pass_cubit/verify_forget_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/verify_forget_pass_cubit/verify_forget_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/login_part/new_password_page.dart';
@@ -147,7 +147,7 @@ class _ResetPasswordVerifcationState extends State<_ResetPasswordVerifcation> {
 
   void sendCodeAgian() {
     BlocProvider.of<VerifyForgetCubit>(context)
-        .sendEmailVerificationCode(SendEmailVerificationCodeEntity(
+        .sendEmailVerificationCode(SendEmailVerificationCodeInput(
       email: widget.email,
       useCase: 'PASSWORD_RESET',
     ));
@@ -156,7 +156,7 @@ class _ResetPasswordVerifcationState extends State<_ResetPasswordVerifcation> {
   void succsess() {
     if (_otpCode.text.isNotEmpty) {
       BlocProvider.of<VerifyForgetCubit>(context)
-          .verifyForgetPassword(VerifyForgetPasswordEntity(
+          .verifyForgetPassword(VerifyForgetPasswordInput(
         email: widget.email,
         verificationCode: _otpCode.text,
       ));

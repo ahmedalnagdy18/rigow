@@ -1,4 +1,4 @@
-import 'package:rigow/features/authentication/data/model/api_register_part/complete_profile_part/api_city.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/api_city.dart';
 
 class CityModel {
   final int id;

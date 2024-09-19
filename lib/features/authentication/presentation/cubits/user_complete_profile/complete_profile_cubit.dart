@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rigow/features/authentication/domain/entities/register_part_entity/complete_profile_entity/validate_username_entity.dart';
-import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_entity.dart';
-import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/validate_username_usecase.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/validate_username_input.dart';
+import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_input.dart';
+import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/validate_username_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/upload_usecase/upload_photo_usecase.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_state.dart';
 
@@ -12,7 +12,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
       {required this.uploadFileUsecase, required this.validateUsernameUsecase})
       : super(CompleteInitial());
 
-  void validateUsername(ValidateUsernameEntity validateUsernameEntity) async {
+  void validateUsername(ValidateUsernameInput validateUsernameEntity) async {
     emit(LoadingValidateUsernameState());
 
     try {
@@ -26,7 +26,7 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     }
   }
 
-  Future<String> uploadFile(UploadFiledEntity uploadFiledEntity) async {
+  Future<String> uploadFile(UploadFiledInput uploadFiledEntity) async {
     emit(LoadingUploadFileState());
     try {
       String filePath = await uploadFileUsecase.call(uploadFiledEntity);
