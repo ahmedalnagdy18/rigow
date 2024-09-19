@@ -3,7 +3,7 @@ import 'package:rigow/features/authentication/domain/entities/verify_user_entity
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 
 class VerifyUserUsecase {
-  final VerifyUserRepository repository;
+  final AuthenticationRepository repository;
 
   VerifyUserUsecase({required this.repository});
 

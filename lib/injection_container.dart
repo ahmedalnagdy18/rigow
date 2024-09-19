@@ -1,23 +1,12 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
-import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/city_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/complete_expert_profile_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/complete_profile_user_repo_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/countries_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/login_part_imp/forget_pass_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/login_part_imp/login_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/department_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/faculty_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/register_part_imp/signup_part_imp/register_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/login_part_imp/reset_password_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/send_email_verification.dart';
-import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/specialty_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/states_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/register_part_imp/complete_profile_part_imp/validate_username_repository_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/login_part_imp/verify_forget_password_repository_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/authentication_repository_imp/authentication_repository_imp.dart';
+import 'package:rigow/features/authentication/data/repositories/complete_profile_imp/complete_profile_repository_imp.dart';
 import 'package:rigow/features/authentication/data/repositories/upload_imp/upload_photo_imp.dart';
-import 'package:rigow/features/authentication/data/repositories/verify_user_repository_imp.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
+import 'package:rigow/features/authentication/domain/repositories/complete_profile_repository.dart';
+import 'package:rigow/features/authentication/domain/repositories/upload_files_repository.dart';
+
 import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/city_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/complete_expert_profile_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/register_part_usecase/complete_profile_part/complete_profile_user_usecase.dart';
@@ -93,56 +82,15 @@ Future<void> init() async {
 
 // Repository
 
-  sl.registerLazySingleton<LoginRepository>(
-      () => LoginRepositryImp(graphQLClient: sl()));
+  sl.registerLazySingleton<AuthenticationRepository>(
+      () => AuthenticationRepositoryImp(graphQLClient: sl()));
 
-  sl.registerLazySingleton<RegisterRepository>(
-      () => RegisterRepositryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<SendEmailVerificationCodeRepository>(
-      () => SendEmailVerificationCodeRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<VerifyUserRepository>(
-      () => VerifyUserRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<ValidateUsernameRepository>(
-      () => ValidateUsernameRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<CompleteProfileUserRepository>(
-      () => CompleteProfileUserRepoImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<CountriesRepository>(
-      () => CountriesRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<StatesRepository>(
-      () => StatesRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<CityRepository>(
-      () => CityRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<ForgetPassRepository>(
-      () => ForgetPassRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<ResetPasswordRepository>(
-      () => ResetPasswordRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<VerifyForgetPasswordRepository>(
-      () => VerifyForgetPasswordRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<SpecialtyRepository>(
-      () => SpecialtyRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<FacultyRepository>(
-      () => FacultyRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<DepartmentRepository>(
-      () => DepartmentRepositoryImp(graphQLClient: sl()));
-
-  sl.registerLazySingleton<SetExpertCompleteProfileRepository>(
-      () => CompleteExpertProfileRepositoryImp(graphQLClient: sl()));
+  sl.registerLazySingleton<CompleteProfileRepository>(
+      () => CompleteProfileRepositoryImp(graphQLClient: sl()));
 
   sl.registerLazySingleton<UploadFileRepository>(
       () => UploadFileRepositoryImp(graphQLClient: sl()));
+
 //---------------------------------------------------------------------------------------------------
   sl.registerLazySingleton<GraphQLClient>(() {
     final authLink = AuthLink(getToken: () async {

@@ -3,9 +3,9 @@ import 'package:http/http.dart';
 import 'package:rigow/features/authentication/data/data_source/qraph_ql.dart';
 import 'package:rigow/features/authentication/data/model/api_upload/api_upload_photo.dart';
 import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_entity.dart';
-import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
+import 'package:rigow/features/authentication/domain/repositories/upload_files_repository.dart';
 
 class UploadFileRepositoryImp implements UploadFileRepository {
   final GraphQLClient graphQLClient;
@@ -14,8 +14,6 @@ class UploadFileRepositoryImp implements UploadFileRepository {
 
   @override
   Future<String> uploadfile(UploadFiledEntity input) async {
-    print("FILEEE");
-    print(input.file);
     final MultipartFile file = await MultipartFile.fromPath('', input.file,
         contentType: getMimeType(input.file));
 

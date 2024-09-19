@@ -2,7 +2,7 @@ import 'package:rigow/features/authentication/domain/entities/login_part_entity/
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 
 class ForgetPassUsecase {
-  final ForgetPassRepository repository;
+  final AuthenticationRepository repository;
 
   ForgetPassUsecase({required this.repository});
 

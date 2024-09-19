@@ -2,7 +2,7 @@ import 'package:rigow/features/authentication/domain/entities/register_part_enti
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 
 class RegisterUsecase {
-  final RegisterRepository repository;
+  final AuthenticationRepository repository;
 
   RegisterUsecase({required this.repository});
 

@@ -2,7 +2,7 @@ import 'package:rigow/features/authentication/domain/entities/send_email_verific
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 
 class SendEmailVerificationCodeUsecase {
-  final SendEmailVerificationCodeRepository repository;
+  final AuthenticationRepository repository;
 
   SendEmailVerificationCodeUsecase({required this.repository});
 
