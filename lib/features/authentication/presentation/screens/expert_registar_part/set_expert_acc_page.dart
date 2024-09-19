@@ -316,6 +316,8 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
     bool linkIsValid = validateSocialLinks(_socialLinks);
 
     if (linkIsValid &&
+        _fucltyModel != null &&
+        _department != null &&
         universityNameValid &&
         isNationalIdValid &&
         _universityName.text.isNotEmpty &&

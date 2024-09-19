@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,8 +17,12 @@ import 'package:rigow/l10n/app_localizations.dart';
 
 class SignupWithEmailBody extends StatefulWidget {
   const SignupWithEmailBody(
-      {super.key, required this.controller, required this.onNextTap});
+      {super.key,
+      required this.controller,
+      required this.onNextTap,
+      required this.role});
   final PageController controller;
+  final String role;
   final Function(String email) onNextTap;
 
   @override
@@ -29,6 +35,8 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
   final _password = TextEditingController();
   final _firstName = TextEditingController();
   final _lastName = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   String _currentCountryCode = '+20';
   bool isObscuretext = true;
@@ -45,7 +53,7 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      autovalidateMode: AutovalidateMode.always,
+      key: _formKey,
       onChanged: _isEnabled,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,8 +70,11 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
             children: [
               Expanded(
                 child: TextFieldWidget(
+                  validator: (value) => value!.length >= 2
+                      ? null
+                      : AppLocalizations.of(context)!.firstNameValidator,
                   inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]'))
                   ],
                   maxLength: 15,
                   counterText: '',
@@ -75,6 +86,9 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
               const SizedBox(width: 8),
               Expanded(
                 child: TextFieldWidget(
+                  validator: (value) => value!.length >= 2
+                      ? null
+                      : AppLocalizations.of(context)!.lastNameValidator,
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
                   ],
@@ -113,6 +127,9 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
           ),
           const SizedBox(height: 16),
           TextFieldWidget(
+            validator: (value) => value!.length <= 8
+                ? AppLocalizations.of(context)!.passwordValidator
+                : null,
             inputFormatters: [
               FilteringTextInputFormatter.deny(RegExp(r'\s')),
             ],
@@ -152,7 +169,7 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
                       ? [AppColors.darkGrey, AppColors.darkGrey]
                       : AppColors.mainRed,
                   onPressed: () {
-                    if (_isButtonEnabled) {
+                    if (_formKey.currentState!.validate() && _isButtonEnabled) {
                       _registerButton(context);
                     }
                   },
@@ -170,23 +187,29 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
   }
 
   void _registerButton(BuildContext context) {
+    DeviceEnum deviceType;
+    if (Platform.isAndroid) {
+      deviceType = DeviceEnum.android;
+    } else if (Platform.isIOS) {
+      deviceType = DeviceEnum.ios;
+    } else {
+      deviceType = DeviceEnum.desktop;
+    }
     final input = RegisterInput(
       firstName: _firstName.text,
       lastName: _lastName.text,
       phone: _currentCountryCode + _phoneNumber.text,
       email: _email.text,
       password: _password.text,
-      loginDetails: LoginDetailsInput("", DeviceEnum.android),
-      role: UserRoleEnum.user,
+      loginDetails: LoginDetailsInput("", deviceType),
+      role: widget.role,
+      //UserRoleEnum.user,
     );
-
     BlocProvider.of<RegisterCubit>(context).registerFuc(input: input);
   }
 
   void _isEnabled() {
-    bool isEmailValid = EmailValidator.validate(_email.text);
-    if (isEmailValid &&
-        _firstName.text.isNotEmpty &&
+    if (_firstName.text.isNotEmpty &&
         _lastName.text.isNotEmpty &&
         _email.text.isNotEmpty &&
         _password.text.isNotEmpty &&

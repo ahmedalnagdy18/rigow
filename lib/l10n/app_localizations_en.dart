@@ -410,4 +410,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get yourRequestSuccessfully => 'Your Request have been sent successfully';
+
+  @override
+  String get firstNameValidator => 'Invalid First Name';
+
+  @override
+  String get lastNameValidator => 'Invalid Last Name';
+
+  @override
+  String get passwordValidator => 'Password must be at least 8 characters';
 }

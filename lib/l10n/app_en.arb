@@ -133,5 +133,8 @@
     "policesHintText7": "Expert users must adhere to a strict code of conduct, which prohibits the dissemination of false information, engagement in harmful practices, or any behavior that undermines the integrity of the RIGOW community.",
     "policesEndText": "By implementing these policies, RIGOW can ensure that its expert user accounts uphold the highest standards of professionalism, expertise, and contribution to foster a vibrant and supportive community focused on fitness and wellness.",
     "sendTheRequest": "Send the request",
-    "yourRequestSuccessfully": "Your Request have been sent successfully"
+    "yourRequestSuccessfully": "Your Request have been sent successfully",
+    "firstNameValidator": "Invalid First Name",
+    "lastNameValidator": "Invalid Last Name",
+    "passwordValidator": "Password must be at least 8 characters"
 }

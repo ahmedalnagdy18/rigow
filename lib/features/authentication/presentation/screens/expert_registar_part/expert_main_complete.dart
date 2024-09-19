@@ -102,6 +102,7 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
               const SizedBox(height: 24),
               Expanded(
                 child: PageView(
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: _controller,
                   onPageChanged: (int value) {
                     setState(() {

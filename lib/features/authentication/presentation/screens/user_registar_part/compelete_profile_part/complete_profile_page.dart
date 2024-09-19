@@ -116,6 +116,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
   final TextEditingController _userName = TextEditingController();
   String? selectedGender;
   final bioText = TextEditingController();
+  bool _isButtonEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -124,153 +125,171 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
       builder: (context, state) {
         return Scaffold(
           backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-            child: Form(
-              autovalidateMode: AutovalidateMode.always,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(AppLocalizations.of(context)!.completeYourProfile,
-                      style: AppTexts.title),
-                  const SizedBox(height: 8),
-                  Text(AppLocalizations.of(context)!.personalInfo,
-                      style: AppTexts.miniRegular),
-                  const SizedBox(height: 24),
-                  Center(
-                      child: AddPhotoWidget(
-                    imageFile: image,
-                    onTap: () {
-                      showModalBottomSheet<void>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return SelectFileSheetWidget(
-                              cameraTap: () {
-                                takeImage();
-                                Navigator.pop(context);
-                              },
-                              pdfTap: () {
-                                getPdf();
-                                Navigator.pop(context);
-                              },
-                              onTap: () {
-                                pickImage();
-                                Navigator.pop(context);
-                              },
-                              isProfile: true,
-                            );
-                          });
-                    },
-                  )),
-                  const SizedBox(height: 16),
-                  Center(
-                      child: Text('${widget.firstName} ${widget.lastName}',
-                          style: AppTexts.midTitle)),
-                  const SizedBox(height: 24),
-                  TextFieldWidget(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.deny(RegExp(r'\s')),
-                    ],
-                    suffixIcon: state is SucsessValidateUsernameState
-                        ? Icon(
-                            Icons.check_circle,
-                            color: AppColors.appBarRed,
-                            size: 16,
-                          )
-                        : null,
-                    errorStyle: TextStyle(color: AppColors.errorOrangeColor),
-                    onChanged: (value) {
-                      BlocProvider.of<CompleteProfileCubit>(context)
-                          .validateUsername(
-                              ValidateUsernameInput(username: value));
-                    },
-                    validator: (value) {
-                      final state =
-                          BlocProvider.of<CompleteProfileCubit>(context).state;
-
-                      if (state is ErrorValidateUsernameState) {
-                        return state.message;
-                      }
-                      return null;
-                    },
-                    mycontroller: _userName,
-                    hintText: 'Username - Ex:ahm987',
-                    obscureText: false,
-                    prefixIcon: const Icon(
-                      Icons.alternate_email,
-                      size: 14,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  Text(AppLocalizations.of(context)!.gender,
-                      style: AppTexts.midTitle),
-                  const SizedBox(height: 16),
-                  CheckBoxWidget(
-                    value: 'Male',
-                    groupValue: selectedGender,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedGender = value;
-                      });
-                    },
-                    title: AppLocalizations.of(context)!.male,
-                  ),
-                  const SizedBox(height: 8),
-                  CheckBoxWidget(
-                    value: 'Female',
-                    groupValue: selectedGender,
-                    onChanged: (value) {
-                      setState(() {
-                        selectedGender = value;
-                      });
-                    },
-                    title: AppLocalizations.of(context)!.female,
-                  ),
-                  SizedBox(height: widget.role == 'Expert' ? 40 : 0),
-                  widget.role == 'Expert'
-                      ? Text(
-                          AppLocalizations.of(context)!.biography,
-                          style: AppTexts.midTitle,
-                        )
-                      : const SizedBox(),
-                  const SizedBox(height: 16),
-                  widget.role == 'Expert'
-                      ? TextFieldWidget(
+          body: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Form(
+                    autovalidateMode: AutovalidateMode.always,
+                    onChanged: _isEnabled,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(AppLocalizations.of(context)!.completeYourProfile,
+                            style: AppTexts.title),
+                        const SizedBox(height: 8),
+                        Text(AppLocalizations.of(context)!.personalInfo,
+                            style: AppTexts.miniRegular),
+                        const SizedBox(height: 24),
+                        Center(
+                            child: AddPhotoWidget(
+                          imageFile: image,
+                          onTap: () {
+                            showModalBottomSheet<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return SelectFileSheetWidget(
+                                    cameraTap: () {
+                                      takeImage();
+                                      Navigator.pop(context);
+                                    },
+                                    pdfTap: () {
+                                      getPdf();
+                                      Navigator.pop(context);
+                                    },
+                                    onTap: () {
+                                      pickImage();
+                                      Navigator.pop(context);
+                                    },
+                                    isProfile: true,
+                                  );
+                                });
+                          },
+                        )),
+                        const SizedBox(height: 16),
+                        Center(
+                            child: Text(
+                                '${widget.firstName} ${widget.lastName}',
+                                style: AppTexts.midTitle)),
+                        const SizedBox(height: 24),
+                        TextFieldWidget(
                           inputFormatters: [
-                            noSpaceFormatter(),
+                            FilteringTextInputFormatter.deny(RegExp(r'\s')),
                           ],
-                          mycontroller: bioText,
+                          suffixIcon: state is SucsessValidateUsernameState
+                              ? Icon(
+                                  Icons.check_circle,
+                                  color: AppColors.appBarRed,
+                                  size: 16,
+                                )
+                              : null,
+                          errorStyle:
+                              TextStyle(color: AppColors.errorOrangeColor),
+                          onChanged: (value) {
+                            BlocProvider.of<CompleteProfileCubit>(context)
+                                .validateUsername(
+                                    ValidateUsernameInput(username: value));
+                          },
+                          validator: (value) {
+                            final state =
+                                BlocProvider.of<CompleteProfileCubit>(context)
+                                    .state;
+
+                            if (state is ErrorValidateUsernameState) {
+                              return state.message;
+                            }
+                            return null;
+                          },
+                          mycontroller: _userName,
+                          hintText: 'Username - Ex:ahm987',
                           obscureText: false,
-                          hintText:
-                              AppLocalizations.of(context)!.tellAboutYourSelf,
-                          maxLength: 600,
-                        )
-                      : const SizedBox(),
-                  const SizedBox(height: 32),
-                  InkWell(
-                    onTap: () {
-                      _openDatePicker(context);
-                    },
-                    child: ClikedTextFieldWidget(
-                      hintText: AppLocalizations.of(context)!.birthdate,
-                      suffixText: selectedDate != null
-                          ? _formatDate(selectedDate!)
-                          : AppLocalizations.of(context)!.tapToSet,
-                      borderColor: selectedDate != null
-                          ? Colors.transparent
-                          : AppColors.clickedTextfieldBorder,
-                      color: selectedDate != null ? AppColors.lightGrey : null,
+                          maxLength: 24,
+                          counterText: '',
+                          prefixIcon: const Icon(
+                            Icons.alternate_email,
+                            size: 14,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(height: 32),
+                        Text(AppLocalizations.of(context)!.gender,
+                            style: AppTexts.midTitle),
+                        const SizedBox(height: 16),
+                        CheckBoxWidget(
+                          value: 'Male',
+                          groupValue: selectedGender,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedGender = value;
+                            });
+
+                            _isEnabled();
+                          },
+                          title: AppLocalizations.of(context)!.male,
+                        ),
+                        const SizedBox(height: 8),
+                        CheckBoxWidget(
+                          value: 'Female',
+                          groupValue: selectedGender,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedGender = value;
+                            });
+
+                            _isEnabled();
+                          },
+                          title: AppLocalizations.of(context)!.female,
+                        ),
+                        SizedBox(height: widget.role == 'Expert' ? 40 : 0),
+                        widget.role == 'Expert'
+                            ? Text(
+                                AppLocalizations.of(context)!.biography,
+                                style: AppTexts.midTitle,
+                              )
+                            : const SizedBox(),
+                        const SizedBox(height: 16),
+                        widget.role == 'Expert'
+                            ? TextFieldWidget(
+                                inputFormatters: [
+                                  noSpaceFormatter(),
+                                ],
+                                mycontroller: bioText,
+                                obscureText: false,
+                                hintText: AppLocalizations.of(context)!
+                                    .tellAboutYourSelf,
+                                maxLength: 600,
+                              )
+                            : const SizedBox(),
+                        const SizedBox(height: 32),
+                        InkWell(
+                          onTap: () {
+                            _openDatePicker(context);
+                          },
+                          child: ClikedTextFieldWidget(
+                            hintText: AppLocalizations.of(context)!.birthdate,
+                            suffixText: selectedDate != null
+                                ? _formatDate(selectedDate!)
+                                : AppLocalizations.of(context)!.tapToSet,
+                            borderColor: selectedDate != null
+                                ? Colors.transparent
+                                : AppColors.clickedTextfieldBorder,
+                            color: selectedDate != null
+                                ? AppColors.lightGrey
+                                : null,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 24),
-                  ColoredButtonWidget(
-                    text: state is LoadingUploadFileState
-                        ? AppLocalizations.of(context)!.loading
-                        : AppLocalizations.of(context)!.next,
-                    onPressed: (state is ErrorValidateUsernameState ||
-                            selectedGender == null ||
-                            _userName.text.isEmpty ||
-                            selectedDate == null)
+                ),
+              ),
+              ColoredButtonWidget(
+                text: state is LoadingUploadFileState
+                    ? AppLocalizations.of(context)!.loading
+                    : AppLocalizations.of(context)!.next,
+                onPressed:
+                    !_isButtonEnabled && state is ErrorValidateUsernameState
                         ? null
                         : () async {
                             final path = await _uploadPhoto(context);
@@ -285,12 +304,12 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                               selectedDate!,
                             );
                           },
-                    grideantColors: AppColors.mainRed,
-                    textColor: Colors.white,
-                  ),
-                ],
+                grideantColors: !_isButtonEnabled
+                    ? [AppColors.darkGrey, AppColors.darkGrey]
+                    : AppColors.mainRed,
+                textColor: Colors.white,
               ),
-            ),
+            ],
           ),
         );
       },
@@ -325,6 +344,8 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
         setState(() {
           selectedDate = date;
         });
+
+        _isEnabled();
       },
       buttonContent: Center(
         child: RedText(
@@ -339,5 +360,18 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
 
   String _formatDate(DateTime date) {
     return "${date.day}/${date.month}/${date.year}";
+  }
+
+  void _isEnabled() {
+    setState(() {
+      if (selectedGender != null &&
+          selectedDate != null &&
+          _userName.text.isNotEmpty &&
+          bioText.text.isNotEmpty) {
+        _isButtonEnabled = true;
+      } else {
+        _isButtonEnabled = false;
+      }
+    });
   }
 }

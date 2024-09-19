@@ -904,6 +904,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your Request have been sent successfully'**
   String get yourRequestSuccessfully;
+
+  /// No description provided for @firstNameValidator.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid First Name'**
+  String get firstNameValidator;
+
+  /// No description provided for @lastNameValidator.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Last Name'**
+  String get lastNameValidator;
+
+  /// No description provided for @passwordValidator.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters'**
+  String get passwordValidator;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

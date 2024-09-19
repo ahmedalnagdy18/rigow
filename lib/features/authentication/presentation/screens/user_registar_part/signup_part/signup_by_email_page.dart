@@ -45,6 +45,7 @@ class _SignupByEmailPageState extends State<SignupByEmailPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SignupWithEmailBody(
+                        role: widget.role,
                         controller: widget.controller,
                         onNextTap: widget.onNextTap,
                       ),

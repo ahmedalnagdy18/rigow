@@ -5,7 +5,7 @@ class RegisterInput {
   final String email;
   final String password;
   final LoginDetailsInput loginDetails;
-  final UserRoleEnum role;
+  final String role;
 
   RegisterInput({
     required this.firstName,

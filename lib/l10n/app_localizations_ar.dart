@@ -410,4 +410,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get yourRequestSuccessfully => 'تم إرسال طلبك بنجاح';
+
+  @override
+  String get firstNameValidator => 'الاسم الأول غير صالح';
+
+  @override
+  String get lastNameValidator => 'الاسم الأخير غير صالح';
+
+  @override
+  String get passwordValidator => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل';
 }
