@@ -7,10 +7,12 @@ class SelectFileSheetWidget extends StatelessWidget {
       {super.key,
       required this.onTap,
       required this.pdfTap,
-      required this.cameraTap});
+      required this.cameraTap,
+      required this.isProfile});
   final Function()? onTap;
   final Function()? pdfTap;
   final Function()? cameraTap;
+  final bool isProfile;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,18 +69,20 @@ class SelectFileSheetWidget extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 25),
-            InkWell(
-              onTap: pdfTap,
-              child: const Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(Icons.picture_as_pdf_outlined),
-                  SizedBox(width: 14),
-                  Text('Pdf')
-                ],
-              ),
-            ),
+            SizedBox(height: isProfile ? 0 : 25),
+            isProfile
+                ? const SizedBox()
+                : InkWell(
+                    onTap: pdfTap,
+                    child: const Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(Icons.picture_as_pdf_outlined),
+                        SizedBox(width: 14),
+                        Text('Pdf')
+                      ],
+                    ),
+                  ),
           ],
         ),
       ),

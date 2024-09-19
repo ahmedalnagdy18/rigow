@@ -156,6 +156,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                                 pickImage();
                                 Navigator.pop(context);
                               },
+                              isProfile: true,
                             );
                           });
                     },

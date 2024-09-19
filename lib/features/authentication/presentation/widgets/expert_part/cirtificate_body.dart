@@ -121,6 +121,7 @@ class _CirtificateContainerWidgetState
                           pickImage();
                           Navigator.pop(context);
                         },
+                        isProfile: false,
                       );
                     },
                   ),

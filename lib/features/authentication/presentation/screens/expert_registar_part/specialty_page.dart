@@ -19,12 +19,11 @@ import 'package:rigow/l10n/app_localizations.dart';
 class SpecialtyPage extends StatelessWidget {
   final void Function(SpecialtyModel?) onSelectedSpecialty;
   final SpecialtyModel? initialSelected;
-  final FacultyModel? facultyModel;
+
   const SpecialtyPage({
     super.key,
     required this.onSelectedSpecialty,
     this.initialSelected,
-    this.facultyModel,
   });
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,6 @@ class SpecialtyPage extends StatelessWidget {
       child: _SpecialtyPage(
         onSelectedSpecialty: onSelectedSpecialty,
         initialSelected: initialSelected,
-        facultyModel: facultyModel,
       ),
     );
   }
@@ -43,10 +41,11 @@ class _SpecialtyPage extends StatefulWidget {
   final void Function(SpecialtyModel?) onSelectedSpecialty;
   final SpecialtyModel? initialSelected;
   final FacultyModel? facultyModel;
-  const _SpecialtyPage(
-      {required this.onSelectedSpecialty,
-      this.initialSelected,
-      this.facultyModel});
+  const _SpecialtyPage({
+    required this.onSelectedSpecialty,
+    this.initialSelected,
+    this.facultyModel,
+  });
 
   @override
   State<_SpecialtyPage> createState() => _SpecialtyPageState();
@@ -58,17 +57,14 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
   static const _pageSize = 20;
   final searchController = TextEditingController();
   late SpecialtyModel selectedSpecialty;
-  late FacultyModel? _facultyModel;
+
   @override
   void initState() {
     super.initState();
     if (widget.initialSelected != null) {
       selectedSpecialty = widget.initialSelected!;
     }
-    if (widget.facultyModel != null) {
-      _facultyModel = widget.facultyModel;
-      print(">>>>>>>>>>>>>>.${_facultyModel}");
-    }
+
     _pagingController.addPageRequestListener((pageKey) {
       _fetchCountries(pageKey);
     });
@@ -184,9 +180,7 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
                     text: AppLocalizations.of(context)!.next,
                     onPressed: () {
                       widget.onSelectedSpecialty(selectedSpecialty);
-                      _facultyModel = null;
 
-                      print("object  ${_facultyModel}");
                       Navigator.pop(context);
                     },
                     grideantColors: AppColors.mainRed,

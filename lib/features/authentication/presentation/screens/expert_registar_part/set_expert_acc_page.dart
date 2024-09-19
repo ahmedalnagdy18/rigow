@@ -5,6 +5,7 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/features/authentication/domain/model/department_model.dart';
 import 'package:rigow/features/authentication/domain/model/faculty_model.dart';
 import 'package:rigow/features/authentication/domain/model/specialty_model.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/social_links_page.dart';
@@ -25,6 +26,7 @@ class SetExpertAccountPage extends StatefulWidget {
 class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
   int? _specialityId;
   FacultyModel? _fucltyModel;
+  DepartmentModel? _department;
   int? _departmentId;
   String? _universitySelectedimage;
   String? _otherCertificationsimages;
@@ -104,25 +106,29 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     //! experience part
                     ExperienceBody(
                       facultyModel:
-                          _fucltyModel ?? FacultyModel(id: -1, name: ""),
+                          _fucltyModel ?? const FacultyModel(id: -1, name: ""),
                       onSelectedSpecialityIdCallBack: (seciality) {
                         _specialityId = seciality?.id ?? 0;
                         _isShowGovernmentPermit =
                             seciality?.governmentPermitRequired ?? false;
+                        _fucltyModel = null;
+                        _department = null;
 
                         setState(() {});
                       },
                     ),
                     const SizedBox(height: 4),
-
                     FacultyBody(
+                      selectedDepartment: _department,
+                      selectedFaculty: _fucltyModel,
                       onSelectedFacultyIdCallBack: (fuclty) {
                         _fucltyModel = FacultyModel(
                             id: fuclty?.id, name: fuclty?.name ?? '');
                         setState(() {});
                       },
-                      onSelectedDepartmentIdCallBack: (departmentId) {
-                        _departmentId = departmentId;
+                      onSelectedDepartmentIdCallBack: (department) {
+                        _department = DepartmentModel(
+                            id: department?.id, name: department?.name ?? "");
                         setState(() {});
                       },
                       selectedSpecialtyId: _specialityId ?? 0,

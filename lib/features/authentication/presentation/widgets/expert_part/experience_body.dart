@@ -55,7 +55,6 @@ class _ExperienceBodyState extends State<ExperienceBody> {
                       governmentPermitRequired:
                           _selectedSpecialty?.governmentPermitRequired ?? false,
                     ),
-                    facultyModel: widget.facultyModel,
                   ),
                 ),
               );

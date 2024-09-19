@@ -16,19 +16,31 @@ class FacultyBody extends StatefulWidget {
     required this.onSelectedFacultyIdCallBack,
     required this.onSelectedDepartmentIdCallBack,
     required this.mycontroller,
+    required this.selectedFaculty,
+    required this.selectedDepartment,
   });
   final int selectedSpecialtyId;
   final void Function(FacultyModel?) onSelectedFacultyIdCallBack;
-  final void Function(int?) onSelectedDepartmentIdCallBack;
+  final void Function(DepartmentModel?) onSelectedDepartmentIdCallBack;
   final TextEditingController mycontroller;
+  final FacultyModel? selectedFaculty;
+  final DepartmentModel? selectedDepartment;
   @override
   State<FacultyBody> createState() => _FacultyBodyState();
 }
 
 class _FacultyBodyState extends State<FacultyBody> {
-  FacultyModel? selectedFaculty;
-  DepartmentModel? selectedDepartment;
-  // FacultyModel? initialSelect;
+  // ignore: unused_field
+  FacultyModel? _faculty;
+  // ignore: unused_field
+  DepartmentModel? _department;
+  @override
+  void initState() {
+    _faculty = widget.selectedFaculty;
+    _department = widget.selectedDepartment;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isRtl = Localizations.localeOf(context).languageCode == 'ar';
@@ -51,12 +63,12 @@ class _FacultyBodyState extends State<FacultyBody> {
                     builder: (context) => FacultyPage(
                       selectedSpecialtyId: widget.selectedSpecialtyId,
                       initialSelected: FacultyModel(
-                        id: selectedFaculty?.id ?? 0,
-                        name: selectedFaculty?.name ?? '',
+                        id: widget.selectedFaculty?.id ?? 0,
+                        name: widget.selectedFaculty?.name ?? '',
                       ),
                       onSelectedFaculty: (faculty) {
                         setState(() {
-                          selectedFaculty = faculty;
+                          _faculty = faculty;
                         });
                         widget.onSelectedFacultyIdCallBack(faculty);
                       },
@@ -65,7 +77,7 @@ class _FacultyBodyState extends State<FacultyBody> {
                 );
                 if (result != null && result is FacultyModel) {
                   setState(() {
-                    selectedFaculty = result;
+                    _faculty = result;
                   });
                 }
               },
@@ -74,7 +86,7 @@ class _FacultyBodyState extends State<FacultyBody> {
                   Expanded(
                     child: Row(
                       children: [
-                        selectedFaculty != null
+                        widget.selectedFaculty != null
                             ? const Padding(
                                 padding: EdgeInsets.only(right: 8),
                                 child: Icon(Icons.check_circle,
@@ -90,12 +102,12 @@ class _FacultyBodyState extends State<FacultyBody> {
                   ),
                   Expanded(
                     child: Text(
-                      selectedFaculty?.name ??
+                      widget.selectedFaculty?.name ??
                           AppLocalizations.of(context)!.tapToSet,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.end,
                       style: AppTexts.miniRegular.copyWith(
-                        color: selectedFaculty == null
+                        color: widget.selectedFaculty == null
                             ? AppColors.clickedTextfieldBorder
                             : Colors.black,
                       ),
@@ -109,7 +121,7 @@ class _FacultyBodyState extends State<FacultyBody> {
             ),
           ),
           // eeeeeeeeeeeeeeeeeeeeeee
-          selectedFaculty != null
+          widget.selectedFaculty != null
               ? Padding(
                   padding: const EdgeInsets.only(top: 30),
                   child: InkWell(
@@ -119,23 +131,22 @@ class _FacultyBodyState extends State<FacultyBody> {
                           builder: (context) => DepartmentPage(
                             onSelectedDepartment: (department) {
                               setState(() {
-                                selectedDepartment = department;
+                                _department = department;
                               });
-                              widget.onSelectedDepartmentIdCallBack(
-                                  department?.id);
+                              widget.onSelectedDepartmentIdCallBack(department);
                               Navigator.pop(context);
                             },
                             initialSelected: DepartmentModel(
-                              id: selectedDepartment?.id ?? 0,
-                              name: selectedDepartment?.name ?? '',
+                              id: widget.selectedDepartment?.id ?? 0,
+                              name: widget.selectedDepartment?.name ?? '',
                             ),
-                            facultyId: selectedFaculty?.id ?? -1,
+                            facultyId: widget.selectedFaculty?.id ?? -1,
                           ),
                         ),
                       );
                       if (result != null && result is DepartmentModel) {
                         setState(() {
-                          selectedDepartment = result;
+                          _department = result;
                         });
                       }
                     },
@@ -145,7 +156,7 @@ class _FacultyBodyState extends State<FacultyBody> {
                         Expanded(
                           child: Row(
                             children: [
-                              selectedDepartment != null
+                              widget.selectedDepartment != null
                                   ? const Padding(
                                       padding: EdgeInsets.only(right: 8),
                                       child: Icon(Icons.check_circle,
@@ -161,12 +172,12 @@ class _FacultyBodyState extends State<FacultyBody> {
                         ),
                         Expanded(
                           child: Text(
-                            selectedDepartment?.name ??
+                            widget.selectedDepartment?.name ??
                                 AppLocalizations.of(context)!.tapToSet,
                             textAlign: TextAlign.end,
                             overflow: TextOverflow.ellipsis,
                             style: AppTexts.miniRegular.copyWith(
-                              color: selectedDepartment == null
+                              color: widget.selectedDepartment == null
                                   ? AppColors.clickedTextfieldBorder
                                   : Colors.black,
                             ),
