@@ -8,7 +8,12 @@ import 'package:rigow/features/authentication/data/model/api_authentication/api_
 import 'package:rigow/features/authentication/data/model/api_authentication/api_register_resonse_result.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_send_email_verif.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_verify_user.dart';
+import 'package:rigow/features/authentication/data/model/input/forget_password/api_forget_password_input.dart';
 import 'package:rigow/features/authentication/data/model/input/register/api_register_input.dart';
+import 'package:rigow/features/authentication/data/model/input/reset_password/api_reset_password_input.dart';
+import 'package:rigow/features/authentication/data/model/input/send_email_verification/api_send_email_verification_input.dart';
+import 'package:rigow/features/authentication/data/model/input/verify_forget_password/api_verify_forget_password_input.dart';
+import 'package:rigow/features/authentication/data/model/input/verify_user/api_verify_user_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/forget_pass_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/login_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/reset_password_input.dart';
@@ -25,10 +30,11 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
   AuthenticationRepositoryImp({required this.graphQLClient});
 
   @override
-  Future<void> forgetPassword(ForgetPassInput forgetPassEntity) async {
-    final result = await graphQLClient.mutate(MutationOptions(
-        document: gql(forgetPasswordd),
-        variables: {"input": forgetPassEntity.toJson()}));
+  Future<void> forgetPassword(ForgetPassInput input) async {
+    final result = await graphQLClient
+        .mutate(MutationOptions(document: gql(forgetPasswordd), variables: {
+      "input": ApiForgetPasswordInput.fromInput(input).toJson(),
+    }));
 
     final response = ApiForgetPassword.fromJson(result.data!);
 
@@ -41,9 +47,9 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
   }
 
   @override
-  Future<void> loginWithEmailAndPassword(LoginInput loginEntity) async {
+  Future<void> loginWithEmailAndPassword(LoginInput input) async {
     final result = await graphQLClient.mutate(MutationOptions(
-        document: gql(loginn), variables: {"input": loginEntity.toJson()}));
+        document: gql(loginn), variables: {"input": input.toJson()}));
 
     final response = ApiLogin.fromJson(result.data!);
 
@@ -78,13 +84,12 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
   }
 
   @override
-  Future<void> resetPasswordByEmail(
-      ResetPasswordInput resetPasswordEntity) async {
+  Future<void> resetPasswordByEmail(ResetPasswordInput input) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(resetPasswordByEmaill),
         variables: {
-          "input": resetPasswordEntity.toJson(),
+          "input": ApiResetPasswordInput.fromInput(input).toJson(),
         },
       ),
     );
@@ -104,12 +109,12 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
 
   @override
   Future<void> sendEmailVerificationCode(
-      SendEmailVerificationCodeInput emailVerificationCodeEntity) async {
+      SendEmailVerificationCodeInput input) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(sendEmailVerificationCodee),
         variables: {
-          "input": emailVerificationCodeEntity.toJson(),
+          "input": ApiSendEmailVerificationInput.fromInput(input).toJson(),
         },
       ),
     );
@@ -126,13 +131,12 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
   }
 
   @override
-  Future<void> verifyForgetPassword(
-      VerifyForgetPasswordInput verifyForgetPasswordEntity) async {
+  Future<void> verifyForgetPassword(VerifyForgetPasswordInput input) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(verifyForgetPasswordCodee),
         variables: {
-          "input": verifyForgetPasswordEntity.toJson(),
+          "input": ApiVerifyForgetPasswordInput.fromInput(input).toJson(),
         },
       ),
     );
@@ -154,13 +158,12 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
   }
 
   @override
-  Future<UserDataForComplete> verifyUserByEmail(
-      VerifyUserInput verifyUserEntity) async {
+  Future<UserDataForComplete> verifyUserByEmail(VerifyUserInput input) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(verifyUserByEmailInput),
         variables: {
-          "input": verifyUserEntity.toJson(),
+          "input": ApiVerifyUserInput.fromInput(input).toJson(),
         },
       ),
     );

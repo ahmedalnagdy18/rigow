@@ -3,11 +3,4 @@ class SendEmailVerificationCodeInput {
   final String useCase;
 
   SendEmailVerificationCodeInput({required this.email, required this.useCase});
-
-  toJson() {
-    return {
-      "email": email,
-      "useCase": useCase,
-    };
-  }
 }

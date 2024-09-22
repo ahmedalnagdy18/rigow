@@ -24,9 +24,6 @@ class ApiRegisterInput {
     required this.role,
   });
 
-  factory ApiRegisterInput.fromJson(Map<String, dynamic> json) =>
-      _$ApiRegisterInputFromJson(json);
-
   Map<String, dynamic> toJson() => _$ApiRegisterInputToJson(this);
 
   factory ApiRegisterInput.fromInput(RegisterInput input) {

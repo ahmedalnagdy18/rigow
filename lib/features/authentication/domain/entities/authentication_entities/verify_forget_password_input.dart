@@ -6,11 +6,4 @@ class VerifyForgetPasswordInput {
     required this.email,
     required this.verificationCode,
   });
-
-  toJson() {
-    return {
-      "email": email,
-      "verificationCode": verificationCode,
-    };
-  }
 }

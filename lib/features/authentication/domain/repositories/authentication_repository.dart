@@ -10,14 +10,11 @@ import 'package:rigow/features/authentication/domain/entities/authentication_ent
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_user_input.dart';
 
 abstract class AuthenticationRepository {
-  Future<void> loginWithEmailAndPassword(LoginInput loginEntity);
+  Future<void> loginWithEmailAndPassword(LoginInput input);
   Future<void> register(RegisterInput input);
-  Future<void> sendEmailVerificationCode(
-      SendEmailVerificationCodeInput emailVerificationCodeEntity);
-  Future<UserDataForComplete> verifyUserByEmail(
-      VerifyUserInput verifyUserEntity);
-  Future<void> forgetPassword(ForgetPassInput forgetPassEntity);
-  Future<void> resetPasswordByEmail(ResetPasswordInput resetPasswordEntity);
-  Future<void> verifyForgetPassword(
-      VerifyForgetPasswordInput verifyForgetPasswordEntity);
+  Future<void> sendEmailVerificationCode(SendEmailVerificationCodeInput input);
+  Future<UserDataForComplete> verifyUserByEmail(VerifyUserInput input);
+  Future<void> forgetPassword(ForgetPassInput input);
+  Future<void> resetPasswordByEmail(ResetPasswordInput input);
+  Future<void> verifyForgetPassword(VerifyForgetPasswordInput input);
 }

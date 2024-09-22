@@ -8,12 +8,4 @@ class VerifyUserInput {
     required this.email,
     required this.verificationCode,
   });
-
-  toJson() {
-    return {
-      "email": email,
-      "verificationCode": verificationCode,
-      "useCase": useCase.toUpperCase(),
-    };
-  }
 }
