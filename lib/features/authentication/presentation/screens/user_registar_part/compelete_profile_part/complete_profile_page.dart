@@ -104,6 +104,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
     final imageTemp = File(image.path);
     widget.onSelectedImage(imageTemp);
     setState(() => this.image = imageTemp);
+    _isEnabled();
   }
 
   Future takeImage() async {
@@ -111,6 +112,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
     if (image == null) return;
     final takeImage = File(image.path);
     setState(() => this.image = takeImage);
+    _isEnabled();
   }
 
   final TextEditingController _userName = TextEditingController();
@@ -143,6 +145,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                         const SizedBox(height: 24),
                         Center(
                             child: AddPhotoWidget(
+                          role: widget.role,
                           imageFile: image,
                           onTap: () {
                             showModalBottomSheet<void>(
@@ -289,9 +292,8 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                     ? AppLocalizations.of(context)!.loading
                     : AppLocalizations.of(context)!.next,
                 onPressed:
-                    !_isButtonEnabled && state is ErrorValidateUsernameState
-                        ? null
-                        : () async {
+                    _isButtonEnabled && state is SucsessValidateUsernameState
+                        ? () async {
                             final path = await _uploadPhoto(context);
                             setState(() {
                               widget.onSelectedImage(File(path));
@@ -303,7 +305,8 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                               selectedGender!,
                               selectedDate!,
                             );
-                          },
+                          }
+                        : null,
                 grideantColors: !_isButtonEnabled
                     ? [AppColors.darkGrey, AppColors.darkGrey]
                     : AppColors.mainRed,
@@ -364,10 +367,13 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
 
   void _isEnabled() {
     setState(() {
-      if (selectedGender != null &&
-          selectedDate != null &&
-          _userName.text.isNotEmpty &&
-          bioText.text.isNotEmpty) {
+      if (image?.path != null &&
+              selectedGender != null &&
+              selectedDate != null &&
+              _userName.text.isNotEmpty
+          // &&
+          // bioText.text.isNotEmpty
+          ) {
         _isButtonEnabled = true;
       } else {
         _isButtonEnabled = false;

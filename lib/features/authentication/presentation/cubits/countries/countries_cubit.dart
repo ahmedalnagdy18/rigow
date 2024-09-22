@@ -26,8 +26,9 @@ class CountriesCubit extends Cubit<CountriesState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorCountriesState(message: e.message));
+      } else {
+        emit(ErrorCountriesState(message: "Error"));
       }
-      rethrow;
     }
     emit(CountriesInitial());
   }
@@ -40,8 +41,9 @@ class CountriesCubit extends Cubit<CountriesState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorStatesState(message: e.message));
+      } else {
+        emit(ErrorStatesState(message: "Error"));
       }
-      rethrow;
     }
   }
 
@@ -53,8 +55,9 @@ class CountriesCubit extends Cubit<CountriesState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorCityState(message: e.message));
+      } else {
+        emit(ErrorCityState(message: "Error"));
       }
-      rethrow;
     }
   }
 }

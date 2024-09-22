@@ -63,3 +63,9 @@ TextInputFormatter noSpaceFormatter() {
 // builder: (context) => const Navbar()));
 
 //    AppLocalizations.of(context)!.appName,   to localization
+
+// ----------to push without return back----------
+  // Navigator.of(context).pushAndRemoveUntil(
+  //          MaterialPageRoute(
+  //            builder: (context) => const TimelinePage(),),
+  //              (Route<dynamic> route) => false, );

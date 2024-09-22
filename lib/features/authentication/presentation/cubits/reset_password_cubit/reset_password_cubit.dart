@@ -16,8 +16,9 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorResetPasswordState(message: e.message));
+      } else {
+        emit(const ErrorResetPasswordState(message: "Error"));
       }
-      rethrow;
     }
   }
 }

@@ -24,8 +24,9 @@ class RegisterCubit extends Cubit<RegisterState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorRegsisterState(message: e.message));
+      } else {
+        emit(const ErrorRegsisterState(message: "Error"));
       }
-      rethrow;
     }
   }
 
@@ -39,8 +40,9 @@ class RegisterCubit extends Cubit<RegisterState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorEmailVerificationCodeState(message: e.message));
+      } else {
+        emit(const ErrorEmailVerificationCodeState(message: "Error"));
       }
-      rethrow;
     }
   }
 }

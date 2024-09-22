@@ -53,6 +53,7 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
   @override
   Widget build(BuildContext context) {
     return Form(
+      //   autovalidateMode: AutovalidateMode.onUserInteraction,
       key: _formKey,
       onChanged: _isEnabled,
       child: Column(
@@ -168,11 +169,13 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
                   grideantColors: !_isButtonEnabled
                       ? [AppColors.darkGrey, AppColors.darkGrey]
                       : AppColors.mainRed,
-                  onPressed: () {
-                    if (_formKey.currentState!.validate() && _isButtonEnabled) {
-                      _registerButton(context);
-                    }
-                  },
+                  onPressed: _isButtonEnabled
+                      ? () {
+                          if (_formKey.currentState!.validate()) {
+                            _registerButton(context);
+                          }
+                        }
+                      : null,
                   text: state is LoadingRegsisterState
                       ? AppLocalizations.of(context)!.loading
                       : AppLocalizations.of(context)!.next,

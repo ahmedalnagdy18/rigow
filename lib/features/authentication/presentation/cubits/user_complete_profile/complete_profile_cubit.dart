@@ -21,8 +21,9 @@ class CompleteProfileCubit extends Cubit<CompleteProfileState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorValidateUsernameState(message: e.message));
+      } else {
+        emit(const ErrorValidateUsernameState(message: "Error"));
       }
-      rethrow;
     }
   }
 

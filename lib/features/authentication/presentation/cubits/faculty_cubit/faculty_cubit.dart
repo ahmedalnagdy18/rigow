@@ -16,8 +16,9 @@ class FacultyCubit extends Cubit<FacultyState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorFacultyState(message: e.message));
+      } else {
+        emit(ErrorFacultyState(message: "Error"));
       }
-      rethrow;
     }
     emit(FacultyInitial());
   }

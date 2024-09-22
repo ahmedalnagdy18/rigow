@@ -46,6 +46,7 @@ class _LoginPageState extends State<_LoginPageBody> {
 
   bool isObscuretext = true;
   bool _isButtonEnabled = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -71,7 +72,8 @@ class _LoginPageState extends State<_LoginPageBody> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: Form(
-            autovalidateMode: AutovalidateMode.always,
+            key: _formKey,
+            //  autovalidateMode: AutovalidateMode.always,
             onChanged: _isEnabled,
             child: Column(
               children: [
@@ -155,21 +157,25 @@ class _LoginPageState extends State<_LoginPageBody> {
                         BlocListener<LoginCubit, LoginState>(
                           listener: (context, state) {
                             if (state is SucsessLoginState) {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const TimelinePage()));
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                  builder: (context) => const TimelinePage(),
+                                ),
+                                (Route<dynamic> route) => false,
+                              );
                             }
                           },
                           child: ColoredButtonWidget(
                             grideantColors: !_isButtonEnabled
                                 ? [AppColors.darkGrey, AppColors.darkGrey]
                                 : AppColors.mainRed,
-                            onPressed: () {
-                              if (_isButtonEnabled) {
-                                _loginButton(context);
-                              }
-                            },
+                            onPressed: _isButtonEnabled
+                                ? () {
+                                    if (_formKey.currentState!.validate()) {
+                                      _loginButton(context);
+                                    }
+                                  }
+                                : null,
                             text: state is LoadingLoginState
                                 ? AppLocalizations.of(context)!.loading
                                 : AppLocalizations.of(context)!.next,
@@ -213,8 +219,7 @@ class _LoginPageState extends State<_LoginPageBody> {
   }
 
   void _isEnabled() {
-    bool isEmailValid = EmailValidator.validate(_email.text);
-    if (isEmailValid && _email.text.isNotEmpty && _password.text.isNotEmpty) {
+    if (_email.text.isNotEmpty && _password.text.isNotEmpty) {
       _isButtonEnabled = true;
       setState(() {});
     } else {

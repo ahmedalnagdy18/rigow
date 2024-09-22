@@ -226,12 +226,16 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
             BlocListener<CompleteExpertCubit, CompleteExpertState>(
               listener: (context, state) {
                 if (state is SucsessCompleteExpertState) {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
                       builder: (context) => WelcomeToRigowPage(
-                            firstName: widget.firstName,
-                            role: widget.role,
-                            imageOfprofile: widget.imageOfprofile,
-                          )));
+                        firstName: widget.firstName,
+                        role: widget.role,
+                        imageOfprofile: widget.imageOfprofile,
+                      ),
+                    ),
+                    (Route<dynamic> route) => false,
+                  );
                 }
                 if (state is ErrorCompleteExpertState) {
                   widget.onSendRequestPressed();
@@ -325,7 +329,6 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
           await _uploadNationalFrontIdImage(mounted ? context : context);
       String uploadNationalBackIdImageUrl =
           await _uploadNationalBackIdImage(mounted ? context : context);
-      print('========Hi=========== $uploadedUniversityImageUrl');
       BlocProvider.of<CompleteExpertCubit>(mounted ? context : context)
           .setExpertData(
         CompleteExpertProfileInput(

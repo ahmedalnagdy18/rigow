@@ -18,8 +18,9 @@ class SpecialtyCubit extends Cubit<SpecialtyState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorSpecialtyState(message: e.message));
+      } else {
+        emit(ErrorSpecialtyState(message: "Error"));
       }
-      rethrow;
     }
     emit(SpecialtyInitial());
   }

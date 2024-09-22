@@ -21,8 +21,9 @@ class ForgetPassCubit extends Cubit<ForgetPassState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorForgetPass(message: e.message));
+      } else {
+        emit(const ErrorForgetPass(message: "Error"));
       }
-      rethrow;
     }
   }
 
@@ -36,8 +37,9 @@ class ForgetPassCubit extends Cubit<ForgetPassState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorEmailVerificationCodeState(message: e.message));
+      } else {
+        emit(const ErrorEmailVerificationCodeState(message: "Error"));
       }
-      rethrow;
     }
   }
 }

@@ -335,7 +335,7 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                     MainCompleteProfileState>(
                   listener: (context, state) {
                     if (state is SucsessCompleteProfileUserState) {
-                      Navigator.of(context).pushReplacement(
+                      Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                           builder: (context) => WelcomeToRigowPage(
                             firstName: widget.firstName,
@@ -343,7 +343,18 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                             imageOfprofile: widget.imageOfprofile,
                           ),
                         ),
+                        (Route<dynamic> route) => false,
                       );
+                      // Navigator.of(context).pushReplacement(
+                      //   MaterialPageRoute(
+                      //     builder: (context) =>
+                      // WelcomeToRigowPage(
+                      //       firstName: widget.firstName,
+                      //       role: widget.role,
+                      //       imageOfprofile: widget.imageOfprofile,
+                      //     ),
+                      //   ),
+                      // );
                     }
                   },
                   builder: (context, state) {

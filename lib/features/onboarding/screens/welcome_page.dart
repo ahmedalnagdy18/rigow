@@ -41,10 +41,11 @@ class _WelcomePageState extends State<WelcomePage> {
                         grideantColors: const [Colors.white, Colors.white],
                         onPressed: () {
                           // Navigate role as "User"
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const OnboardingScreen(
-                                    role: 'User',
-                                  )));
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const OnboardingScreen(
+                                        role: 'User',
+                                      )));
                         },
                         text: AppLocalizations.of(context)!.next,
                         textColor: Colors.black,
@@ -53,10 +54,11 @@ class _WelcomePageState extends State<WelcomePage> {
                       TranceparentButtonWidget(
                         onPressed: () {
                           // Navigate role as "Expert"
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const OnboardingScreen(
-                                    role: 'Expert',
-                                  )));
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const OnboardingScreen(
+                                        role: 'Expert',
+                                      )));
                         },
                         text: AppLocalizations.of(context)!.continueAsAnExpert,
                         textColor: Colors.white,

@@ -18,8 +18,9 @@ class MainCompleteProfileCubit extends Cubit<MainCompleteProfileState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorCompleteProfileUserState(message: e.message));
+      } else {
+        emit(const ErrorCompleteProfileUserState(message: "Error"));
       }
-      rethrow;
     }
   }
 }

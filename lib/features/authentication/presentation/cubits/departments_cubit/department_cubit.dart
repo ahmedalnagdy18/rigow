@@ -17,8 +17,9 @@ class DepartmentCubit extends Cubit<DepartmentState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorDepartmentState(message: e.message));
+      } else {
+        emit(ErrorDepartmentState(message: "Error"));
       }
-      rethrow;
     }
     emit(DepartmentInitial());
   }

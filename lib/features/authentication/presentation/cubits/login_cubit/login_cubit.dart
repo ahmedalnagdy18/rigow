@@ -15,8 +15,9 @@ class LoginCubit extends Cubit<LoginState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorLoginState(message: e.message));
+      } else {
+        emit(const ErrorLoginState(message: "Error"));
       }
-      rethrow;
     }
   }
 }

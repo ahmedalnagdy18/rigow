@@ -23,8 +23,9 @@ class VerifyForgetCubit extends Cubit<VerifyForgetState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorVerifyForgetState(message: e.message));
+      } else {
+        emit(const ErrorVerifyForgetState(message: "Error"));
       }
-      rethrow;
     }
   }
 
@@ -38,8 +39,9 @@ class VerifyForgetCubit extends Cubit<VerifyForgetState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorEmailVerificationCodeState(message: e.message));
+      } else {
+        emit(const ErrorEmailVerificationCodeState(message: "Error"));
       }
-      rethrow;
     }
   }
 }

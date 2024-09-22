@@ -24,8 +24,9 @@ class VerifyUserCubit extends Cubit<VerifyUserState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorVerifyUserState(message: e.message));
+      } else {
+        emit(const ErrorVerifyUserState(message: "Error"));
       }
-      rethrow;
     }
   }
 
@@ -39,8 +40,9 @@ class VerifyUserCubit extends Cubit<VerifyUserState> {
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorEmailVerificationCodeState(message: e.message));
+      } else {
+        emit(const ErrorEmailVerificationCodeState(message: "Error"));
       }
-      rethrow;
     }
   }
 }
