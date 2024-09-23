@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/expert_custom_indicator.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/set_expert_acc_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/expert_polices.dart';
@@ -50,7 +51,7 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
   String? imageOfprofile;
   String? bioText;
   String? username;
-  String? gender;
+  UserGenderEnum? gender;
   DateTime? birthdate;
   // ******************
   int? _countryId;
@@ -68,8 +69,8 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
   String? _fullNameInNationalId;
   String? _nationalIdNumber;
   List<String>? _socialLinks;
-  void _onCompleteProfilePagePressed(
-      String bioText, String username, String gender, DateTime birthdate) {
+  void _onCompleteProfilePagePressed(String bioText, String username,
+      UserGenderEnum gender, DateTime birthdate) {
     setState(() {
       this.bioText = bioText;
       this.username = username;
@@ -126,7 +127,7 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                       controller: _controller,
                       firstName: widget.firstName,
                       birthdate: birthdate ?? DateTime.now(),
-                      gender: gender ?? "",
+                      gender: gender ?? UserGenderEnum.male,
                       username: username ?? "",
                       onNextPressed: (int countryId, int cityId, int areaId) {
                         _countryId = countryId;
@@ -161,8 +162,9 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                       },
                       bioText: bioText ?? '',
                       username: username ?? "",
-                      gender: gender ?? "",
-                      birthdate: birthdate ?? DateTime.now(),
+                      gender: gender ?? UserGenderEnum.male,
+                      birthdate:
+                          (birthdate ?? DateTime.now()).millisecondsSinceEpoch,
                       countryId: _countryId ?? 0,
                       statesId: _statesId ?? 0,
                       areaId: _areaId ?? 0,

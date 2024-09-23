@@ -3,11 +3,4 @@ class CityInput {
   final String searchKey;
 
   CityInput({required this.stateId, required this.searchKey});
-
-  toJson() {
-    return {
-      "stateId": stateId,
-      "searchKey": searchKey,
-    };
-  }
 }

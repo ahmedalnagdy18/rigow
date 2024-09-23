@@ -20,8 +20,8 @@ abstract class CompleteProfileRepository {
   Future<PaginatedData<CountriesModel>> countries(
       CountriesInput countriesEntity);
 
-  Future<List<StatesModel>> states(StatesInput statesEntity);
-  Future<List<CityModel>> cities(CityInput cityEntity);
+  Future<List<StatesModel>> states(StatesInput input);
+  Future<List<CityModel>> cities(CityInput input);
   Future<PaginateddData<SpecialtyModel>> specialty(
       SpecialtyInput specialtyEntity);
 
@@ -29,7 +29,6 @@ abstract class CompleteProfileRepository {
 
   Future<DepartmentPaginatedData<DepartmentModel>> department(
       DepartmentInput departmentEntity);
-  Future<void> setExpertCompleteProfile(
-      CompleteExpertProfileInput completeExpertProfileInput);
-  Future<void> validateUsername(ValidateUsernameInput validateUsernameEntity);
+  Future<void> setExpertCompleteProfile(CompleteExpertProfileInput input);
+  Future<void> validateUsername(ValidateUsernameInput input);
 }

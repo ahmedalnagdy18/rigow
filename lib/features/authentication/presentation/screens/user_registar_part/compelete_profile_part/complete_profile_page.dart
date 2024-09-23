@@ -15,6 +15,7 @@ import 'package:rigow/core/common/cliked_textfield_widget.dart';
 import 'package:rigow/core/common/textfield.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/validate_username_input.dart';
 import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_cubit.dart';
@@ -32,9 +33,8 @@ class CompleteProfilePage extends StatelessWidget {
       required this.role,
       required this.bioText,
       required this.onSelectedImage});
-  final void Function(
-          String bioText, String username, String gender, DateTime birthdate)
-      onPressed;
+  final void Function(String bioText, String username, UserGenderEnum gender,
+      DateTime birthdate) onPressed;
   final String bioText;
   final String firstName;
   final void Function(File? selectedImage) onSelectedImage;
@@ -65,9 +65,8 @@ class _CompleteProfilePage extends StatefulWidget {
       required this.role,
       required this.bioText,
       required this.onSelectedImage});
-  final void Function(
-          String bioText, String username, String gender, DateTime birthdate)
-      onPressed;
+  final void Function(String bioText, String username, UserGenderEnum gender,
+      DateTime birthdate) onPressed;
   final String bioText;
   final String firstName;
   final void Function(File? selectedImage) onSelectedImage;
@@ -116,7 +115,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
   }
 
   final TextEditingController _userName = TextEditingController();
-  String? selectedGender;
+  UserGenderEnum? selectedGender;
   final bioText = TextEditingController();
   bool _isButtonEnabled = false;
 
@@ -219,7 +218,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                             style: AppTexts.midTitle),
                         const SizedBox(height: 16),
                         CheckBoxWidget(
-                          value: 'Male',
+                          value: UserGenderEnum.male,
                           groupValue: selectedGender,
                           onChanged: (value) {
                             setState(() {
@@ -232,7 +231,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                         ),
                         const SizedBox(height: 8),
                         CheckBoxWidget(
-                          value: 'Female',
+                          value: UserGenderEnum.female,
                           groupValue: selectedGender,
                           onChanged: (value) {
                             setState(() {

@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rigow/features/authentication/data/model/input/register/api_login_details_input.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/input/register/api_login_details_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/register_input.dart';
 
 part 'api_register_input.g.dart';
@@ -34,7 +34,7 @@ class ApiRegisterInput {
       email: input.email,
       password: input.password,
       loginDetails: ApiLoginDetailsInput.fromInput(input.loginDetails),
-      role: ApiUserRoleEnum.USER, //todo:need to refactor....
+      role: ApiUserRoleEnum.EXPERT, //todo:need to refactor....
     );
   }
 }

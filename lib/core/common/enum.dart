@@ -1,4 +1,4 @@
-import 'package:rigow/features/authentication/data/model/input/register/api_register_input.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/input/register/api_register_input.dart';
 
 enum Role {
   user,

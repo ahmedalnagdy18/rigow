@@ -5,12 +5,12 @@ class CompleteExpertProfileInput extends Equatable {
   final int? countryId;
   final int? stateId;
   final int? cityId;
-  final String? gender;
-  final DateTime? birthDate;
+  final UserGenderEnum gender;
+  final int? birthDate;
   final int? specialtyId;
   final int? facultyId;
   final int? departmentId;
-  final String? customFaculty;
+  final String? customfaculty;
   final String? customDepartment;
   final String? universityName;
   final String? universityDegreeUrl;
@@ -34,7 +34,7 @@ class CompleteExpertProfileInput extends Equatable {
     required this.specialtyId,
     required this.facultyId,
     required this.departmentId,
-    required this.customFaculty,
+    required this.customfaculty,
     required this.customDepartment,
     required this.universityName,
     required this.universityDegreeUrl,
@@ -60,7 +60,7 @@ class CompleteExpertProfileInput extends Equatable {
         specialtyId,
         facultyId,
         departmentId,
-        customFaculty,
+        customfaculty,
         customDepartment,
         universityName,
         universityDegreeUrl,
@@ -74,31 +74,9 @@ class CompleteExpertProfileInput extends Equatable {
         socialLinks,
         bio,
       ];
+}
 
-  toJson() {
-    return {
-      "username": username,
-      "countryId": countryId,
-      "stateId": stateId,
-      "cityId": cityId,
-      "gender": gender!.toUpperCase(),
-      "birthDate": birthDate?.millisecondsSinceEpoch,
-      "specialtyId": specialtyId,
-      "facultyId": facultyId,
-      "departmentId": departmentId,
-      "customfaculty": customFaculty,
-      "customDepartment": customDepartment,
-      "universityName": universityName,
-      "universityDegreeUrl": universityDegreeUrl,
-      "otherCertificates": otherCertificates,
-      "governmentPermitUrl": governmentPermitUrl,
-      "fullNameInNationalId": fullNameInNationalId,
-      "profilePicture": profilePicture,
-      "nationalIdNumber": nationalIdNumber,
-      "nationalIdFront": nationalIdFront,
-      "nationalIdBack": nationalIdBack,
-      "socialLinks": socialLinks,
-      "bio": bio,
-    };
-  }
+enum UserGenderEnum {
+  male,
+  female,
 }

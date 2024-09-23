@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/custom_indicator.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/complete_profile_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/select_country_page.dart';
@@ -50,12 +51,12 @@ class _MainCompleteYourProfilePageState
   int _currint = 0;
   final PageController _controller = PageController(initialPage: 0);
   String? username;
-  String? gender;
+  UserGenderEnum? gender;
   DateTime? birthdate;
   String? imageOfprofile;
 
-  void _onCompleteProfilePagePressed(
-      String bioText, String username, String gender, DateTime birthdate) {
+  void _onCompleteProfilePagePressed(String bioText, String username,
+      UserGenderEnum gender, DateTime birthdate) {
     setState(() {
       this.username = username;
       this.gender = gender;
@@ -111,7 +112,7 @@ class _MainCompleteYourProfilePageState
                       role: widget.role,
                       firstName: widget.firstName,
                       birthdate: birthdate ?? DateTime.now(),
-                      gender: gender ?? "",
+                      gender: gender ?? UserGenderEnum.male,
                       username: username ?? "",
                       onNextPressed: (int countryId, int cityId, int areaId) {},
                     ),

@@ -9,6 +9,11 @@ import 'package:rigow/features/authentication/data/model/api_complete_profile/ap
 import 'package:rigow/features/authentication/data/model/api_complete_profile/api_specialty.dart';
 import 'package:rigow/features/authentication/data/model/api_complete_profile/api_states.dart';
 import 'package:rigow/features/authentication/data/model/api_complete_profile/api_validate_username.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/inputs/city/api_city_input.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/inputs/expert_complete_profile/api_expert_complete_profile_input.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/inputs/states/api_states_input.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/inputs/user_complete_profile/api_complete_user_profile_input.dart';
+import 'package:rigow/features/authentication/data/model/api_complete_profile/inputs/validate_username/api_validate_username_input.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/city_input.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_profile_user_input.dart';
@@ -32,15 +37,12 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
   CompleteProfileRepositoryImp({required this.graphQLClient});
 
   @override
-  Future<List<CityModel>> cities(CityInput cityEntity) async {
+  Future<List<CityModel>> cities(CityInput input) async {
     final result = await graphQLClient.query(
       QueryOptions(
         document: gql(citiess),
         variables: {
-          "cityid": {
-            "stateId": cityEntity.stateId,
-            "searchKey": cityEntity.searchKey,
-          },
+          "cityid": ApiCityInput.fromInput(input).toJson(),
         },
       ),
     );
@@ -65,7 +67,7 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
       MutationOptions(
         document: gql(completeProfileAsUserr),
         variables: {
-          "input": input.toJson(),
+          "input": ApiCompleteUserProfileInput.fromInput(input).toJson(),
         },
       ),
     );
@@ -183,12 +185,12 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
 
   @override
   Future<void> setExpertCompleteProfile(
-      CompleteExpertProfileInput completeExpertProfileInput) async {
+      CompleteExpertProfileInput input) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(createExpertRequestt),
         variables: {
-          "input": completeExpertProfileInput.toJson(),
+          "input": ApiExpertCompleteProfileInput.fromInput(input).toJson(),
         },
       ),
     );
@@ -238,15 +240,12 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
   }
 
   @override
-  Future<List<StatesModel>> states(StatesInput statesEntity) async {
+  Future<List<StatesModel>> states(StatesInput input) async {
     final result = await graphQLClient.query(
       QueryOptions(
         document: gql(statess),
         variables: {
-          "input": {
-            "searchKey": statesEntity.searchKey,
-            "countryId": statesEntity.countryId,
-          },
+          "input": ApiStatesInput.fromInput(input).toJson(),
         },
       ),
     );
@@ -265,12 +264,11 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
   }
 
   @override
-  Future<void> validateUsername(
-      ValidateUsernameInput validateUsernameEntity) async {
+  Future<void> validateUsername(ValidateUsernameInput input) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
         document: gql(validateUsernamee),
-        variables: validateUsernameEntity.toJson(),
+        variables: ApiValidateUsernameInput.fromInput(input).toJson(),
       ),
     );
     if (result.data == null) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/custom_indicator.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/complete_profile_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/google_part/google_signup_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/welcome_to_rigow_page.dart';
@@ -19,11 +20,11 @@ class _MainCompleteYourProfilePageState extends State<MainGoogleSignUpPage> {
   int _currint = 0;
   final PageController _controller = PageController(initialPage: 0);
   String? username;
-  String? gender;
+  UserGenderEnum? gender;
   DateTime? birthdate;
 
-  void _onCompleteProfilePagePressed(
-      String bioText, String username, String gender, DateTime birthdate) {
+  void _onCompleteProfilePagePressed(String bioText, String username,
+      UserGenderEnum gender, DateTime birthdate) {
     setState(() {
       this.username = username;
       this.gender = gender;

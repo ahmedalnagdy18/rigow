@@ -1,10 +1,12 @@
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
+
 class CompleteProfileUserInput {
   final String profilePicture;
   final int countryId;
   final String username;
   final int stateId;
   final int cityId;
-  final String gender;
+  final UserGenderEnum gender;
   final int birthDate;
 
   CompleteProfileUserInput({
@@ -16,15 +18,4 @@ class CompleteProfileUserInput {
     required this.birthDate,
     required this.username,
   });
-  toJson() {
-    return {
-      "profilePicture": profilePicture,
-      "countryId": countryId,
-      "username": username,
-      "stateId": stateId,
-      "cityId": cityId,
-      "gender": gender.toUpperCase(),
-      "birthDate": birthDate,
-    };
-  }
 }

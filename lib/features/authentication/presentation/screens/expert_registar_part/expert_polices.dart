@@ -41,8 +41,8 @@ class ExpertPolicesPage extends StatelessWidget {
   final String imageOfprofile;
   final String bioText;
   final String username;
-  final String gender;
-  final DateTime birthdate;
+  final UserGenderEnum gender;
+  final int birthdate;
   final int countryId;
   final int statesId;
   final int areaId;
@@ -100,8 +100,8 @@ class _ExpertPolicesPage extends StatefulWidget {
   final String imageOfprofile;
   final String bioText;
   final String username;
-  final String gender;
-  final DateTime birthdate;
+  final UserGenderEnum gender;
+  final int birthdate;
   final int countryId;
   final int statesId;
   final int areaId;
@@ -350,7 +350,7 @@ class _ExpertPolicesPageState extends State<_ExpertPolicesPage> {
           nationalIdFront: uploadNationalFrontIdImageUrl,
           nationalIdBack: uploadNationalBackIdImageUrl,
           customDepartment: 'test.com',
-          customFaculty: 'test.com',
+          customfaculty: 'test.com',
           fullNameInNationalId: widget.fullNameInNationalId,
           nationalIdNumber: widget.nationalIdNumber,
           socialLinks: widget.socialLinks,

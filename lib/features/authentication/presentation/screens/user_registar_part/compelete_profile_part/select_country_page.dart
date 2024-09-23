@@ -6,6 +6,7 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/cliked_textfield_widget.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/city_input.dart';
+import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_profile_user_input.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/countries_input.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/states_input.dart';
@@ -35,7 +36,7 @@ class SelectCountryPage extends StatelessWidget {
       required this.onNextPressed,
       required this.imageOfprofile});
   final String username;
-  final String gender;
+  final UserGenderEnum gender;
   final DateTime birthdate;
   final String firstName;
   final String role;
@@ -67,7 +68,7 @@ class _SelectCountryPage extends StatefulWidget {
   final String role;
   final String firstName;
   final String username;
-  final String gender;
+  final UserGenderEnum gender;
   final DateTime birthdate;
   final PageController controller;
   final void Function(int countryId, int cityId, int areaId) onNextPressed;
