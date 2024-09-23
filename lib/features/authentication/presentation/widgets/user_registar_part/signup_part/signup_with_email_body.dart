@@ -190,7 +190,16 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
   }
 
   void _registerButton(BuildContext context) {
+    UserRoleEnum userRoleEnum;
     DeviceEnum deviceType;
+    if (widget.role == 'Expert') {
+      userRoleEnum = UserRoleEnum.expert;
+    } else if (widget.role == 'User') {
+      userRoleEnum = UserRoleEnum.user;
+    } else {
+      userRoleEnum = UserRoleEnum.admin;
+    }
+    //-----------------------
     if (Platform.isAndroid) {
       deviceType = DeviceEnum.android;
     } else if (Platform.isIOS) {
@@ -205,7 +214,8 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
       email: _email.text,
       password: _password.text,
       loginDetails: LoginDetailsInput("", deviceType),
-      role: widget.role,
+      role: userRoleEnum,
+
       //UserRoleEnum.user,
     );
     BlocProvider.of<RegisterCubit>(context).registerFuc(input: input);

@@ -34,9 +34,20 @@ class ApiRegisterInput {
       email: input.email,
       password: input.password,
       loginDetails: ApiLoginDetailsInput.fromInput(input.loginDetails),
-      role: ApiUserRoleEnum.EXPERT, //todo:need to refactor....
+      role: userRoleToApi(input.role),
     );
   }
 }
 
 enum ApiUserRoleEnum { USER, EXPERT, APP_ADMIN }
+
+ApiUserRoleEnum userRoleToApi(UserRoleEnum type) {
+  switch (type) {
+    case UserRoleEnum.user:
+      return ApiUserRoleEnum.USER;
+    case UserRoleEnum.expert:
+      return ApiUserRoleEnum.EXPERT;
+    case UserRoleEnum.admin:
+      return ApiUserRoleEnum.APP_ADMIN;
+  }
+}
