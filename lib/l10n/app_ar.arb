@@ -136,5 +136,6 @@
     "yourRequestSuccessfully": "تم إرسال طلبك بنجاح",
     "firstNameValidator": "الاسم الأول غير صالح",
     "lastNameValidator": "الاسم الأخير غير صالح",
-    "passwordValidator": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل"
+    "passwordValidator": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+    "optional": "(اختياري)"
 }

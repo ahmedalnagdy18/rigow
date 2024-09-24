@@ -3,7 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
-import 'package:rigow/features/authentication/presentation/widgets/addto_buttom_sheet_widget.dart';
+import 'package:rigow/features/authentication/presentation/widgets/social_links_bottom_sheet_widget.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class SocialLinksPage extends StatefulWidget {
@@ -68,9 +68,19 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            AppLocalizations.of(context)!.socialLinks,
-            style: AppTexts.title.copyWith(fontSize: 18),
+          Row(
+            children: [
+              Text(
+                AppLocalizations.of(context)!.socialLinks,
+                style: AppTexts.title.copyWith(fontSize: 18),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                AppLocalizations.of(context)!.optional,
+                style:
+                    AppTexts.regular.copyWith(color: AppColors.textfieldBorder),
+              ),
+            ],
           ),
           const SizedBox(height: 20),
           Column(
@@ -122,7 +132,7 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
               : const SizedBox(),
           InkWell(
               onTap: () {
-                AddToButtomSheetWidget.show(
+                SocialLinksBottomSheetWidget.show(
                   bottomSheetHintText: 'Past your link here',
                   context,
                   getTextEntyered: (text) {

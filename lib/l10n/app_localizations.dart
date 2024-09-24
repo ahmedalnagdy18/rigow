@@ -922,6 +922,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password must be at least 8 characters'**
   String get passwordValidator;
+
+  /// No description provided for @optional.
+  ///
+  /// In en, this message translates to:
+  /// **'(optional)'**
+  String get optional;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

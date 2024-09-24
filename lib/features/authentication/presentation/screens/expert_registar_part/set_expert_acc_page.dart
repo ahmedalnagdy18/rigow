@@ -69,19 +69,6 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
         RegExp(r'^[a-zA-Z\u0600-\u06FF\s]+$').hasMatch(universityName);
   }
 
-  bool socialLinksValidate(String socialLink) {
-    const urlPattern =
-        r'^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}([\/\w .-]*)*\/?(\?.*)?$';
-    return socialLink.length >= 4 && RegExp(urlPattern).hasMatch(socialLink);
-  }
-
-  bool validateSocialLinks(List<String>? socialLinks) {
-    if (socialLinks != null && socialLinks.isNotEmpty) {
-      return socialLinks.every((link) => socialLinksValidate(link));
-    }
-    return false;
-  }
-
   bool _isShowGovernmentPermit = false;
   @override
   Widget build(BuildContext context) {
@@ -313,10 +300,8 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
   void _isEnabled() {
     bool isNationalIdValid = validateNationalId(_nationalIdNumber.text);
     bool universityNameValid = universityName(_universityName.text);
-    bool linkIsValid = validateSocialLinks(_socialLinks);
 
-    if (linkIsValid &&
-        _fucltyModel != null &&
+    if (_fucltyModel != null &&
         _department != null &&
         universityNameValid &&
         isNationalIdValid &&

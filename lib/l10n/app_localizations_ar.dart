@@ -419,4 +419,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get passwordValidator => 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل';
+
+  @override
+  String get optional => '(اختياري)';
 }
