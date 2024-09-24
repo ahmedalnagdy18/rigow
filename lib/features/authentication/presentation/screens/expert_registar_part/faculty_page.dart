@@ -73,7 +73,12 @@ class _FacultyPageState extends State<_FacultyPage> {
 
     if (widget.initialSelected != null) {
       selectedFaculty = widget.initialSelected!;
+      if (selectedFaculty?.id == null) {
+        _addFacultyName = selectedFaculty?.name;
+      }
+      //_addFacultyName = selectedFaculty?.name;
     }
+
     _pagingController.addPageRequestListener((pageKey) {
       context.read<FacultyCubit>().getFaculties(FacultyInput(
             specialtyId: widget.selectedSpecialtyId,
@@ -156,6 +161,7 @@ class _FacultyPageState extends State<_FacultyPage> {
             deleteOnTap: () {
               setState(() {
                 _addFacultyName = null;
+                selectedFaculty = null;
               });
             },
             title: _addFacultyName ?? "Any",
@@ -273,8 +279,13 @@ class _FacultyPageState extends State<_FacultyPage> {
                   child: ColoredButtonWidget(
                     text: AppLocalizations.of(context)!.next,
                     onPressed: () {
-                      widget.onSelectedFaculty(selectedFaculty);
-                      Navigator.pop(context);
+                      if (selectedFaculty != null) {
+                        widget.onSelectedFaculty(selectedFaculty);
+                        Navigator.pop(context);
+                      } else {
+                        showErrorToastMessage(
+                            message: "Please add faculty to proceed.");
+                      }
                     },
                     grideantColors: AppColors.mainRed,
                     textColor: Colors.white,

@@ -74,6 +74,9 @@ class _MyWidgetState extends State<_DepartmentPage> {
     super.initState();
     if (widget.initialSelected != null) {
       selectedDepartment = widget.initialSelected!;
+      if (selectedDepartment?.id == null) {
+        _addDepartmentName = selectedDepartment?.name;
+      }
     }
     _pagingController.addPageRequestListener((pageKey) {
       _fetchDepartments(pageKey);
@@ -152,6 +155,7 @@ class _MyWidgetState extends State<_DepartmentPage> {
             deleteOnTap: () {
               setState(() {
                 _addDepartmentName = null;
+                selectedDepartment = null;
               });
             },
             title: _addDepartmentName ?? "Any",
@@ -271,7 +275,12 @@ class _MyWidgetState extends State<_DepartmentPage> {
                   child: ColoredButtonWidget(
                     text: AppLocalizations.of(context)!.next,
                     onPressed: () {
-                      widget.onSelectedDepartment(selectedDepartment);
+                      if (selectedDepartment != null) {
+                        widget.onSelectedDepartment(selectedDepartment);
+                      } else {
+                        showErrorToastMessage(
+                            message: "Please add department to proceed.");
+                      }
                     },
                     grideantColors: AppColors.mainRed,
                     textColor: Colors.white,

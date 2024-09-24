@@ -23,7 +23,7 @@ class CheckBoxWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (groupValue == value) {
-          onChanged(null);
+          //    onChanged(null);
         } else {
           onChanged(value);
         }
@@ -31,6 +31,7 @@ class CheckBoxWidget extends StatelessWidget {
       child: SizedBox(
         width: MediaQuery.of(context).size.width - 150,
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             Radio<dynamic>(
@@ -38,6 +39,7 @@ class CheckBoxWidget extends StatelessWidget {
               groupValue: groupValue,
               onChanged: onChanged,
               activeColor: AppColors.mainRed[0],
+              fillColor: WidgetStatePropertyAll(AppColors.appBarRed),
               visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
             ),
             Expanded(

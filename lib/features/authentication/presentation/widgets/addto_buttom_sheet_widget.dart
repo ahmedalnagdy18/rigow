@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
@@ -136,8 +135,12 @@ class _AddToButtomSheetWidgetState extends State<AddToButtomSheetWidget> {
                             child: ColoredButtonWidget(
                               text: AppLocalizations.of(context)!.next,
                               onPressed: () {
-                                widget
-                                    .getTextEntyered(_nameTextController.text);
+                                _nameTextController.text.isEmpty
+                                    ? showErrorToastMessage(
+                                        message:
+                                            "Please fill the field to proceed.")
+                                    : widget.getTextEntyered(
+                                        _nameTextController.text);
                               },
                               grideantColors: AppColors.mainRed,
                               textColor: Colors.white,

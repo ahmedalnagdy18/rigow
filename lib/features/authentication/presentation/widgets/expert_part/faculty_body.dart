@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/textfield.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/model/department_model.dart';
 import 'package:rigow/features/authentication/domain/model/faculty_model.dart';
@@ -58,27 +59,28 @@ class _FacultyBodyState extends State<FacultyBody> {
             padding: const EdgeInsets.only(top: 14),
             child: InkWell(
               onTap: () async {
-                final result = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => FacultyPage(
-                      selectedSpecialtyId: widget.selectedSpecialtyId,
-                      initialSelected: FacultyModel(
-                        id: widget.selectedFaculty?.id ?? 0,
-                        name: widget.selectedFaculty?.name ?? '',
+                if (widget.selectedSpecialtyId == 0) {
+                  showErrorToastMessage(message: "Select Specialty First");
+                } else {
+                  final result = await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => FacultyPage(
+                        selectedSpecialtyId: widget.selectedSpecialtyId,
+                        initialSelected: _faculty,
+                        onSelectedFaculty: (faculty) {
+                          setState(() {
+                            _faculty = faculty;
+                          });
+                          widget.onSelectedFacultyIdCallBack(faculty);
+                        },
                       ),
-                      onSelectedFaculty: (faculty) {
-                        setState(() {
-                          _faculty = faculty;
-                        });
-                        widget.onSelectedFacultyIdCallBack(faculty);
-                      },
                     ),
-                  ),
-                );
-                if (result != null && result is FacultyModel) {
-                  setState(() {
-                    _faculty = result;
-                  });
+                  );
+                  if (result != null && result is FacultyModel) {
+                    setState(() {
+                      _faculty = result;
+                    });
+                  }
                 }
               },
               child: Row(
@@ -136,10 +138,7 @@ class _FacultyBodyState extends State<FacultyBody> {
                               widget.onSelectedDepartmentIdCallBack(department);
                               Navigator.pop(context);
                             },
-                            initialSelected: DepartmentModel(
-                              id: widget.selectedDepartment?.id ?? 0,
-                              name: widget.selectedDepartment?.name ?? '',
-                            ),
+                            initialSelected: _department,
                             facultyId: widget.selectedFaculty?.id ?? -1,
                           ),
                         ),
