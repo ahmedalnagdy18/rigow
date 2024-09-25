@@ -19,8 +19,12 @@ class FacultyBody extends StatefulWidget {
     required this.mycontroller,
     required this.selectedFaculty,
     required this.selectedDepartment,
+    required this.customFaculty,
+    required this.customDepartment,
   });
   final int selectedSpecialtyId;
+  final String customFaculty;
+  final String customDepartment;
   final void Function(FacultyModel?) onSelectedFacultyIdCallBack;
   final void Function(DepartmentModel?) onSelectedDepartmentIdCallBack;
   final TextEditingController mycontroller;

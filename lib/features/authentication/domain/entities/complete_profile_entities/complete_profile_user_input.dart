@@ -18,4 +18,18 @@ class CompleteProfileUserInput {
     required this.birthDate,
     required this.username,
   });
+
+  CompleteProfileUserInput copyWith({
+    String? profilePicture,
+  }) {
+    return CompleteProfileUserInput(
+      profilePicture: profilePicture ?? this.profilePicture,
+      countryId: countryId,
+      stateId: stateId,
+      cityId: cityId,
+      gender: gender,
+      birthDate: birthDate,
+      username: username,
+    );
+  }
 }

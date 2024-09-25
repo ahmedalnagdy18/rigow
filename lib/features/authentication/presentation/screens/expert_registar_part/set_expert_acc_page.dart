@@ -24,6 +24,8 @@ class SetExpertAccountPage extends StatefulWidget {
 }
 
 class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
+  String? customFaculty;
+  String? customDepartment;
   int? _specialityId;
   FacultyModel? _fucltyModel;
   DepartmentModel? _department;
@@ -106,6 +108,9 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     ),
                     const SizedBox(height: 4),
                     FacultyBody(
+                      customDepartment: customDepartment =
+                          _department?.name ?? "",
+                      customFaculty: customFaculty = _fucltyModel?.name ?? "",
                       selectedDepartment: _department,
                       selectedFaculty: _fucltyModel,
                       onSelectedFacultyIdCallBack: (fuclty) {
@@ -266,8 +271,16 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
               onPressed: _isButtonEnabled
                   ? () {
                       {
+                        String customFacultyValue = (_fucltyModel?.id == null)
+                            ? customFaculty ?? ""
+                            : "";
+                        String customDepartmentValue = (_department?.id == null)
+                            ? customDepartment ?? ""
+                            : "";
+
                         widget.onNextPressed(
                           CollectedExpertEnteredData(
+                            customFaculty: customFacultyValue,
                             specialityId: _specialityId,
                             facultyId: _fucltyModel?.id,
                             departmentId: _departmentId,
@@ -281,6 +294,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                             nationalIdNumber: _nationalIdNumber.text,
                             universityName: _universityName.text,
                             socialLinks: _socialLinks,
+                            customDepartment: customDepartmentValue,
                           ),
                         );
                       }
@@ -323,7 +337,9 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
 class CollectedExpertEnteredData {
   final int? specialityId;
   final int? facultyId;
+  final String? customFaculty;
   final int? departmentId;
+  final String? customDepartment;
   final String? universityImage;
   final String? universityName;
   final String? otherCertificationsImage;
@@ -335,6 +351,8 @@ class CollectedExpertEnteredData {
   final List<String>? socialLinks;
 
   CollectedExpertEnteredData({
+    required this.customDepartment,
+    required this.customFaculty,
     required this.specialityId,
     required this.facultyId,
     required this.universityName,

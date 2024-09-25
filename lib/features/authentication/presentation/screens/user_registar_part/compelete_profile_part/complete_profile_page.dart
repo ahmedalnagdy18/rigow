@@ -17,7 +17,6 @@ import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/validate_username_input.dart';
-import 'package:rigow/features/authentication/domain/entities/upload_entity/upload_photo_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/user_complete_profile/complete_profile_state.dart';
 import 'package:rigow/features/authentication/presentation/widgets/select_file_sheet_widget.dart';
@@ -293,9 +292,9 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                 onPressed:
                     _isButtonEnabled && state is SucsessValidateUsernameState
                         ? () async {
-                            final path = await _uploadPhoto(context);
+                            //   final path = await _uploadPhoto(context);
                             setState(() {
-                              widget.onSelectedImage(File(path));
+                              widget.onSelectedImage(File(image?.path ?? ""));
                             });
 
                             widget.onPressed(
@@ -318,16 +317,16 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
     );
   }
 
-  Future<String> _uploadPhoto(BuildContext context) async {
-    final filePath =
-        await BlocProvider.of<CompleteProfileCubit>(context).uploadFile(
-      UploadFiledInput(
-        file: image?.path ?? "",
-        model: "PROFILE_PICTURE",
-      ),
-    );
-    return filePath;
-  }
+  // Future<String> _uploadPhoto(BuildContext context) async {
+  //   final filePath =
+  //       await BlocProvider.of<CompleteProfileCubit>(context).uploadFile(
+  //     UploadFiledInput(
+  //       file: image?.path ?? "",
+  //       model: "PROFILE_PICTURE",
+  //     ),
+  //   );
+  //   return filePath;
+  // }
 
   void _openDatePicker(BuildContext context) {
     BottomPicker.date(

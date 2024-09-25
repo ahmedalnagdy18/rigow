@@ -18,8 +18,65 @@ class CompleteExpertCubit extends Cubit<CompleteExpertState> {
       CompleteExpertProfileInput completeExpertProfileInput) async {
     emit(LoadingCompleteExpertState());
     try {
+      final String profilePicture = await uploadExpertFile(
+        UploadFiledInput(
+          file: completeExpertProfileInput.profilePicture,
+          model: "PROFILE_PICTURE",
+        ),
+      );
+      final String universityDegreeUrl = await uploadExpertFile(
+        UploadFiledInput(
+          file: completeExpertProfileInput.universityDegreeUrl,
+          model: "EXPERT_DOCUMENT",
+        ),
+      );
+      final List<String> uploadedCertificates = [];
+      for (String certificate in completeExpertProfileInput.otherCertificates) {
+        final String uploadedCertificate = await uploadExpertFile(
+          UploadFiledInput(
+            file: certificate,
+            model: "EXPERT_DOCUMENT",
+          ),
+        );
+        uploadedCertificates.add(uploadedCertificate);
+      }
+      String? governmentPermitUrl;
+      if (completeExpertProfileInput.governmentPermitUrl.isNotEmpty) {
+        governmentPermitUrl = await uploadExpertFile(
+          UploadFiledInput(
+            file: completeExpertProfileInput.governmentPermitUrl,
+            model: "EXPERT_DOCUMENT",
+          ),
+        );
+      }
+
+      final String nationalIdFront = await uploadExpertFile(
+        UploadFiledInput(
+          file: completeExpertProfileInput.nationalIdFront,
+          model: "EXPERT_DOCUMENT",
+        ),
+      );
+
+      final String nationalIdBack = await uploadExpertFile(
+        UploadFiledInput(
+          file: completeExpertProfileInput.nationalIdBack,
+          model: "EXPERT_DOCUMENT",
+        ),
+      );
+
+      completeExpertProfileInput = completeExpertProfileInput.copyWith(
+        profilePicture: profilePicture,
+        universityDegreeUrl: universityDegreeUrl,
+        otherCertificates: uploadedCertificates,
+        governmentPermitUrl: governmentPermitUrl,
+        nationalIdFront: nationalIdFront,
+        nationalIdBack: nationalIdBack,
+      );
+
       await completeExpertProfileUsecase.call(completeExpertProfileInput);
-      emit(SucsessCompleteExpertState());
+      emit(SucsessCompleteExpertState(
+        uploadedProfileImage: profilePicture,
+      ));
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorCompleteExpertState(message: e.message));

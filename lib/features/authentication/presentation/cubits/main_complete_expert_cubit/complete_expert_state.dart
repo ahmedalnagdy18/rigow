@@ -10,7 +10,13 @@ final class CompleteExpertInitial extends CompleteExpertState {}
 
 class LoadingCompleteExpertState extends CompleteExpertState {}
 
-class SucsessCompleteExpertState extends CompleteExpertState {}
+class SucsessCompleteExpertState extends CompleteExpertState {
+  final String uploadedProfileImage;
+
+  const SucsessCompleteExpertState({
+    required this.uploadedProfileImage,
+  });
+}
 
 class ErrorCompleteExpertState extends CompleteExpertState {
   final String message;

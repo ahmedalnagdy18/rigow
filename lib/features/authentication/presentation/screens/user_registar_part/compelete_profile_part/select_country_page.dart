@@ -341,7 +341,7 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                           builder: (context) => WelcomeToRigowPage(
                             firstName: widget.firstName,
                             role: widget.role,
-                            imageOfprofile: widget.imageOfprofile,
+                            imageOfprofile: state.uploadedProfileImage,
                           ),
                         ),
                         (Route<dynamic> route) => false,
@@ -360,7 +360,9 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                   },
                   builder: (context, state) {
                     return ColoredButtonWidget(
-                      text: AppLocalizations.of(context)!.next,
+                      text: state is LoadingUploadFileState
+                          ? AppLocalizations.of(context)!.loading
+                          : AppLocalizations.of(context)!.next,
                       onPressed: selectedArea == null
                           ? null
                           : () {

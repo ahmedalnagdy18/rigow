@@ -25,8 +25,8 @@ class ExpertMainComplete extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          MainCompleteProfileCubit(completeProfileUserUsecase: sl()),
+      create: (context) => MainCompleteProfileCubit(
+          completeProfileUserUsecase: sl(), uploadFileUsecase: sl()),
       child: _ExpertMainComplete(
           firstName: firstName, lastName: lastName, role: role),
     );
@@ -59,7 +59,9 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
   int? _areaId;
   int? _specialityId;
   int? _facultyId;
+  String? _customFaculty;
   int? _departmentId;
+  String? _customDepartment;
   String? _universityImage;
   String? _universityName;
   String? _otherCertificationsImage;
@@ -138,6 +140,8 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                     ),
                     SetExpertAccountPage(
                       onNextPressed: (dataInfo) {
+                        _customFaculty = dataInfo.customFaculty;
+                        _customDepartment = dataInfo.customDepartment;
                         _specialityId = dataInfo.specialityId;
                         _facultyId = dataInfo.facultyId;
                         _departmentId = dataInfo.departmentId;
@@ -160,6 +164,8 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                             duration: const Duration(seconds: 1),
                             curve: Curves.easeIn);
                       },
+                      customDepartment: _customDepartment ?? "",
+                      customfaculty: _customFaculty ?? "",
                       bioText: bioText ?? '',
                       username: username ?? "",
                       gender: gender ?? UserGenderEnum.male,
@@ -169,8 +175,8 @@ class _ExpertMainCompleteState extends State<_ExpertMainComplete> {
                       statesId: _statesId ?? 0,
                       areaId: _areaId ?? 0,
                       specialityId: _specialityId ?? 0,
-                      facultyId: _facultyId ?? 0,
-                      departmentId: _departmentId ?? 0,
+                      facultyId: _facultyId ?? -1,
+                      departmentId: _departmentId ?? -1,
                       universityImage: _universityImage ?? '',
                       universityName: _universityName ?? '',
                       otherCertificationsImage: _otherCertificationsImage ?? '',

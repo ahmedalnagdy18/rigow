@@ -23,8 +23,8 @@ class MainCompleteYourProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          MainCompleteProfileCubit(completeProfileUserUsecase: sl()),
+      create: (context) => MainCompleteProfileCubit(
+          completeProfileUserUsecase: sl(), uploadFileUsecase: sl()),
       child: _MainCompleteYourProfilePage(
         firstName: firstName,
         lastName: lastName,
@@ -96,9 +96,10 @@ class _MainCompleteYourProfilePageState
                   },
                   children: [
                     CompleteProfilePage(
-                      onSelectedImage: (selectedImage) {
-                        imageOfprofile = selectedImage?.path;
-                        setState(() {});
+                      onSelectedImage: (selectedImage) async {
+                        setState(() {
+                          imageOfprofile = selectedImage?.path;
+                        });
                       },
                       bioText: '',
                       role: widget.role,
