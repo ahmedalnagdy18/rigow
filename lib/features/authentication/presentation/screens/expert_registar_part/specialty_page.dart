@@ -7,9 +7,9 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/check_box_widget.dart';
 import 'package:rigow/core/common/custom_widgets/main_appbar.dart';
 import 'package:rigow/core/common/textfield.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/specialty_input.dart';
-import 'package:rigow/features/authentication/domain/model/faculty_model.dart';
 import 'package:rigow/features/authentication/domain/model/specialty_model.dart';
 import 'package:rigow/features/authentication/presentation/cubits/specialty_cubit/specialty_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/specialty_cubit/specialty_state.dart';
@@ -40,11 +40,9 @@ class SpecialtyPage extends StatelessWidget {
 class _SpecialtyPage extends StatefulWidget {
   final void Function(SpecialtyModel?) onSelectedSpecialty;
   final SpecialtyModel? initialSelected;
-  final FacultyModel? facultyModel;
   const _SpecialtyPage({
     required this.onSelectedSpecialty,
     this.initialSelected,
-    this.facultyModel,
   });
 
   @override
@@ -179,9 +177,13 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
                   child: ColoredButtonWidget(
                     text: AppLocalizations.of(context)!.next,
                     onPressed: () {
-                      widget.onSelectedSpecialty(selectedSpecialty);
-
-                      Navigator.pop(context);
+                      if (selectedSpecialty.name.isNotEmpty) {
+                        widget.onSelectedSpecialty(selectedSpecialty);
+                        Navigator.pop(context);
+                      } else {
+                        showErrorToastMessage(
+                            message: "Please add Specialty to proceed.");
+                      }
                     },
                     grideantColors: AppColors.mainRed,
                     textColor: Colors.white,

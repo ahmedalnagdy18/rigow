@@ -97,7 +97,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                       facultyModel:
                           _fucltyModel ?? const FacultyModel(id: -1, name: ""),
                       onSelectedSpecialityIdCallBack: (seciality) {
-                        _specialityId = seciality?.id ?? 0;
+                        _specialityId = seciality?.id ?? -1;
                         _isShowGovernmentPermit =
                             seciality?.governmentPermitRequired ?? false;
                         _fucltyModel = null;
@@ -108,11 +108,13 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                     ),
                     const SizedBox(height: 4),
                     FacultyBody(
+                      initialSelected: _fucltyModel,
                       customDepartment: customDepartment =
                           _department?.name ?? "",
                       customFaculty: customFaculty = _fucltyModel?.name ?? "",
                       selectedDepartment: _department,
                       selectedFaculty: _fucltyModel,
+                      initialSelectedDepartment: _department,
                       onSelectedFacultyIdCallBack: (fuclty) {
                         _fucltyModel = FacultyModel(
                             id: fuclty?.id, name: fuclty?.name ?? '');
@@ -123,7 +125,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                             id: department?.id, name: department?.name ?? "");
                         setState(() {});
                       },
-                      selectedSpecialtyId: _specialityId ?? 0,
+                      selectedSpecialtyId: _specialityId ?? -1,
                       mycontroller: _universityName,
                     ),
                     const SizedBox(height: 4),

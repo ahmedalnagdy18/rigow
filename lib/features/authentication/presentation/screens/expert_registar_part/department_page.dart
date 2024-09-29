@@ -77,6 +77,9 @@ class _MyWidgetState extends State<_DepartmentPage> {
       if (selectedDepartment?.id == null) {
         _addDepartmentName = selectedDepartment?.name;
       }
+    } else if (widget.initialSelected == null) {
+      selectedDepartment = null;
+      _addDepartmentName = null;
     }
     _pagingController.addPageRequestListener((pageKey) {
       _fetchDepartments(pageKey);

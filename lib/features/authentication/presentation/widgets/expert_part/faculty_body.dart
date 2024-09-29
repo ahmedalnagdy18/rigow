@@ -21,6 +21,8 @@ class FacultyBody extends StatefulWidget {
     required this.selectedDepartment,
     required this.customFaculty,
     required this.customDepartment,
+    required this.initialSelected,
+    required this.initialSelectedDepartment,
   });
   final int selectedSpecialtyId;
   final String customFaculty;
@@ -30,6 +32,8 @@ class FacultyBody extends StatefulWidget {
   final TextEditingController mycontroller;
   final FacultyModel? selectedFaculty;
   final DepartmentModel? selectedDepartment;
+  final FacultyModel? initialSelected;
+  final DepartmentModel? initialSelectedDepartment;
   @override
   State<FacultyBody> createState() => _FacultyBodyState();
 }
@@ -63,14 +67,14 @@ class _FacultyBodyState extends State<FacultyBody> {
             padding: const EdgeInsets.only(top: 14),
             child: InkWell(
               onTap: () async {
-                if (widget.selectedSpecialtyId == 0) {
+                if (widget.selectedSpecialtyId == -1) {
                   showErrorToastMessage(message: "Select Specialty First");
                 } else {
                   final result = await Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => FacultyPage(
                         selectedSpecialtyId: widget.selectedSpecialtyId,
-                        initialSelected: _faculty,
+                        initialSelected: widget.initialSelected,
                         onSelectedFaculty: (faculty) {
                           setState(() {
                             _faculty = faculty;
@@ -142,7 +146,7 @@ class _FacultyBodyState extends State<FacultyBody> {
                               widget.onSelectedDepartmentIdCallBack(department);
                               Navigator.pop(context);
                             },
-                            initialSelected: _department,
+                            initialSelected: widget.initialSelectedDepartment,
                             facultyId: widget.selectedFaculty?.id ?? -1,
                           ),
                         ),

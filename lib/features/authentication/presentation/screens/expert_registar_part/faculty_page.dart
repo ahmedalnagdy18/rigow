@@ -70,13 +70,15 @@ class _FacultyPageState extends State<_FacultyPage> {
   @override
   void initState() {
     super.initState();
-
     if (widget.initialSelected != null) {
       selectedFaculty = widget.initialSelected!;
       if (selectedFaculty?.id == null) {
         _addFacultyName = selectedFaculty?.name;
       }
       //_addFacultyName = selectedFaculty?.name;
+    } else if (widget.initialSelected != null) {
+      selectedFaculty = null;
+      _addFacultyName = null;
     }
 
     _pagingController.addPageRequestListener((pageKey) {
@@ -84,7 +86,7 @@ class _FacultyPageState extends State<_FacultyPage> {
             specialtyId: widget.selectedSpecialtyId,
             page: pageKey,
             limit: 15,
-            searchKey: '',
+            searchKey: searchController.text,
           ));
       _fetchfaculties(pageKey);
     });
