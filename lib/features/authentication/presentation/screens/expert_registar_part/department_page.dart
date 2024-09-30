@@ -255,9 +255,10 @@ class _MyWidgetState extends State<_DepartmentPage> {
                               groupValue: (_addDepartmentName == null)
                                   ? selectedDepartment
                                   : null,
-                              onChanged: (country) {
+                              onChanged: (value) {
                                 setState(() {
-                                  selectedDepartment = country;
+                                  selectedDepartment = value;
+                                  _addDepartmentName = null;
                                 });
                               },
                               title: department.name,

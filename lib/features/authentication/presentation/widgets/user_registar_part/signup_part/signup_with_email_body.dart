@@ -36,157 +36,202 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
   final _firstName = TextEditingController();
   final _lastName = TextEditingController();
 
+  final _firstNameFocusNode = FocusNode();
+  final _lastNameFocusNode = FocusNode();
+
   final _formKey = GlobalKey<FormState>();
 
   String _currentCountryCode = '+20';
   bool isObscuretext = true;
   bool _isButtonEnabled = false;
+  bool _showValidationError = false;
+  @override
+  void initState() {
+    super.initState();
+
+    _firstNameFocusNode.addListener(() {
+      if (_firstNameFocusNode.hasFocus) {
+        setState(() {
+          _showValidationError = false;
+        });
+      }
+    });
+
+    _lastNameFocusNode.addListener(() {
+      if (_lastNameFocusNode.hasFocus) {
+        setState(() {
+          _showValidationError = false;
+        });
+      }
+    });
+  }
 
   @override
   void dispose() {
     _email.dispose();
     _phoneNumber.dispose();
     _password.dispose();
+    _firstNameFocusNode.dispose();
+    _lastNameFocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      //   autovalidateMode: AutovalidateMode.onUserInteraction,
-      key: _formKey,
-      onChanged: _isEnabled,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(AppLocalizations.of(context)!.signUpWithEmail,
-              style: AppTexts.title),
-          Text(
-            AppLocalizations.of(context)!.enterTheRequiredInformation,
-            style: AppTexts.miniRegular,
-          ),
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              Expanded(
-                child: TextFieldWidget(
-                  validator: (value) => value!.length >= 2
-                      ? null
-                      : AppLocalizations.of(context)!.firstNameValidator,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]'))
-                  ],
-                  maxLength: 15,
-                  counterText: '',
-                  mycontroller: _firstName,
-                  hintText: AppLocalizations.of(context)!.firstName,
-                  obscureText: false,
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: TextFieldWidget(
-                  validator: (value) => value!.length >= 2
-                      ? null
-                      : AppLocalizations.of(context)!.lastNameValidator,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
-                  ],
-                  maxLength: 15,
-                  counterText: '',
-                  mycontroller: _lastName,
-                  hintText: AppLocalizations.of(context)!.lastName,
-                  obscureText: false,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 32),
-          Phonetextfield(
-            initialCountryCode: 'EG',
-            onCountryChanged: (country) {
-              _currentCountryCode = '+${country.dialCode}';
-            },
-            validator: (value) => _phoneNumber.text.isNotEmpty
-                ? null
-                : "Please enter your Mobile number",
-            controller: _phoneNumber,
-          ),
-          const SizedBox(height: 16),
-          TextFieldWidget(
-            inputFormatters: [
-              FilteringTextInputFormatter.deny(RegExp(r'\s')),
-            ],
-            keyboardType: TextInputType.emailAddress,
-            validator: (value) => EmailValidator.validate(value!)
-                ? null
-                : AppLocalizations.of(context)!.emailValidator,
-            mycontroller: _email,
-            hintText: AppLocalizations.of(context)!.emailAddress,
-            obscureText: false,
-          ),
-          const SizedBox(height: 16),
-          TextFieldWidget(
-            validator: (value) => value!.length <= 8
-                ? AppLocalizations.of(context)!.passwordValidator
-                : null,
-            inputFormatters: [
-              FilteringTextInputFormatter.deny(RegExp(r'\s')),
-            ],
-            mycontroller: _password,
-            suffixIcon: GestureDetector(
-              onTap: () {
-                setState(() {
-                  isObscuretext = !isObscuretext;
-                });
-              },
-              child: Icon(
-                size: 20,
-                isObscuretext ? Icons.visibility_off : Icons.visibility,
-              ),
+    return Builder(builder: (context) {
+      return Form(
+        //   autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: _formKey,
+        onChanged: _isEnabled,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(AppLocalizations.of(context)!.signUpWithEmail,
+                style: AppTexts.title),
+            Text(
+              AppLocalizations.of(context)!.enterTheRequiredInformation,
+              style: AppTexts.miniRegular,
             ),
-            hintText: AppLocalizations.of(context)!.password,
-            obscureText: isObscuretext,
-          ),
-          const SizedBox(height: 24),
-          BlocListener<RegisterCubit, RegisterState>(
-            listener: (context, state) {
-              if (state is SucsessRegsisterState) {
-                BlocProvider.of<RegisterCubit>(context)
-                    .sendEmailVerificationCode(SendEmailVerificationCodeInput(
-                  email: _email.text,
-                  useCase: 'EMAIL_VERIFICATION',
-                ));
-              }
-              if (state is SucsessEmailVerificationCodeState) {
-                widget.onNextTap(_email.text);
-              }
-            },
-            child: BlocBuilder<RegisterCubit, RegisterState>(
-              builder: (context, state) {
-                return ColoredButtonWidget(
-                  grideantColors: !_isButtonEnabled
-                      ? [AppColors.darkGrey, AppColors.darkGrey]
-                      : AppColors.mainRed,
-                  onPressed: _isButtonEnabled
-                      ? () {
-                          if (_formKey.currentState!.validate()) {
-                            _registerButton(context);
+            const SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFieldWidget(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]'))
+                    ],
+                    maxLength: 15,
+                    counterText: '',
+                    mycontroller: _firstName,
+                    hintText: AppLocalizations.of(context)!.firstName,
+                    obscureText: false,
+                    focusNode: _firstNameFocusNode,
+                    autofocus: true,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: TextFieldWidget(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z]')),
+                    ],
+                    maxLength: 15,
+                    counterText: '',
+                    mycontroller: _lastName,
+                    hintText: AppLocalizations.of(context)!.lastName,
+                    obscureText: false,
+                    focusNode: _lastNameFocusNode,
+                    autofocus: true,
+                  ),
+                ),
+              ],
+            ),
+            if (_showValidationError &&
+                (_firstName.text.length < 2 || _lastName.text.length < 2))
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Text(
+                  "${AppLocalizations.of(context)?.firstNameValidator} and ${AppLocalizations.of(context)?.lastName}",
+                  style: TextStyle(
+                    color: AppColors.errorColor,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            const SizedBox(height: 32),
+            Phonetextfield(
+              initialCountryCode: 'EG',
+              onCountryChanged: (country) {
+                _currentCountryCode = '+${country.dialCode}';
+              },
+              validator: (value) => _phoneNumber.text.isNotEmpty
+                  ? null
+                  : "Please enter your Mobile number",
+              controller: _phoneNumber,
+            ),
+            const SizedBox(height: 16),
+            TextFieldWidget(
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'\s')),
+              ],
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) => EmailValidator.validate(value!)
+                  ? null
+                  : AppLocalizations.of(context)!.emailValidator,
+              mycontroller: _email,
+              hintText: AppLocalizations.of(context)!.emailAddress,
+              obscureText: false,
+            ),
+            const SizedBox(height: 16),
+            TextFieldWidget(
+              validator: (value) => value!.length <= 8
+                  ? AppLocalizations.of(context)!.passwordValidator
+                  : null,
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'\s')),
+              ],
+              mycontroller: _password,
+              suffixIcon: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isObscuretext = !isObscuretext;
+                  });
+                },
+                child: Icon(
+                  size: 20,
+                  isObscuretext ? Icons.visibility_off : Icons.visibility,
+                ),
+              ),
+              hintText: AppLocalizations.of(context)!.password,
+              obscureText: isObscuretext,
+            ),
+            const SizedBox(height: 24),
+            BlocListener<RegisterCubit, RegisterState>(
+              listener: (context, state) {
+                if (state is SucsessRegsisterState) {
+                  BlocProvider.of<RegisterCubit>(context)
+                      .sendEmailVerificationCode(SendEmailVerificationCodeInput(
+                    email: _email.text,
+                    useCase: 'EMAIL_VERIFICATION',
+                  ));
+                }
+                if (state is SucsessEmailVerificationCodeState) {
+                  widget.onNextTap(_email.text);
+                }
+              },
+              child: BlocBuilder<RegisterCubit, RegisterState>(
+                builder: (context, state) {
+                  return ColoredButtonWidget(
+                    grideantColors: !_isButtonEnabled
+                        ? [AppColors.darkGrey, AppColors.darkGrey]
+                        : AppColors.mainRed,
+                    onPressed: _isButtonEnabled
+                        ? () {
+                            if (_formKey.currentState!.validate()) {
+                              if (_firstName.text.length < 2 ||
+                                  _lastName.text.length < 2) {
+                                setState(() {
+                                  _showValidationError = true;
+                                });
+                              } else {
+                                _registerButton(context);
+                              }
+                            }
                           }
-                        }
-                      : null,
-                  text: state is LoadingRegsisterState
-                      ? AppLocalizations.of(context)!.loading
-                      : AppLocalizations.of(context)!.next,
-                  textColor: Colors.white,
-                );
-              },
+                        : null,
+                    text: state is LoadingRegsisterState
+                        ? AppLocalizations.of(context)!.loading
+                        : AppLocalizations.of(context)!.next,
+                    textColor: Colors.white,
+                  );
+                },
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 
   void _registerButton(BuildContext context) {

@@ -19,6 +19,8 @@ class TextFieldWidget extends StatelessWidget {
   final int? maxLength;
   final double? raduisSize;
   final String? counterText;
+  final FocusNode? focusNode;
+  final bool? autofocus;
 
   const TextFieldWidget({
     super.key,
@@ -37,11 +39,15 @@ class TextFieldWidget extends StatelessWidget {
     this.maxLength,
     this.raduisSize,
     this.counterText,
+    this.focusNode,
+    this.autofocus,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autofocus: autofocus ?? false,
+      focusNode: focusNode,
       style: AppTexts.miniRegular,
       onChanged: onChanged,
       obscureText: obscureText,

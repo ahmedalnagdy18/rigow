@@ -65,6 +65,7 @@ class Phonetextfield extends StatelessWidget {
           ),
         ),
       ),
+      autovalidateMode: AutovalidateMode.disabled,
       validator: validator,
       textAlign: isArabic ? TextAlign.right : TextAlign.left,
       flagsButtonMargin:
