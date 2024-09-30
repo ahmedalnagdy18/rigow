@@ -288,7 +288,9 @@ class _FacultyPageState extends State<_FacultyPage> {
                             message: "Please add faculty to proceed.");
                       }
                     },
-                    grideantColors: AppColors.mainRed,
+                    grideantColors: selectedFaculty != null
+                        ? AppColors.mainRed
+                        : [AppColors.darkGrey, AppColors.darkGrey],
                     textColor: Colors.white,
                   ),
                 ),

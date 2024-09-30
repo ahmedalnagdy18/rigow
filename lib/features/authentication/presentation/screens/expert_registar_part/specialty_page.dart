@@ -185,7 +185,9 @@ class _SpecialtyPageState extends State<_SpecialtyPage> {
                             message: "Please add Specialty to proceed.");
                       }
                     },
-                    grideantColors: AppColors.mainRed,
+                    grideantColors: selectedSpecialty.name.isNotEmpty
+                        ? AppColors.mainRed
+                        : [AppColors.darkGrey, AppColors.darkGrey],
                     textColor: Colors.white,
                   ),
                 ),

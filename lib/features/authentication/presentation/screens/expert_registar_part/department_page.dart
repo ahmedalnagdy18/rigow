@@ -286,7 +286,9 @@ class _MyWidgetState extends State<_DepartmentPage> {
                             message: "Please add department to proceed.");
                       }
                     },
-                    grideantColors: AppColors.mainRed,
+                    grideantColors: selectedDepartment != null
+                        ? AppColors.mainRed
+                        : [AppColors.darkGrey, AppColors.darkGrey],
                     textColor: Colors.white,
                   ),
                 ),

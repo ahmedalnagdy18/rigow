@@ -22,7 +22,7 @@ class SelectFileSheetWidget extends StatelessWidget {
             topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         color: Colors.white,
       ),
-      height: appHight(context, 0.35),
+      height: appHight(context, 0.28),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
         child: Column(
