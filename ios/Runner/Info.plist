@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GIDClientID</key>
+	<string>906792168270-mg0u0g97voavth782mjghvoqe5mq0b5p.apps.googleusercontent.com</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -50,6 +52,23 @@
 		<string>en</string>
 		<string>ar</string>
 	</array>
+
+	<!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
+<!-- Google Sign-in Section -->
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<!-- TODO Replace this value: -->
+			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+			<string>com.googleusercontent.apps.906792168270-mg0u0g97voavth782mjghvoqe5mq0b5p</string>
+		</array>
+	</dict>
+</array>
+<!-- End of the Google Sign-in Section -->
 
 	<!-- Permissions for accessing camera and photo library -->
 	<key>NSCameraUsageDescription</key>

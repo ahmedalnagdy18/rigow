@@ -24,6 +24,8 @@ dependencies:
   email_validator: ^3.0.0
   equatable: ^2.0.5
   file_picker: ^8.1.2
+  firebase_auth: ^5.3.1
+  firebase_core: ^3.6.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
@@ -32,14 +34,15 @@ dependencies:
     sdk: flutter
   fluttertoast: ^8.2.8
   get_it: ^7.7.0
+  google_sign_in: ^6.2.1
   graphql_flutter: ^5.1.2
   http: ^1.2.2
   iconsax: ^0.0.8
   image_picker: ^1.1.2
   infinite_scroll_pagination: ^4.0.0
   intl_phone_field: ^3.2.0
-  json_serializable: ^6.8.0
   json_annotation: ^4.9.0
+  json_serializable: ^6.8.0
   mobkit_dashed_border: ^0.0.6
   path: ^1.9.0
   pinput: ^5.0.0

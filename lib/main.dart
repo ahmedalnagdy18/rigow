@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/common/custom_widgets/app_asset_image.dart';
@@ -5,16 +6,24 @@ import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
 import 'package:rigow/features/authentication/presentation/cubits/lang_cubit/lang_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/lang_cubit/lang_state.dart';
 import 'package:rigow/features/onboarding/screens/splash_screen.dart';
+import 'package:rigow/firebase_options.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SharedPrefrance.instanc
-      .initialization(sharedPreferences: await SharedPreferences.getInstance());
+
+  Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await SharedPrefrance.instanc.initialization(
+    sharedPreferences: await SharedPreferences.getInstance(),
+  );
 
   await init();
+
   runApp(const MyApp());
 }
 

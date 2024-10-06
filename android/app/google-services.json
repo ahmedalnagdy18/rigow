@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "906792168270",
+    "project_id": "rego-10ab1",
+    "storage_bucket": "rego-10ab1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906792168270:android:bbfeb2bd9c78d056588c1f",
+        "android_client_info": {
+          "package_name": "com.rigow_flutter.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCpbc6Pkx6a9dWtWlSJ-HOHbGQzYZIl54"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -21,6 +21,8 @@ class TextFieldWidget extends StatelessWidget {
   final String? counterText;
   final FocusNode? focusNode;
   final bool? autofocus;
+  final bool? readOnly;
+  final Color? hintTextColor;
 
   const TextFieldWidget({
     super.key,
@@ -41,11 +43,14 @@ class TextFieldWidget extends StatelessWidget {
     this.counterText,
     this.focusNode,
     this.autofocus,
+    this.readOnly,
+    this.hintTextColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: readOnly ?? false,
       autofocus: autofocus ?? false,
       focusNode: focusNode,
       style: AppTexts.miniRegular,
@@ -63,7 +68,7 @@ class TextFieldWidget extends StatelessWidget {
           fontWeight: FontWeight.w400,
           color: AppColors.hintText,
         ),
-        counterText: counterText ?? null,
+        counterText: counterText,
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(raduisSize ?? 4),
           borderSide: BorderSide(
@@ -99,7 +104,7 @@ class TextFieldWidget extends StatelessWidget {
         hintStyle: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w400,
-          color: AppColors.hintText,
+          color: hintTextColor ?? AppColors.hintText,
         ),
       ),
     );

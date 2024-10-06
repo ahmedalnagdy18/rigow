@@ -3,12 +3,14 @@ class DepartmentInput {
   final int limit;
   final String searchKey;
   final int facultyId;
+  final int specialtyId;
 
   DepartmentInput({
     required this.page,
     required this.limit,
     required this.searchKey,
     required this.facultyId,
+    required this.specialtyId,
   });
 
   toJson() {
@@ -17,6 +19,7 @@ class DepartmentInput {
       "limit": limit,
       "searchKey": searchKey,
       "facultyId": facultyId,
+      "specialtyId": specialtyId,
     };
   }
 }

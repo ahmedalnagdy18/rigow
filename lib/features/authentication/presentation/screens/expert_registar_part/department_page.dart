@@ -23,12 +23,14 @@ class DepartmentPage extends StatelessWidget {
   final void Function(DepartmentModel? selectedDepartment) onSelectedDepartment;
   final DepartmentModel? initialSelected;
   final int facultyId;
+  final int specialtyId;
 
   const DepartmentPage({
     super.key,
     required this.onSelectedDepartment,
     this.initialSelected,
     required this.facultyId,
+    required this.specialtyId,
   });
 
   @override
@@ -41,6 +43,7 @@ class DepartmentPage extends StatelessWidget {
         onSelectedDepartment: onSelectedDepartment,
         initialSelected: initialSelected,
         facultyId: facultyId,
+        specialtyId: specialtyId,
       ),
     );
   }
@@ -50,11 +53,13 @@ class _DepartmentPage extends StatefulWidget {
   final void Function(DepartmentModel? selectedDepartment) onSelectedDepartment;
   final DepartmentModel? initialSelected;
   final int facultyId;
+  final int specialtyId;
 
   const _DepartmentPage({
     required this.onSelectedDepartment,
     required this.initialSelected,
     required this.facultyId,
+    required this.specialtyId,
   });
 
   @override
@@ -99,6 +104,7 @@ class _MyWidgetState extends State<_DepartmentPage> {
         limit: _pageSize,
         searchKey: searchController.text,
         facultyId: widget.facultyId,
+        specialtyId: widget.specialtyId,
       ));
 
       final isLastPage = data.data.length < _pageSize;

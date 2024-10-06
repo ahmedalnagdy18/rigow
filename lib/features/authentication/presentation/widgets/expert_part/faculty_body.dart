@@ -139,6 +139,7 @@ class _FacultyBodyState extends State<FacultyBody> {
                       final result = await Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => DepartmentPage(
+                            specialtyId: widget.selectedSpecialtyId,
                             onSelectedDepartment: (department) {
                               setState(() {
                                 _department = department;

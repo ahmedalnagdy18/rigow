@@ -123,6 +123,7 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
         variables: {
           "filter": {
             "searchKey": departmentEntity.searchKey,
+            "specialtyId": departmentEntity.specialtyId,
             "facultyId": departmentEntity.facultyId,
           },
           "paginate": {
