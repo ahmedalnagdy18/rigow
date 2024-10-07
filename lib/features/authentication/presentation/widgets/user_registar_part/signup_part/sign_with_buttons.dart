@@ -52,6 +52,13 @@ class SignWithButtonsWidget extends StatelessWidget {
 
               try {
                 GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+                final idToken =
+                    (await googleUser?.authentication)?.idToken ?? "";
+                print("===idToken====== ${idToken.substring(0, 300)}");
+
+                print("===idToken====== ${idToken.substring(300)}");
+                final providerId = googleUser?.id;
+                print("===providerId====== $providerId");
 
                 if (googleUser != null) {
                   GoogleSignInAuthentication googleAuth =
@@ -68,6 +75,7 @@ class SignWithButtonsWidget extends StatelessWidget {
 
                   User? user = userCredential.user;
                   if (user != null) {
+                    String? email = user.email;
                     String? fullName = user.displayName;
                     String firstName =
                         fullName != null ? fullName.split(' ')[0] : '';
@@ -79,6 +87,9 @@ class SignWithButtonsWidget extends StatelessWidget {
                         role: role,
                         firstName: firstName,
                         lastName: lastName,
+                        authToken: idToken,
+                        email: email ?? "",
+                        providerId: providerId ?? "",
                       ),
                     ));
                   }

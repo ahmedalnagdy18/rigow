@@ -14,7 +14,7 @@ ApiExpertCompleteProfileInput _$ApiExpertCompleteProfileInputFromJson(
       stateId: (json['stateId'] as num?)?.toInt(),
       cityId: (json['cityId'] as num?)?.toInt(),
       gender: $enumDecodeNullable(_$ApiGenderEnumEnumMap, json['gender']),
-      birthDate: (json['birthDate'] as num).toInt(),
+      birthDate: (json['birthDate'] as num?)?.toInt(),
       specialtyId: (json['specialtyId'] as num?)?.toInt(),
       facultyId: (json['facultyId'] as num?)?.toInt(),
       departmentId: (json['departmentId'] as num?)?.toInt(),

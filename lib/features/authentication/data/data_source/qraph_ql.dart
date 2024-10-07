@@ -243,3 +243,18 @@ mutation uploadFile($file:Upload!){
   }
 }
 """;
+
+const String socialRegisterr = r"""
+mutation socialRegister($input :SocialRegisterInput!){
+  socialRegister(input:$input){
+   data{
+    firstName
+    id
+    lastName
+  }
+   code
+   success
+   message
+} 
+}
+""";

@@ -4,12 +4,14 @@ import 'package:rigow/features/authentication/data/data_source/qraph_ql.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_forget_pass.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_login.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_reset_password.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_social_register.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_verify_forget_password.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_register_resonse_result.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_send_email_verif.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_verify_user.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/forget_password/api_forget_password_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/register/api_register_input.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/input/register/api_social_register_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/reset_password/api_reset_password_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/send_email_verification/api_send_email_verification_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/verify_forget_password/api_verify_forget_password_input.dart';
@@ -17,6 +19,7 @@ import 'package:rigow/features/authentication/data/model/api_authentication/inpu
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/forget_pass_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/login_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/reset_password_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_register_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_forget_password_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/register_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/send_email_verification.dart';
@@ -183,6 +186,26 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
       return data.toUserDataForComplete();
     } else {
       throw FormatException(response.verifyUserByEmail?.message ?? "");
+    }
+  }
+
+  @override
+  Future<void> socialRegister(SocialRegisterInput input) async {
+    final result = await graphQLClient.mutate(
+      MutationOptions(
+        document: gql(socialRegisterr),
+        variables: {
+          "input": ApiSocialRegisterInput.fromInput(input).toJson(),
+        },
+      ),
+    );
+
+    final response = ApiSocialRegister.fromJson(result.data!).socialRegister;
+
+    if (response != null && response.code == 200) {
+      return;
+    } else {
+      throw FormatException(response?.message ?? "");
     }
   }
 }
