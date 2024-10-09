@@ -85,6 +85,8 @@
 
 	<key>NSDocumentDirectoryUsageDescription</key>
 	<string>This app requires access to files and documents to allow file uploads.</string>
+	<key>NSAppleIDUsageDescription</key>
+	<string>This app uses Sign in with Apple for authentication purposes.</string>
 	
 </dict>
 </plist>
