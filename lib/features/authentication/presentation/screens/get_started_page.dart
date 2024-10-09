@@ -5,6 +5,7 @@ import 'package:rigow/features/authentication/presentation/widgets/authenticatio
 import 'package:rigow/features/authentication/presentation/widgets/get_started_end_body.dart';
 import 'package:rigow/features/authentication/presentation/widgets/user_registar_part/signup_part/sign_with_buttons.dart';
 import 'package:rigow/l10n/app_localizations.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class GetStartedPage extends StatefulWidget {
   final String role;
@@ -79,7 +80,10 @@ class _GetStartedPageState extends State<GetStartedPage> {
                             decoration: TextDecoration.underline,
                             fontWeight: FontWeight.w500,
                           ),
-                          recognizer: TapGestureRecognizer()..onTap = () {},
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              _launchURL('https://www.rigow.com/terms');
+                            },
                         ),
                         const TextSpan(
                           text: ' ',
@@ -96,7 +100,10 @@ class _GetStartedPageState extends State<GetStartedPage> {
                             decoration: TextDecoration.underline,
                             fontWeight: FontWeight.w500,
                           ),
-                          recognizer: TapGestureRecognizer()..onTap = () {},
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              _launchURL('https://www.rigow.com/privacy');
+                            },
                         ),
                         const TextSpan(
                           text: '.',
@@ -122,5 +129,13 @@ class _GetStartedPageState extends State<GetStartedPage> {
         ),
       ),
     );
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

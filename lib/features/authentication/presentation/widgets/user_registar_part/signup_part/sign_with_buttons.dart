@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/features/authentication/presentation/screens/google_part/google_signup_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/signup_part/main_signup.dart';
 import 'package:rigow/l10n/app_localizations.dart';
@@ -54,11 +55,11 @@ class SignWithButtonsWidget extends StatelessWidget {
                 GoogleSignInAccount? googleUser = await googleSignIn.signIn();
                 final idToken =
                     (await googleUser?.authentication)?.idToken ?? "";
-                print("===idToken====== ${idToken.substring(0, 300)}");
+                //  print("===idToken1====== ${idToken.substring(0, 300)}");
 
-                print("===idToken====== ${idToken.substring(300)}");
+                //    print("===idToken2====== ${idToken.substring(300)}");
                 final providerId = googleUser?.id;
-                print("===providerId====== $providerId");
+                //    print("===providerId====== $providerId");
 
                 if (googleUser != null) {
                   GoogleSignInAuthentication googleAuth =
@@ -109,7 +110,10 @@ class SignWithButtonsWidget extends StatelessWidget {
         SocialAuthenticationButton(
           image: 'assets/images/facebook.png',
           color: AppColors.facebook,
-          onPressed: () {},
+          onPressed: () {
+            showErrorToastMessage(
+                message: "Can't sign with facebook right now !");
+          },
           text: AppLocalizations.of(context)!.continueWithFacebook,
           textColor: Colors.white,
         ),
