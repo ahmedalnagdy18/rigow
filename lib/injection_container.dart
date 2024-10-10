@@ -6,6 +6,7 @@ import 'package:rigow/features/authentication/data/repositories/upload_imp/uploa
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:rigow/features/authentication/domain/repositories/complete_profile_repository.dart';
 import 'package:rigow/features/authentication/domain/repositories/upload_files_repository.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/my_data_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/social_register_usecase.dart';
 
 import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/city_usecase.dart';
@@ -83,6 +84,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<SocialRegisterUsecase>(
       () => SocialRegisterUsecase(repository: sl()));
+
+  sl.registerLazySingleton<MyDataUsecase>(
+      () => MyDataUsecase(repository: sl()));
 
 // Repository
 

@@ -4,6 +4,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/common/cliked_textfield_widget.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/city_input.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
@@ -346,16 +347,8 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                         ),
                         (Route<dynamic> route) => false,
                       );
-                      // Navigator.of(context).pushReplacement(
-                      //   MaterialPageRoute(
-                      //     builder: (context) =>
-                      // WelcomeToRigowPage(
-                      //       firstName: widget.firstName,
-                      //       role: widget.role,
-                      //       imageOfprofile: widget.imageOfprofile,
-                      //     ),
-                      //   ),
-                      // );
+                    } else if (state is ErrorCompleteProfileUserState) {
+                      showErrorToastMessage(message: state.message);
                     }
                   },
                   builder: (context, state) {

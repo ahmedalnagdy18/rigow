@@ -17,6 +17,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   bloc: ^8.1.4
+  bottom_navbar_with_indicator: ^0.0.9
   bottom_picker: ^2.8.0
   cupertino_icons: ^1.0.8
   dio: ^5.6.0

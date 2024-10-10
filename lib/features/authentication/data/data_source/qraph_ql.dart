@@ -3,6 +3,8 @@ mutation login($input :EmailAndPasswordLoginInput!){
   emailAndPasswordLogin(input:$input){
      data{
        token
+      firstName
+      profilePicture
     }
     code
     success
@@ -256,5 +258,36 @@ mutation socialRegister($input :SocialRegisterInput!){
    success
    message
 } 
+}
+""";
+
+const String myDataa = r"""
+query me{
+  me{
+    data{
+      firstName
+      lastName
+      username
+      fullName
+      phone
+      gender
+      role
+      profilePicture
+      hasCompletedRegistration
+      token
+      followersCount
+      followingsCount
+      birthDate
+      readableBirthDate
+      createdAt
+      readableCreatedAt
+      expertRequestStatus
+      canPost
+      isFollowed
+    }
+    code
+    success
+    message
+  }
 }
 """;

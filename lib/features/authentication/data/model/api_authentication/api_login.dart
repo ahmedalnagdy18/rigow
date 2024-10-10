@@ -59,9 +59,13 @@ class EmailAndPasswordLogin {
 
 class Data {
   final String? token;
+  final String? firstName;
+  final dynamic profilePicture;
 
   Data({
     this.token,
+    this.firstName,
+    this.profilePicture,
   });
 
   factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
@@ -70,9 +74,13 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         token: json["token"],
+        firstName: json["firstName"],
+        profilePicture: json["profilePicture"],
       );
 
   Map<String, dynamic> toJson() => {
         "token": token,
+        "firstName": firstName,
+        "profilePicture": profilePicture,
       };
 }

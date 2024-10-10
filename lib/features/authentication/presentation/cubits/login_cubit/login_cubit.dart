@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/all_user_data.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/login_input.dart';
 import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/login_usecase.dart';
 import 'package:rigow/features/authentication/presentation/cubits/login_cubit/login_state.dart';
@@ -10,8 +11,8 @@ class LoginCubit extends Cubit<LoginState> {
   void login(LoginInput loginEntity) async {
     emit(LoadingLoginState());
     try {
-      await loginUsecase.call(loginEntity);
-      emit(SucsessLoginState());
+      final AllUserData userData = await loginUsecase.call(loginEntity);
+      emit(SucsessLoginState(data: userData));
     } catch (e) {
       if (e is FormatException) {
         emit(ErrorLoginState(message: e.message));

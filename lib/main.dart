@@ -5,6 +5,7 @@ import 'package:rigow/core/common/custom_widgets/app_asset_image.dart';
 import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
 import 'package:rigow/features/authentication/presentation/cubits/lang_cubit/lang_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/lang_cubit/lang_state.dart';
+import 'package:rigow/features/authentication/presentation/cubits/my_data/my_data_cubit.dart';
 import 'package:rigow/features/onboarding/screens/splash_screen.dart';
 import 'package:rigow/firebase_options.dart';
 import 'package:rigow/injection_container.dart';
@@ -52,8 +53,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LocaleCubit()..getSavedLanguage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LocaleCubit()..getSavedLanguage(),
+        ),
+        BlocProvider(
+          create: (context) => MyDataCubit(myDataUsecase: sl()),
+        ),
+      ],
       child: BlocBuilder<LocaleCubit, ChangeLocaleState>(
         builder: (context, state) {
           return MaterialApp(

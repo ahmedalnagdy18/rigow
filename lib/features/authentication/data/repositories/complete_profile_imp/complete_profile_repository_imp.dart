@@ -74,12 +74,12 @@ class CompleteProfileRepositoryImp extends CompleteProfileRepository {
     if (result.data == null) {
       throw Exception('data return null');
     }
-    final response = ApiCompleteProfileAsUser.fromJson(result.data!);
-    if (response.completeProfileAsUser != null &&
-        response.completeProfileAsUser?.code == 200) {
+    final response =
+        ApiCompleteProfileAsUser.fromJson(result.data!).completeProfileAsUser;
+    if (response != null && response.code == 200) {
       return;
     } else {
-      throw FormatException(response.completeProfileAsUser?.message ?? "");
+      throw FormatException(response?.message ?? "");
     }
   }
 

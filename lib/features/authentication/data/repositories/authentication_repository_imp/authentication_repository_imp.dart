@@ -16,8 +16,11 @@ import 'package:rigow/features/authentication/data/model/api_authentication/inpu
 import 'package:rigow/features/authentication/data/model/api_authentication/input/send_email_verification/api_send_email_verification_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/verify_forget_password/api_verify_forget_password_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/verify_user/api_verify_user_input.dart';
+import 'package:rigow/features/authentication/data/model/my_data/api_mydata.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/all_user_data.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/forget_pass_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/login_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/my_data_inputs.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/reset_password_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_register_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_forget_password_input.dart';
@@ -50,7 +53,7 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
   }
 
   @override
-  Future<void> loginWithEmailAndPassword(LoginInput input) async {
+  Future<AllUserData> loginWithEmailAndPassword(LoginInput input) async {
     final result = await graphQLClient.mutate(MutationOptions(
         document: gql(loginn), variables: {"input": input.toJson()}));
 
@@ -59,9 +62,12 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
     if (response.emailAndPasswordLogin != null &&
         response.emailAndPasswordLogin!.code == 200) {
       final token = response.emailAndPasswordLogin?.data?.token;
+      final data = response.emailAndPasswordLogin?.data;
+      final allUserData = data!.toUserDataForuser();
 
       SharedPrefrance.instanc.setToken(key: 'token', token: token ?? '');
-      return;
+
+      return allUserData;
     } else {
       throw FormatException(response.emailAndPasswordLogin?.message ?? "");
     }
@@ -204,6 +210,26 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
 
     if (response != null && response.code == 200) {
       return;
+    } else {
+      throw FormatException(response?.message ?? "");
+    }
+  }
+
+  @override
+  Future<UserDataEntity> myData() async {
+    final result = await graphQLClient.query(
+      QueryOptions(
+        document: gql(myDataa),
+      ),
+    );
+
+    final response = ApiMyData.fromJson(result.data!).me;
+
+    if (response != null && response.code == 200) {
+      final data = response.data;
+      final allMyData = data!.toMyData();
+
+      return allMyData;
     } else {
       throw FormatException(response?.message ?? "");
     }

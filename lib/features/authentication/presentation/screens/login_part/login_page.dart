@@ -14,7 +14,7 @@ import 'package:rigow/features/authentication/presentation/screens/user_registar
 import 'package:rigow/features/authentication/presentation/screens/login_part/reset_password_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/dont_have_acc_part.dart';
-import 'package:rigow/features/timeline/timeline_page.dart';
+import 'package:rigow/features/timeline/screens/timeline_page.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
