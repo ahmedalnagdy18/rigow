@@ -137,5 +137,6 @@
     "firstNameValidator": "Invalid First Name",
     "lastNameValidator": "Invalid Last Name",
     "passwordValidator": "Password must be at least 8 characters",
-    "optional": "(optional)"
+    "optional": "(optional)",
+    "logoutMessage": "Are you sure you want to log out?"
 }

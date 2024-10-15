@@ -216,6 +216,10 @@ class _GoogleSignupPageState extends State<_GoogleSignupPage> {
     );
     BlocProvider.of<SocialRegisterCubit>(context)
         .socialRegisterFunc(input: input);
+    // print("providerId:   ${widget.providerId}");
+    // print("email:   ${widget.email}");
+    // print("authToken1:   ${widget.authToken.substring(0, 300)}");
+    // print("authToken2:   ${widget.authToken.substring(300)}");
   }
 
   void _isEnabled() {

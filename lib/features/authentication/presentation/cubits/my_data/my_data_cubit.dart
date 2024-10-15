@@ -26,4 +26,8 @@ class MyDataCubit extends Cubit<MyDataState> {
       }
     }
   }
+
+  void updateData(UserDataEntity newData) {
+    emit(SucsessMyDataState(myData: newData));
+  }
 }

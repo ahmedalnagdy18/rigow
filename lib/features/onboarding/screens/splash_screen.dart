@@ -20,15 +20,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void init() async {}
-
   @override
   void initState() {
-    init();
-    context.read<MyDataCubit>().getUserDataInfo();
     super.initState();
+    context.read<MyDataCubit>().getUserDataInfo();
   }
 
+  UserDataEntity? userDataEntity;
   @override
   Widget build(BuildContext context) {
     final token = SharedPrefrance.instanc.getToken('token');
@@ -38,6 +36,8 @@ class _SplashScreenState extends State<SplashScreen> {
       listener: (context, state) {
         if (state is SucsessMyDataState) {
           timerr(token, state.myData);
+        } else {
+          timerr(token, userDataEntity);
         }
       },
       builder: (context, state) {
@@ -63,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) {
-            if (token == null) {
+            if (token == null || token == "") {
               return const WelcomePage();
             } else if (userData?.hasCompletedRegistration == true) {
               return const TimelinePage();

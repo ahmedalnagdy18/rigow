@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/fonts/app_text.dart';
+import 'package:rigow/features/timeline/screens/timeline_page.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class WelcomeToRigowPage extends StatelessWidget {
@@ -89,11 +90,12 @@ class WelcomeToRigowPage extends StatelessWidget {
                   ColoredButtonWidget(
                       text: AppLocalizations.of(context)!.next,
                       onPressed: () {
-                        print('asdadadadd $imageOfprofile');
-                        addBaseUrls(imageOfprofile);
-                        print('final path ${addBaseUrls(imageOfprofile)}');
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (context) => const WelcomeToRigowPage()));
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => const TimelinePage(),
+                          ),
+                          (Route<dynamic> route) => false,
+                        );
                       },
                       grideantColors: AppColors.mainRed,
                       textColor: Colors.white),

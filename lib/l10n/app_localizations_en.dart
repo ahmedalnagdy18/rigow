@@ -422,4 +422,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get optional => '(optional)';
+
+  @override
+  String get logoutMessage => 'Are you sure you want to log out?';
 }

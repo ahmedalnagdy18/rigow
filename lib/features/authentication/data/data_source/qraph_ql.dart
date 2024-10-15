@@ -253,6 +253,8 @@ mutation socialRegister($input :SocialRegisterInput!){
     firstName
     id
     lastName
+    token
+    
   }
    code
    success
@@ -289,5 +291,64 @@ query me{
     success
     message
   }
+}
+""";
+
+const String deleteAcc = r"""
+mutation deleteAccount{
+  deleteAccount{
+    data
+    code
+    success
+    message
+  }
+}
+""";
+
+const String logoutFromAcc = r"""
+mutation logout($device: DeviceEnum!){
+  logout(device:$device){
+   data
+   code
+   success
+   message
+} 
+}
+""";
+
+const String checkSocialProviderStatuss = r"""
+query checkSocialProviderStatus($input:CheckSocialStatusInput!){
+  checkSocialProviderStatus(input:$input){
+    data{
+      user{
+        firstName
+        lastName
+        role
+        profilePicture
+        hasCompletedRegistration
+        token
+      }
+    }
+    code
+    success
+    message
+  }
+}
+""";
+
+const String socialLoginn = r"""
+mutation socialLogin($input: SocialLoginInput!){
+  socialLogin(input:$input){
+   data{
+    id
+    firstName
+    profilePicture
+    lastName
+    token
+  }
+   code
+   success
+   message
+} 
 }
 """;

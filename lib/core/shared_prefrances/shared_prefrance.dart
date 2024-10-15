@@ -11,6 +11,7 @@ class SharedPrefrance {
   }
 
   Future<bool> setToken({required String key, required String token}) {
+    print("set Token: ${token}");
     return sharedPreferences.setString(key, token);
   }
 

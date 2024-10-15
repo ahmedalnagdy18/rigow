@@ -137,5 +137,6 @@
     "firstNameValidator": "الاسم الأول غير صالح",
     "lastNameValidator": "الاسم الأخير غير صالح",
     "passwordValidator": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
-    "optional": "(اختياري)"
+    "optional": "(اختياري)",
+    "logoutMessage": "هل أنت متأكد أنك تريد تسجيل الخروج؟"
 }

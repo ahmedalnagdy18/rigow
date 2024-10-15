@@ -1,16 +1,22 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
 import 'package:rigow/features/authentication/data/data_source/qraph_ql.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_check_social_provider.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_forget_pass.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_login.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_logout.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_reset_password.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_social_login.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_social_register.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_verify_forget_password.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_register_resonse_result.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_send_email_verif.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_verify_user.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/forget_password/api_forget_password_input.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/input/logout/api_logout_input.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/input/register/api_check_social_provider_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/register/api_register_input.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/input/register/api_social_login_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/register/api_social_register_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/reset_password/api_reset_password_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/send_email_verification/api_send_email_verification_input.dart';
@@ -18,16 +24,20 @@ import 'package:rigow/features/authentication/data/model/api_authentication/inpu
 import 'package:rigow/features/authentication/data/model/api_authentication/input/verify_user/api_verify_user_input.dart';
 import 'package:rigow/features/authentication/data/model/my_data/api_mydata.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/all_user_data.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/check_social_provider_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/forget_pass_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/login_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/logout_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/my_data_inputs.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/reset_password_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_login_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_register_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_forget_password_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/register_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/user_data_for_complete.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_user_input.dart';
+import 'package:rigow/features/authentication/domain/model/social_login_model.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 
 class AuthenticationRepositoryImp extends AuthenticationRepository {
@@ -209,6 +219,8 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
     final response = ApiSocialRegister.fromJson(result.data!).socialRegister;
 
     if (response != null && response.code == 200) {
+      final token = response.data?.token;
+      SharedPrefrance.instanc.setToken(key: 'token', token: token ?? '');
       return;
     } else {
       throw FormatException(response?.message ?? "");
@@ -230,6 +242,71 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
       final allMyData = data!.toMyData();
 
       return allMyData;
+    } else {
+      throw FormatException(response?.message ?? "");
+    }
+  }
+
+  @override
+  Future<void> logout(LogoutInput input) async {
+    final result = await graphQLClient.mutate(
+      MutationOptions(
+        document: gql(logoutFromAcc),
+        variables: ApiLogoutInput.fromInput(input).toJson(),
+      ),
+    );
+    final response = ApiLogout.fromJson(result.data!).logout;
+
+    if (response != null && response.code == 200) {
+      return;
+    } else {
+      throw FormatException(response?.message ?? "");
+    }
+  }
+
+  @override
+  Future<UserDataEntity> checkSocialProvider(
+      CheckSocialProviderInput input) async {
+    final result = await graphQLClient.mutate(
+      MutationOptions(
+        document: gql(checkSocialProviderStatuss),
+        variables: {
+          "input": ApiCheckSocialProviderInput.fromInput(input).toJson(),
+        },
+      ),
+    );
+
+    final response =
+        ApiCheckSocialProvider.fromJson(result.data!).checkSocialProviderStatus;
+
+    if (response != null && response.code == 200) {
+      final data = response.data!.user;
+      final allMyData = data!.toMyData();
+      return allMyData;
+    } else {
+      throw FormatException(response?.message ?? "");
+    }
+  }
+
+  @override
+  Future<SocialLoginModel> socialLogin(SocialLoginInput input) async {
+    final result = await graphQLClient.mutate(
+      MutationOptions(
+        document: gql(socialLoginn),
+        variables: {
+          "input": ApiSocialLoginInput.fromInput(input).toJson(),
+        },
+      ),
+    );
+
+    final response = ApiSocialLogin.fromJson(result.data!).socialLogin;
+    if (response != null && response.code == 200) {
+      final data = response.data;
+      final allMyData = data?.socialLogModel();
+      final token = response.data?.token;
+
+      SharedPrefrance.instanc.setToken(key: 'token', token: token ?? '');
+      return allMyData!;
     } else {
       throw FormatException(response?.message ?? "");
     }

@@ -10,15 +10,9 @@ class ApiMyData {
   factory ApiMyData.fromRawJson(String str) =>
       ApiMyData.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
-
   factory ApiMyData.fromJson(Map<String, dynamic> json) => ApiMyData(
         me: json["me"] == null ? null : Me.fromJson(json["me"]),
       );
-
-  Map<String, dynamic> toJson() => {
-        "me": me?.toJson(),
-      };
 }
 
 class Me {
@@ -36,8 +30,6 @@ class Me {
 
   factory Me.fromRawJson(String str) => Me.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
-
   factory Me.fromJson(Map<String, dynamic> json) => Me(
         data: json["data"] == null
             ? null
@@ -46,13 +38,6 @@ class Me {
         success: json["success"],
         message: json["message"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "data": data?.toJson(),
-        "code": code,
-        "success": success,
-        "message": message,
-      };
 }
 
 class ApiUserDataInfo {
@@ -101,8 +86,6 @@ class ApiUserDataInfo {
   factory ApiUserDataInfo.fromRawJson(String str) =>
       ApiUserDataInfo.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
-
   factory ApiUserDataInfo.fromJson(Map<String, dynamic> json) =>
       ApiUserDataInfo(
         firstName: json["firstName"],
@@ -125,26 +108,4 @@ class ApiUserDataInfo {
         canPost: json["canPost"],
         isFollowed: json["isFollowed"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "firstName": firstName,
-        "lastName": lastName,
-        "username": username,
-        "fullName": fullName,
-        "phone": phone,
-        "gender": gender,
-        "role": role,
-        "profilePicture": profilePicture,
-        "hasCompletedRegistration": hasCompletedRegistration,
-        "token": token,
-        "followersCount": followersCount,
-        "followingsCount": followingsCount,
-        "birthDate": birthDate,
-        "readableBirthDate": readableBirthDate,
-        "createdAt": createdAt,
-        "readableCreatedAt": readableCreatedAt,
-        "expertRequestStatus": expertRequestStatus,
-        "canPost": canPost,
-        "isFollowed": isFollowed,
-      };
 }

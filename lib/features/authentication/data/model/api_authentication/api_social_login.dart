@@ -1,48 +1,47 @@
 import 'dart:convert';
 
-class ApiSocialRegister {
-  final SocialRegister? socialRegister;
+class ApiSocialLogin {
+  final SocialLogin? socialLogin;
 
-  ApiSocialRegister({
-    this.socialRegister,
+  ApiSocialLogin({
+    this.socialLogin,
   });
 
-  factory ApiSocialRegister.fromRawJson(String str) =>
-      ApiSocialRegister.fromJson(json.decode(str));
+  factory ApiSocialLogin.fromRawJson(String str) =>
+      ApiSocialLogin.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ApiSocialRegister.fromJson(Map<String, dynamic> json) =>
-      ApiSocialRegister(
-        socialRegister: json["socialRegister"] == null
+  factory ApiSocialLogin.fromJson(Map<String, dynamic> json) => ApiSocialLogin(
+        socialLogin: json["socialLogin"] == null
             ? null
-            : SocialRegister.fromJson(json["socialRegister"]),
+            : SocialLogin.fromJson(json["socialLogin"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "socialRegister": socialRegister?.toJson(),
+        "socialLogin": socialLogin?.toJson(),
       };
 }
 
-class SocialRegister {
+class SocialLogin {
   final Data? data;
   final int? code;
   final bool? success;
   final String? message;
 
-  SocialRegister({
+  SocialLogin({
     this.data,
     this.code,
     this.success,
     this.message,
   });
 
-  factory SocialRegister.fromRawJson(String str) =>
-      SocialRegister.fromJson(json.decode(str));
+  factory SocialLogin.fromRawJson(String str) =>
+      SocialLogin.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory SocialRegister.fromJson(Map<String, dynamic> json) => SocialRegister(
+  factory SocialLogin.fromJson(Map<String, dynamic> json) => SocialLogin(
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
         code: json["code"],
         success: json["success"],
@@ -58,14 +57,16 @@ class SocialRegister {
 }
 
 class Data {
-  final String? firstName;
   final String? id;
+  final String? firstName;
+  final dynamic profilePicture;
   final String? lastName;
   final String? token;
 
   Data({
-    this.firstName,
     this.id,
+    this.firstName,
+    this.profilePicture,
     this.lastName,
     this.token,
   });
@@ -75,15 +76,17 @@ class Data {
   String toRawJson() => json.encode(toJson());
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        firstName: json["firstName"],
         id: json["id"],
+        firstName: json["firstName"],
+        profilePicture: json["profilePicture"],
         lastName: json["lastName"],
         token: json["token"],
       );
 
   Map<String, dynamic> toJson() => {
-        "firstName": firstName,
         "id": id,
+        "firstName": firstName,
+        "profilePicture": profilePicture,
         "lastName": lastName,
         "token": token,
       };
