@@ -8,7 +8,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
-import 'package:rigow/features/authentication/domain/entities/authentication_entities/check_social_provider_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_login_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/check_social_login/check_social_login_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/check_social_login/check_social_login_state.dart';
@@ -56,7 +55,6 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
     return BlocConsumer<CheckSocialLoginCubit, CheckSocialLoginState>(
         listener: (context, state) {
       if (state is SucsessSocialLoginState) {
-        print('done');
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => const TimelinePage(),
         ));
@@ -83,28 +81,17 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
           // google button
           BlocListener<CheckSocialLoginCubit, CheckSocialLoginState>(
             listener: (context, state) {
-              if (state is SucsessCheckSocialState) {
-                print(state.myData.firstName);
-                if (state.myData.phone == null) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GoogleSignupPage(
-                      role: widget.role,
-                      firstName: _firstName ?? "",
-                      lastName: _lastName ?? '',
-                      authToken: _authToken ?? "",
-                      email: _email ?? "",
-                      providerId: _providerId ?? "",
-                    ),
-                  ));
-                  print("data null");
-                  print("============ ${state.myData.phone}");
-                } else {
-                  // login user
-                  print('login');
-                }
-              } else if (state is ErrorCheckSocialState) {
-                print('ssssssssssssss');
-                _socialLogin(context);
+              if (state is ErrorSocialLoginState) {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => GoogleSignupPage(
+                    role: widget.role,
+                    firstName: _firstName ?? "",
+                    lastName: _lastName ?? '',
+                    authToken: _authToken ?? "",
+                    email: _email ?? "",
+                    providerId: _providerId ?? "",
+                  ),
+                ));
               }
             },
             child: SocialAuthenticationButton(
@@ -163,11 +150,14 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
                   } catch (error) {
                     'error';
                   }
+                  _socialLogin(context);
                 }
 
                 print(state);
                 handleSignIn();
-                _checkSocial(context);
+
+                // _checkSocial(context);
+
                 //      print("======  $firstName1");
                 //     print("====== $lastName1");
                 //      print(authToken1);
@@ -258,16 +248,16 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
     });
   }
 
-  void _checkSocial(BuildContext context) {
-    print(_providerId);
-    BlocProvider.of<CheckSocialLoginCubit>(context).checkSocialFunc(
-        input: CheckSocialProviderInput(
-      authToken: CheckProviderAuth(authToken: _authToken ?? ""),
-      email: _email ?? "",
-      provider: CheckProviderEnum.google,
-      providerId: _providerId ?? "",
-    ));
-  }
+  // void _checkSocial(BuildContext context) {
+  //   print(_providerId);
+  //   BlocProvider.of<CheckSocialLoginCubit>(context).checkSocialFunc(
+  //       input: CheckSocialProviderInput(
+  //     authToken: CheckProviderAuth(authToken: _authToken ?? ""),
+  //     email: _email ?? "",
+  //     provider: CheckProviderEnum.google,
+  //     providerId: _providerId ?? "",
+  //   ));
+  // }
 
   void _socialLogin(BuildContext context) {
     SocialUserRoleEnum userRoleEnum;

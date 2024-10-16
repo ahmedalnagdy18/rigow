@@ -73,12 +73,14 @@ class _SplashScreenState extends State<SplashScreen> {
                 lastName: userData?.lastName ?? "",
                 role: userData?.role ?? "USER",
               );
-            } else {
+            } else if (userData?.role == "EXPERT") {
               return ExpertMainComplete(
                 firstName: userData?.firstName ?? "",
                 lastName: userData?.lastName ?? "",
                 role: userData?.role ?? "EXPERT",
               );
+            } else {
+              return const WelcomePage();
             }
           },
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
