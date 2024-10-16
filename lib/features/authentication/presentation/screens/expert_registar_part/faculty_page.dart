@@ -150,7 +150,8 @@ class _FacultyPageState extends State<_FacultyPage> {
                   bottomSheetHintText: AppLocalizations.of(context)!
                       .addFacultyNameHere, getTextEntyered: (text) {
                 _addFacultyName = text;
-                selectedFaculty = selectedFaculty;
+                selectedFaculty =
+                    FacultyModel(id: null, name: _addFacultyName ?? "");
                 Navigator.pop(context);
                 showToastMessage(
                     message: AppLocalizations.of(context)!.addedSuccessfully);

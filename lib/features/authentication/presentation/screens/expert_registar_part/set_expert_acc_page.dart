@@ -117,6 +117,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                       onSelectedFacultyIdCallBack: (fuclty) {
                         _fucltyModel = FacultyModel(
                             id: fuclty?.id, name: fuclty?.name ?? '');
+                        _department = null;
                         setState(() {});
                       },
                       onSelectedDepartmentIdCallBack: (department) {

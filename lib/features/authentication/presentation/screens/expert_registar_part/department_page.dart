@@ -24,6 +24,7 @@ class DepartmentPage extends StatelessWidget {
   final DepartmentModel? initialSelected;
   final int facultyId;
   final int specialtyId;
+  final String departmentTextHint;
 
   const DepartmentPage({
     super.key,
@@ -31,6 +32,7 @@ class DepartmentPage extends StatelessWidget {
     this.initialSelected,
     required this.facultyId,
     required this.specialtyId,
+    required this.departmentTextHint,
   });
 
   @override
@@ -44,6 +46,7 @@ class DepartmentPage extends StatelessWidget {
         initialSelected: initialSelected,
         facultyId: facultyId,
         specialtyId: specialtyId,
+        departmentTextHint: departmentTextHint,
       ),
     );
   }
@@ -54,12 +57,14 @@ class _DepartmentPage extends StatefulWidget {
   final DepartmentModel? initialSelected;
   final int facultyId;
   final int specialtyId;
+  final String departmentTextHint;
 
   const _DepartmentPage({
     required this.onSelectedDepartment,
     required this.initialSelected,
     required this.facultyId,
     required this.specialtyId,
+    required this.departmentTextHint,
   });
 
   @override
@@ -193,6 +198,11 @@ class _MyWidgetState extends State<_DepartmentPage> {
                 Text(
                   AppLocalizations.of(context)!.selectYourFacultyDepartment,
                   style: AppTexts.title,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  widget.departmentTextHint,
+                  style: AppTexts.regular.copyWith(color: AppColors.tapBorder),
                 ),
                 const SizedBox(height: 16),
                 TextFieldWidget(

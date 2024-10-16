@@ -71,13 +71,13 @@ class _SplashScreenState extends State<SplashScreen> {
               return MainCompleteYourProfilePage(
                 firstName: userData?.firstName ?? "",
                 lastName: userData?.lastName ?? "",
-                role: userData?.role ?? "USER",
+                role: "User",
               );
             } else if (userData?.role == "EXPERT") {
               return ExpertMainComplete(
                 firstName: userData?.firstName ?? "",
                 lastName: userData?.lastName ?? "",
-                role: userData?.role ?? "EXPERT",
+                role: "Expert",
               );
             } else {
               return const WelcomePage();
