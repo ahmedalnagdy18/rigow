@@ -18,14 +18,15 @@ import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class GoogleSignupPage extends StatelessWidget {
-  const GoogleSignupPage(
-      {super.key,
-      required this.firstName,
-      required this.lastName,
-      required this.role,
-      required this.email,
-      required this.authToken,
-      required this.providerId});
+  const GoogleSignupPage({
+    super.key,
+    required this.firstName,
+    required this.lastName,
+    required this.role,
+    required this.email,
+    required this.authToken,
+    required this.providerId,
+  });
   final String firstName;
   final String lastName;
   final String role;
@@ -50,13 +51,14 @@ class GoogleSignupPage extends StatelessWidget {
 }
 
 class _GoogleSignupPage extends StatefulWidget {
-  const _GoogleSignupPage(
-      {required this.firstName,
-      required this.lastName,
-      required this.role,
-      required this.email,
-      required this.authToken,
-      required this.providerId});
+  const _GoogleSignupPage({
+    required this.firstName,
+    required this.lastName,
+    required this.role,
+    required this.email,
+    required this.authToken,
+    required this.providerId,
+  });
   final String firstName;
   final String lastName;
   final String role;

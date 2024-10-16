@@ -29,7 +29,6 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
   int? _specialityId;
   FacultyModel? _fucltyModel;
   DepartmentModel? _department;
-  int? _departmentId;
   String? _universitySelectedimage;
   String? _otherCertificationsimages;
   String? _governmentPermitImage;
@@ -285,7 +284,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
                             customFaculty: customFacultyValue,
                             specialityId: _specialityId,
                             facultyId: _fucltyModel?.id,
-                            departmentId: _departmentId,
+                            departmentId: _department?.id,
                             universityImage: _universitySelectedimage,
                             otherCertificationsImage:
                                 _otherCertificationsimages,

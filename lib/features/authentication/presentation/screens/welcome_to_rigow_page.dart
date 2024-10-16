@@ -110,6 +110,5 @@ class WelcomeToRigowPage extends StatelessWidget {
 }
 
 String addBaseUrls(String url) {
-  print("url ${url}");
   return "https://beta-api.rigow.com/$url";
 }

@@ -81,7 +81,7 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
           // google button
           BlocListener<CheckSocialLoginCubit, CheckSocialLoginState>(
             listener: (context, state) {
-              if (state is ErrorSocialLoginState) {
+              if (state is ErrorSocialLoginState && _firstName != null) {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => GoogleSignupPage(
                     role: widget.role,
@@ -153,7 +153,6 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
                   _socialLogin(context);
                 }
 
-                print(state);
                 handleSignIn();
 
                 // _checkSocial(context);
