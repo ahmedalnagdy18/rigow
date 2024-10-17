@@ -6,6 +6,7 @@ part of 'api_send_email_verification_input.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: unused_element
 ApiSendEmailVerificationInput _$ApiSendEmailVerificationInputFromJson(
         Map<String, dynamic> json) =>
     ApiSendEmailVerificationInput(

@@ -6,6 +6,7 @@ part of 'api_verify_forget_password_input.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: unused_element
 ApiVerifyForgetPasswordInput _$ApiVerifyForgetPasswordInputFromJson(
         Map<String, dynamic> json) =>
     ApiVerifyForgetPasswordInput(

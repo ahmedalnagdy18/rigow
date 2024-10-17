@@ -6,6 +6,7 @@ part of 'api_reset_password_input.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: unused_element
 ApiResetPasswordInput _$ApiResetPasswordInputFromJson(
         Map<String, dynamic> json) =>
     ApiResetPasswordInput(

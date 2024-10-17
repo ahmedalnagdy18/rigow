@@ -6,6 +6,7 @@ part of 'api_expert_complete_profile_input.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: unused_element
 ApiExpertCompleteProfileInput _$ApiExpertCompleteProfileInputFromJson(
         Map<String, dynamic> json) =>
     ApiExpertCompleteProfileInput(

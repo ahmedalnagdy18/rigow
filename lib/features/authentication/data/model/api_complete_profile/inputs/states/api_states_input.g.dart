@@ -6,6 +6,7 @@ part of 'api_states_input.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: unused_element
 ApiStatesInput _$ApiStatesInputFromJson(Map<String, dynamic> json) =>
     ApiStatesInput(
       countryId: (json['countryId'] as num).toInt(),

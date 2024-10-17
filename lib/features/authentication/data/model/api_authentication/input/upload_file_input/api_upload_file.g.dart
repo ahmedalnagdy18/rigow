@@ -6,6 +6,7 @@ part of 'api_upload_file.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: unused_element
 ApiUploadFileInput _$ApiUploadFileInputFromJson(Map<String, dynamic> json) =>
     ApiUploadFileInput(
       file: json['file'] as String,

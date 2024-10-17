@@ -6,6 +6,7 @@ part of 'api_register_input.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: unused_element
 ApiRegisterInput _$ApiRegisterInputFromJson(Map<String, dynamic> json) =>
     ApiRegisterInput(
       firstName: json['firstName'] as String,

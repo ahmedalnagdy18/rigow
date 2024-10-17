@@ -6,6 +6,7 @@ part of 'api_validate_username_input.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: unused_element
 ApiValidateUsernameInput _$ApiValidateUsernameInputFromJson(
         Map<String, dynamic> json) =>
     ApiValidateUsernameInput(

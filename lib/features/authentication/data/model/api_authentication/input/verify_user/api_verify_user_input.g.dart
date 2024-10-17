@@ -6,6 +6,7 @@ part of 'api_verify_user_input.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: unused_element
 ApiVerifyUserInput _$ApiVerifyUserInputFromJson(Map<String, dynamic> json) =>
     ApiVerifyUserInput(
       useCase: json['useCase'] as String,
