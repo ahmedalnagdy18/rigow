@@ -76,6 +76,8 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
     super.dispose();
   }
 
+  RegExp regex =
+      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
@@ -165,9 +167,16 @@ class _SignupWithEmailBodyState extends State<SignupWithEmailBody> {
             ),
             const SizedBox(height: 16),
             TextFieldWidget(
-              validator: (value) => value!.length <= 8
-                  ? AppLocalizations.of(context)!.passwordValidator
-                  : null,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your password';
+                } else if (value.length < 8) {
+                  return AppLocalizations.of(context)!.passwordValidator;
+                } else if (!regex.hasMatch(value)) {
+                  return 'password must contain Capital and symbols';
+                }
+                return null;
+              },
               inputFormatters: [
                 FilteringTextInputFormatter.deny(RegExp(r'\s')),
               ],

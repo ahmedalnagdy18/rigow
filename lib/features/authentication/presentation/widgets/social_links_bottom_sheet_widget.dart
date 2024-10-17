@@ -61,7 +61,7 @@ class _AddToButtomSheetWidgetState extends State<SocialLinksBottomSheetWidget> {
 
   void _validateLink(String text) {
     final RegExp linkRegex = RegExp(
-      r'^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}([\/\w .-]*)*\/?(\?.*)?$',
+      r'^(https?:\/\/)(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}([\/\w .-]*)*\/?(\?.*)?$',
     );
     setState(() {
       isValidLink = linkRegex.hasMatch(text);

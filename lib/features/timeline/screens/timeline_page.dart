@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/cubits/my_data/my_data_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/my_data/my_data_state.dart';
@@ -162,8 +163,4 @@ class _TimelinePageState extends State<TimelinePage> {
           ));
     });
   }
-}
-
-String addBaseUrls(String url) {
-  return "https://beta-api.rigow.com/$url";
 }

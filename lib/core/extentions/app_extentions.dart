@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rigow/core/colors/app_colors.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 double appHight(BuildContext context, double h) {
   return MediaQuery.of(context).size.height * h;
@@ -53,9 +54,19 @@ TextInputFormatter noSpaceFormatter() {
       return newValue;
     },
   );
-} //  noSpaceFormatter(),   to call it 
+} //  noSpaceFormatter(),   to call it
 
+void launchURL(String url) async {
+  if (await canLaunchUrlString(url)) {
+    await launchUrlString(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
+String addBaseUrls(String url) {
+  return "https://beta-api.rigow.com/$url";
+}
 
 // to Navigat to any page
 
@@ -65,7 +76,7 @@ TextInputFormatter noSpaceFormatter() {
 //    AppLocalizations.of(context)!.appName,   to localization
 
 // ----------to push without return back----------
-  // Navigator.of(context).pushAndRemoveUntil(
-  //          MaterialPageRoute(
-  //            builder: (context) => const TimelinePage(),),
-  //              (Route<dynamic> route) => false, );
+// Navigator.of(context).pushAndRemoveUntil(
+//          MaterialPageRoute(
+//            builder: (context) => const TimelinePage(),),
+//              (Route<dynamic> route) => false, );

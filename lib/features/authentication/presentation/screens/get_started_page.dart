@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/get_started_end_body.dart';
 import 'package:rigow/features/authentication/presentation/widgets/user_registar_part/signup_part/sign_with_buttons.dart';
 import 'package:rigow/l10n/app_localizations.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class GetStartedPage extends StatefulWidget {
   final String role;
@@ -82,7 +82,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              _launchURL('https://www.rigow.com/terms');
+                              launchURL('https://www.rigow.com/terms');
                             },
                         ),
                         const TextSpan(
@@ -102,7 +102,7 @@ class _GetStartedPageState extends State<GetStartedPage> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              _launchURL('https://www.rigow.com/privacy');
+                              launchURL('https://www.rigow.com/privacy');
                             },
                         ),
                         const TextSpan(
@@ -129,13 +129,5 @@ class _GetStartedPageState extends State<GetStartedPage> {
         ),
       ),
     );
-  }
-
-  void _launchURL(String url) async {
-    if (await canLaunchUrlString(url)) {
-      await launchUrlString(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }

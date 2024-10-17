@@ -32,13 +32,15 @@ class CompleteExpertCubit extends Cubit<CompleteExpertState> {
       );
       final List<String> uploadedCertificates = [];
       for (String certificate in completeExpertProfileInput.otherCertificates) {
-        final String uploadedCertificate = await uploadExpertFile(
-          UploadFiledInput(
-            file: certificate,
-            model: "EXPERT_DOCUMENT",
-          ),
-        );
-        uploadedCertificates.add(uploadedCertificate);
+        if (certificate.isNotEmpty) {
+          final String uploadedCertificate = await uploadExpertFile(
+            UploadFiledInput(
+              file: certificate,
+              model: "EXPERT_DOCUMENT",
+            ),
+          );
+          uploadedCertificates.add(uploadedCertificate);
+        }
       }
       String? governmentPermitUrl;
       if (completeExpertProfileInput.governmentPermitUrl.isNotEmpty) {

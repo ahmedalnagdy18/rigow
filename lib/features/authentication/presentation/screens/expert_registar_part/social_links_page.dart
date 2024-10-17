@@ -104,11 +104,16 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
                           child: _getIconForLink(link),
                         )),
                     Expanded(
-                      child: Text(
-                        link,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppTexts.miniRegular.copyWith(
-                          color: AppColors.facebook,
+                      child: InkWell(
+                        onTap: () {
+                          launchURL(link);
+                        },
+                        child: Text(
+                          link,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTexts.miniRegular.copyWith(
+                            color: AppColors.facebook,
+                          ),
                         ),
                       ),
                     ),

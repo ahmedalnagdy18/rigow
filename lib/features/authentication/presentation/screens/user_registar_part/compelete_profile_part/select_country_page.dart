@@ -245,6 +245,8 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                               selectedCountry = value;
                               selectedCity = null;
                               selectedArea = null;
+                              searchController.clear();
+                              _pagingController.refresh();
                               _pagingController2.refresh();
                             });
                           },
@@ -280,6 +282,8 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                               setState(() {
                                 selectedCity = value;
                                 selectedArea = null;
+                                citySearchController.clear();
+                                _pagingController2.refresh();
                                 _pagingController3.refresh();
                               });
                             },
@@ -313,6 +317,10 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
                             selectedValue: selectedArea,
                             onSelect: (value) {
                               setState(() {
+                                citySearchController.clear();
+                                _pagingController3.refresh();
+                                stateSearchController.clear();
+                                _pagingController2.refresh();
                                 selectedArea = value;
                               });
                             },

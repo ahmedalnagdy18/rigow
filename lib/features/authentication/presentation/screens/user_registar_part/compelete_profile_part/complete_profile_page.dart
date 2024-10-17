@@ -117,6 +117,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
   UserGenderEnum? selectedGender;
   final bioText = TextEditingController();
   bool _isButtonEnabled = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +131,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Form(
+                    key: _formKey,
                     autovalidateMode: AutovalidateMode.always,
                     onChanged: _isEnabled,
                     child: Column(
@@ -196,7 +198,8 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                                 BlocProvider.of<CompleteProfileCubit>(context)
                                     .state;
 
-                            if (state is ErrorValidateUsernameState) {
+                            if (state is ErrorValidateUsernameState &&
+                                _userName.text.isNotEmpty) {
                               return state.message;
                             }
                             return null;
@@ -254,6 +257,13 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                                 inputFormatters: [
                                   noSpaceFormatter(),
                                 ],
+                                validator: (value) {
+                                  if (widget.role == 'Expert' &&
+                                      bioText.text.isEmpty) {
+                                    return "";
+                                  }
+                                  return null;
+                                },
                                 mycontroller: bioText,
                                 obscureText: false,
                                 hintText: AppLocalizations.of(context)!
@@ -289,25 +299,25 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
                 text: state is LoadingUploadFileState
                     ? AppLocalizations.of(context)!.loading
                     : AppLocalizations.of(context)!.next,
-                onPressed:
-                    _isButtonEnabled && state is SucsessValidateUsernameState
-                        ? () async {
-                            //   final path = await _uploadPhoto(context);
-                            setState(() {
-                              widget.onSelectedImage(File(image?.path ?? ""));
-                            });
+                onPressed: _isButtonEnabled && _formKey.currentState!.validate()
+                    ? () async {
+                        //   final path = await _uploadPhoto(context);
+                        setState(() {
+                          widget.onSelectedImage(File(image?.path ?? ""));
+                        });
 
-                            widget.onPressed(
-                              bioText.text,
-                              _userName.text,
-                              selectedGender!,
-                              selectedDate!,
-                            );
-                          }
-                        : null,
-                grideantColors: !_isButtonEnabled
-                    ? [AppColors.darkGrey, AppColors.darkGrey]
-                    : AppColors.mainRed,
+                        widget.onPressed(
+                          bioText.text,
+                          _userName.text,
+                          selectedGender!,
+                          selectedDate!,
+                        );
+                      }
+                    : null,
+                grideantColors:
+                    _isButtonEnabled && _formKey.currentState!.validate()
+                        ? AppColors.mainRed
+                        : [AppColors.darkGrey, AppColors.darkGrey],
                 textColor: Colors.white,
               ),
             ],
@@ -332,9 +342,9 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
     BottomPicker.date(
       pickerTitle: const SizedBox(),
       dateOrder: DatePickerDateOrder.dmy,
-      initialDateTime: DateTime(1996, 10, 22),
-      maxDateTime: DateTime(2018),
-      minDateTime: DateTime(1980),
+      initialDateTime: selectedDate,
+      maxDateTime: DateTime.now(),
+      minDateTime: DateTime(1970),
       pickerTextStyle: const TextStyle(
         color: Colors.black,
         fontWeight: FontWeight.w500,
