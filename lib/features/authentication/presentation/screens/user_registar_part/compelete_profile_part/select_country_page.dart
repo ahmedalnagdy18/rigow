@@ -87,7 +87,11 @@ class _SelectCountryPage extends StatefulWidget {
   State<_SelectCountryPage> createState() => _SelectCountryPageState();
 }
 
-class _SelectCountryPageState extends State<_SelectCountryPage> {
+class _SelectCountryPageState extends State<_SelectCountryPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   static const _pageSize = 20;
   final PagingController<int, CountriesModel> _pagingController =
       PagingController(firstPageKey: 1);
@@ -205,6 +209,7 @@ class _SelectCountryPageState extends State<_SelectCountryPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocConsumer<CountriesCubit, CountriesState>(
       listener: (context, state) {
         if (state is ErrorCountriesState) {

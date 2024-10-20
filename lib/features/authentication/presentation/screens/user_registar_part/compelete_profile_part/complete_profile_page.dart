@@ -76,7 +76,10 @@ class _CompleteProfilePage extends StatefulWidget {
   State<_CompleteProfilePage> createState() => _CompleteProfilePageState();
 }
 
-class _CompleteProfilePageState extends State<_CompleteProfilePage> {
+class _CompleteProfilePageState extends State<_CompleteProfilePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   File? image;
   File? pdf;
   DateTime? selectedDate;
@@ -121,6 +124,7 @@ class _CompleteProfilePageState extends State<_CompleteProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocConsumer<CompleteProfileCubit, CompleteProfileState>(
       listener: (context, state) {},
       builder: (context, state) {

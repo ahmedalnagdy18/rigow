@@ -23,7 +23,11 @@ class SetExpertAccountPage extends StatefulWidget {
   State<SetExpertAccountPage> createState() => _SetExpertAccountPageState();
 }
 
-class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
+class _SetExpertAccountPageState extends State<SetExpertAccountPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   String? customFaculty;
   String? customDepartment;
   int? _specialityId;
@@ -73,6 +77,7 @@ class _SetExpertAccountPageState extends State<SetExpertAccountPage> {
   bool _isShowGovernmentPermit = false;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: Form(

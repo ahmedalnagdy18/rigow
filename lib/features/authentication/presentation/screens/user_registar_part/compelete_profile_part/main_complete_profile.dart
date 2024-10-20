@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/custom_indicator.dart';
+import 'package:rigow/core/common/custom_widgets/on_complete_appbar.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/complete_expert_profile_data_input.dart';
 import 'package:rigow/features/authentication/presentation/cubits/main_user_complete_profile/main_complete_profile_cubit.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/complete_profile_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/select_country_page.dart';
-import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
 import 'package:rigow/injection_container.dart';
-import 'package:rigow/l10n/app_localizations.dart';
 
 class MainCompleteYourProfilePage extends StatelessWidget {
   const MainCompleteYourProfilePage(
@@ -70,9 +69,16 @@ class _MainCompleteYourProfilePageState
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AuthenticationAppbar(
-        title: AppLocalizations.of(context)!.completeProfile,
-        automaticallyImplyLeading: false,
+      appBar: OnCompleteAppbar(
+        automaticallyImplyLeading: _currint == 0 ? false : true,
+        currint: _currint,
+        onPressed: () {
+          if (_currint > 0) {
+            _controller.previousPage(
+                duration: const Duration(microseconds: 300),
+                curve: Curves.easeIn);
+          }
+        },
       ),
       body: SafeArea(
         child: Padding(

@@ -98,18 +98,24 @@ class _VerificationPageState extends State<_VerificationPage> {
           showErrorToastMessage(message: state.message);
         } else if (state is SucsessVerifyUserState) {
           widget.role == 'Expert'
-              ? Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => ExpertMainComplete(
-                        role: widget.role,
-                        firstName: state.dataForComplete.firstName,
-                        lastName: state.dataForComplete.lastName,
-                      )))
-              : Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => MainCompleteYourProfilePage(
-                        role: widget.role,
-                        firstName: state.dataForComplete.firstName,
-                        lastName: state.dataForComplete.lastName,
-                      )));
+              ? Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => ExpertMainComplete(
+                            role: widget.role,
+                            firstName: state.dataForComplete.firstName,
+                            lastName: state.dataForComplete.lastName,
+                          )),
+                  (Route<dynamic> route) => false,
+                )
+              : Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => MainCompleteYourProfilePage(
+                            role: widget.role,
+                            firstName: state.dataForComplete.firstName,
+                            lastName: state.dataForComplete.lastName,
+                          )),
+                  (Route<dynamic> route) => false,
+                );
         }
       },
       builder: (context, state) {
