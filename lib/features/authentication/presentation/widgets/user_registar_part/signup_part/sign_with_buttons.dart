@@ -1,23 +1,25 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rigow/core/colors/app_colors.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
+import 'package:rigow/core/shared_prefrances/shared_prefrance.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/check_social_provider_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_login_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_merge_input.dart';
+import 'package:rigow/features/authentication/domain/model/check_provider_model.dart';
 import 'package:rigow/features/authentication/presentation/cubits/check_social_login/check_social_login_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/check_social_login/check_social_login_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/google_part/google_signup_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/signup_part/main_signup.dart';
+import 'package:rigow/features/authentication/presentation/widgets/user_registar_part/signup_part/apple_button.dart';
 import 'package:rigow/features/timeline/screens/timeline_page.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:http/http.dart' as http;
 
 class SignWithButtonsWidget extends StatelessWidget {
   const SignWithButtonsWidget({super.key, required this.role});
@@ -27,7 +29,9 @@ class SignWithButtonsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CheckSocialLoginCubit(
-          checkSocialProviderUsecase: sl(), socialLoginUsecase: sl()),
+          checkSocialProviderUsecase: sl(),
+          socialLoginUsecase: sl(),
+          socialMergeUsecase: sl()),
       child: _SignWithButtonsWidget(
         role: role,
       ),
@@ -49,7 +53,8 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
   String? _lastName;
   String? _authToken;
   String? _providerId;
-
+  CheckProviderEnum? registerEnum = CheckProviderEnum.register;
+  CheckProviderEnum? mergeEnum = CheckProviderEnum.merge;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CheckSocialLoginCubit, CheckSocialLoginState>(
@@ -58,13 +63,43 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => const TimelinePage(),
         ));
+      } else if (state is SucsessCheckSocialState) {
+        if (state.myData.actionRequired == "REGISTER") {
+          //   print("=====  ${state.myData.actionRequired}");
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => GoogleSignupPage(
+              role: widget.role,
+              firstName: _firstName ?? "",
+              lastName: _lastName ?? '',
+              authToken: _authToken ?? "",
+              email: _email ?? "",
+              providerId: _providerId ?? "",
+            ),
+          ));
+        } else if (state.myData.actionRequired == "MERGE") {
+          //   print('hi MERGE');
+          final token = state.myData.token;
+          SharedPrefrance.instanc.setToken(key: 'token', token: token ?? '');
+          _socialMerge(context);
+        }
+      } else if (state is ErrorCheckSocialState) {
+        //   print("nooooooooo");
+        //   print("___________::::: ${state.message.toString()}");
+      } else if (state is SucsessSocialMergeState) {
+        //   print('Sucsess Merge');
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const TimelinePage(),
+        ));
+      } else if (state is ErrorSocialMergeState) {
+        //   print('Erorr Merge');
+        //   print("====== ${state.message}");
       }
     }, builder: (context, state) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          // email button
+          //! email button
           SocialAuthenticationButton(
             image: 'assets/images/email.png',
             color: AppColors.lightGrey,
@@ -78,20 +113,12 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
             textColor: Colors.black,
           ),
           const SizedBox(height: 8),
-          // google button
+          //! google button
           BlocListener<CheckSocialLoginCubit, CheckSocialLoginState>(
             listener: (context, state) {
               if (state is ErrorSocialLoginState && _firstName != null) {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => GoogleSignupPage(
-                    role: widget.role,
-                    firstName: _firstName ?? "",
-                    lastName: _lastName ?? '',
-                    authToken: _authToken ?? "",
-                    email: _email ?? "",
-                    providerId: _providerId ?? "",
-                  ),
-                ));
+                _checkSocial(context);
+                //     print('login field');
               }
             },
             child: SocialAuthenticationButton(
@@ -167,7 +194,7 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
             ),
           ),
           const SizedBox(height: 8),
-          // facebook button
+          //! facebook button
           SocialAuthenticationButton(
             image: 'assets/images/facebook.png',
             color: AppColors.facebook,
@@ -179,84 +206,22 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
             textColor: Colors.white,
           ),
           SizedBox(height: Platform.isIOS ? 8 : 0),
-          // apple button
-          Platform.isIOS
-              ? SocialAuthenticationButton(
-                  image: 'assets/images/apple.png',
-                  color: Colors.black,
-                  onPressed: () async {
-                    try {
-                      final credential =
-                          await SignInWithApple.getAppleIDCredential(
-                        scopes: [
-                          AppleIDAuthorizationScopes.email,
-                          AppleIDAuthorizationScopes.fullName,
-                        ],
-                        webAuthenticationOptions: WebAuthenticationOptions(
-                          clientId: kIsWeb
-                              ? 'com.example.webclient'
-                              : 'com.example.mobileclient',
-                          redirectUri: kIsWeb
-                              ? Uri.parse('https://${Uri.base.host}/callback')
-                              : Uri.parse(
-                                  'https://your-server.com/callbacks/sign_in_with_apple'),
-                        ),
-                        nonce: 'example-nonce',
-                        state: 'example-state',
-                      );
-
-                      final signInWithAppleEndpoint = Uri(
-                        scheme: 'https',
-                        host: 'your-server.com',
-                        path: '/sign_in_with_apple',
-                        queryParameters: <String, String>{
-                          'code': credential.authorizationCode,
-                          if (credential.givenName != null)
-                            'firstName': credential.givenName!,
-                          if (credential.familyName != null)
-                            'lastName': credential.familyName!,
-                          'useBundleId':
-                              !kIsWeb && (Platform.isIOS || Platform.isMacOS)
-                                  ? 'true'
-                                  : 'false',
-                          if (credential.state != null)
-                            'state': credential.state!,
-                        },
-                      );
-
-                      final response = await http.Client().post(
-                        signInWithAppleEndpoint,
-                      );
-
-                      if (response.statusCode == 200) {
-                        //   print('Successfully signed in with Apple.');
-                      } else {
-                        //   print('Failed to sign in with Apple.');
-                      }
-                    } catch (e) {
-                      //    print('Apple Sign-In Error: $e');
-                      showErrorToastMessage(message: "Apple Sign-In failed");
-                    }
-                  },
-                  text: AppLocalizations.of(context)!.continueWithApple,
-                  textColor: Colors.white,
-                )
-              : const SizedBox(),
+          //! apple button
+          Platform.isIOS ? const AppleButton() : const SizedBox(),
         ],
       );
     });
   }
 
-  // void _checkSocial(BuildContext context) {
-  //   print(_providerId);
-  //   BlocProvider.of<CheckSocialLoginCubit>(context).checkSocialFunc(
-  //       input: CheckSocialProviderInput(
-  //     authToken: CheckProviderAuth(authToken: _authToken ?? ""),
-  //     email: _email ?? "",
-  //     provider: CheckProviderEnum.google,
-  //     providerId: _providerId ?? "",
-  //   ));
-  // }
+  _checkSocial(BuildContext context) {
+    BlocProvider.of<CheckSocialLoginCubit>(context).checkSocialFunc(
+        input: CheckSocialProviderInput(
+      authToken: CheckProviderAuth(authToken: _authToken ?? ""),
+      email: _email ?? "",
+      provider: CheckProviderSocialEnum.google,
+      providerId: _providerId ?? "",
+    ));
+  }
 
   void _socialLogin(BuildContext context) {
     SocialUserRoleEnum userRoleEnum;
@@ -281,6 +246,25 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
       role: userRoleEnum,
       loginDetails: SocialLoginDetailsInput("", deviceType),
       provider: SocialProviderEnum.google,
+      providerId: _providerId ?? "",
+    ));
+  }
+
+  _socialMerge(BuildContext context) {
+    SocialMergeDeviceEnum deviceType;
+    if (Platform.isAndroid) {
+      deviceType = SocialMergeDeviceEnum.android;
+    } else if (Platform.isIOS) {
+      deviceType = SocialMergeDeviceEnum.ios;
+    } else {
+      deviceType = SocialMergeDeviceEnum.desktop;
+    }
+    BlocProvider.of<CheckSocialLoginCubit>(context).socialMerge(
+        input: SocialMergeInput(
+      loginDetails: SocialMergeDetailsInput("", deviceType),
+      authToken: SocialMergeAuth(authToken: _authToken ?? ""),
+      email: _email ?? "",
+      provider: SocialMergeEnum.google,
       providerId: _providerId ?? "",
     ));
   }

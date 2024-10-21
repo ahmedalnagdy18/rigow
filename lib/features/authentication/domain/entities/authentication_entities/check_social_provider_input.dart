@@ -1,7 +1,7 @@
 class CheckSocialProviderInput {
   final String email;
   final String providerId;
-  final CheckProviderEnum provider;
+  final CheckProviderSocialEnum provider;
   final CheckProviderAuth authToken;
 
   CheckSocialProviderInput(
@@ -11,7 +11,7 @@ class CheckSocialProviderInput {
       required this.authToken});
 }
 
-enum CheckProviderEnum {
+enum CheckProviderSocialEnum {
   facebook,
   twitter,
   google,

@@ -9,12 +9,15 @@ import 'package:rigow/features/authentication/domain/entities/authentication_ent
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/reset_password_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_login_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_merge_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_register_input.dart';
 
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/user_data_for_complete.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_forget_password_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_user_input.dart';
+import 'package:rigow/features/authentication/domain/model/check_provider_model.dart';
 import 'package:rigow/features/authentication/domain/model/social_login_model.dart';
+import 'package:rigow/features/authentication/domain/model/social_merge_model.dart';
 
 abstract class AuthenticationRepository {
   Future<AllUserData> loginWithEmailAndPassword(LoginInput input);
@@ -27,6 +30,8 @@ abstract class AuthenticationRepository {
   Future<void> socialRegister(SocialRegisterInput input);
   Future<UserDataEntity> myData();
   Future<void> logout(LogoutInput input);
-  Future<UserDataEntity> checkSocialProvider(CheckSocialProviderInput input);
+  Future<CheckProviderModel> checkSocialProvider(
+      CheckSocialProviderInput input);
   Future<SocialLoginModel> socialLogin(SocialLoginInput input);
+  Future<SocialMergeModel> socialMerge(SocialMergeInput input);
 }

@@ -15,12 +15,15 @@ class TimelinePage extends StatefulWidget {
   State<TimelinePage> createState() => _TimelinePageState();
 }
 
-class _TimelinePageState extends State<TimelinePage> {
+class _TimelinePageState extends State<TimelinePage>
+    with SingleTickerProviderStateMixin {
   int selectedindex = 0;
+  late final TabController tabController;
   // UserDataEntity? entity;
 
   @override
   void initState() {
+    tabController = TabController(length: 4, vsync: this);
     context.read<MyDataCubit>().getUserDataInfo();
     super.initState();
   }
@@ -60,14 +63,14 @@ class _TimelinePageState extends State<TimelinePage> {
           ),
           backgroundColor: Colors.white,
           body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Stack(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+            child: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
                         children: [
                           SizedBox(
                               height: 26,
@@ -80,15 +83,34 @@ class _TimelinePageState extends State<TimelinePage> {
                           const SizedBox(width: 16),
                           const Icon(Icons.notifications_none_outlined),
                           const SizedBox(width: 16),
-                          const Icon(Icons.filter_list),
+                          InkWell(
+                            onTap: () {
+                              state is SucsessMyDataState
+                                  ? showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return const LogoutAlertDailog();
+                                      },
+                                    )
+                                  : null;
+                            },
+                            child: const Icon(Icons.filter_list),
+                          ),
                         ],
                       ),
-                      const Divider(
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Divider(
                         color: Colors.red,
                         thickness: 2,
                       ),
-                      const SizedBox(height: 16),
-                      Row(
+                    ),
+                    const SizedBox(height: 16),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
                         children: [
                           Container(
                               width: 40,
@@ -135,30 +157,61 @@ class _TimelinePageState extends State<TimelinePage> {
                             ),
                           )
                         ],
-                      )
-                    ],
-                  ),
-                  state is SucsessMyDataState
-                      ? Center(
-                          child: InkWell(
-                            onTap: () {
-                              showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) {
-                                  return const LogoutAlertDailog();
-                                },
-                              );
-                            },
-                            child: const Icon(
-                              Icons.logout,
-                              color: Colors.red,
-                            ),
-                          ),
-                        )
-                      : const SizedBox()
-                ],
-              ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    state is SucsessMyDataState
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 120,
+                                child: ListView.separated(
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      width: 84,
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    );
+                                  },
+                                  physics: const BouncingScrollPhysics(),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(width: 12),
+                                  itemCount: 10,
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              // tapbar
+                              // TabBar(
+                              //   dividerColor: Colors.white,
+                              //   dividerHeight: 4,
+                              //   controller: tabController,
+                              //   indicatorPadding: const EdgeInsets.all(10),
+                              //   unselectedLabelColor: Colors.black,
+                              //   labelColor: Colors.white,
+                              //   indicatorColor: Colors.white,
+                              //   tabs: const [
+                              //     Tab(text: 'UnAssigned'),
+                              //     Tab(text: 'Assigned'),
+                              //     Tab(text: 'Completed'),
+                              //   ],
+                              // ),
+                              // TabBarView(
+                              //   controller: tabController,
+                              //   children: const [],
+                              // )
+                            ],
+                          )
+                        : const SizedBox()
+                  ],
+                ),
+              ],
             ),
           ));
     });

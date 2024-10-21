@@ -38,15 +38,15 @@ enum ApiCheckProvidersEnum {
   APPLE,
 }
 
-ApiCheckProvidersEnum socialCheckProvidersEnum(CheckProviderEnum type) {
+ApiCheckProvidersEnum socialCheckProvidersEnum(CheckProviderSocialEnum type) {
   switch (type) {
-    case CheckProviderEnum.apple:
+    case CheckProviderSocialEnum.apple:
       return ApiCheckProvidersEnum.APPLE;
-    case CheckProviderEnum.google:
+    case CheckProviderSocialEnum.google:
       return ApiCheckProvidersEnum.GOOGLE;
-    case CheckProviderEnum.facebook:
+    case CheckProviderSocialEnum.facebook:
       return ApiCheckProvidersEnum.FACEBOOK;
-    case CheckProviderEnum.twitter:
+    case CheckProviderSocialEnum.twitter:
       return ApiCheckProvidersEnum.TWITTER;
   }
 }

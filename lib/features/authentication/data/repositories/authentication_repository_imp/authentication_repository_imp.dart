@@ -7,6 +7,7 @@ import 'package:rigow/features/authentication/data/model/api_authentication/api_
 import 'package:rigow/features/authentication/data/model/api_authentication/api_logout.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_reset_password.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_social_login.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/api_social_merge.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_social_register.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_verify_forget_password.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/api_register_resonse_result.dart';
@@ -20,6 +21,7 @@ import 'package:rigow/features/authentication/data/model/api_authentication/inpu
 import 'package:rigow/features/authentication/data/model/api_authentication/input/register/api_social_register_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/reset_password/api_reset_password_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/send_email_verification/api_send_email_verification_input.dart';
+import 'package:rigow/features/authentication/data/model/api_authentication/input/social_merge/api_social_merge_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/verify_forget_password/api_verify_forget_password_input.dart';
 import 'package:rigow/features/authentication/data/model/api_authentication/input/verify_user/api_verify_user_input.dart';
 import 'package:rigow/features/authentication/data/model/my_data/api_mydata.dart';
@@ -31,13 +33,16 @@ import 'package:rigow/features/authentication/domain/entities/authentication_ent
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/my_data_inputs.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/reset_password_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_login_input.dart';
+import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_merge_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/social_register_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_forget_password_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/register_input.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/send_email_verification.dart';
 import 'package:rigow/features/authentication/domain/entities/complete_profile_entities/user_data_for_complete.dart';
 import 'package:rigow/features/authentication/domain/entities/authentication_entities/verify_user_input.dart';
+import 'package:rigow/features/authentication/domain/model/check_provider_model.dart';
 import 'package:rigow/features/authentication/domain/model/social_login_model.dart';
+import 'package:rigow/features/authentication/domain/model/social_merge_model.dart';
 import 'package:rigow/features/authentication/domain/repositories/authentication_repository.dart';
 
 class AuthenticationRepositoryImp extends AuthenticationRepository {
@@ -265,7 +270,7 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
   }
 
   @override
-  Future<UserDataEntity> checkSocialProvider(
+  Future<CheckProviderModel> checkSocialProvider(
       CheckSocialProviderInput input) async {
     final result = await graphQLClient.mutate(
       MutationOptions(
@@ -278,11 +283,8 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
 
     final response =
         ApiCheckSocialProvider.fromJson(result.data!).checkSocialProviderStatus;
-
-    if (response != null && response.code == 200) {
-      final data = response.data!.user;
-      final allMyData = data!.toMyData();
-      return allMyData;
+    if (response != null && response.code == 200 && response.data != null) {
+      return response.data!.mapCheck();
     } else {
       throw FormatException(response?.message ?? "");
     }
@@ -303,6 +305,30 @@ class AuthenticationRepositoryImp extends AuthenticationRepository {
     if (response != null && response.code == 200) {
       final data = response.data;
       final allMyData = data?.socialLogModel();
+      final token = response.data?.token;
+
+      SharedPrefrance.instanc.setToken(key: 'token', token: token ?? '');
+      return allMyData!;
+    } else {
+      throw FormatException(response?.message ?? "");
+    }
+  }
+
+  @override
+  Future<SocialMergeModel> socialMerge(SocialMergeInput input) async {
+    final result = await graphQLClient.mutate(
+      MutationOptions(
+        document: gql(socialMergee),
+        variables: {
+          "input": ApiSocialMergeInput.fromInput(input).toJson(),
+        },
+      ),
+    );
+
+    final response = ApiSocialMerge.fromJson(result.data!).socialMerge;
+    if (response != null && response.code == 200) {
+      final data = response.data;
+      final allMyData = data?.socialMergeModel();
       final token = response.data?.token;
 
       SharedPrefrance.instanc.setToken(key: 'token', token: token ?? '');

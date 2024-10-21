@@ -57,9 +57,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void timerr(String? token, UserDataEntity? userData) {
-    Timer(
-      const Duration(seconds: 2),
-      () => Navigator.pushReplacement(
+    Timer(const Duration(seconds: 2), () {
+      if (!mounted) return;
+      Navigator.pushReplacement(
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) {
@@ -98,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen> {
             );
           },
         ),
-      ),
-    );
+      );
+    });
   }
 }

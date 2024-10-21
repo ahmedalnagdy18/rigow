@@ -320,14 +320,10 @@ const String checkSocialProviderStatuss = r"""
 query checkSocialProviderStatus($input:CheckSocialStatusInput!){
   checkSocialProviderStatus(input:$input){
     data{
-      user{
-        firstName
-        lastName
-        role
-        profilePicture
-        hasCompletedRegistration
-        token
-      }
+      actionRequired
+    user{
+      token
+    }
     }
     code
     success
@@ -339,6 +335,23 @@ query checkSocialProviderStatus($input:CheckSocialStatusInput!){
 const String socialLoginn = r"""
 mutation socialLogin($input: SocialLoginInput!){
   socialLogin(input:$input){
+   data{
+    id
+    firstName
+    profilePicture
+    lastName
+    token
+  }
+   code
+   success
+   message
+} 
+}
+""";
+
+const String socialMergee = r"""
+mutation socialMerge($input: SocialMergeInput!){
+  socialMerge(input:$input){
    data{
     id
     firstName

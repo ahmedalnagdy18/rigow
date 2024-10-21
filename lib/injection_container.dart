@@ -10,6 +10,7 @@ import 'package:rigow/features/authentication/domain/usecases/authentication_use
 import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/logout_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/my_data_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/social_login_usecase.dart';
+import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/social_merge_usecase.dart';
 import 'package:rigow/features/authentication/domain/usecases/authentication_usecases/social_register_usecase.dart';
 
 import 'package:rigow/features/authentication/domain/usecases/complete_profile_usecases/city_usecase.dart';
@@ -99,6 +100,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<SocialLoginUsecase>(
       () => SocialLoginUsecase(repository: sl()));
+
+  sl.registerLazySingleton<SocialMergeUsecase>(
+      () => SocialMergeUsecase(repository: sl()));
 
 // Repository
 
