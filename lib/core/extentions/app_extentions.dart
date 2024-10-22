@@ -68,6 +68,52 @@ String addBaseUrls(String url) {
   return "https://beta-api.rigow.com/$url";
 }
 
+getIconForLink(String link) {
+  if (link.contains("www.facebook.com")) {
+    return SizedBox(
+      width: 20,
+      height: 20,
+      child: Image.asset(
+        "assets/images/facebook.png",
+        fit: BoxFit.cover,
+      ),
+    );
+  } else if (link.contains("www.instagram.com")) {
+    return SizedBox(
+      width: 20,
+      height: 20,
+      child: Image.asset(
+        "assets/images/instagram.png",
+        fit: BoxFit.cover,
+      ),
+    );
+  } else if (link.contains("www.youtube.com")) {
+    return SizedBox(
+      width: 20,
+      height: 20,
+      child: Image.asset(
+        "assets/images/youtube.png",
+        fit: BoxFit.cover,
+      ),
+    );
+  } else if (link.contains("x.com")) {
+    return SizedBox(
+      width: 20,
+      height: 20,
+      child: Image.asset(
+        "assets/images/twitter.png",
+        fit: BoxFit.cover,
+      ),
+    );
+  } else {
+    return const Icon(
+      Icons.link,
+      size: 20,
+      color: Colors.grey,
+    );
+  }
+}
+
 // to Navigat to any page
 
 // Navigator.of(context).push(MaterialPageRoute(

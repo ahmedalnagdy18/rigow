@@ -286,6 +286,13 @@ query me{
       expertRequestStatus
       canPost
       isFollowed
+      expert{
+      bio
+      socialLinks
+        specialty{
+          name
+        }
+    }
     }
     code
     success

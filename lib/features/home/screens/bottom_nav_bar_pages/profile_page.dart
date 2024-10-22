@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rigow/core/colors/app_colors.dart';
+import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/cubits/my_data/my_data_cubit.dart';
@@ -14,6 +15,9 @@ class ProfilePage extends StatelessWidget {
     return BlocBuilder<MyDataCubit, MyDataState>(
       builder: (context, state) {
         if (state is SucsessMyDataState) {
+          final user = state.myData;
+          final socialLinks = user.expert?.socialLinks;
+
           return Scaffold(
             backgroundColor: Colors.white,
             body: SafeArea(
@@ -61,8 +65,8 @@ class ProfilePage extends StatelessWidget {
                       const SizedBox(height: 16),
                       Row(children: [
                         Container(
-                          width: 55,
-                          height: 55,
+                          width: 60,
+                          height: 60,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
@@ -70,7 +74,7 @@ class ProfilePage extends StatelessWidget {
                           ),
                           clipBehavior: Clip.antiAlias,
                           child: Image.network(
-                            addBaseUrls(state.myData.profilePicture ?? ''),
+                            addBaseUrls(user.profilePicture ?? ''),
                             fit: BoxFit.contain,
                             errorBuilder: (context, error, stackTrace) {
                               return Image.asset("assets/images/rigow.png");
@@ -82,12 +86,12 @@ class ProfilePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "${state.myData.firstName} ${state.myData.lastName}",
-                              style: AppTexts.miniRegular,
+                              "${user.fullName}",
+                              style: AppTexts.regular,
                             ),
                             Text(
                               "@${state.myData.username}",
-                              style: AppTexts.small
+                              style: AppTexts.miniRegular
                                   .copyWith(color: AppColors.tapBorder),
                             ),
                           ],
@@ -95,7 +99,65 @@ class ProfilePage extends StatelessWidget {
                       ]),
                       const SizedBox(height: 16),
                       Text(
-                          "${state.myData.followersCount} followers | ${state.myData.followingsCount} following")
+                          "${user.followersCount} followers | ${user.followingsCount} following"),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        height: 40,
+                        width: appWidth(context, 0.48),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: ColoredButtonWidget(
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                  size: 16,
+                                ),
+                                grideantColors: AppColors.mainRed,
+                                onPressed: () {},
+                                text: "Edit",
+                                textColor: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: TranceparentButtonWidget(
+                                icon: const Icon(
+                                  Icons.reply,
+                                  color: Colors.black,
+                                  size: 16,
+                                ),
+                                borderColor: AppColors.appBarRed,
+                                onPressed: () {
+                                  // Navigator.of(context).pop();
+                                },
+                                text: "Share",
+                                textColor: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        height: 20,
+                        child: ListView.separated(
+                          itemBuilder: (context, index) {
+                            return SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: getIconForLink(socialLinks?[index] ?? ''),
+                            );
+                          },
+                          physics: const NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(width: 12),
+                          itemCount: socialLinks?.length ?? 0,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text('${user.expert?.bio}')
                     ]),
               ),
             ),

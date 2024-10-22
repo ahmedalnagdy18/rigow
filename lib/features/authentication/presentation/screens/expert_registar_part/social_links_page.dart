@@ -19,42 +19,6 @@ class SocialLinksPage extends StatefulWidget {
 
 class _SocialLinksPageState extends State<SocialLinksPage> {
   List<String> socialLinks = [];
-  _getIconForLink(String link) {
-    if (link.contains("www.facebook.com")) {
-      return SizedBox(
-        width: 20,
-        height: 20,
-        child: Image.asset(
-          "assets/images/facebook.png",
-          fit: BoxFit.cover,
-        ),
-      );
-    } else if (link.contains("www.instagram.com")) {
-      return SizedBox(
-        width: 20,
-        height: 20,
-        child: Image.asset(
-          "assets/images/instagram.png",
-          fit: BoxFit.cover,
-        ),
-      );
-    } else if (link.contains("www.youtube.com")) {
-      return SizedBox(
-        width: 20,
-        height: 20,
-        child: Image.asset(
-          "assets/images/youtube.png",
-          fit: BoxFit.cover,
-        ),
-      );
-    } else {
-      return const Icon(
-        Icons.link,
-        size: 20,
-        color: Colors.grey,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +65,7 @@ class _SocialLinksPageState extends State<SocialLinksPage> {
                         child: SizedBox(
                           width: 20,
                           height: 20,
-                          child: _getIconForLink(link),
+                          child: getIconForLink(link),
                         )),
                     Expanded(
                       child: InkWell(

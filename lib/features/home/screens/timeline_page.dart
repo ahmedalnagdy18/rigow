@@ -173,11 +173,13 @@ class _TimelinePageState extends State<TimelinePage>
                                   const EdgeInsets.symmetric(horizontal: 16),
                               child: TabBar(
                                 indicatorPadding:
-                                    const EdgeInsets.only(bottom: 2),
+                                    const EdgeInsets.only(bottom: 4),
                                 indicatorSize: TabBarIndicatorSize.tab,
                                 indicatorWeight: 1,
                                 dividerHeight: 1,
                                 controller: tabController,
+                                overlayColor:
+                                    WidgetStateProperty.all(Colors.white),
                                 unselectedLabelColor: Colors.grey,
                                 labelColor: Colors.black,
                                 indicatorColor: Colors.black,

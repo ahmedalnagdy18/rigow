@@ -20,6 +20,7 @@ class UserDataEntity {
   final dynamic expertRequestStatus;
   final bool? canPost;
   final bool? isFollowed;
+  final ExpertDataUser? expert;
 
   UserDataEntity(
       {required this.firstName,
@@ -40,7 +41,8 @@ class UserDataEntity {
       required this.readableCreatedAt,
       required this.expertRequestStatus,
       required this.canPost,
-      required this.isFollowed});
+      required this.isFollowed,
+      required this.expert});
 }
 
 extension DataMapper on ApiUserDataInfo {
@@ -65,6 +67,40 @@ extension DataMapper on ApiUserDataInfo {
       expertRequestStatus: expertRequestStatus,
       canPost: canPost,
       isFollowed: isFollowed,
+      expert: expert?.toExpertData(),
+    );
+  }
+}
+
+class ExpertDataUser {
+  final String? bio;
+  final List<String>? socialLinks;
+  final SpecialtyData? specialty;
+
+  ExpertDataUser(
+      {required this.bio, required this.socialLinks, required this.specialty});
+}
+
+extension ExpertDataMapper on Expert {
+  ExpertDataUser toExpertData() {
+    return ExpertDataUser(
+      bio: bio,
+      socialLinks: socialLinks,
+      specialty: specialty?.toSpecialtyData(),
+    );
+  }
+}
+
+class SpecialtyData {
+  final String? name;
+
+  SpecialtyData({required this.name});
+}
+
+extension SpecialtyDataMapper on Specialty {
+  SpecialtyData toSpecialtyData() {
+    return SpecialtyData(
+      name: name,
     );
   }
 }

@@ -42,12 +42,19 @@ class _TheMainHomePageState extends State<TheMainHomePage> {
           bottomNavigationBar: Stack(
             alignment: Alignment.topCenter,
             children: [
-              BottomNavigationBarWidget(
-                userImage: state is SucsessMyDataState
-                    ? addBaseUrls(state.myData.profilePicture ?? '')
-                    : "https://i.pinimg.com/control/564x/d9/7b/bb/d97bbb08017ac2309307f0822e63d082.jpg",
-                currentIndex: selectedindex,
-                onTap: _onItemTapped,
+              Theme(
+                // to remove color of layout  # this comment by me #
+                data: Theme.of(context).copyWith(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                ),
+                child: BottomNavigationBarWidget(
+                  userImage: state is SucsessMyDataState
+                      ? addBaseUrls(state.myData.profilePicture ?? '')
+                      : "https://i.pinimg.com/control/564x/d9/7b/bb/d97bbb08017ac2309307f0822e63d082.jpg",
+                  currentIndex: selectedindex,
+                  onTap: _onItemTapped,
+                ),
               ),
               Container(
                 height: 2,

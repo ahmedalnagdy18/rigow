@@ -10,11 +10,13 @@ class ColoredButtonWidget extends StatelessWidget {
     required this.onPressed,
     required this.grideantColors,
     required this.textColor,
+    this.icon,
   });
   final String text;
   final void Function()? onPressed;
   final List<Color> grideantColors;
   final Color textColor;
+  final Widget? icon;
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
@@ -33,10 +35,18 @@ class ColoredButtonWidget extends StatelessWidget {
         child: Container(
           constraints: const BoxConstraints(minHeight: 50.0),
           alignment: Alignment.center,
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(color: textColor, fontSize: 14),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              icon ?? const SizedBox(),
+              icon != null ? const SizedBox(width: 6) : const SizedBox(),
+              Text(
+                text,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: textColor, fontSize: 14),
+              ),
+            ],
           ),
         ),
       ),
@@ -51,11 +61,13 @@ class TranceparentButtonWidget extends StatelessWidget {
     required this.onPressed,
     required this.textColor,
     required this.borderColor,
+    this.icon,
   });
   final String text;
   final void Function()? onPressed;
   final Color textColor;
   final Color borderColor;
+  final Widget? icon;
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
@@ -67,13 +79,21 @@ class TranceparentButtonWidget extends StatelessWidget {
       color: Colors.transparent,
       elevation: 0,
       onPressed: onPressed,
-      child: Text(
-        text,
-        style: TextStyle(
-          color: textColor,
-          fontSize: 14,
-          fontWeight: FontWeight.w700,
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          icon ?? const SizedBox(),
+          icon != null ? const SizedBox(width: 6) : const SizedBox(),
+          Text(
+            text,
+            style: TextStyle(
+              color: textColor,
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
       ),
     );
   }
