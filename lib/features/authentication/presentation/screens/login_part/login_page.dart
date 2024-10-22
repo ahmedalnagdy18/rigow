@@ -14,7 +14,7 @@ import 'package:rigow/features/authentication/presentation/screens/user_registar
 import 'package:rigow/features/authentication/presentation/screens/login_part/reset_password_page.dart';
 import 'package:rigow/features/authentication/presentation/widgets/authentication_appbar.dart';
 import 'package:rigow/features/authentication/presentation/widgets/dont_have_acc_part.dart';
-import 'package:rigow/features/timeline/screens/timeline_page.dart';
+import 'package:rigow/features/home/screens/the_main_page.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
@@ -159,7 +159,7 @@ class _LoginPageState extends State<_LoginPageBody> {
                             if (state is SucsessLoginState) {
                               Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
-                                  builder: (context) => const TimelinePage(),
+                                  builder: (context) => const TheMainHomePage(),
                                 ),
                                 (Route<dynamic> route) => false,
                               );

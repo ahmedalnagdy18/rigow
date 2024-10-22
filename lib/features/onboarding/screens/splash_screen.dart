@@ -9,8 +9,8 @@ import 'package:rigow/features/authentication/presentation/cubits/my_data/my_dat
 import 'package:rigow/features/authentication/presentation/cubits/my_data/my_data_state.dart';
 import 'package:rigow/features/authentication/presentation/screens/expert_registar_part/expert_main_complete.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/compelete_profile_part/main_complete_profile.dart';
+import 'package:rigow/features/home/screens/the_main_page.dart';
 import 'package:rigow/features/onboarding/screens/welcome_page.dart';
-import 'package:rigow/features/timeline/screens/timeline_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
             if (token == null || token == "") {
               return const WelcomePage();
             } else if (userData?.hasCompletedRegistration == true) {
-              return const TimelinePage();
+              return const TheMainHomePage();
             } else if (userData?.role == "USER") {
               return MainCompleteYourProfilePage(
                 firstName: userData?.firstName ?? "",

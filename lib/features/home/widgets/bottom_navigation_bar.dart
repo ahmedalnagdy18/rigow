@@ -38,9 +38,14 @@ class BottomNavigationBarWidget extends StatelessWidget {
           icon: Container(
             height: 24,
             width: 24,
-            decoration: const BoxDecoration(shape: BoxShape.circle),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+            ),
             clipBehavior: Clip.antiAlias,
             child: Image.network(
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset("assets/images/rigow.png");
+              },
               userImage,
               fit: BoxFit.cover,
             ),

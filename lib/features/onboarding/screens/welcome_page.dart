@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
+import 'package:rigow/features/home/screens/the_main_page.dart';
 import 'package:rigow/features/onboarding/screens/onboarding_page.dart';
-import 'package:rigow/features/timeline/screens/timeline_page.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -69,7 +69,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       InkWell(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const TimelinePage()));
+                              builder: (context) => const TheMainHomePage()));
                         },
                         child: Text(
                           AppLocalizations.of(context)!.exploreTheApp,

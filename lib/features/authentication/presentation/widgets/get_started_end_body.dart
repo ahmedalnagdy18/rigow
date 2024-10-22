@@ -4,6 +4,7 @@ import 'package:rigow/core/common/buttons.dart';
 import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/core/fonts/app_text.dart';
 import 'package:rigow/features/authentication/presentation/screens/login_part/login_page.dart';
+import 'package:rigow/features/home/screens/the_main_page.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
 class GetStartedEndBody extends StatefulWidget {
@@ -66,9 +67,15 @@ class _GetStartedEndBodyState extends State<GetStartedEndBody> {
           textColor: Colors.red,
         ),
         const SizedBox(height: 24),
-        RedText(
-            text: AppLocalizations.of(context)!.exploreAsAguest,
-            gradient: LinearGradient(colors: AppColors.mainRed)),
+        InkWell(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const TheMainHomePage()));
+          },
+          child: RedText(
+              text: AppLocalizations.of(context)!.exploreAsAguest,
+              gradient: LinearGradient(colors: AppColors.mainRed)),
+        ),
       ],
     );
   }

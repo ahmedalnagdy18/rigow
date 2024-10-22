@@ -17,7 +17,7 @@ import 'package:rigow/features/authentication/presentation/cubits/check_social_l
 import 'package:rigow/features/authentication/presentation/screens/google_part/google_signup_page.dart';
 import 'package:rigow/features/authentication/presentation/screens/user_registar_part/signup_part/main_signup.dart';
 import 'package:rigow/features/authentication/presentation/widgets/user_registar_part/signup_part/apple_button.dart';
-import 'package:rigow/features/timeline/screens/timeline_page.dart';
+import 'package:rigow/features/home/screens/the_main_page.dart';
 import 'package:rigow/injection_container.dart';
 import 'package:rigow/l10n/app_localizations.dart';
 
@@ -61,7 +61,7 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
         listener: (context, state) {
       if (state is SucsessSocialLoginState) {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const TimelinePage(),
+          builder: (context) => const TheMainHomePage(),
         ));
       } else if (state is SucsessCheckSocialState) {
         if (state.myData.actionRequired == "REGISTER") {
@@ -88,7 +88,7 @@ class _SignWithButtonsWidgetState extends State<_SignWithButtonsWidget> {
       } else if (state is SucsessSocialMergeState) {
         //   print('Sucsess Merge');
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const TimelinePage(),
+          builder: (context) => const TheMainHomePage(),
         ));
       } else if (state is ErrorSocialMergeState) {
         //   print('Erorr Merge');
