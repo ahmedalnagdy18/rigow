@@ -51,6 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     return OnboardingBody(
                       image: onboardingList[i].image,
                       title: onboardingList[i].title,
+                      colors: onboardingList[i].colors,
                       position: i,
                     );
                   },
@@ -59,7 +60,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ],
           ),
           Stack(
+            alignment: Alignment.bottomCenter,
             children: [
+              IgnorePointer(
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeIn,
+                  height: appHight(context, 0.5),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: onboardingList[currentPage].colors,
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                  ),
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: appHight(context, 0.1), horizontal: 16),
@@ -69,10 +85,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        onboardingList[currentPage].title,
-                        textAlign: TextAlign.center,
-                        style: AppTexts.subTitle,
+                      child: IgnorePointer(
+                        child: Text(
+                          onboardingList[currentPage].title,
+                          textAlign: TextAlign.center,
+                          style: AppTexts.subTitle,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 46),
@@ -157,11 +175,13 @@ class OnboardingBody extends StatelessWidget {
     required this.position,
     required this.image,
     required this.title,
+    required this.colors,
   });
 
   final String image;
   final String title;
   final int position;
+  final List<Color> colors;
 
   @override
   Widget build(BuildContext context) {
