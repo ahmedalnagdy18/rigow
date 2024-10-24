@@ -5,7 +5,7 @@ import 'package:rigow/core/extentions/app_extentions.dart';
 import 'package:rigow/features/authentication/presentation/cubits/my_data/my_data_cubit.dart';
 import 'package:rigow/features/authentication/presentation/cubits/my_data/my_data_state.dart';
 import 'package:rigow/features/home/screens/bottom_nav_bar_pages/offers_page.dart';
-import 'package:rigow/features/home/screens/bottom_nav_bar_pages/profile_page.dart';
+import 'package:rigow/features/my_profile/presentation/screens/profile_page.dart';
 import 'package:rigow/features/home/screens/bottom_nav_bar_pages/reels_page.dart';
 import 'package:rigow/features/home/screens/bottom_nav_bar_pages/rooms_page.dart';
 import 'package:rigow/features/home/screens/timeline_page.dart';

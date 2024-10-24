@@ -146,34 +146,12 @@ class _TimelinePageState extends State<TimelinePage>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: 120,
-                              child: ListView.separated(
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    width: 84,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  );
-                                },
-                                physics: const BouncingScrollPhysics(),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                scrollDirection: Axis.horizontal,
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(width: 12),
-                                itemCount: 10,
-                              ),
-                            ),
-                            const SizedBox(height: 16),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16),
                               child: TabBar(
-                                indicatorPadding:
-                                    const EdgeInsets.only(bottom: 4),
+                                // indicatorPadding:
+                                //     const EdgeInsets.only(bottom: 4),
                                 indicatorSize: TabBarIndicatorSize.tab,
                                 indicatorWeight: 1,
                                 dividerHeight: 1,
@@ -181,8 +159,8 @@ class _TimelinePageState extends State<TimelinePage>
                                 overlayColor:
                                     WidgetStateProperty.all(Colors.white),
                                 unselectedLabelColor: Colors.grey,
-                                labelColor: Colors.black,
-                                indicatorColor: Colors.black,
+                                labelColor: AppColors.appBarRed,
+                                indicatorColor: AppColors.appBarRed,
                                 tabs: const [
                                   Tab(text: 'For you'),
                                   Tab(text: 'Following'),

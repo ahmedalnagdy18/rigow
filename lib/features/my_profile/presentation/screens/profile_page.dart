@@ -143,10 +143,16 @@ class ProfilePage extends StatelessWidget {
                         height: 20,
                         child: ListView.separated(
                           itemBuilder: (context, index) {
-                            return SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: getIconForLink(socialLinks?[index] ?? ''),
+                            return InkWell(
+                              onTap: () {
+                                launchURL(socialLinks?[index] ?? "");
+                              },
+                              child: SizedBox(
+                                width: 20,
+                                height: 20,
+                                child:
+                                    getIconForLink(socialLinks?[index] ?? ''),
+                              ),
                             );
                           },
                           physics: const NeverScrollableScrollPhysics(),
