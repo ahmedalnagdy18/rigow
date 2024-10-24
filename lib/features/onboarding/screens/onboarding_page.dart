@@ -66,7 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 400),
                   curve: Curves.easeIn,
-                  height: appHight(context, 0.5),
+                  height: appHight(context, 0.4),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: onboardingList[currentPage].colors,
